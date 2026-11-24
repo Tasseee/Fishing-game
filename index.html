@@ -201,6 +201,28 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 }
 @media(prefers-reduced-motion:reduce){#chestArt:before,#chestArt:after{animation:none!important}}
 
+
+/* Admin panel */
+#adminov{z-index:25;background:radial-gradient(ellipse at 50% 0,rgba(73,160,190,.32),transparent 58%),rgba(1,8,16,.92)}
+#adminPanel{width:min(94vw,560px);max-height:92vh;overflow:auto;padding:22px 20px;border:1px solid rgba(255,218,119,.48);border-radius:26px;background:linear-gradient(155deg,#17425a,#071c2c 82%);box-shadow:0 25px 90px rgba(0,0,0,.65),0 0 42px rgba(255,190,65,.16)}
+.adminHead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}
+.adminHead h2{margin:0;color:#ffe7a5;font-size:clamp(24px,6vw,32px)}
+.adminHead p{margin:3px 0 0;color:#b9d9e4;font-size:13px}
+.adminHead button{font-size:13px;padding:8px 11px}
+.adminBlock{padding:14px;margin:10px 0;border:1px solid rgba(169,225,240,.18);border-radius:17px;background:rgba(2,19,31,.42)}
+.adminBlock label{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px;font-weight:800;color:#fff0bd}
+.adminInline{display:flex;gap:8px}
+#adminPanel input[type=number]{box-sizing:border-box;min-width:0;flex:1;width:50%;padding:10px 12px;border:1px solid rgba(169,225,240,.3);border-radius:12px;background:#061b2a;color:#f3fbff;font:700 17px var(--font)}
+#adminPanel input[type=range]{width:100%;accent-color:#ffc34d}
+#adminPanel button{font-size:14px}
+#adminPanel .adminWide{width:100%;margin-top:9px}
+.adminEvents{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.adminEvents button{min-height:68px;padding:10px;border-radius:14px;white-space:normal}
+.adminEvents small{display:block;margin-top:5px;font-size:11px;font-weight:600;opacity:.8}
+.adminBlock p{margin:7px 0 0;color:#b9d9e4;font-size:12px;line-height:1.4}
+#adminNotice{padding:11px 13px;border-radius:13px;background:rgba(255,210,91,.1);border:1px solid rgba(255,210,91,.2);color:#ffe9ad;font-weight:700;font-size:13px;line-height:1.4}
+@media(max-width:430px){#adminPanel{padding:16px 12px}.adminEvents{grid-template-columns:1fr}.adminBlock{padding:11px}}
+
 </style>
 </head>
 <body>
@@ -214,6 +236,29 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 <div class="ov" id="shop"><div class="bh"><span>Laden</span><button id="cs">Zurück</button></div><div id="sc"></div></div>
 <div class="ov" id="chestov"><div id="chestCard"><div id="chestArt">🎁</div><h2>GEHEIME SCHATZKISTE!</h2><p>Ein seltener Fund! Öffne die Kiste und entdecke deine Belohnung.</p><div id="chestReward"></div><button id="chestOpen">Kiste öffnen!</button> <button id="chestClose">Weiter angeln</button></div></div>
 <div class="ov" id="pirateov"><div id="piratePanel"><h2>🏴‍☠️ PIRATENSCHIFF!</h2><p>Die Piraten greifen an! Triff 7 schrumpfende Zielscheiben. Jede Scheibe wird schnell kleiner. Du hast 30 Sekunden und darfst höchstens 3 Ziele verpassen.</p><div id="pirateStats"><span class="pstat" id="pirateTime">Zeit: 30 s</span><span class="pstat" id="pirateHits">Treffer: 0/7</span><span class="pstat" id="pirateMisses">Verfehlt: 0/3</span></div><canvas id="piratec"></canvas><div id="pirateHint">Ziele mit dem Mauszeiger anvisieren und anklicken!</div><div id="pirateResult"></div><button id="pirateClose">Zurück zum Angeln</button></div></div>
+
+<div class="ov" id="adminov"><div id="adminPanel">
+  <div class="adminHead"><div><h2>🛠️ ADMIN-MENÜ</h2><p>Spielwerte und Events steuern</p></div><button id="adminClose">Schließen</button></div>
+  <div class="adminBlock">
+    <label for="adminMoneyInput">🪙 Münzen</label>
+    <div class="adminInline"><input id="adminMoneyInput" type="number" min="0" step="1" value="0"><button id="adminSetMoney">Geld setzen</button></div>
+    <button id="adminMaxMoney" class="adminWide">∞ Maximaler Münzbestand</button>
+  </div>
+  <div class="adminBlock">
+    <label for="adminLuckInput">🍀 Glück <span id="adminLuckValue">0 / 100</span></label>
+    <input id="adminLuckInput" type="range" min="0" max="100" step="1" value="0">
+    <p>0 = normale Chancen. 100 = sehr hohes Glück bei seltenen Fischen und Mutationen.</p>
+    <button id="adminSetLuck" class="adminWide">Glück übernehmen</button>
+  </div>
+  <div class="adminBlock">
+    <label>🎭 Events auslösen</label>
+    <div class="adminEvents">
+      <button id="adminQueueChest">🎁 Schatztruhe vormerken<small>Beim nächsten erfolgreichen Fang</small></button>
+      <button id="adminStartPirates">🏴‍☠️ Piratenüberfall starten<small>Startet sofort</small></button>
+    </div>
+  </div>
+  <div id="adminNotice" aria-live="polite">Admin bereit.</div>
+</div></div>
 <script>
 (function(){
 var RN=['Normal','Selten','Sehr selten','Unmöglich','Legendär','Mythisch'],RC=['#cfe3e6','#5ec2ff','#c27bff','#ff8b3d','#ffd24d','#ff3df2'];
@@ -301,12 +346,12 @@ var FISH=[
 FISH.sort(function(a,b){return a.r-b.r});
 var $=function(i){return document.getElementById(i)};
 var cv=$('c'),x=cv.getContext('2d'),W,H,D,SURF,cc=$('cc').getContext('2d');
-var cam=0,camT=0,mcoll={},mdone={},idxMu=0,ss=null,ssT=360,wish=false,world=0,own2=false,own3=false,coll={},inv={},coins=0,lifetimeEarned=0,done=false,U={rod:0,charm:0,bait:0,reach:0,pat:0},cardSold=true,catchKey=null,lastCatchValue=0,pendingChest=false,pirate=null,pirateTimer=0;
-try{var S=JSON.parse(localStorage.getItem('luki3')||'null')||{coll:JSON.parse(localStorage.getItem('luki2')||'{}')};coll=S.coll||{};inv=S.inv||{};coins=S.coins||0;lifetimeEarned=Math.max(coins,Number(S.earned)||coins);done=!!S.done;own2=!!S.o2;mcoll=S.mc||{};mdone=S.md||{};own3=!!S.o3;world=own2?(S.w|0):0;if(world==2&&!own3)world=0;U=S.up||U}catch(e){}
+var cam=0,camT=0,mcoll={},mdone={},idxMu=0,ss=null,ssT=360,wish=false,world=0,own2=false,own3=false,coll={},inv={},coins=0,lifetimeEarned=0,done=false,U={rod:0,charm:0,bait:0,reach:0,pat:0},cardSold=true,catchKey=null,lastCatchValue=0,pendingChest=false,adminLuck=0,dayLight=0,weatherRain=false,weatherTimer=34,pirate=null,pirateTimer=0;
+try{var S=JSON.parse(localStorage.getItem('luki3')||'null')||{coll:JSON.parse(localStorage.getItem('luki2')||'{}')};coll=S.coll||{};inv=S.inv||{};coins=S.coins||0;lifetimeEarned=Math.max(coins,Number(S.earned)||coins);done=!!S.done;own2=!!S.o2;mcoll=S.mc||{};mdone=S.md||{};own3=!!S.o3;world=own2?(S.w|0):0;if(world==2&&!own3)world=0;U=S.up||U;pendingChest=!!S.pendingChest;adminLuck=Math.max(0,Math.min(100,Number(S.adminLuck)||0))}catch(e){}
 U.reach=U.reach||0;U.pat=U.pat||0;U.star=U.star||0;U.mut=U.mut||0;U.baitBought=U.baitBought||0;
 function starInterval(){return Math.max(38,Math.round(360*Math.pow(.82,Math.min(10,U.star||0))))}
 ssT=starInterval();
-function save(){try{localStorage.setItem('luki3',JSON.stringify({coll:coll,inv:inv,coins:coins,earned:lifetimeEarned,done:done,o2:own2,o3:own3,w:world,mc:mcoll,md:mdone,up:U}))}catch(e){}}
+function save(){try{localStorage.setItem('luki3',JSON.stringify({coll:coll,inv:inv,coins:coins,earned:lifetimeEarned,done:done,o2:own2,o3:own3,w:world,mc:mcoll,md:mdone,up:U,pendingChest:pendingChest,adminLuck:adminLuck}))}catch(e){}}
 function creditCoins(amount){amount=Math.max(0,Math.floor(Number(amount)||0));coins+=amount;lifetimeEarned+=amount;return amount;}
 function val(f,mu){return([5,25,120,650,2200,6500][f.r]+Math.round(f.L/2))*[1,3,8,25][mu||0]}
 function mutationChances(p){var factor=(1+p*.12)*(world?1.25:1)*(1+(U.mut||0)*.32)*1.15,p3=Math.min(1,.0075*factor),p2=Math.max(0,Math.min(1,.024*factor)-p3),p1=Math.max(0,Math.min(1,.078*factor)-Math.min(1,.024*factor)),p0=Math.max(0,1-p1-p2-p3);return[p0,p1,p2,p3]}
@@ -367,7 +412,7 @@ function down(e){au();if(ss&&Math.hypot(e.clientX-ss.x,e.clientY-ss.y)<85){ss=nu
 if(st==='idle'){st='charge';pw=0;pd=1}
 else if(st==='bite'){startMini()}
 else if(st==='mini'){tap()}}
-function up(){if(st==='charge'){var g=geo();st='fly';fly=0;SND.cast();bob.x=g.tx;bob.y=g.ty;bob.tx=g.bx+90+pw*(W-g.bx-130)*(1+U.reach*.35);camT=Math.max(0,bob.tx-W*.65);cur={p:pw*(1+U.reach*.3)+U.charm*.12};if(U.bait>0){U.bait--;cur.p+=.5;save()}}}
+function up(){if(st==='charge'){var g=geo();st='fly';fly=0;SND.cast();bob.x=g.tx;bob.y=g.ty;bob.tx=g.bx+90+pw*(W-g.bx-130)*(1+U.reach*.35);camT=Math.max(0,bob.tx-W*.65);cur={p:pw*(1+U.reach*.3)+U.charm*.12+adminLuck/10};if(U.bait>0){U.bait--;cur.p+=.5;save()}}}
 cv.addEventListener('pointerdown',down);cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
 var AC=null,mute=false;try{mute=localStorage.getItem('luki_m')=='1'}catch(e){}
 function au(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==='suspended')AC.resume();return AC}
@@ -377,7 +422,7 @@ var SND={cast:function(){noise(.4,.25,1800);tone(300,.3,'sine',.08,900)},splash:
 $('sd').textContent=mute?'🔇':'🔊';
 $('sd').onclick=function(){mute=!mute;try{localStorage.setItem('luki_m',mute?'1':'0')}catch(e){}$('sd').textContent=mute?'🔇':'🔊';if(!mute){au();SND.hit()}};
 function burst(px,py,n,col){for(var i=0;i<n;i++)bub.push({x:px,y:py,vx:rnd(-200,200),vy:rnd(-220,60),r:rnd(2,5),l:rnd(.5,1.1),c:col,f:1})}
-(function(){var cn=$('n').parentNode,tp=0,tl=0;cn.style.pointerEvents='auto';cn.addEventListener('click',function(){var nw=Date.now();tp=nw-tl<1500?tp+1:1;tl=nw;if(tp>=7){tp=0;coins=999999999;lifetimeEarned=Math.max(lifetimeEarned,coins);save();$('n').textContent=coins;SND.wish();say('🤫 Unendlich Münzen!',2)}})})();
+(function(){var cn=$('n').parentNode,tp=0,tl=0;cn.style.pointerEvents='auto';cn.addEventListener('click',function(){var nw=Date.now();tp=nw-tl<1500?tp+1:1;tl=nw;if(tp>=7){tp=0;openAdmin();SND.wish()}})})();
 function say(s,d){msg=s;mT=d||1}
 function vib(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
 function startMini(){
@@ -410,14 +455,50 @@ var UP=[{k:'rod',n:'Bessere Angel',d:'Balken wird langsamer',max:5,c:function(l)
 {k:'star',n:'Sternen-Magnet',d:'Sternschnuppe kommt öfter (Start: alle 6 Min.; jede Stufe schneller)',max:4,c:function(l){return 120*Math.pow(2,l)}},
 {k:'mut',n:'Mutations-Gen',d:'Mehr Gold-, Diamant- und Rainbow-Mutationen',max:5,c:function(l){return 200*Math.pow(2,l)}}];
 function sv(){SND.coin();save();$('n').textContent=coins;openShop2()}
-function showChest(){pendingChest=false;$('chestCard').className='';$('chestArt').textContent='🎁';$('chestReward').textContent='';$('chestOpen').style.display='inline-block';$('chestClose').style.display='none';$('chestOpen').disabled=false;$('chestov').className='ov on'}
+function showChest(){pendingChest=false;save();$('chestCard').className='';$('chestArt').textContent='🎁';$('chestReward').textContent='';$('chestOpen').style.display='inline-block';$('chestClose').style.display='none';$('chestOpen').disabled=false;$('chestov').className='ov on'}
+
+function adminNotice(message){$('adminNotice').textContent=message}
+function openAdmin(){
+  $('adminMoneyInput').value=String(coins);
+  $('adminLuckInput').value=String(adminLuck);
+  $('adminLuckValue').textContent=adminLuck+' / 100';
+  $('adminNotice').textContent=pendingChest?'🎁 Eine Schatztruhe ist bereits für deinen nächsten Fang vorgemerkt.':'Admin bereit.';
+  $('adminov').className='ov on';
+}
+$('adminClose').onclick=function(){$('adminov').className='ov'};
+$('adminLuckInput').addEventListener('input',function(){$('adminLuckValue').textContent=this.value+' / 100'});
+$('adminSetLuck').onclick=function(){
+  adminLuck=Math.max(0,Math.min(100,Math.round(Number($('adminLuckInput').value)||0)));
+  $('adminLuckInput').value=String(adminLuck);
+  $('adminLuckValue').textContent=adminLuck+' / 100';
+  save();adminNotice('🍀 Glück gespeichert. Es gilt ab deinem nächsten Wurf.');
+};
+$('adminSetMoney').onclick=function(){
+  var value=Number($('adminMoneyInput').value);
+  if(!Number.isFinite(value)||value<0){adminNotice('Bitte eine gültige Zahl ab 0 eingeben.');return}
+  coins=Math.floor(value);lifetimeEarned=Math.max(lifetimeEarned,coins);
+  $('n').textContent=coins;save();adminNotice('🪙 Geldbestand wurde auf '+coins.toLocaleString('de-DE')+' Münzen gesetzt.');
+};
+$('adminMaxMoney').onclick=function(){
+  coins=999999999999;lifetimeEarned=Math.max(lifetimeEarned,coins);
+  $('adminMoneyInput').value=String(coins);$('n').textContent=coins;save();
+  adminNotice('🪙 Maximaler Münzbestand gesetzt.');
+};
+$('adminQueueChest').onclick=function(){
+  pendingChest=true;save();
+  adminNotice('🎁 Schatztruhe vorgemerkt! Sie erscheint nach deinem nächsten erfolgreichen Fang.');
+};
+$('adminStartPirates').onclick=function(){
+  $('adminov').className='ov';startPirate();
+};
+
 function grantRandomUpgrades(amount){var granted=0,names=[];for(var i=0;i<amount;i++){var pool=UP.filter(function(u){return(U[u.k]||0)<u.max+(own2?5:0)});if(!pool.length)break;var u=pool[Math.floor(Math.random()*pool.length)];U[u.k]=(U[u.k]||0)+1;granted++;names.push(u.n)}return{count:granted,names:names}}
 function openChest(){if($('chestOpen').disabled)return;$('chestOpen').disabled=true;$('chestCard').className='opening';SND.epic();setTimeout(function(){var r=Math.random(),msg='';if(r<.4){var reward=Math.max(50,Math.round(coins*.25));creditCoins(reward);msg='💰 Münzregen! +'+reward.toLocaleString('de-DE')+' Münzen (25% deines aktuellen Geldes).'}else if(r<.7){U.bait=(U.bait||0)+25;msg='🪱 25 Glücksköder erhalten!'}else{var g=grantRandomUpgrades(10);msg=g.count?'⚡ '+g.count+' zufällige Upgrade-Stufen erhalten!':'Alle Upgrades sind bereits auf Maximum.'}save();$('n').textContent=coins;$('chestCard').className='opened';$('chestArt').textContent='💎';$('chestReward').textContent=msg;$('chestOpen').style.display='none';$('chestClose').style.display='inline-block';SND.wish()},850)}
 $('chestOpen').onclick=openChest;
 $('chestClose').onclick=function(){$('chestov').className='ov';$('chestCard').className='';};
 function fitPirateCanvas(){var rect=pirateCanvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);pirateCanvas.width=Math.max(1,Math.round(rect.width*dpr));pirateCanvas.height=Math.max(1,Math.round(rect.height*dpr));pirateCtx.setTransform(dpr,0,0,dpr,0,0)}
 function spawnPirateTarget(){var w=pirateCanvas.clientWidth||560,h=pirateCanvas.clientHeight||320;pirate.target={x:rnd(48,Math.max(49,w-48)),y:rnd(48,Math.max(49,h-48)),age:0,duration:2.45}}
-function startPirate(){$('pirateov').className='ov on';fitPirateCanvas();pirate={time:30,hits:0,needed:7,misses:0,maxMisses:3,target:null,finished:false};spawnPirateTarget();$('pirateResult').style.display='none';$('pirateClose').style.display='none';$('piratec').style.display='block';$('pirateHint').textContent='Ziele mit dem Mauszeiger anvisieren und anklicken!';SND.boom()}
+function startPirate(){$('adminov').className='ov';$('cardov').className='ov';fxClr();st='idle';cur=null;m=null;$('pirateov').className='ov on';fitPirateCanvas();pirate={time:30,hits:0,needed:7,misses:0,maxMisses:3,target:null,finished:false};spawnPirateTarget();$('pirateResult').style.display='none';$('pirateClose').style.display='none';$('piratec').style.display='block';$('pirateHint').textContent='Ziele mit dem Mauszeiger anvisieren und anklicken!';SND.boom()}
 function finishPirate(won){if(!pirate||pirate.finished)return;pirate.finished=true;var text;if(won){var reward=Math.floor(lifetimeEarned*.07);creditCoins(reward);text='🏆 Piraten besiegt! Deine Beute: +'+reward.toLocaleString('de-DE')+' Münzen (7% aller jemals verdienten Münzen).';SND.epic()}else{var lost=coins;coins=0;text='☠️ Die Piraten haben gewonnen! Du verlierst '+lost.toLocaleString('de-DE')+' Münzen.';SND.lose()}save();$('n').textContent=coins;$('piratec').style.display='none';$('pirateHint').textContent='Der Kampf ist vorbei.';$('pirateResult').textContent=text;$('pirateResult').style.display='block';$('pirateClose').style.display='inline-block';pirateTimer=rnd(10,300)}
 $('pirateClose').onclick=function(){pirate=null;$('pirateov').className='ov';$('piratec').style.display='block';st='idle'};
 pirateCanvas.addEventListener('pointerdown',function(e){if(!pirate||pirate.finished)return;e.preventDefault();var rect=pirateCanvas.getBoundingClientRect(),px=e.clientX-rect.left,py=e.clientY-rect.top,tar=pirate.target,rad=Math.max(9,38*(1-tar.age/tar.duration));if(Math.hypot(px-tar.x,py-tar.y)<=rad){pirate.hits++;SND.hit();if(pirate.hits>=pirate.needed)finishPirate(true);else spawnPirateTarget()}else{pirate.misses++;SND.miss();if(pirate.misses>=pirate.maxMisses)finishPirate(false)}});
@@ -426,13 +507,12 @@ function drawPirate(){
 if(!pirate||pirate.finished)return;
 var w=pirateCanvas.clientWidth,h=pirateCanvas.clientHeight;if(!w||!h)return;
 var c=pirateCtx;c.save();c.clearRect(0,0,w,h);
-var sky=c.createLinearGradient(0,0,0,h);sky.addColorStop(0,'#102746');sky.addColorStop(.48,'#174c69');sky.addColorStop(1,'#061c30');c.fillStyle=sky;c.fillRect(0,0,w,h);
-var moon=c.createRadialGradient(w*.78,h*.2,2,w*.78,h*.2,h*.42);moon.addColorStop(0,'rgba(255,225,166,.2)');moon.addColorStop(1,'rgba(255,225,166,0)');c.fillStyle=moon;c.fillRect(0,0,w,h);
-c.fillStyle='#ffe8b1';c.beginPath();c.arc(w*.78,h*.2,17,0,Math.PI*2);c.fill();
-for(var stx=0;stx<25;stx++){var sx=(stx*83+Math.sin(t+stx)*8)%w,sy=(stx*47)%(h*.42);c.fillStyle='rgba(255,255,220,'+(.35+.4*Math.sin(t*2+stx))+')';c.beginPath();c.arc(sx,sy,stx%4===0?1.8:1,0,Math.PI*2);c.fill()}
+var sky=c.createLinearGradient(0,0,0,h);sky.addColorStop(0,dayLight>.5?'#62b9dc':'#102746');sky.addColorStop(.48,dayLight>.5?'#a2dce8':'#174c69');sky.addColorStop(1,'#061c30');c.fillStyle=sky;c.fillRect(0,0,w,h);
+var orbX=w*(.18+.64*((t%180)/180)),orbY=h*.2;if(dayLight>.35){var sun=c.createRadialGradient(orbX,orbY,2,orbX,orbY,h*.42);sun.addColorStop(0,'rgba(255,225,166,.32)');sun.addColorStop(1,'rgba(255,225,166,0)');c.fillStyle=sun;c.fillRect(0,0,w,h);c.fillStyle='#ffe8b1';c.beginPath();c.arc(orbX,orbY,17,0,Math.PI*2);c.fill()}else{c.fillStyle='rgba(255,225,166,.95)';c.beginPath();c.arc(orbX,orbY,16,0,Math.PI*2);c.fill()}
+for(var stx=0;stx<25;stx++){var sx=(stx*83+Math.sin(t+stx)*8)%w,sy=(stx*47)%(h*.42);c.globalAlpha=(1-dayLight)*(.35+.4*Math.sin(t*2+stx));c.fillStyle='rgba(255,255,220,1)';c.beginPath();c.arc(sx,sy,stx%4===0?1.8:1,0,Math.PI*2);c.fill()}c.globalAlpha=1;
 c.fillStyle='#081d30';c.beginPath();c.moveTo(0,h*.56);c.lineTo(w*.12,h*.39);c.lineTo(w*.21,h*.55);c.lineTo(w*.32,h*.43);c.lineTo(w*.49,h*.58);c.lineTo(w*.68,h*.4);c.lineTo(w*.84,h*.56);c.lineTo(w,h*.43);c.lineTo(w,h*.72);c.lineTo(0,h*.72);c.fill();
 var sea=c.createLinearGradient(0,h*.52,0,h);sea.addColorStop(0,'#1d718d');sea.addColorStop(.42,'#0a3d5c');sea.addColorStop(1,'#03182b');c.fillStyle=sea;c.fillRect(0,h*.52,w,h*.48);
-for(var wave=0;wave<9;wave++){var yy=h*(.57+wave*.055);c.strokeStyle='rgba(132,229,239,'+(.2-wave*.014)+')';c.lineWidth=1.2;c.beginPath();for(var wx=0;wx<=w;wx+=12){var wy=yy+Math.sin(wx*.026+t*2.2+wave)*4;c.lineTo(wx,wy)}c.stroke()}
+for(var wave=0;wave<9;wave++){var yy=h*(.57+wave*.055);c.strokeStyle='rgba(132,229,239,'+(.2-wave*.014)+')';c.lineWidth=1.2;c.beginPath();for(var wx=0;wx<=w;wx+=12){var wy=yy+Math.sin(wx*.026+t*(weatherRain?3.2:2.2)+wave)*(weatherRain?8:4);c.lineTo(wx,wy)}c.stroke()}if(weatherRain){c.save();c.strokeStyle='rgba(191,230,255,.48)';c.lineWidth=1;for(var rd=0;rd<55;rd++){var rdx=(rd*71+t*250)%(w+20)-10,rdy=(rd*43+t*390)%(h+20)-10;c.beginPath();c.moveTo(rdx,rdy);c.lineTo(rdx-4,rdy+11);c.stroke()}c.restore()}
 var shipY=h*.54+Math.sin(t*1.5)*3;
 c.save();c.translate(w*.75,shipY);
 c.shadowColor='rgba(0,0,0,.4)';c.shadowBlur=12;c.fillStyle='#241b29';c.beginPath();c.moveTo(-105,-7);c.lineTo(105,-7);c.quadraticCurveTo(85,44,35,48);c.lineTo(-47,48);c.quadraticCurveTo(-92,35,-105,-7);c.fill();
@@ -508,7 +588,9 @@ d.appendChild(c);var b=document.createElement('b');b.textContent=got?f.n:'???';d
 var s=document.createElement('span');s.textContent=got?RN[f.r]+' · '+got+'x · '+val(f,idxMu)+' 🪙':'noch nicht gefangen'+(f.w?(f.w==2?' · nur im Riff':' · nur Aurora'):'');s.style.color=got?RC[f.r]:'#6f8d9c';d.appendChild(s);gd.appendChild(d)});
 $('book').className='ov on'}
 function update(dt){
-t+=dt;if(shake>0)shake-=dt;if(mT>0)mT-=dt;
+t+=dt;dayLight=.5+.5*Math.sin((t/180)*Math.PI*2-Math.PI/2);weatherTimer-=dt;
+if(weatherTimer<=0){if(weatherRain){weatherRain=false;weatherTimer=rnd(28,55);say('☁️ Der Regen ist vorbei.',1.8)}else if(Math.random()<.48){weatherRain=true;weatherTimer=rnd(16,29);say('🌧️ Es regnet! Die Wellen werden höher.',2.8)}else{weatherTimer=rnd(18,38)}}
+if(shake>0)shake-=dt;if(mT>0)mT-=dt;
 if(pirate){updatePirate(dt);return}
 var blocked=$('shop').classList.contains('on')||$('book').classList.contains('on')||$('cardov').classList.contains('on')||$('chestov').classList.contains('on');if(!blocked){pirateTimer-=dt;if(pirateTimer<=0&&st==='idle'){startPirate();return}}
 ssT-=dt;if(ssT<=0&&!ss){ss={x:W*rnd(.55,1),y:rnd(8,SURF*.3),a:0};ssT=starInterval()}
@@ -527,7 +609,7 @@ if(Math.random()<dt*2)bub.push({x:rnd(0,W),y:H+4,vy:-rnd(25,60),r:rnd(1.5,3.5),l
 shadows.forEach(function(s){s.x+=s.v*dt;if(s.x>W+60)s.x=-60;if(s.x<-60)s.x=W+60})}
 function txt(s,px,py,sz,col){x.font='800 '+sz+'px '+getComputedStyle(document.body).fontFamily;x.textAlign='center';x.fillStyle=col||'#e9f6ee';x.fillText(s,px,py)}
 function drawBoat(g){
-var bx=g.bx,by=SURF,rl=U.rod;
+var bx=g.bx,by=SURF+Math.sin(t*2.4)*(weatherRain?5:1.4),rl=U.rod;
 /* water shadow and floating buoys */
 x.save();x.globalAlpha=.2;x.fillStyle='#00111c';x.beginPath();x.ellipse(bx+2,by+19,116,13,0,0,Math.PI*2);x.fill();x.restore();
 for(var k=0;k<8;k++){var ux=bx+125+k*350,uy=by+Math.sin(t*1.7+k)*2;x.strokeStyle='rgba(218,248,255,.32)';x.lineWidth=1.5;x.beginPath();x.ellipse(ux,uy+5,18,3,0,0,Math.PI*2);x.stroke();x.fillStyle='#fff';x.beginPath();x.arc(ux,uy,4,Math.PI,0);x.fill();x.fillStyle='#ed5960';x.fillRect(ux-4,uy-2,8,2)}
@@ -576,22 +658,22 @@ if(st==='bite'){x.save();x.translate(bx-20,by-116);var z=1+Math.sin(t*22)*.13;x.
 function draw(){
 x.save();if(shake>0)x.translate(rnd(-5,5),rnd(-5,5));
 var g=geo(),sg=x.createLinearGradient(0,0,0,SURF);if(world==2){sg.addColorStop(0,'#3ab8ff');sg.addColorStop(.6,'#9fe6ff');sg.addColorStop(1,'#fff0b8')}else if(world){sg.addColorStop(0,'#0a0230');sg.addColorStop(.6,'#5a2aa0');sg.addColorStop(1,'#3df2c8')}else{sg.addColorStop(0,'#1a1c52');sg.addColorStop(.6,'#8a4a8e');sg.addColorStop(1,'#ff9a6b')}
-x.fillStyle=sg;x.fillRect(0,0,W,SURF);
+x.fillStyle=sg;x.fillRect(0,0,W,SURF);x.save();x.fillStyle='rgba(255,190,112,'+(dayLight*.13)+')';x.fillRect(0,0,W,SURF);x.fillStyle='rgba(2,8,29,'+((1-dayLight)*.32)+')';x.fillRect(0,0,W,SURF);x.restore();
 var skyGlow=x.createRadialGradient(W*.72,SURF*.52,4,W*.72,SURF*.52,SURF*.72);skyGlow.addColorStop(0,world===2?'rgba(255,245,194,.55)':world===1?'rgba(130,255,218,.22)':'rgba(255,194,139,.3)');skyGlow.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=skyGlow;x.fillRect(0,0,W,SURF);
 for(var cl=0;cl<4;cl++){var cx=W*(.12+cl*.25)+Math.sin(t*.12+cl)*12,cy=SURF*(.19+(cl%2)*.17);x.fillStyle='rgba(238,251,255,'+(world===1?.12:.22)+')';x.beginPath();x.ellipse(cx,cy,28,7,0,0,Math.PI*2);x.ellipse(cx-13,cy+1,15,6,0,0,Math.PI*2);x.ellipse(cx+14,cy+1,17,5,0,0,Math.PI*2);x.fill()}
 for(var isl=0;isl<3;isl++){var ix=((isl*W*.43+W*.12-cam*.12)%(W+180)+W+180)%(W+180)-70,iy=SURF*.83;x.fillStyle=world===2?'rgba(13,96,102,.48)':world===1?'rgba(15,52,79,.55)':'rgba(40,42,73,.55)';x.beginPath();x.moveTo(ix-85,iy);x.quadraticCurveTo(ix-34,iy-32,ix,iy-16);x.quadraticCurveTo(ix+42,iy-45,ix+95,iy);x.lineTo(ix+95,SURF);x.lineTo(ix-85,SURF);x.fill()}
-x.fillStyle='rgba(255,255,255,.7)';for(var i=0;i<(world==2?0:18);i++){x.fillRect((i*97)%W,(i*53)%(SURF*.55),2,2)}
-x.fillStyle='#ffe0b0';x.beginPath();x.arc(W*.78,SURF*.62,26,0,7);x.fill();
+x.save();x.globalAlpha=(1-dayLight)*.78;x.fillStyle='rgba(255,255,255,.8)';for(var i=0;i<(world==2?0:24);i++){x.fillRect((i*97)%W,(i*53)%(SURF*.55),i%5===0?2:1.5,i%5===0?2:1.5)}x.restore();
+var celestialX=W*(.16+.68*((t%180)/180)),celestialY=SURF*(.22+.12*Math.cos((t%180)/180*Math.PI*2));x.save();if(dayLight>.32){var sunGlow=x.createRadialGradient(celestialX,celestialY,5,celestialX,celestialY,62);sunGlow.addColorStop(0,'rgba(255,231,158,'+(.18+dayLight*.28)+')');sunGlow.addColorStop(1,'rgba(255,231,158,0)');x.fillStyle=sunGlow;x.fillRect(celestialX-65,celestialY-65,130,130);x.fillStyle='#ffe8a8';x.beginPath();x.arc(celestialX,celestialY,19,0,Math.PI*2);x.fill()}else{x.fillStyle='rgba(255,236,190,.95)';x.beginPath();x.arc(celestialX,celestialY,17,0,Math.PI*2);x.fill();x.fillStyle='rgba(13,31,58,.8)';x.beginPath();x.arc(celestialX+7,celestialY-5,16,0,Math.PI*2);x.fill()}x.restore();
 if(world==1){for(var q=0;q<3;q++){x.fillStyle='hsla('+(150+q*60+Math.sin(t+q)*20)+',90%,60%,.18)';x.beginPath();x.moveTo(0,SURF*.5);for(var u=0;u<=W;u+=20)x.lineTo(u,SURF*(.15+q*.12)+Math.sin(u*.01+t*.8+q)*18);x.lineTo(W,SURF*.7);x.lineTo(0,SURF*.7);x.fill()}}
 if(ss){x.save();x.globalAlpha=Math.max(.2,1-Math.abs(ss.a-.5)*1.4);var tg=x.createLinearGradient(ss.x,ss.y,ss.x+110,ss.y-28);tg.addColorStop(0,'#fff');tg.addColorStop(1,'rgba(255,255,255,0)');x.strokeStyle=tg;x.lineWidth=4;x.lineCap='round';x.beginPath();x.moveTo(ss.x,ss.y);x.lineTo(ss.x+110,ss.y-28);x.stroke();x.shadowColor='#fff';x.shadowBlur=14;x.fillStyle='#fff';x.beginPath();x.arc(ss.x,ss.y,5,0,7);x.fill();x.restore()}
 var wg=x.createLinearGradient(0,SURF,0,H);if(world==2){wg.addColorStop(0,'#27d6c8');wg.addColorStop(.45,'#0b86a8');wg.addColorStop(1,'#04334d')}else if(world){wg.addColorStop(0,'#7a3fd0');wg.addColorStop(.45,'#2a1a6e');wg.addColorStop(1,'#0a0420')}else{wg.addColorStop(0,'#1f8d96');wg.addColorStop(.45,'#0c3c52');wg.addColorStop(1,'#04101a')}
-x.fillStyle=wg;x.fillRect(0,SURF,W,H-SURF);
+x.fillStyle=wg;x.fillRect(0,SURF,W,H-SURF);x.fillStyle='rgba(1,10,28,'+((1-dayLight)*.24)+')';x.fillRect(0,SURF,W,H-SURF);
 for(var ray=0;ray<7;ray++){var rx=(ray*W/6+t*(12+ray*2))%(W+120)-60;x.save();x.globalAlpha=.045+.02*Math.sin(t*1.5+ray);x.fillStyle=world===2?'#b7fff1':'#b9edff';x.beginPath();x.moveTo(rx,SURF);x.lineTo(rx+16,SURF);x.lineTo(rx+105,H);x.lineTo(rx+45,H);x.closePath();x.fill();x.restore()}
 for(var gl=0;gl<18;gl++){var gx=(gl*113+t*(9+gl%3*5))%(W+24)-12,gy=SURF+30+(gl*71)%(Math.max(40,H-SURF-35));x.save();x.globalAlpha=.08+.06*Math.sin(t*2+gl);x.fillStyle='#caffff';x.beginPath();x.ellipse(gx,gy,8+(gl%4)*3,1.8,0,0,Math.PI*2);x.fill();x.restore()}
 if(world==2){for(var k2=0;k2<12;k2++){var cx2=(k2*97+30)%W,hh=40+(k2*37)%50;x.fillStyle='hsl('+((k2*47)%360)+',70%,60%)';x.beginPath();x.moveTo(cx2-14,H);x.quadraticCurveTo(cx2-18,H-hh,cx2-6+Math.sin(t+k2)*3,H-hh-16);x.quadraticCurveTo(cx2+2,H-hh/2,cx2+6,H-hh-10);x.quadraticCurveTo(cx2+18,H-hh,cx2+14,H);x.fill()}}
 shadows.forEach(function(s){drawFish(x,s.f,s.x,SURF+(H-SURF)*(s.y-.4),s.v>0?1:-1,s.f.L*.8,t+s.x*.01,true)});
 x.globalAlpha=.25;x.fillStyle='#04101a';x.fillRect(0,SURF,W,H-SURF);x.globalAlpha=1;
-x.strokeStyle='#e9f6ee';x.lineWidth=2;x.beginPath();x.moveTo(0,SURF);for(i=0;i<=W;i+=10)x.lineTo(i,SURF+Math.sin((i+cam)*.04+t*2)*2.5);x.stroke();
+x.strokeStyle='#e9f6ee';x.lineWidth=2;x.beginPath();x.moveTo(0,SURF);for(i=0;i<=W;i+=10)x.lineTo(i,SURF+Math.sin((i+cam)*.04+t*(weatherRain?3.4:2))*(weatherRain?8:2.5));x.stroke();
 bub.forEach(function(b){if(b.f){x.fillStyle=b.c;x.globalAlpha=Math.min(1,b.l*2);x.beginPath();x.arc(b.x,b.y,b.r,0,7);x.fill();x.globalAlpha=1;return}x.strokeStyle='rgba(233,246,238,.55)';x.lineWidth=1.3;x.beginPath();x.arc(b.x,b.y,b.r,0,7);x.stroke()});
 ripples.forEach(function(r){x.strokeStyle='rgba(233,246,238,'+(1-r.r/60)*.7+')';x.lineWidth=1.5;x.beginPath();x.ellipse(r.x-cam,SURF+2,r.r,r.r*.25,0,0,7);x.stroke()});
 x.save();x.translate(-cam,0);drawBoat(g);
@@ -608,6 +690,8 @@ x.strokeStyle='rgba(233,246,238,.5)';x.lineWidth=1;x.beginPath();x.moveTo(bob.x,
 drawFish(x,{c:'#000',h:.5,L:26},fx,fy,Math.sin(t*14)>0?1:-1,26,t*2,true);
 txt('?',fx,fy+7,24,'#e9f6ee')}x.restore();
 x.restore();
+if(weatherRain){x.save();x.lineWidth=1.35;x.strokeStyle='rgba(191,230,255,.48)';for(var drop=0;drop<74;drop++){var rainX=(drop*79+t*270)%(W+24)-12,rainY=(drop*53+t*410)%(H+24)-12;x.beginPath();x.moveTo(rainX,rainY);x.lineTo(rainX-5,rainY+13);x.stroke()}x.restore()}
+txt((dayLight>.52?'☀ TAG':'☾ NACHT')+'  ·  '+(weatherRain?'🌧 REGEN':'☁ KLAR'),W/2,SURF*.17,13,'#fff0bd');
 if(st==='idle')txt('Halten zum Aufladen, loslassen zum Auswerfen'+(U.bait?' · Köder: '+U.bait:''),W/2,H*.9,15);
 if(st==='charge'){txt('Wurfweite: '+Math.round(pw*(30+U.reach*20))+' m · weiter = bessere Chancen',W/2,H*.9-34,16);
 var bw=W*.7,bx=(W-bw)/2,by=H*.9;x.fillStyle='rgba(6,21,31,.7)';x.fillRect(bx,by,bw,16);
@@ -684,7 +768,7 @@ var k=sil?1+Math.sin(rt*30)*.04:1+Math.max(0,.4-(rt-1))*.8;
 drawFish(c,f,150,88,1,Math.min(62,f.L*2.1)*k,t,sil,cur.mu||0);
 if(sil){c.fillStyle='#e9f6ee';c.font='800 40px sans-serif';c.textAlign='center';c.fillText('?',140,100)}
 else if($('card').className.indexOf('show')<0){$('card').className='show r'+cur.r}}
-function loop(n){var dt=Math.min(.05,(n-last)/1000);last=n;if(!$('shop').classList.contains('on')&&!$('book').classList.contains('on'))update(dt);if(st==='reveal'){rt+=dt;drawCard()}draw();if(pirate)drawPirate();requestAnimationFrame(loop)}
+function loop(n){var dt=Math.min(.05,(n-last)/1000);last=n;if(!$('shop').classList.contains('on')&&!$('book').classList.contains('on')&&!$('adminov').classList.contains('on'))update(dt);if(st==='reveal'){rt+=dt;drawCard()}draw();if(pirate)drawPirate();requestAnimationFrame(loop)}
 requestAnimationFrame(loop);
 })();
 </script>
