@@ -622,7 +622,7 @@ body.kianGlitch #c{animation:kianCanvasGlitch .13s steps(2,end) infinite;filter:
 .soaFeastFish{position:absolute;left:12%;top:42%;z-index:4;font-size:42px;filter:drop-shadow(0 5px 7px rgba(0,0,0,.32));animation:soaFishToMouth 2.7s cubic-bezier(.3,.05,.25,1) both}
 .soaFeastChew{position:absolute;left:48%;top:14%;z-index:5;font-size:12px;font-weight:1000;letter-spacing:.08em;color:#ffe38c;text-shadow:0 2px 8px #092638;opacity:0;animation:soaChewText 2.7s ease-out both}
 .soaFeastSplash{position:absolute;right:8%;bottom:5%;z-index:5;font-size:28px;opacity:0;animation:soaFeastSplash 2.7s ease-out both}
-@keyframes soaFishToMouth{0%{transform:translate(-25px,15px) rotate(-22deg) scale(.65);opacity:0}12%{opacity:1}36%{transform:translate(35px,0) rotate(6deg) scale(1)}51%{transform:translate(136px,-15px) rotate(-7deg) scale(.8);opacity:1}62%,100%{transform:translate(152px,-15px) rotate(-18deg) scale(.04);opacity:0}}
+@keyframes soaFishToMouth{0%{transform:translate(-25px,15px) rotate(-22deg) scale(.65);opacity:0}12%{opacity:1}36%{transform:translate(35px,0) rotate(6deg) scale(1)}51%{transform:translate(165px,-34px) rotate(-7deg) scale(.8);opacity:1}62%,100%{transform:translate(165px,-34px) rotate(-18deg) scale(.04);opacity:0}}
 @keyframes soaArmLift{0%,14%{transform:rotate(18deg) translateY(2px)}38%,55%{transform:rotate(-28deg) translateY(-8px)}65%,100%{transform:rotate(8deg) translateY(1px)}}
 @keyframes soaHeadBite{0%,37%,100%{transform:translateY(0) rotate(0)}45%,61%{transform:translateY(5px) rotate(5deg)}53%,70%{transform:translateY(-1px) rotate(-2deg)}}
 @keyframes soaMouthChew{0%,38%,100%{transform:scaleY(.45)}45%,60%,73%{transform:scaleY(1.8)}52%,66%{transform:scaleY(.6)}}
@@ -1688,14 +1688,14 @@ $('characterConfirm').disabled=false;
 }});
 function openModeSelect(){
  pendingGameMode=gameMode;
- $('modeCurrent').textContent=gameMode?'Aktueller Modus: '+(gameMode==='story'?'Storymodus':'Normalmodus')+'. Du kannst jederzeit wechseln und deine Figur behalten.':'Wähle deinen Spielmodus. Deine Figur kannst du danach weiterhin jederzeit wechseln.';
+ $('modeCurrent').textContent=gameMode?'Aktueller Modus: '+(gameMode==='story'?'Storymodus':'Normalmodus')+'. Du kannst jederzeit wechseln und deine Figur behalten.':'Wähle deinen Spielmodus. Deine Figur kannst du danach weiterhin jederzeit wechseln.';$('modeSwitch').title='Aktueller Modus: '+(gameMode==='story'?'Storymodus':gameMode==='normal'?'Normalmodus':'Noch nicht gewählt');$('modeSwitch').setAttribute('aria-label','Spielmodus wechseln: '+(gameMode==='story'?'Storymodus':gameMode==='normal'?'Normalmodus':'nicht gewählt'));
  $('modeNormal').classList.toggle('selected',gameMode==='normal');
  $('modeStory').classList.toggle('selected',gameMode==='story');
  $('modeClose').style.display=selectedCharacter&&gameMode?'inline-flex':'none';$('modeClose').textContent='Mit dem aktuellen Modus fortfahren';
  $('modeov').className='ov on';
 }
 function applyGameMode(mode){
- var changed=gameMode!==mode;gameMode=mode;pendingGameMode=mode;
+ var changed=gameMode!==mode;gameMode=mode;pendingGameMode=mode;$('modeSwitch').title='Aktueller Modus: '+(mode==='story'?'Storymodus':'Normalmodus');$('modeSwitch').setAttribute('aria-label','Spielmodus wechseln: '+(mode==='story'?'Storymodus':'Normalmodus'));
  $('modeov').className='ov';$('storyWarning').className='ov';
  if(changed&&mode==='normal'){
   kianDialogueActive=false;hideFisherBubble();$('fisherBubble').classList.remove('crewMode','kianMode');$('kianReplyActions').innerHTML='';
@@ -2063,7 +2063,7 @@ x.fillStyle='#e5ae82';x.fillRect(bx-31,by-70,12,13);
 var face=x.createRadialGradient(bx-19,by-82,2,bx-22,by-79,17);face.addColorStop(0,'#ffe4be');face.addColorStop(1,'#bd785e');x.fillStyle=face;x.beginPath();x.ellipse(bx-22,by-80,13,16,-.12,0,Math.PI*2);x.fill();
 x.fillStyle='#54332e';x.beginPath();x.arc(bx-33,by-83+moodProgress*1.2,3,0,Math.PI*2);x.arc(bx-11,by-83+moodProgress*1.2,2.5,0,Math.PI*2);x.fill();
 x.strokeStyle='#704b42';x.lineWidth=1.5;x.beginPath();x.moveTo(bx-37,by-88+moodProgress*2);x.lineTo(bx-28,by-87-moodProgress*2);x.moveTo(bx-16,by-87-moodProgress*2);x.lineTo(bx-7,by-88+moodProgress*2);x.stroke();
-x.strokeStyle='#66362e';x.lineWidth=1.5;x.beginPath();var mainSad=gameMode==='story'&&moodStage<7&&moodProgress>=.28;if(mainSad)x.arc(bx-21,by-72,5,Math.PI+.2,Math.PI*2-.2);else x.arc(bx-21,by-78,5,.1,1.8);x.stroke();
+x.strokeStyle='#66362e';x.lineWidth=1.5;x.beginPath();var mainSad=gameMode==='story'&&moodStage<7&&moodProgress>=.16;if(mainSad)x.arc(bx-21,by-72,5,Math.PI+.2,Math.PI*2-.2);else x.arc(bx-21,by-78,5,.1,1.8);x.stroke();
 /* Hair and signature accessories. */
 if(charId==='lukas'){x.fillStyle='#513024';x.beginPath();x.arc(bx-22,by-91,14,Math.PI,Math.PI*2);x.lineTo(bx-9,by-84);x.quadraticCurveTo(bx-21,by-89,bx-31,by-83);x.closePath();x.fill()}
 else if(charId==='soa'){x.fillStyle='#855334';x.beginPath();x.arc(bx-22,by-90,14,Math.PI,Math.PI*2);x.arc(bx-34,by-88,5,0,Math.PI*2);x.arc(bx-11,by-88,5,0,Math.PI*2);x.fill()}
