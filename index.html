@@ -753,9 +753,9 @@ var f=cur.f,mu=cur.mu||0,mk=mu+'|'+f.n,isNew=mu?!mcoll[mk]:!coll[f.n];if(mu)mcol
 cardSold=false;catchKey=f.n+(mu?'#'+mu:'');lastCatchValue=fishSellValue(f,mu);var ik=catchKey;inv[ik]=(inv[ik]||0)+1;save();$('f').textContent=found();
 var card=$('card');card.className='';card.style.setProperty('--rc',mu?MC[mu]:RC[cur.r]);
 $('rb').textContent=(mu?MN[mu].toUpperCase()+'· ':'')+RN[cur.r];$('fn').textContent=MN[mu]+f.n+(isNew?' (neu!)':'');
-$('fi').textContent='Fangchance für genau diesen Fisch inkl. Mutation: '+oddsText(cur.totalChance)+'. Wert: '+lastCatchValue+' Münzen.';
-var mc=mu&&!mdone[mu]&&mutationCount(mu)>=mutationGoal(mu);if(mc){mdone[mu]=1;var rw=[0,40000,150000,500000][mu];creditCoins(rw);save();$('n').textContent=coins;$('fi').textContent=MN[mu].trim()+'-INDEX-ZIEL ERREICHT ('+mutationCount(mu)+'/'+mutationGoal(mu)+')! +'+rw+' Münzen'}
-if(found()===FISH.length&&!done){done=true;creditCoins(10000);save();$('n').textContent=coins;$('fi').textContent='INDEX KOMPLETT! +10000 Münzen und goldene Angel'}rt=0;st='reveal';$('cardov').className='ov on';revStart();
+$('fi').textContent='Fangchance für genau diesen Fisch inkl. Mutation: '+oddsText(cur.totalChance)+'. Wert: '+Math.floor(lastCatchValue*prestigeMoneyMultiplier())+' Münzen.';
+var mc=mu&&!mdone[mu]&&mutationCount(mu)>=mutationGoal(mu);if(mc){mdone[mu]=1;var rw=[0,40000,150000,500000][mu],paidMutation=creditCoins(rw);save();$('n').textContent=coins;$('fi').textContent=MN[mu].trim()+'-INDEX-ZIEL ERREICHT ('+mutationCount(mu)+'/'+mutationGoal(mu)+')! +'+paidMutation+' Münzen'}
+if(found()===FISH.length&&!done){done=true;var indexPaid=creditCoins(10000);save();$('n').textContent=coins;$('fi').textContent='INDEX KOMPLETT! +'+indexPaid+' Münzen und goldene Angel'}rt=0;st='reveal';$('cardov').className='ov on';revStart();
 if(cur.r>=2)vib([60,40,60,40,150])}
 function closeCatchCard(){fxClr();$('cardov').className='ov';st='idle';if(pendingChest)showChest()}
 $('ok').onclick=function(){
@@ -845,12 +845,12 @@ function rebirthGame(){
  coll={};inv={};mcoll={};mdone={};bucket=[];bucketFraction=0;pendingChest=false;
  U={rod:0,charm:0,bait:0,reach:0,pat:0,star:0,mut:0,baitBought:0};
  adminLuck=0;hasPearlRod=false;endingComplete=false;endingShown=false;endingStep=0;
- activeEvent=null;eventTime=0;eventTimer=42;pirate=null;pirateTimer=0;
- st='idle';cam=0;camT=0;pw=0;fly=0;cur=null;ss=null;wish=false;weatherRain=false;
+ activeEvent=null;eventTime=0;eventTimer=42;eventBannerTick=0;pirate=null;pirateTimer=rnd(90,180);ssT=starInterval();bucketSaveTimer=0;mT=0;ripples=[];bub=[];
+ st='idle';cam=0;camT=0;pw=0;fly=0;cur=null;ss=null;wish=false;weatherRain=false;weatherTimer=34;tutorialSeen=false;
  $('endingov').className='ov';$('shop').className='ov';$('book').className='ov';
- $('cardov').className='ov';$('pirateov').className='ov';$('n').textContent='0';
+ $('cardov').className='ov';$('pirateov').className='ov';$('adminov').className='ov';$('eventBanner').className='';$('n').textContent='0';
  $('f').textContent='0';$('ft').textContent=FISH.length;$('incomeRateHud').textContent='+0,00/s · '+prestigeMoneyMultiplier()+'×';
- save();SND.epic();say('✨ REBIRTH '+rebirths+'! Ab jetzt bekommst du '+prestigeMoneyMultiplier()+'× so viele Münzen.',4);
+ save();SND.epic();say('✨ REBIRTH '+rebirths+'! Ab jetzt bekommst du '+prestigeMoneyMultiplier()+'× so viele Münzen.',4);openTutorial();
 }
 $('endingRebirth').onclick=rebirthGame;
 
@@ -1031,7 +1031,7 @@ var tp=document.createElement('div');tp.style.cssText='text-align:center;margin-
 hd('Geld-Eimer · '+bucket.length+'/5');
 var passive=bucketRate()*moneyMultiplier()*prestigeMoneyMultiplier();row('🪣','Passives Einkommen',passive.toFixed(2).replace('.',',')+' 🪙 pro Sekunde',null,null,0,'#ffd36a');
 if(!bucket.length)row('🐟','Noch keine Fische eingesetzt','Setze gefangene Fische ein, um automatisch Münzen zu verdienen.');
-bucket.forEach(function(key,index){var z=bucketFishInfo(key);if(!z)return;var cn=document.createElement('canvas');cn.width=112;cn.height=72;drawFish(cn.getContext('2d'),z.f,56,38,1,z.f.L*.65,0,false,z.mu);row(cn,(MN[z.mu]||'')+z.f.n,'+'+(bucketFishRate(key)*moneyMultiplier()).toFixed(2).replace('.',',')+' 🪙/s · '+RN[z.f.r],'Entnehmen',function(){bucket.splice(index,1);inv[key]=(inv[key]||0)+1;save();openShop2()},0,z.mu?MC[z.mu]:RC[z.f.r])});
+bucket.forEach(function(key,index){var z=bucketFishInfo(key);if(!z)return;var cn=document.createElement('canvas');cn.width=112;cn.height=72;drawFish(cn.getContext('2d'),z.f,56,38,1,z.f.L*.65,0,false,z.mu);row(cn,(MN[z.mu]||'')+z.f.n,'+'+(bucketFishRate(key)*moneyMultiplier()*prestigeMoneyMultiplier()).toFixed(2).replace('.',',')+' 🪙/s · '+RN[z.f.r],'Entnehmen',function(){bucket.splice(index,1);inv[key]=(inv[key]||0)+1;save();openShop2()},0,z.mu?MC[z.mu]:RC[z.f.r])});
 hd('Gefangene Fische');
 hd('Fang verkaufen');
 var tv=0,any=false;
