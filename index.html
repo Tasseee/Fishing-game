@@ -263,7 +263,7 @@ var bonusLives=Math.floor((U.rod||0)/2)+(cur.mu?1:0),baseLives=[4,5,6,7,8,9][r];
 st='mini'}
 function tap(){
 if(Math.abs(m.pos-m.zc)<=m.zw/2){m.hits++;vib(15);say('Treffer!',.4);SND.hit();burst(bob.x-cam,SURF+(H-SURF)*.28,16,'#ffb23f');
-if(m.hits>=m.need){win();return}m.zc=rnd(.16,.84);m.spd*=1+cur.r*.035;m.zw=Math.max(.075,m.zw*(1-cur.r*.045))}
+if(m.hits>=m.need){win();return}m.zc=rnd(.16,.84);m.spd*=1+cur.r*.035;m.zw=Math.max(.04,m.zw*(1-cur.r*.045))}
 else{m.lives--;shake=.3;vib(40);SND.miss();say('Daneben!',.4);if(m.lives<=0){st='idle';say('Der Fisch ist entkommen',1.6);SND.lose()}}}
 function win(){
 var f=cur.f,mu=cur.mu||0,mk=mu+'|'+f.n,isNew=mu?!mcoll[mk]:!coll[f.n];if(mu)mcoll[mk]=(mcoll[mk]||0)+1;else coll[f.n]=(coll[f.n]||0)+1;save();
