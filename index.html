@@ -463,7 +463,7 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 #endingPanel .endingControls button{font-size:14px;padding:9px 18px;background:rgba(226,242,248,.92);color:#092135}
 #endingActions{position:absolute;z-index:9;left:50%;bottom:clamp(12px,3vh,26px);transform:translateX(-50%);width:min(560px,88vw);display:none;grid-template-columns:1fr 1fr;gap:12px}
 #endingActions button{box-shadow:0 8px 26px rgba(0,0,0,.32)}
-#endingPanel.finale-ready .endingProgress{bottom:82px}
+#endingPanel.finale-ready .endingProgress{bottom:128px}
 #endingPanel.finale-ready .endingControls{bottom:74px}
 #endingPanel.finale-ready #endingActions{display:grid}
 #endingPanel .endingFoot{display:none}
@@ -845,8 +845,8 @@ cardSold=false;catchKey=f.n+'#'+mu+'@'+cur.sizeIndex+'@'+cur.weight.toFixed(2);l
 var card=$('card');card.className='';card.style.setProperty('--rc',mu?MC[mu]:RC[cur.r]);
 $('rb').textContent=(mu?MN[mu].toUpperCase()+'· ':'')+RN[cur.r];$('fn').textContent=MN[mu]+f.n+(isNew?' (neu!)':'')+' · '+fishSizeName(cur.sizeIndex);
 $('fi').textContent='Gewicht: '+formatWeight(cur.weight)+' kg · Größe: '+fishSizeName(cur.sizeIndex)+' · Wert: '+Math.floor(lastCatchValue*prestigeMoneyMultiplier())+' Münzen · Fangchance: '+oddsText(cur.totalChance)+'.';
-var mc=mu&&!mdone[mu]&&mutationCount(mu)>=mutationGoal(mu);if(mc){mdone[mu]=1;var rw=[0,40000,150000,500000][mu],paidMutation=creditCoins(rw);save();$('n').textContent=coins;$('fi').textContent=MN[mu].trim()+'-INDEX-ZIEL ERREICHT ('+mutationCount(mu)+'/'+mutationGoal(mu)+')! +'+paidMutation+' Münzen'}
-if(found()===FISH.length&&!done){done=true;var indexPaid=creditCoins(10000);save();$('n').textContent=coins;$('fi').textContent='INDEX KOMPLETT! +'+indexPaid+' Münzen und goldene Angel'}rt=0;st='reveal';$('cardov').className='ov on';revStart();
+var mc=mu&&!mdone[mu]&&mutationCount(mu)>=mutationGoal(mu);if(mc){mdone[mu]=1;var rw=[0,40000,150000,500000][mu],paidMutation=creditCoins(rw);save();$('n').textContent=coins;$('fi').textContent+=' · '+MN[mu].trim()+'-INDEX-ZIEL ERREICHT ('+mutationCount(mu)+'/'+mutationGoal(mu)+')! +'+paidMutation+' Münzen'}
+if(found()===FISH.length&&!done){done=true;var indexPaid=creditCoins(10000);save();$('n').textContent=coins;$('fi').textContent+=' · INDEX KOMPLETT! +'+indexPaid+' Münzen und goldene Angel'}rt=0;st='reveal';$('cardov').className='ov on';revStart();
 if(cur.r>=2)vib([60,40,60,40,150]);maybeCommentOnCatch(f,cur.sizeIndex)}
 function closeCatchCard(){fxClr();$('cardov').className='ov';st='idle';if(pendingChest)showChest()}
 $('ok').onclick=function(){
@@ -1005,13 +1005,13 @@ function drawEndingFilm(){
  if(scene===2){var carX=-80+(w+180)*ease;drawFilmCar(g,carX,h*.82,Math.max(.72,Math.min(1.1,w/900)),tim)}
  // Lukas arrives; family silhouettes are revealed one by one.
  if(scene>=3){
-  var run=scene===4?ease:scene===5?1:0;
+  var run=scene===4?ease:scene>=5?1:0;
   var lx=scene===4?w*(.37+.16*run):scene>=5?w*.48:w*.42;
   var familySpread=scene===4?1-.55*run:scene>=5?.46:1;
   drawFilmPerson(g,lx,h*.8,1.08,'#bd674e','#49352e',tim,scene===4?'walk':'hug');
-  drawFilmPerson(g,w*(.68-.10*run),h*.8,.98,'#d98a75','#62463d',tim,scene===4?'walk':'hug');
-  drawFilmPerson(g,w*(.78-.08*run),h*.8,1.1,'#577d9c','#45352e',tim,scene===4?'walk':'hug');
-  drawFilmPerson(g,w*(.9-.18*run),h*.8,.78,'#e7bd61','#5a3e36',tim,scene===4?'walk':'hug');
+  drawFilmPerson(g,w*(.68-.10*run),h*.8,.98,'#d98a75','#62463d',tim,scene===4?'walk':scene===3?'idle':'hug');
+  drawFilmPerson(g,w*(.78-.08*run),h*.8,1.1,'#577d9c','#45352e',tim,scene===4?'walk':scene===3?'idle':'hug');
+  drawFilmPerson(g,w*(.9-.18*run),h*.8,.78,'#e7bd61','#5a3e36',tim,scene===4?'walk':scene===3?'idle':'hug');
   if(scene===5){g.save();g.globalAlpha=.18+.12*Math.sin(tim*3);g.strokeStyle='#ffe8ac';g.lineWidth=5;g.beginPath();g.arc(w*.58,h*.7,48+Math.sin(tim*2)*4,0,Math.PI*2);g.stroke();g.restore()}
   if(scene>=6){for(var spark=0;spark<16;spark++){var sx=w*.52+Math.sin(spark*13+tim*.4)*(55+spark*4),sy=h*.57+Math.cos(spark*7+tim*.65)*(28+spark*3);g.fillStyle='rgba(255,228,160,.7)';g.beginPath();g.arc(sx,sy,1.4+(spark%3)*.55,0,Math.PI*2);g.fill()}}
  }
@@ -1560,7 +1560,7 @@ if(!RV)revStart();
 var c=cc;c.setTransform(2,0,0,2,0,0);c.clearRect(0,0,280,170);var f=cur.f,er=Math.max(cur.r,cur.mu||0),T=RT0[er],sil=rt<T,e=rt-T;
 if(!sil){var gl=c.createRadialGradient(140,85,5,140,85,130);gl.addColorStop(0,RC[er]+'66');gl.addColorStop(1,'transparent');c.fillStyle=gl;c.fillRect(0,0,280,170);if(er>0)fx(c)}
 var k=sil?1+Math.sin(rt*(14+er*8))*.05*(1+er*.3):1+Math.max(0,.4-e)*.8;
-drawFish(c,f,150,88,1,Math.min(62,f.L*2.1)*k*([.78,1,1.16,1.38][cur.sizeIndex||1]),t,sil,cur.mu||0);
+drawFish(c,f,150,88,1,Math.min(62,f.L*2.1)*k*([.78,1,1.16,1.38][cur.sizeIndex===undefined?1:cur.sizeIndex]),t,sil,cur.mu||0);
 if(sil){c.fillStyle='#e9f6ee';c.font='800 40px sans-serif';c.textAlign='center';c.fillText('?',140,100)}
 else if($('card').className.indexOf('show')<0){$('card').className='show r'+cur.r}
 fxFrame()}
@@ -1568,7 +1568,7 @@ function drawCardOld(){
 var c=cc;c.setTransform(2,0,0,2,0,0);c.clearRect(0,0,280,170);var f=cur.f,sil=rt<1;
 if(!sil){var gl=c.createRadialGradient(140,85,5,140,85,130);gl.addColorStop(0,RC[cur.r]+'66');gl.addColorStop(1,'transparent');c.fillStyle=gl;c.fillRect(0,0,280,170);if(cur.r>0)fx(c)}
 var k=sil?1+Math.sin(rt*30)*.04:1+Math.max(0,.4-(rt-1))*.8;
-drawFish(c,f,150,88,1,Math.min(62,f.L*2.1)*k*([.78,1,1.16,1.38][cur.sizeIndex||1]),t,sil,cur.mu||0);
+drawFish(c,f,150,88,1,Math.min(62,f.L*2.1)*k*([.78,1,1.16,1.38][cur.sizeIndex===undefined?1:cur.sizeIndex]),t,sil,cur.mu||0);
 if(sil){c.fillStyle='#e9f6ee';c.font='800 40px sans-serif';c.textAlign='center';c.fillText('?',140,100)}
 else if($('card').className.indexOf('show')<0){$('card').className='show r'+cur.r}}
 function loop(n){var realDt=Math.max(0,(n-last)/1000),dt=Math.min(.05,realDt);last=n;updateBucketIncome(Math.min(realDt,43200));maybeStartEnding();if(!$('shop').classList.contains('on')&&!$('book').classList.contains('on')&&!$('adminov').classList.contains('on')&&!$('tutorialov').classList.contains('on')&&!$('endingov').classList.contains('on'))update(dt);if(st==='reveal'){rt+=dt;drawCard()}if(endingShown){endingSceneElapsed+=Math.min(realDt,.12);if(endingStep<endingScenes.length-1&&endingSceneElapsed>=endingDurations[endingStep]){endingStep++;renderEnding()}else if(endingStep===endingScenes.length-1&&endingSceneElapsed>=endingDurations[endingStep]&&!endingReady){endingReady=true;$('endingPanel').classList.add('finale-ready');$('endingActions').style.display='grid'}}draw();if(endingShown)drawEndingFilm();if(characterRemarkTimer>0){characterRemarkTimer-=realDt;if(characterRemarkTimer<=0){characterRemarkTimer=0;$('characterRemark').classList.remove('show')}}if(pirate)drawPirate();requestAnimationFrame(loop)}
