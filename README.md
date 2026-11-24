@@ -35,7 +35,8 @@ Die Fangkarte zeigt Seltenheitschance, Mutationschance und die kombinierte Fangc
 - Es gibt insgesamt **30 Aufgaben** in zehn Abschnitten. Du hast immer 3 aktive Quests gleichzeitig; erst wenn alle drei eingelöst wurden, erscheinen die nächsten drei.
 - Aufgaben reichen vom Fischefangen und Verkaufen bis zu seltenen Fischen, Mutationen und gigantischen Fängen.
 - Fertige Aufgaben kannst du über **📜 Quests** unten links einlösen. Münzen werden direkt gutgeschrieben.
-- Fischbelohnungen zeigen einen Zufalls-Spin. Mit jeder schwierigeren Quest steigen die Chancen auf seltene, legendäre und mythische Fische. Der gewonnene Fisch landet nach dem Spin im Fangbestand.
+- Fischbelohnungen zeigen einen Zufalls-Spin mit auslaufender Drehgeschwindigkeit, Lichtstrahlen, leuchtenden Ringen und einer großen Gewinn-Enthüllung. Mit jeder schwierigeren Quest steigen die Chancen auf seltene, legendäre und mythische Fische. Der gewonnene Fisch landet nach dem Spin im Fangbestand.
+- Nach einem Fang spricht der Angler in einer Sprechblase: „Ich warte hier, bis ich nochmal geworfen habe!“ Die Blase bleibt bis zum nächsten Wurf sichtbar.
 - Nach allen 30 Aufgaben gibt es einen zusätzlichen Münzbonus. Beim Rebirth beginnt die Quest-Reihe wieder von vorn.
 - Quest-Abschnitt, Fortschritt und eingelöste Belohnungen werden lokal mit dem restlichen Spielstand gespeichert.
 - Der Angler kommentiert jetzt häufiger besondere Größen und Seltenheiten, Mutationen, Events sowie Regen und Wetterwechsel.
