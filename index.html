@@ -400,7 +400,7 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 
 <div class="ov" id="tutorialov"><div id="tutorialPanel">
 <div class="storyTop"><span class="storyEyebrow">EINE KLEINE ÜBERLEBENSGESCHICHTE</span><h2>🎣 Gestrandet am Korallenriff</h2></div>
-<div class="storyScene"><div class="storyFisher"><div class="storyMoon">☀️</div><div class="storyFisherEmoji">🧢</div><div class="storyName">LUKI</div></div>
+<div class="storyScene"><div class="storyFisher"><div class="storyMoon">☀️</div><div class="storyFisherEmoji">🧑‍🎣</div><div class="storyName">LUKI</div></div>
 <div class="storySpeech"><span id="storyChapter">KAPITEL 1 · GESTRANDET</span><p id="storyText"></p><div id="storyHint"></div></div></div>
 <div class="storyProgress"><i id="storyProgressFill"></i></div>
 <div class="storyControls"><button id="tutorialPrev">Zurück</button><span id="storyCounter">1 / 6</span><button id="tutorialNext">Weiter</button></div>
@@ -698,7 +698,7 @@ var storyScenes=[
 {chapter:'KAPITEL 3 · EIN BISS!',text:'Da zupft etwas! Sobald „JETZT TIPPEN!“ erscheint, tippe schnell. Dann startet das Fangspiel: Triff mit dem Zeiger das goldene Feld. Bei seltenen Fischen brauchst du mehrere Treffer. Keine Panik – du hast drei Leben.',hint:'Beobachte den weißen Zeiger und tippe, wenn er im goldenen Bereich ist.'},
 {chapter:'KAPITEL 4 · PROVIANT UND MÜNZEN',text:'Geschafft! Drücke auf „Behalten“, dann kommt dein Fisch automatisch in meinen Geld-Eimer, solange noch Platz ist. Er hat fünf Plätze. Die Fische bringen sogar Münzen pro Sekunde – damit können wir bessere Ausrüstung holen.',hint:'Im Laden kannst du Fische aus dem Eimer nehmen oder übrige Fänge verkaufen.'},
 {chapter:'KAPITEL 5 · DAS RIFF ERKUNDEN',text:'Im Fisch-Index siehst du, welche Arten wir schon entdeckt haben. Es gibt auch Gold-, Diamant- und Rainbow-Mutationen. Mit besseren Angeln und neuen Welten finden wir noch seltenere Fische. Vielleicht entdecken wir einen Weg vom Riff weg!',hint:'Schau regelmäßig in den Index und verbessere deine Ausrüstung im Laden.'},
-{chapter:'KAPITEL 6 · WAS DAS MEER VERBIRGT',text:'Hier draußen ist immer etwas los! Events starten zufällig. Mutations-Regen (22%), 2× Glück (22%), Goldrausch (18%), Schnellbiss (18%), Fischschwarm (12%) und Schatzflut (8%). Dazu gibt es Wetter, Schatzkisten und manchmal Ärger mit Piraten!',hint:'Die Prozentzahlen gelten jeweils für einen Event-Wurf. Das nächste Event wird nach einer zufälligen Pause ausgelost.'}
+{chapter:'KAPITEL 6 · WAS DAS MEER VERBIRGT',text:'Hier draußen ist immer etwas los! Nach einer Pause wird ein Event ausgelost: Mutations-Regen (22%), 2× Glück (22%), Goldrausch (18%), Schnellbiss (18%), Fischschwarm (12%) oder Schatzflut (8%). Dazu gibt es Wetter, Schatzkisten und manchmal Ärger mit Piraten!',hint:'Die Prozentzahlen gelten jeweils für einen Event-Wurf. Das nächste Event wird nach einer zufälligen Pause ausgelost.'}
 ];
 function renderStory(){
 var sc=storyScenes[storyIndex];$('storyChapter').textContent=sc.chapter;$('storyText').textContent=sc.text;$('storyHint').textContent=sc.hint;
