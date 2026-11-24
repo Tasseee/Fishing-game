@@ -241,11 +241,11 @@ function say(s,d){msg=s;mT=d||1}
 function vib(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
 function startMini(){
 var p=cur.p;pick(p);if(wish){wish=false;if(cur.r<2){cur.r=2;var l2=FISH.filter(function(f){return f.r==2&&(!f.w||f.w==world)});cur.f=l2[Math.floor(Math.random()*l2.length)];cur.ch=.09}}var mr=Math.random()/(1+cur.p*.12)/(world?1.25:1)/(1+U.mut*.32)/1.15;cur.mu=mr<.0075?3:mr<.024?2:mr<.078?1:0;var r=cur.r;
-m={pos:0,dm:1,spd:[.78,.92,1.08,1.25,1.42][r]*Math.max(.26,Math.pow(.88,U.rod||0)),zw:[.42,.36,.31,.27,.24][r],zc:rnd(.25,.75),hits:0,need:[1,2,2,3,3][r]+(cur.mu?1:0),lives:[4,5,6,7,9][r]+(cur.mu?1:0)};
+var bonusLives=Math.floor((U.rod||0)/2)+(cur.mu?1:0),baseLives=[4,5,6,7,8][r];m={pos:0,dm:1,spd:[.92,1.08,1.28,1.5,1.72][r]*Math.max(.36,Math.pow(.91,U.rod||0)),zw:[.30,.25,.20,.16,.13][r],zc:rnd(.25,.75),hits:0,need:[1,2,3,4,5][r]+(cur.mu?1:0),lives:baseLives+bonusLives,maxLives:baseLives+bonusLives};
 st='mini'}
 function tap(){
 if(Math.abs(m.pos-m.zc)<=m.zw/2){m.hits++;vib(15);say('Treffer!',.4);SND.hit();burst(bob.x-cam,SURF+(H-SURF)*.28,16,'#ffb23f');
-if(m.hits>=m.need){win();return}m.zc=rnd(.16,.84);m.spd*=1+cur.r*.025;m.zw=Math.max(.16,m.zw*(1-cur.r*.025))}
+if(m.hits>=m.need){win();return}m.zc=rnd(.16,.84);m.spd*=1+cur.r*.035;m.zw=Math.max(.075,m.zw*(1-cur.r*.045))}
 else{m.lives--;shake=.3;vib(40);SND.miss();say('Daneben!',.4);if(m.lives<=0){st='idle';say('Der Fisch ist entkommen',1.6);SND.lose()}}}
 function win(){
 var f=cur.f,mu=cur.mu||0,mk=mu+'|'+f.n,isNew=mu?!mcoll[mk]:!coll[f.n];if(mu)mcoll[mk]=(mcoll[mk]||0)+1;else coll[f.n]=(coll[f.n]||0)+1;save();
@@ -260,7 +260,7 @@ $('ok').onclick=function(){cardSold=true;fxClr();$('cardov').className='ov';st='
 $('sl').onclick=function(){if(cardSold)return;cardSold=true;SND.coin();if(catchKey&&inv[catchKey]>0){inv[catchKey]--;coins+=lastCatchValue;save();$('n').textContent=coins}fxClr();$('cardov').className='ov';st='idle'};
 $('bk').onclick=function(){openBook()};$('cl').onclick=function(){$('book').className='ov'};
 $('sh').onclick=function(){openShop2()};$('cs').onclick=function(){$('shop').className='ov'};
-var UP=[{k:'rod',n:'Bessere Angel',d:'Der Strich im Minispiel wird langsamer',max:5,c:function(l){return 60*Math.pow(2,l)}},
+var UP=[{k:'rod',n:'Bessere Angel',d:'Balken wird langsamer; jede 2. Stufe gibt +1 Leben',max:5,c:function(l){return 60*Math.pow(2,l)}},
 {k:'charm',n:'Glücksbringer',d:'Mehr seltene Fische, dauerhaft',max:5,c:function(l){return 100*Math.pow(2,l)}},
 {k:'reach',n:'Weitwurf-Angel',d:'Wirf weiter (+20 m) für mehr Glück',max:5,c:function(l){return 80*Math.pow(2,l)}},
 {k:'pat',n:'Schneller Biss',d:'Fische beißen früher an',max:5,c:function(l){return 70*Math.pow(2,l)}},
@@ -325,7 +325,7 @@ if(st==='fly'){fly+=dt/.7;var k=Math.min(1,fly);bob.x=g.tx+(bob.tx-g.tx)*k;bob.y
 if(fly>=1){st='wait';bob.y=SURF;SND.splash();wt=rnd(1.8,4.8)*Math.max(.15,1-U.pat*.08);ripples.push({x:bob.x,r:0});for(var i=0;i<8;i++)bub.push({x:bob.x-cam,y:SURF,vx:rnd(-60,60),vy:rnd(-80,-20),r:rnd(1.5,3.5),l:.8})}}
 if(st==='wait'){wt-=dt;if(Math.random()<dt*.8)ripples.push({x:bob.x,r:0});if(wt<=0){st='bite';bt=1.1;vib(80);SND.bite();shake=.15;ripples.push({x:bob.x,r:0})}}
 if(st==='bite'){bt-=dt;if(bt<=0){st='idle';say('Zu langsam – weg war er',1.6)}}
-if(st==='mini'){if(cur.r>=2){m.zc+=Math.sin(t*2.2)*dt*.04*(cur.r-1);m.zc=Math.max(.16,Math.min(.84,m.zc))}m.pos+=m.dm*m.spd*dt*(cur.r>=3?1+.12*Math.sin(t*5):1);if(m.pos>=1){m.pos=1;m.dm=-1}if(m.pos<=0){m.pos=0;m.dm=1}}
+if(st==='mini'){if(cur.r>=2){m.zc+=Math.sin(t*2.2)*dt*.055*(cur.r-1);m.zc=Math.max(.16,Math.min(.84,m.zc))}m.pos+=m.dm*m.spd*dt*(cur.r>=3?1+.12*Math.sin(t*5):1);if(m.pos>=1){m.pos=1;m.dm=-1}if(m.pos<=0){m.pos=0;m.dm=1}}
 ripples.forEach(function(r){r.r+=dt*50});ripples=ripples.filter(function(r){return r.r<60});
 bub.forEach(function(b){b.x+=(b.vx||0)*dt;b.y+=(b.vy||-30)*dt;b.l-=dt});bub=bub.filter(function(b){return b.l>0});
 if(Math.random()<dt*2)bub.push({x:rnd(0,W),y:H+4,vy:-rnd(25,60),r:rnd(1.5,3.5),l:rnd(5,9)});
@@ -401,7 +401,7 @@ x.fillStyle='#ffb23f';x.fillRect(bx3+(m.zc-m.zw/2)*bw2,by3,m.zw*bw2,34);
 x.fillStyle='#fff';x.fillRect(bx3+m.pos*bw2-3,by3-8,6,50);
 txt('Tippe, wenn der Strich im Gelben ist',W/2,by3-26,17);
 for(i=0;i<m.need;i++){x.fillStyle=i<m.hits?'#4dff88':'rgba(233,246,238,.25)';x.beginPath();x.arc(W/2-(m.need-1)*14+i*28,by3+62,9,0,7);x.fill()}
-txt('Leben: '+'♥'.repeat(m.lives),W/2,by3+98,18,'#ff7b9c')}
+txt('Leben: '+m.lives+'/'+m.maxLives+' ♥',W/2,by3+98,18,'#ff7b9c')}
 if(wish)txt('⭐ Wunsch aktiv · nächster Fang mind. Sehr selten',W/2,H*.12,15,'#ffd24d');
 if(mT>0){x.globalAlpha=Math.min(1,mT*2);txt(msg,W/2,H*.5,32,'#ffb23f');x.globalAlpha=1}}
 function fx(c){var r=Math.max(cur.r,cur.mu>1?3:0,cur.mu?2:0),e=rt-RT0[Math.max(cur.r,cur.mu||0)];
