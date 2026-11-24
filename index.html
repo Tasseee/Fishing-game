@@ -264,7 +264,7 @@ var UP=[{k:'rod',n:'Bessere Angel',d:'Der Strich im Minispiel wird langsamer',ma
 {k:'charm',n:'Glücksbringer',d:'Mehr seltene Fische, dauerhaft',max:5,c:function(l){return 100*Math.pow(2,l)}},
 {k:'reach',n:'Weitwurf-Angel',d:'Wirf weiter (+20 m) für mehr Glück',max:5,c:function(l){return 80*Math.pow(2,l)}},
 {k:'pat',n:'Schneller Biss',d:'Fische beißen früher an',max:5,c:function(l){return 70*Math.pow(2,l)}},
-{k:'star',n:'Sternen-Magnet',d:'Sternschnuppe kommt öfter (Start: alle 5 Min.)',max:4,c:function(l){return 120*Math.pow(2,l)}},
+{k:'star',n:'Sternen-Magnet',d:'Sternschnuppe kommt öfter (Start: alle 6 Min.; jede Stufe schneller)',max:4,c:function(l){return 120*Math.pow(2,l)}},
 {k:'mut',n:'Mutations-Gen',d:'Mehr Gold, Diamant und Rainbow',max:5,c:function(l){return 200*Math.pow(2,l)}}];
 function sv(){SND.coin();save();$('n').textContent=coins;openShop2()}
 var IC={rod:'🎣',charm:'🍀',reach:'🌊',pat:'⚡',star:'🌠',mut:'🧬'};
