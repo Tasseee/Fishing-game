@@ -1196,7 +1196,7 @@ function startKianEscape(){
  var fx=$('kianEscapeFx');fx.classList.remove('show');void fx.offsetWidth;fx.classList.add('show');document.body.classList.add('kianGlitch');
  setTimeout(function(){
   document.body.classList.remove('kianGlitch');fx.classList.remove('show');
-  if(selectedCharacter!=='kian')return;
+  if(selectedCharacter!=='kian'){kianDialogueActive=false;$('fisherBubble').classList.remove('kianMode','show');return;}
   setKianBubble('Autsch! Da war eine unsichtbare Wand. Ich wurde direkt zurückgeschleudert … Aber jetzt weiß ich es ganz sicher: Da draußen gibt es jemanden. Dich.',[
    {label:'Ich bin noch da.',onClick:function(){finishKianEscape('Ich bin noch da.')}} ,
    {label:'Wir finden einen Weg.',onClick:function(){finishKianEscape('Wir finden einen Weg.')}}
@@ -1705,8 +1705,8 @@ var s=$('sc');s.innerHTML='';
 function row(a,b,lbl,fn,dis){var r=document.createElement('div');r.className='row';var d=document.createElement('div');d.innerHTML='<b></b><small></small>';d.firstChild.textContent=a;d.lastChild.textContent=b;r.appendChild(d);var bt=document.createElement('button');bt.textContent=lbl;bt.disabled=!!dis;bt.onclick=fn;r.appendChild(bt);s.appendChild(r)}
 function hd(txt){var e=document.createElement('h3');e.textContent=txt;s.appendChild(e)}
 hd('Münzen: '+coins);hd('Fänge verkaufen');
-var tv=0,any=false;
-FISH.forEach(function(f){var c=inv[f.n]||0;if(c>0){any=true;tv+=c*val(f);row(f.n+' x'+c,RN[f.r]+' · '+(val(f)*prestigeMoneyMultiplier())+' Münzen je Fisch','Verkaufen',function(){playSoaSale(c,f.n,function(){creditCoins(c*val(f));addKianAwareness(4);inv[f.n]=0;sv()})},0)}});
+var tv=0,any=false,totalFish=0;
+FISH.forEach(function(f){var c=inv[f.n]||0;if(c>0){any=true;tv+=c*val(f);totalFish+=c;row(f.n+' x'+c,RN[f.r]+' · '+(val(f)*prestigeMoneyMultiplier())+' Münzen je Fisch','Verkaufen',function(){playSoaSale(c,f.n,function(){creditCoins(c*val(f));addKianAwareness(4);inv[f.n]=0;sv()})},0)}});
 if(any)row('Alles verkaufen','Gesamt '+Math.floor(tv*prestigeMoneyMultiplier())+' Münzen','Verkaufen',function(){playSoaSale(totalFish,'Dein ganzer Fang',function(){creditCoins(tv);addKianAwareness(4);inv={};sv()})},0);
 else row('Eimer ist leer','Fang erst ein paar Fische','–',function(){},1);
 hd('Ausrüstung');
