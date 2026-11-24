@@ -20,7 +20,7 @@ Die gesamte Spieloberfläche wurde visuell überarbeitet:
 
 ## Spielsysteme
 
-Es gibt sechs Seltenheitsstufen: Normal, Selten, Sehr selten, Unmöglich, Legendär und Mythisch. Die Sammlung enthält 79 verschiedene Fische über den normalen See, die Aurora-Welt und das Korallenriff.
+Es gibt sechs Seltenheitsstufen: Normal, Selten, Sehr selten, Unmöglich, Legendär und Mythisch. Die Sammlung enthält 91 verschiedene Fische über den normalen See, die Aurora-Welt und das Korallenriff.
 
 Jede Seltenheit startet im Angel-Minispiel mit genau **3 Leben**.
 
