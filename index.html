@@ -871,19 +871,17 @@ drawQuestSpinFish(preview);name.textContent=step===steps-1?(MN[item.mu]||'')+ite
 meta.textContent=step===steps-1?RN[item.f.r]+' · '+fishSizeName(item.size)+' · '+formatWeight(item.weight)+' kg':'Fisch wird gezogen …';
 if(step<steps-1){step++;setTimeout(frame,45+step*6);return}
 card.classList.add('winner');SND.win(item.f.r);if(item.f.r>=3)vib([45,35,65]);
-var key=item.f.n+'#'+item.mu+'@'+item.size+'@'+item.weight.toFixed(2);
-inv[key]=(inv[key]||0)+1;save();
-footer.textContent='🎁 '+(MN[item.mu]||'')+item.f.n+' wurde deinem Fangbestand hinzugefügt!';
+footer.textContent='🎁 '+(MN[item.mu]||'')+item.f.n+' ist dein Gewinn!';
 setTimeout(function(){overlay.className='ov';card.className='';onDone()},1000);
 }
 frame();
 }
-function finishQuestClaim(index,d){
+function finishQuestClaim(index,d,prizes){
 var q=activeQuests[index];if(!q||q.claimed)return;
 q.claimed=true;q.claiming=false;
 var rewards=[];
 if(d.coins){var paid=creditCoins(d.coins);rewards.push('+'+paid.toLocaleString('de-DE')+' Münzen')}
-if(d.fish)rewards.push(d.fish+' Zufallsfisch'+(d.fish===1?'':'e'));
+(prizes||[]).forEach(function(item){var key=item.f.n+'#'+item.mu+'@'+item.size+'@'+item.weight.toFixed(2);inv[key]=(inv[key]||0)+1;rewards.push((MN[item.mu]||'')+item.f.n+' · '+RN[item.f.r])});
 var batchFinished=activeQuests.length===3&&activeQuests.every(function(item){return item.claimed});
 if(batchFinished){
 questBatch++;
@@ -905,9 +903,9 @@ var d=questDef(q.id);if(q.progress<d.target)return;
 q.claiming=true;renderQuests();
 if(d.fish){
 var prizes=[];for(var i=0;i<d.fish;i++)prizes.push(rollQuestFish(d.level));
-function nextPrize(n){if(n>=prizes.length){finishQuestClaim(index,d);return}spinQuestFish(prizes[n],n,prizes.length,function(){nextPrize(n+1)})}
+function nextPrize(n){if(n>=prizes.length){finishQuestClaim(index,d,prizes);return}spinQuestFish(prizes[n],n,prizes.length,function(){nextPrize(n+1)})}
 nextPrize(0);
-}else finishQuestClaim(index,d);
+}else finishQuestClaim(index,d,[]);
 }
 function renderQuests(){
 var list=$('questList');if(!list)return;list.innerHTML='';
