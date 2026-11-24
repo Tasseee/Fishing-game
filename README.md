@@ -70,7 +70,7 @@ Der Spielstand wird lokal im Browser über `localStorage` gespeichert und nicht 
 
 ## Charakterauswahl
 
-- Beim ersten Start wählst du deinen Angler: **Lukas**, **Soa**, **Kian** oder **Nino Nakano** (Anime-Fanlook).
+- Beim ersten Start wählst du deinen Angler: **Lukas**, **Soa** oder **Kian**.
 - Jede Figur hat eigene Farben, Frisur und Kleidung im Spiel.
 - Die Auswahl wird im lokalen Spielstand gespeichert und bleibt bei späteren Besuchen erhalten.
 
