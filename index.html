@@ -443,6 +443,45 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 .endingFoot{font-size:11px;color:#9dbcc8;margin:12px 0 0}
 @media(max-width:430px){#endingPanel{padding:12px 10px;border-radius:21px}.endingControls button{padding:8px 13px;font-size:14px}#endingActions{grid-template-columns:1fr}.endingFoot{font-size:10px}.endingMom,.endingDad,.endingSister{font-size:34px}.endingDialogue{max-width:90%;font-size:10px}}
 
+
+/* Full-screen animated finale film */
+#endingov{padding:0;align-items:stretch;justify-content:stretch;background:#030711;backdrop-filter:none}
+#endingPanel{position:relative;display:block;width:100vw;height:100vh;height:100dvh;max-height:none;overflow:hidden;padding:0;border:0;border-radius:0;background:#071426;box-shadow:none;text-align:left}
+#endingPanel .endingEyebrow{position:absolute;z-index:7;top:max(14px,env(safe-area-inset-top));left:clamp(16px,4vw,48px);margin:0;color:#f4e3bb;text-shadow:0 2px 12px #000;letter-spacing:.2em}
+#endingVisual{position:absolute;inset:0;height:auto;border:0;border-radius:0;background:#101b36;overflow:hidden}
+#endingFilm{display:block;width:100%;height:100%}
+.endingFilmShade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(1,8,22,.4),transparent 22%,transparent 54%,rgba(1,8,20,.26) 72%,rgba(1,7,18,.8))}
+#endingDialogue{top:19%;bottom:auto;left:50%;width:min(760px,86vw);max-width:86vw;transform:translateX(-50%);padding:12px 20px;border-radius:17px;background:rgba(5,17,35,.78);border:1px solid rgba(255,240,202,.42);color:#fff4d7;text-align:center;font-size:clamp(13px,2.2vw,20px);line-height:1.4;box-shadow:0 10px 35px rgba(0,0,0,.28);white-space:pre-line}
+#endingVisualLabel{left:auto;right:clamp(14px,4vw,42px);top:18px;bottom:auto;background:rgba(5,17,35,.55);backdrop-filter:blur(7px);font-size:11px}
+#endingCopy{position:absolute;z-index:6;left:clamp(18px,6vw,76px);right:clamp(18px,6vw,76px);bottom:clamp(108px,15vh,145px);padding:28px 0 10px;text-align:left;pointer-events:none;background:linear-gradient(0deg,rgba(3,11,23,.64),transparent)}
+#endingCopy>span{color:#aee9f3;font-size:11px;letter-spacing:.18em;text-shadow:0 2px 8px #001}
+#endingCopy h2{margin:6px 0 5px;color:#fff0c8;font-size:clamp(26px,5vw,48px);text-shadow:0 3px 20px rgba(0,0,0,.65)}
+#endingCopy p{max-width:880px;margin:0;color:#f0f5f6;font-size:clamp(13px,2vw,18px);line-height:1.48;text-shadow:0 2px 9px #001}
+#endingPanel .endingProgress{position:absolute;z-index:7;left:clamp(18px,6vw,76px);right:clamp(18px,6vw,76px);bottom:82px;margin:0;background:rgba(255,255,255,.24)}
+#endingPanel .endingControls{position:absolute;z-index:8;left:50%;bottom:24px;transform:translateX(-50%);width:min(560px,88vw);justify-content:space-between}
+#endingPanel .endingControls span{color:#fff4d7;text-shadow:0 2px 8px #001}
+#endingPanel .endingControls button{font-size:14px;padding:9px 18px;background:rgba(226,242,248,.92);color:#092135}
+#endingActions{position:absolute;z-index:9;left:50%;bottom:clamp(12px,3vh,26px);transform:translateX(-50%);width:min(560px,88vw);display:none;grid-template-columns:1fr 1fr;gap:12px}
+#endingActions button{box-shadow:0 8px 26px rgba(0,0,0,.32)}
+#endingPanel.finale-ready .endingProgress{bottom:82px}
+#endingPanel.finale-ready .endingControls{bottom:74px}
+#endingPanel.finale-ready #endingActions{display:grid}
+#endingPanel .endingFoot{display:none}
+@keyframes remarkIn{0%{opacity:0;transform:translate(-50%,18px) scale(.94)}100%{opacity:1;transform:translate(-50%,0) scale(1)}}
+#characterRemark{position:fixed;z-index:36;left:50%;top:calc(env(safe-area-inset-top,0px) + 78px);width:min(88vw,520px);padding:11px 18px;border:1px solid rgba(255,226,155,.55);border-radius:18px;background:linear-gradient(135deg,rgba(12,42,61,.97),rgba(13,25,54,.96));box-shadow:0 10px 34px rgba(0,0,0,.38),0 0 24px rgba(255,205,111,.15);color:#fff1c9;font-weight:900;font-size:clamp(14px,3vw,18px);line-height:1.35;text-align:center;opacity:0;pointer-events:none;transform:translate(-50%,18px) scale(.94)}
+#characterRemark.show{opacity:1;animation:remarkIn .36s cubic-bezier(.2,.8,.2,1) both}
+@media(max-width:600px){
+ #endingCopy{bottom:112px;padding-bottom:7px}
+ #endingCopy h2{font-size:clamp(22px,7vw,32px)}
+ #endingCopy p{font-size:13px;line-height:1.36}
+ #endingPanel .endingProgress{bottom:82px}
+ #endingPanel .endingControls{bottom:24px}
+ #endingPanel.finale-ready .endingControls{bottom:78px}
+ #endingPanel.finale-ready #endingActions{grid-template-columns:1fr 1fr;bottom:12px}
+ #endingPanel .endingControls button{padding:8px 11px;font-size:12px}
+ #endingDialogue{top:16%;padding:9px 12px;font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){#characterRemark.show{animation:none}#endingFilm{image-rendering:auto}}
 </style>
 </head>
 <body>
@@ -453,6 +492,7 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 <div class="ov" id="cardov"><div id="card"><canvas id="cc" width="560" height="340"></canvas>
 <div class="t"><span id="rb"></span></div><div class="t" id="fn">???</div><div class="t" id="fi"></div>
 <div class="t"><button id="ok">Behalten</button> <button id="sl">Verkaufen</button></div></div></div>
+<div id="characterRemark" aria-live="polite"></div>
 <div class="ov" id="book"><div id="bookShell">
   <header id="bookHead">
     <div class="bookHeading"><span class="bookEyebrow">DEINE SAMMLUNG</span><h2>📖 Fisch-Index</h2><p>Entdecke alle Fische und ihre Mutationen.</p></div>
@@ -499,11 +539,9 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 <div class="ov" id="endingov" role="dialog" aria-modal="true" aria-labelledby="endingTitle">
 <div id="endingPanel">
   <div class="endingEyebrow">LUKI ANGELN · DAS FINALE</div>
-  <div class="endingVisual landing" id="endingVisual">
-    <div class="endingSun">☀️</div><div class="endingSea"></div><div class="endingShore"></div>
-    <div class="endingHouse">🏡</div><div class="endingBoat">⛵</div>
-    <div class="endingCar">🚗</div><div class="endingLukas">🧑</div>
-    <div class="endingFamily">👨‍👩‍👧‍👦</div><div class="endingMom">👩</div><div class="endingDad">👨</div><div class="endingSister">👧</div><div class="endingHug">🫂</div>
+  <div class="endingVisual" id="endingVisual">
+    <canvas id="endingFilm" aria-label="Animierter Film von Lukas' Heimkehr"></canvas>
+    <div class="endingFilmShade"></div>
     <div class="endingDialogue" id="endingDialogue"></div>
     <div class="endingVisualLabel" id="endingVisualLabel">Land in Sicht!</div>
   </div>
@@ -651,7 +689,7 @@ var FISH=[
 FISH.sort(function(a,b){return a.r-b.r});
 var $=function(i){return document.getElementById(i)};
 var cv=$('c'),x=cv.getContext('2d'),W,H,D,SURF,cc=$('cc').getContext('2d');
-var cam=0,camT=0,mcoll={},mdone={},idxMu=0,ss=null,ssT=360,wish=false,world=0,own2=false,own3=false,own4=false,coll={},inv={},coins=0,lifetimeEarned=0,done=false,U={rod:0,charm:0,bait:0,reach:0,pat:0},cardSold=true,catchKey=null,lastCatchValue=0,pendingChest=false,adminLuck=0,dayLight=0,weatherRain=false,weatherTimer=34,activeEvent=null,eventTime=0,eventTimer=42,eventBannerTick=0,bookQuery="",bookRarity="all",bucket=[],bucketFraction=0,bucketSaveTimer=0,tutorialSeen=false,selectedCharacter="",pendingCharacterChoice="",hasPearlRod=false,pirate=null,pirateTimer=0,rebirths=0,endingComplete=false,endingShown=false,endingStep=0;var END_MONEY_GOAL=100000;
+var cam=0,camT=0,mcoll={},mdone={},idxMu=0,ss=null,ssT=360,wish=false,world=0,own2=false,own3=false,own4=false,coll={},inv={},coins=0,lifetimeEarned=0,done=false,U={rod:0,charm:0,bait:0,reach:0,pat:0},cardSold=true,catchKey=null,lastCatchValue=0,pendingChest=false,adminLuck=0,dayLight=0,weatherRain=false,weatherTimer=34,activeEvent=null,eventTime=0,eventTimer=42,eventBannerTick=0,bookQuery="",bookRarity="all",bucket=[],bucketFraction=0,bucketSaveTimer=0,tutorialSeen=false,selectedCharacter="",pendingCharacterChoice="",hasPearlRod=false,pirate=null,pirateTimer=0,rebirths=0,endingComplete=false,endingShown=false,endingStep=0,endingSceneElapsed=0,endingReady=false,characterRemarkTimer=0;var END_MONEY_GOAL=100000;
 try{var S=JSON.parse(localStorage.getItem('luki3')||'null')||{coll:JSON.parse(localStorage.getItem('luki2')||'{}')};coll=S.coll||{};inv=S.inv||{};coins=S.coins||0;lifetimeEarned=Math.max(coins,Number(S.earned)||coins);done=!!S.done;own2=!!S.o2;mcoll=S.mc||{};mdone=S.md||{};own3=!!S.o3;own4=!!S.o4;world=own2?(S.w|0):0;if(world==2&&!own3)world=0;if(world==3&&!own4)world=0;U=S.up||U;pendingChest=!!S.pendingChest;adminLuck=Math.max(0,Math.min(100,Number(S.adminLuck)||0));bucket=Array.isArray(S.bucket)?S.bucket.slice(0,5):[];bucketFraction=Math.max(0,Math.min(.999999,Number(S.bucketFraction)||0));tutorialSeen=!!S.tutorialSeen;selectedCharacter=["lukas","soa","kian"].indexOf(S.character)>=0?S.character:(S.character==="nino"?"lukas":"");hasPearlRod=!!S.pearlRod;rebirths=Math.max(0,Math.floor(Number(S.rebirths)||0));endingComplete=!!S.endingComplete}catch(e){}
 U.reach=U.reach||0;U.pat=U.pat||0;U.star=U.star||0;U.mut=U.mut||0;U.baitBought=U.baitBought||0;
 function starInterval(){return Math.max(38,Math.round(360*Math.pow(.82,Math.min(10,U.star||0))))}
@@ -660,11 +698,17 @@ function save(){try{localStorage.setItem('luki3',JSON.stringify({coll:coll,inv:i
 function prestigeMoneyMultiplier(){return Math.pow(2,Math.min(20,rebirths))}
 function creditCoins(amount){amount=Math.max(0,Math.floor((Number(amount)||0)*prestigeMoneyMultiplier()));coins+=amount;lifetimeEarned+=amount;return amount;}
 function val(f,mu){return([5,25,120,650,2200,6500][f.r]+Math.round(f.L/2))*[1,3,8,25][mu||0]}
-function bucketFishInfo(key){var p=String(key).split('#'),mu=p.length>1?Number(p[1]):0,f=FISH.find(function(q){return q.n===p[0]});return f&&Number.isInteger(mu)&&mu>=0&&mu<=3?{f:f,mu:mu}:null}
-function bucketFishRate(key){var z=bucketFishInfo(key);if(!z)return 0;return[.10,.25,.7,2,6,18][z.f.r]*[1,1.5,2.5,4][z.mu]}
+var FISH_SIZES=['Small','Normal','Big','Gigantic'],FISH_SIZE_MULTIPLIERS=[.65,1,1.75,3.5];
+function fishSizeName(size){return FISH_SIZES[Math.max(0,Math.min(3,Number(size)||0))]}
+function fishSizeMultiplier(size){return FISH_SIZE_MULTIPLIERS[Math.max(0,Math.min(3,Number(size===undefined?1:size)||0))]}
+function formatWeight(weight){return Math.max(.01,Number(weight)||0).toFixed(2).replace('.',',')}
+function rollFishSize(f){var giant=.035+(f.r||0)*.009,big=.17+(f.r||0)*.007,r=Math.random();if(r<giant)return 3;if(r<giant+big)return 2;if(r<giant+big+.22)return 0;return 1}
+function makeFishWeight(f,size){var base=Math.max(.12,Math.pow((f.L||20)/20,2)*.72),range=[[.38,.68],[.72,1.25],[1.3,2.05],[2.15,4.1]][size]||[.72,1.25];return base*(range[0]+Math.random()*(range[1]-range[0]))}
+function bucketFishInfo(key){var p=String(key).split('#'),meta=p.length>1?p[1].split('@'):[],mu=meta.length?Number(meta[0]):0,size=meta.length>1?Number(meta[1]):1,weight=meta.length>2?Number(meta[2]):0,f=FISH.find(function(q){return q.n===p[0]});return f&&Number.isInteger(mu)&&mu>=0&&mu<=3&&Number.isInteger(size)&&size>=0&&size<=3?{f:f,mu:mu,size:size,weight:weight}:null}
+function bucketFishRate(key){var z=bucketFishInfo(key);if(!z)return 0;return[.10,.25,.7,2,6,18][z.f.r]*[1,1.5,2.5,4][z.mu]*fishSizeMultiplier(z.size)}
 function bucketRate(){return bucket.reduce(function(total,key){return total+bucketFishRate(key)},0)}
 function moneyMultiplier(){return activeEvent&&activeEvent.id==='goldRush'?2:1}
-function fishSellValue(f,mu){return Math.round(val(f,mu)*moneyMultiplier())}
+function fishSellValue(f,mu,size){return Math.round(val(f,mu)*fishSizeMultiplier(size)*moneyMultiplier())}
 var WORLD_EVENTS=[
 {id:'mutationRain',icon:'🌧️✨',name:'Mutations-Regen',detail:'Jeder Fang ist mindestens Gold!',color:'#77e7f2',duration:30,chance:22},
 {id:'doubleLuck',icon:'🍀',name:'2× Glück',detail:'Doppelte Chancen auf seltene Fische!',color:'#8ee8a9',duration:30,chance:22},
@@ -776,6 +820,8 @@ $('sd').onclick=function(){mute=!mute;try{localStorage.setItem('luki_m',mute?'1'
 function burst(px,py,n,col){for(var i=0;i<n;i++)bub.push({x:px,y:py,vx:rnd(-200,200),vy:rnd(-220,60),r:rnd(2,5),l:rnd(.5,1.1),c:col,f:1})}
 (function(){var cn=$('n').parentNode,tp=0,tl=0;cn.style.pointerEvents='auto';cn.addEventListener('click',function(){var nw=Date.now();tp=nw-tl<1500?tp+1:1;tl=nw;if(tp>=7){tp=0;openAdmin();SND.wish()}})})();
 function say(s,d){msg=s;mT=d||1}
+function showCharacterRemark(line,d){var el=$('characterRemark');if(!el)return;var names={lukas:'Lukas',soa:'Soa',kian:'Kian'},who=names[selectedCharacter]||'Lukas';el.textContent=who+': „'+line+'“';el.classList.remove('show');void el.offsetWidth;el.classList.add('show');characterRemarkTimer=d||4.2}
+function maybeCommentOnCatch(f,size){var line=null,r=Math.random();if(size===3&&r<.78){line=['WAS?! Der ist ja gigantisch! Hast du den gesehen?!','Das ist der größte Fisch, den ich je gesehen habe!','Den müssen wir unbedingt behalten – was für ein Fang!'][Math.floor(Math.random()*3)]}else if(size===2&&f.r>=3&&r<.22){line='Uff, der hat ordentlich Gewicht. Richtig starker Fang!'}else if(f.r>=5&&r<.055){line='Ich glaube, so einen sieht man nur einmal im Leben …'}if(line)showCharacterRemark(line,4.4)}
 function vib(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
 function startMini(){
 var p=cur.p;pick(p);if(wish){wish=false;if(cur.r<2){cur.r=2;var l2=FISH.filter(function(f){return f.r==2&&(!f.w||f.w==world)});cur.f=l2[Math.floor(Math.random()*l2.length)];cur.ch=1}}var mp=mutationChances(cur.p),roll=Math.random();
@@ -794,13 +840,14 @@ else{m.lives--;shake=.3;vib(40);SND.miss();say('Daneben!',.4);if(m.lives<=0){st=
 function win(){
 var chestChance=activeEvent&&activeEvent.id==='treasureTide'?.08:.01;if(!pendingChest&&Math.random()<chestChance)pendingChest=true;
 var f=cur.f,mu=cur.mu||0,mk=mu+'|'+f.n,isNew=mu?!mcoll[mk]:!coll[f.n];if(mu)mcoll[mk]=(mcoll[mk]||0)+1;else coll[f.n]=(coll[f.n]||0)+1;save();
-cardSold=false;catchKey=f.n+(mu?'#'+mu:'');lastCatchValue=fishSellValue(f,mu);var ik=catchKey;inv[ik]=(inv[ik]||0)+1;save();$('f').textContent=found();
+cur.sizeIndex=rollFishSize(f);cur.weight=makeFishWeight(f,cur.sizeIndex);
+cardSold=false;catchKey=f.n+'#'+mu+'@'+cur.sizeIndex+'@'+cur.weight.toFixed(2);lastCatchValue=fishSellValue(f,mu,cur.sizeIndex);var ik=catchKey;inv[ik]=(inv[ik]||0)+1;save();$('f').textContent=found();
 var card=$('card');card.className='';card.style.setProperty('--rc',mu?MC[mu]:RC[cur.r]);
-$('rb').textContent=(mu?MN[mu].toUpperCase()+'· ':'')+RN[cur.r];$('fn').textContent=MN[mu]+f.n+(isNew?' (neu!)':'');
-$('fi').textContent='Fangchance für genau diesen Fisch inkl. Mutation: '+oddsText(cur.totalChance)+'. Wert: '+Math.floor(lastCatchValue*prestigeMoneyMultiplier())+' Münzen.';
+$('rb').textContent=(mu?MN[mu].toUpperCase()+'· ':'')+RN[cur.r];$('fn').textContent=MN[mu]+f.n+(isNew?' (neu!)':'')+' · '+fishSizeName(cur.sizeIndex);
+$('fi').textContent='Gewicht: '+formatWeight(cur.weight)+' kg · Größe: '+fishSizeName(cur.sizeIndex)+' · Wert: '+Math.floor(lastCatchValue*prestigeMoneyMultiplier())+' Münzen · Fangchance: '+oddsText(cur.totalChance)+'.';
 var mc=mu&&!mdone[mu]&&mutationCount(mu)>=mutationGoal(mu);if(mc){mdone[mu]=1;var rw=[0,40000,150000,500000][mu],paidMutation=creditCoins(rw);save();$('n').textContent=coins;$('fi').textContent=MN[mu].trim()+'-INDEX-ZIEL ERREICHT ('+mutationCount(mu)+'/'+mutationGoal(mu)+')! +'+paidMutation+' Münzen'}
 if(found()===FISH.length&&!done){done=true;var indexPaid=creditCoins(10000);save();$('n').textContent=coins;$('fi').textContent='INDEX KOMPLETT! +'+indexPaid+' Münzen und goldene Angel'}rt=0;st='reveal';$('cardov').className='ov on';revStart();
-if(cur.r>=2)vib([60,40,60,40,150])}
+if(cur.r>=2)vib([60,40,60,40,150]);maybeCommentOnCatch(f,cur.sizeIndex)}
 function closeCatchCard(){fxClr();$('cardov').className='ov';st='idle';if(pendingChest)showChest()}
 $('ok').onclick=function(){
 if(cardSold)return;
@@ -816,7 +863,7 @@ if(catchKey&&inv[catchKey]>0&&bucket.length<5){
 }
 closeCatchCard();
 };
-$('sl').onclick=function(){if(cardSold)return;cardSold=true;SND.coin();if(catchKey&&inv[catchKey]>0){var caughtInfo=bucketFishInfo(catchKey);inv[catchKey]--;creditCoins(caughtInfo?fishSellValue(caughtInfo.f,caughtInfo.mu):lastCatchValue);save();$('n').textContent=coins}closeCatchCard()};
+$('sl').onclick=function(){if(cardSold)return;cardSold=true;SND.coin();if(catchKey&&inv[catchKey]>0){var caughtInfo=bucketFishInfo(catchKey);inv[catchKey]--;creditCoins(caughtInfo?fishSellValue(caughtInfo.f,caughtInfo.mu,caughtInfo.size):lastCatchValue);save();$('n').textContent=coins}closeCatchCard()};
 $('bk').onclick=function(){openBook()};$('cl').onclick=function(){$('book').className='ov'};
 $('sh').onclick=function(){openShop2()};$('cs').onclick=function(){$('shop').className='ov'};
 var UP=[{k:'rod',n:'Bessere Angel',d:'Balken wird langsamer',max:5,c:function(l){return 60*Math.pow(2,l)}},
@@ -862,23 +909,128 @@ var endingScenes=[
  {chapter:'KAPITEL 8 · DIE ANTWORT',title:'„Du bist wieder zu Hause.“',text:'Sein Vater drückt seine Schulter. „Du musst uns nichts beweisen, Lukas. Wir sind einfach froh, dass du da bist.“ Seine Schwester lacht: „Und morgen erzählst du mir jedes einzelne Abenteuer!“ Lukas nickt. „Versprochen. Aber heute bleibe ich einfach bei euch.“',label:'Sie haben sich so viel zu erzählen',stage:'talkback',dialogue:'Vater: „Schön, dass du wieder da bist.“\nSchwester: „Du erzählst mir morgen ALLES!“'},
  {chapter:'KAPITEL 9 · EIN NEUES KAPITEL',title:'Endlich daheim',text:'Gemeinsam gehen sie ins warme Haus. Hinter ihnen wird es langsam dunkel, doch im Fenster bleibt das Licht an. Lukas schaut noch einmal zu seiner Familie und weiß: Das größte Abenteuer war nicht, den seltensten Fisch zu finden. Es war, den Weg zurück zu den Menschen zu schaffen, die auf ihn gewartet haben.',label:'Das Abenteuer endet – die Geschichte geht weiter',stage:'home',dialogue:'Lukas: „Ich bin wieder da. Und diesmal gehe ich nicht gleich wieder fort.“'}
 ];
+var endingDurations=[5.8,5.4,6.6,5.8,6.2,6.8,6.5,6.6,7.5];
 function renderEnding(){
  var sc=endingScenes[endingStep];
+ endingSceneElapsed=0;endingReady=false;$('endingPanel').classList.remove('finale-ready');
  $('endingChapter').textContent=sc.chapter;
  $('endingTitle').textContent=sc.title;
  $('endingText').textContent=sc.text;
  $('endingVisualLabel').textContent=sc.label;
  $('endingDialogue').textContent=sc.dialogue||'';
- $('endingVisual').className='endingVisual '+sc.stage;
+ $('endingVisual').className='endingVisual';
  $('endingCounter').textContent=(endingStep+1)+' / '+endingScenes.length;
  $('endingProgressFill').style.width=((endingStep+1)/endingScenes.length*100)+'%';
  $('endingPrev').disabled=endingStep===0;
  $('endingNext').style.display=endingStep===endingScenes.length-1?'none':'inline-block';
- $('endingActions').style.display=endingStep===endingScenes.length-1?'grid':'none';
+ $('endingNext').textContent='Nächste Szene ›';
+ $('endingActions').style.display='none';
+}
+function drawFilmPerson(g,px,ground,scale,shirt,hair,phase,pose){
+ g.save();g.translate(px,ground);g.scale(scale,scale);
+ g.fillStyle='rgba(0,0,0,.2)';g.beginPath();g.ellipse(0,2,21,5,0,0,Math.PI*2);g.fill();
+ var walk=pose==='walk'?Math.sin(phase*8)*9:0;
+ g.lineCap='round';g.lineJoin='round';g.strokeStyle='#1b2538';g.lineWidth=7;
+ g.beginPath();g.moveTo(-7,-22);g.lineTo(-10+walk,-7);g.lineTo(-13+walk,-1);g.moveTo(7,-22);g.lineTo(10-walk,-7);g.lineTo(13-walk,-1);g.stroke();
+ g.fillStyle=shirt;g.beginPath();g.roundRect(-14,-54,28,35,7);g.fill();
+ g.strokeStyle=shirt;g.lineWidth=6;
+ if(pose==='hug'){
+  g.beginPath();g.moveTo(-12,-49);g.quadraticCurveTo(-27,-47,-28,-33);g.moveTo(12,-49);g.quadraticCurveTo(27,-47,28,-33);g.stroke();
+ }else{
+  var armSwing=pose==='walk'?Math.sin(phase*8)*7:0;
+  g.beginPath();g.moveTo(-12,-48);g.lineTo(-20+armSwing,-31);g.moveTo(12,-48);g.lineTo(20-armSwing,-31);g.stroke();
+ }
+ g.fillStyle='#e7b88e';g.beginPath();g.arc(0,-66,13,0,Math.PI*2);g.fill();
+ g.fillStyle=hair;g.beginPath();g.arc(0,-70,13,Math.PI,Math.PI*2);g.lineTo(12,-64);g.quadraticCurveTo(6,-68,3,-65);g.quadraticCurveTo(-5,-61,-12,-66);g.closePath();g.fill();
+ g.fillStyle='#263044';g.beginPath();g.arc(-4,-66,1.2,0,Math.PI*2);g.arc(4,-66,1.2,0,Math.PI*2);g.fill();
+ g.strokeStyle='#985f4e';g.lineWidth=1.4;g.beginPath();g.arc(0,-62,3,.15,Math.PI-.15);g.stroke();
+ g.restore();
+}
+function drawFilmBoat(g,px,py,scale,phase){
+ g.save();g.translate(px,py+Math.sin(phase*2)*3);g.scale(scale,scale);
+ g.fillStyle='rgba(0,0,0,.22)';g.beginPath();g.ellipse(0,9,70,9,0,0,Math.PI*2);g.fill();
+ var hull=g.createLinearGradient(0,-12,0,20);hull.addColorStop(0,'#d99b5b');hull.addColorStop(1,'#5b3328');
+ g.fillStyle=hull;g.beginPath();g.moveTo(-62,-8);g.lineTo(62,-8);g.lineTo(42,17);g.lineTo(-42,17);g.closePath();g.fill();
+ g.strokeStyle='#f1c889';g.lineWidth=3;g.beginPath();g.moveTo(0,-8);g.lineTo(0,-92);g.stroke();
+ g.fillStyle='#fff2d4';g.beginPath();g.moveTo(3,-87);g.lineTo(3,-17);g.lineTo(47,-17);g.closePath();g.fill();
+ g.fillStyle='#d7e9ec';g.beginPath();g.moveTo(-3,-78);g.lineTo(-3,-25);g.lineTo(-35,-25);g.closePath();g.fill();
+ g.restore();
+}
+function drawFilmCar(g,px,py,scale,phase){
+ g.save();g.translate(px,py+Math.sin(phase*5)*1.2);g.scale(scale,scale);
+ g.fillStyle='rgba(0,0,0,.25)';g.beginPath();g.ellipse(0,14,55,8,0,0,Math.PI*2);g.fill();
+ g.fillStyle='#243d55';g.beginPath();g.moveTo(-55,0);g.lineTo(-42,-17);g.quadraticCurveTo(-34,-28,-17,-28);g.lineTo(22,-28);g.quadraticCurveTo(37,-26,47,-5);g.lineTo(55,0);g.closePath();g.fill();
+ g.fillStyle='#f0a85e';g.beginPath();g.moveTo(-32,-18);g.lineTo(-17,-25);g.lineTo(2,-25);g.lineTo(2,-5);g.lineTo(-39,-5);g.closePath();g.fill();
+ g.fillStyle='#d9eef5';g.fillRect(7,-23,26,18);
+ g.fillStyle='#f5d28d';g.fillRect(44,-9,7,5);
+ g.fillStyle='#121b2a';[-34,32].forEach(function(wx){g.beginPath();g.arc(wx,9,10,0,Math.PI*2);g.fill();g.fillStyle='#b8c8d0';g.beginPath();g.arc(wx,9,4,0,Math.PI*2);g.fill();g.fillStyle='#121b2a'});
+ g.restore();
+}
+function drawFilmHouse(g,w,h,night){
+ var hx=w*.79,base=h*.73;
+ g.save();g.fillStyle='#354052';g.fillRect(hx-66,base-70,132,76);
+ g.fillStyle='#293148';g.beginPath();g.moveTo(hx-82,base-68);g.lineTo(hx,base-132);g.lineTo(hx+82,base-68);g.closePath();g.fill();
+ g.fillStyle=night?'#ffdd91':'#c8d7d8';g.fillRect(hx-45,base-50,26,29);g.fillRect(hx+19,base-50,26,29);
+ g.fillStyle=night?'#ffe6a7':'#7d9da9';g.fillRect(hx-8,base-47,22,53);
+ if(night){g.shadowColor='#ffd98a';g.shadowBlur=35;g.fillStyle='rgba(255,211,125,.2)';g.beginPath();g.arc(hx,base-47,83,0,Math.PI*2);g.fill()}
+ g.restore();
+}
+function drawEndingFilm(){
+ var canvas=$('endingFilm');if(!canvas)return;
+ var rect=canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2),w=Math.max(1,rect.width),h=Math.max(1,rect.height);
+ if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr)}
+ var g=canvas.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);
+ var scene=endingStep,tim=endingSceneElapsed,progress=Math.max(0,Math.min(1,tim/(endingDurations[scene]||6))),ease=progress*progress*(3-2*progress);
+ var night=scene>=3,sky=g.createLinearGradient(0,0,0,h);
+ if(scene<3){sky.addColorStop(0,'#456b99');sky.addColorStop(.5,'#efb486');sky.addColorStop(1,'#f6d09a')}
+ else{sky.addColorStop(0,'#111e42');sky.addColorStop(.55,'#5c5877');sky.addColorStop(1,'#e7a779')}
+ g.fillStyle=sky;g.fillRect(0,0,w,h);
+ // Cinematic sun glow, clouds, and distant coastline.
+ var sunX=w*(scene<3?.78:.18),sunY=h*(scene<3?.3:.36);
+ var glow=g.createRadialGradient(sunX,sunY,2,sunX,sunY,h*.37);glow.addColorStop(0,scene<3?'rgba(255,239,190,.65)':'rgba(255,198,132,.38)');glow.addColorStop(1,'rgba(255,205,150,0)');
+ g.fillStyle=glow;g.fillRect(0,0,w,h*.8);
+ g.fillStyle='rgba(255,236,214,.35)';
+ for(var cloud=0;cloud<4;cloud++){var cx=((cloud*w*.36+tim*8)%(w+180))-90,cy=h*(.19+(cloud%2)*.09);g.beginPath();g.ellipse(cx,cy,55,11,0,0,Math.PI*2);g.ellipse(cx-28,cy+2,25,9,0,0,Math.PI*2);g.ellipse(cx+29,cy+1,31,8,0,0,Math.PI*2);g.fill()}
+ g.fillStyle=scene<3?'#596c78':'#333c56';g.beginPath();g.moveTo(0,h*.63);g.quadraticCurveTo(w*.18,h*.48,w*.36,h*.62);g.quadraticCurveTo(w*.58,h*.45,w*.8,h*.62);g.lineTo(w,h*.67);g.lineTo(w,h);g.lineTo(0,h);g.fill();
+ // Sea and the warm shoreline.
+ var seaY=h*.65,water=g.createLinearGradient(0,seaY,0,h);water.addColorStop(0,'#3f9da7');water.addColorStop(1,'#123b55');
+ if(scene<3){g.fillStyle=water;g.fillRect(0,seaY,w,h*.28);for(var wave=0;wave<22;wave++){var wx=((wave*97+tim*31)%(w+80))-40,wy=seaY+15+(wave%6)*18;g.strokeStyle='rgba(231,248,238,'+(.08+(wave%3)*.035)+')';g.lineWidth=2;g.beginPath();g.moveTo(wx,wy);g.quadraticCurveTo(wx+18,wy-4,wx+39,wy);g.stroke()}}
+ var sand=g.createLinearGradient(0,h*.72,0,h);sand.addColorStop(0,'#d3ad84');sand.addColorStop(1,'#72594c');g.fillStyle=sand;g.beginPath();g.moveTo(0,h*.77);g.quadraticCurveTo(w*.35,h*.69,w*.62,h*.77);g.quadraticCurveTo(w*.82,h*.73,w,h*.76);g.lineTo(w,h);g.lineTo(0,h);g.fill();
+ // Shore road, house and lanterns slowly appear as the journey moves inland.
+ if(scene>=2){g.fillStyle='#4a4b53';g.beginPath();g.moveTo(0,h*.79);g.lineTo(w,h*.72);g.lineTo(w,h*.91);g.lineTo(0,h*.98);g.closePath();g.fill();g.strokeStyle='rgba(255,231,177,.5)';g.setLineDash([22,18]);g.lineWidth=2;g.beginPath();g.moveTo(0,h*.88);g.lineTo(w,h*.81);g.stroke();g.setLineDash([])}
+ if(scene>=2)drawFilmHouse(g,w,h,night);
+ // A small boat sails into the harbor, then stays behind.
+ if(scene<=1){var boatX=scene===0?w*(.12+.42*ease):w*.27;drawFilmBoat(g,boatX,h*.72,Math.max(.72,Math.min(1.05,w/900)),tim);if(scene===1){var personX=w*(.43+.04*ease);drawFilmPerson(g,personX,h*.78,.92,'#bd674e','#49352e',tim,'walk')}}
+ // The drive home: camera follows the car along the coast.
+ if(scene===2){var carX=-80+(w+180)*ease;drawFilmCar(g,carX,h*.82,Math.max(.72,Math.min(1.1,w/900)),tim)}
+ // Lukas arrives; family silhouettes are revealed one by one.
+ if(scene>=3){
+  var run=scene===4?ease:scene===5?1:0;
+  var lx=scene===4?w*(.37+.16*run):scene>=5?w*.48:w*.42;
+  var familySpread=scene===4?1-.55*run:scene>=5?.46:1;
+  drawFilmPerson(g,lx,h*.8,1.08,'#bd674e','#49352e',tim,scene===4?'walk':'hug');
+  drawFilmPerson(g,w*(.68-.10*run),h*.8,.98,'#d98a75','#62463d',tim,scene===4?'walk':'hug');
+  drawFilmPerson(g,w*(.78-.08*run),h*.8,1.1,'#577d9c','#45352e',tim,scene===4?'walk':'hug');
+  drawFilmPerson(g,w*(.9-.18*run),h*.8,.78,'#e7bd61','#5a3e36',tim,scene===4?'walk':'hug');
+  if(scene===5){g.save();g.globalAlpha=.18+.12*Math.sin(tim*3);g.strokeStyle='#ffe8ac';g.lineWidth=5;g.beginPath();g.arc(w*.58,h*.7,48+Math.sin(tim*2)*4,0,Math.PI*2);g.stroke();g.restore()}
+  if(scene>=6){for(var spark=0;spark<16;spark++){var sx=w*.52+Math.sin(spark*13+tim*.4)*(55+spark*4),sy=h*.57+Math.cos(spark*7+tim*.65)*(28+spark*3);g.fillStyle='rgba(255,228,160,.7)';g.beginPath();g.arc(sx,sy,1.4+(spark%3)*.55,0,Math.PI*2);g.fill()}}
+ }
+ // Final shot: the family walks together into the warm house.
+ if(scene===8){
+  var homeX=w*(.48+.15*ease);
+  drawFilmPerson(g,homeX,h*.8,.98,'#bd674e','#49352e',tim,'walk');
+  drawFilmPerson(g,homeX+27,h*.8,.94,'#d98a75','#62463d',tim,'walk');
+  drawFilmPerson(g,homeX+55,h*.8,1.02,'#577d9c','#45352e',tim,'walk');
+  drawFilmPerson(g,homeX+80,h*.8,.76,'#e7bd61','#5a3e36',tim,'walk');
+  g.fillStyle='rgba(255,221,150,.13)';g.fillRect(w*.68,h*.48,w*.22,h*.38);
+ }
+ // Film grain / soft vignette and a gentle cinematic fade between chapters.
+ var vignette=g.createRadialGradient(w*.5,h*.48,h*.12,w*.5,h*.48,h*.78);vignette.addColorStop(0,'rgba(0,0,0,0)');vignette.addColorStop(1,'rgba(0,0,20,.42)');g.fillStyle=vignette;g.fillRect(0,0,w,h);
+ var fade=Math.min(1,tim/.55,(endingDurations[scene]-tim)/.42);g.fillStyle='rgba(2,6,18,'+Math.max(0,1-fade)+')';g.fillRect(0,0,w,h);
 }
 function startEnding(){
  if(endingShown||endingComplete)return;
- endingShown=true;endingStep=0;renderEnding();$('endingov').className='ov on';st='idle';save();
+ endingShown=true;endingStep=0;endingSceneElapsed=0;endingReady=false;renderEnding();$('endingov').className='ov on';st='idle';save();
 }
 function maybeStartEnding(){
  if(endingComplete||endingShown||st!=='idle'||!done||found()!==FISH.length||coins<END_MONEY_GOAL)return;
@@ -1090,13 +1242,14 @@ var tp=document.createElement('div');tp.style.cssText='text-align:center;margin-
 hd('Geld-Eimer · '+bucket.length+'/5');
 var passive=bucketRate()*moneyMultiplier()*prestigeMoneyMultiplier();row('🪣','Passives Einkommen',passive.toFixed(2).replace('.',',')+' 🪙 pro Sekunde',null,null,0,'#ffd36a');
 if(!bucket.length)row('🐟','Noch keine Fische eingesetzt','Setze gefangene Fische ein, um automatisch Münzen zu verdienen.');
-bucket.forEach(function(key,index){var z=bucketFishInfo(key);if(!z)return;var cn=document.createElement('canvas');cn.width=112;cn.height=72;drawFish(cn.getContext('2d'),z.f,56,38,1,z.f.L*.65,0,false,z.mu);row(cn,(MN[z.mu]||'')+z.f.n,'+'+(bucketFishRate(key)*moneyMultiplier()*prestigeMoneyMultiplier()).toFixed(2).replace('.',',')+' 🪙/s · '+RN[z.f.r],'Entnehmen',function(){bucket.splice(index,1);inv[key]=(inv[key]||0)+1;save();openShop2()},0,z.mu?MC[z.mu]:RC[z.f.r])});
+bucket.forEach(function(key,index){var z=bucketFishInfo(key);if(!z)return;var cn=document.createElement('canvas');cn.width=112;cn.height=72;drawFish(cn.getContext('2d'),z.f,56,38,1,z.f.L*.65,0,false,z.mu);row(cn,(MN[z.mu]||'')+z.f.n+' · '+fishSizeName(z.size),'+'+(bucketFishRate(key)*moneyMultiplier()*prestigeMoneyMultiplier()).toFixed(2).replace('.',',')+' 🪙/s · '+RN[z.f.r]+(z.weight?' · '+formatWeight(z.weight)+' kg':''),'Entnehmen',function(){bucket.splice(index,1);inv[key]=(inv[key]||0)+1;save();openShop2()},0,z.mu?MC[z.mu]:RC[z.f.r])});
 hd('Gefangene Fische');
 hd('Fang verkaufen');
 var tv=0,any=false;
-[0,1,2,3].forEach(function(mu){FISH.forEach(function(f){var key=f.n+(mu?'#'+mu:''),c=inv[key]||0;if(c<1)return;any=true;tv+=c*fishSellValue(f,mu);
-var cn=document.createElement('canvas');cn.width=112;cn.height=72;drawFish(cn.getContext('2d'),f,56,38,1,f.L*.65,0,false,mu);
-row(cn,MN[mu]+f.n+' x'+c,RN[f.r]+' · '+(fishSellValue(f,mu)*prestigeMoneyMultiplier())+' 🪙 je Fisch','Verkaufen',function(){creditCoins(c*fishSellValue(f,mu));inv[key]=0;sv()},0,mu?MC[mu]:RC[f.r],bucket.length<5?'Eimer +':null,function(){if(bucket.length>=5||!inv[key])return;inv[key]--;bucket.push(key);save();openShop2()},bucket.length>=5)})});
+Object.keys(inv).forEach(function(key){var z=bucketFishInfo(key),c=inv[key]||0;if(!z||c<1)return;any=true;var f=z.f,mu=z.mu,size=z.size,value=fishSellValue(f,mu,size);tv+=c*value;
+var cn=document.createElement('canvas');cn.width=112;cn.height=72;drawFish(cn.getContext('2d'),f,56,38,1,f.L*.65*([.78,1,1.16,1.38][size]),0,false,mu);
+var title=(MN[mu]||'')+f.n+' · '+fishSizeName(size)+' x'+c,detail=RN[f.r]+' · '+(z.weight?'ca. '+formatWeight(z.weight)+' kg · ':'')+Math.floor(value*prestigeMoneyMultiplier())+' 🪙 je Fisch';
+row(cn,title,detail,'Verkaufen',function(){creditCoins(c*value);inv[key]=0;sv()},0,mu?MC[mu]:RC[f.r],bucket.length<5?'Eimer +':null,function(){if(bucket.length>=5||!inv[key])return;inv[key]--;bucket.push(key);save();openShop2()},bucket.length>=5)});
 if(any){var bg=document.createElement('button');bg.className='big';bg.textContent='Alles verkaufen: +'+Math.floor(tv*prestigeMoneyMultiplier())+' 🪙';bg.onclick=function(){creditCoins(tv);inv={};sv()};s.appendChild(bg)}
 else row('🪣','Eimer ist leer','Fang erst ein paar Fische');
 hd('Ausrüstung');
@@ -1407,7 +1560,7 @@ if(!RV)revStart();
 var c=cc;c.setTransform(2,0,0,2,0,0);c.clearRect(0,0,280,170);var f=cur.f,er=Math.max(cur.r,cur.mu||0),T=RT0[er],sil=rt<T,e=rt-T;
 if(!sil){var gl=c.createRadialGradient(140,85,5,140,85,130);gl.addColorStop(0,RC[er]+'66');gl.addColorStop(1,'transparent');c.fillStyle=gl;c.fillRect(0,0,280,170);if(er>0)fx(c)}
 var k=sil?1+Math.sin(rt*(14+er*8))*.05*(1+er*.3):1+Math.max(0,.4-e)*.8;
-drawFish(c,f,150,88,1,Math.min(62,f.L*2.1)*k,t,sil,cur.mu||0);
+drawFish(c,f,150,88,1,Math.min(62,f.L*2.1)*k*([.78,1,1.16,1.38][cur.sizeIndex||1]),t,sil,cur.mu||0);
 if(sil){c.fillStyle='#e9f6ee';c.font='800 40px sans-serif';c.textAlign='center';c.fillText('?',140,100)}
 else if($('card').className.indexOf('show')<0){$('card').className='show r'+cur.r}
 fxFrame()}
@@ -1415,10 +1568,10 @@ function drawCardOld(){
 var c=cc;c.setTransform(2,0,0,2,0,0);c.clearRect(0,0,280,170);var f=cur.f,sil=rt<1;
 if(!sil){var gl=c.createRadialGradient(140,85,5,140,85,130);gl.addColorStop(0,RC[cur.r]+'66');gl.addColorStop(1,'transparent');c.fillStyle=gl;c.fillRect(0,0,280,170);if(cur.r>0)fx(c)}
 var k=sil?1+Math.sin(rt*30)*.04:1+Math.max(0,.4-(rt-1))*.8;
-drawFish(c,f,150,88,1,Math.min(62,f.L*2.1)*k,t,sil,cur.mu||0);
+drawFish(c,f,150,88,1,Math.min(62,f.L*2.1)*k*([.78,1,1.16,1.38][cur.sizeIndex||1]),t,sil,cur.mu||0);
 if(sil){c.fillStyle='#e9f6ee';c.font='800 40px sans-serif';c.textAlign='center';c.fillText('?',140,100)}
 else if($('card').className.indexOf('show')<0){$('card').className='show r'+cur.r}}
-function loop(n){var realDt=Math.max(0,(n-last)/1000),dt=Math.min(.05,realDt);last=n;updateBucketIncome(Math.min(realDt,43200));maybeStartEnding();if(!$('shop').classList.contains('on')&&!$('book').classList.contains('on')&&!$('adminov').classList.contains('on')&&!$('tutorialov').classList.contains('on')&&!$('endingov').classList.contains('on'))update(dt);if(st==='reveal'){rt+=dt;drawCard()}draw();if(pirate)drawPirate();requestAnimationFrame(loop)}
+function loop(n){var realDt=Math.max(0,(n-last)/1000),dt=Math.min(.05,realDt);last=n;updateBucketIncome(Math.min(realDt,43200));maybeStartEnding();if(!$('shop').classList.contains('on')&&!$('book').classList.contains('on')&&!$('adminov').classList.contains('on')&&!$('tutorialov').classList.contains('on')&&!$('endingov').classList.contains('on'))update(dt);if(st==='reveal'){rt+=dt;drawCard()}if(endingShown){endingSceneElapsed+=Math.min(realDt,.12);if(endingStep<endingScenes.length-1&&endingSceneElapsed>=endingDurations[endingStep]){endingStep++;renderEnding()}else if(endingStep===endingScenes.length-1&&endingSceneElapsed>=endingDurations[endingStep]&&!endingReady){endingReady=true;$('endingPanel').classList.add('finale-ready');$('endingActions').style.display='grid'}}draw();if(endingShown)drawEndingFilm();if(characterRemarkTimer>0){characterRemarkTimer-=realDt;if(characterRemarkTimer<=0){characterRemarkTimer=0;$('characterRemark').classList.remove('show')}}if(pirate)drawPirate();requestAnimationFrame(loop)}
 requestAnimationFrame(loop);
 })();
 </script>
