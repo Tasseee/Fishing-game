@@ -57,3 +57,13 @@ Der Spielstand wird lokal im Browser über `localStorage` gespeichert und nicht 
 - Der Geld-Eimer fasst maximal **5 Fische**. Ist er voll, bleibt der neue Fisch im normalen Fangbestand und kann später im Laden eingesetzt oder verkauft werden.
 - Beim ersten Öffnen des Spiels erscheint ein Tutorial mit den Angel-, Fang-, Eimer-, Shop-, Index- und Event-Grundlagen.
 - Über die **?**-Schaltfläche im HUD kann das Tutorial jederzeit erneut geöffnet werden.
+
+## Fisch-Index und Welt-Events
+
+- Der Fisch-Index wurde neu aufgebaut: eigener Scrollbereich, Sammlungs-Fortschritt, Mutations-Tabs, Fischsuche und Seltenheitsfilter.
+- In zufälligen Zeitabständen startet ein zeitlich begrenztes Welt-Event. Das aktive Event wird oben im Spiel mit Symbol und Countdown angezeigt.
+- **Mutations-Regen:** Jeder während des Events gefangene Fisch erhält mindestens eine Gold-Mutation.
+- **2× Glück:** Die Glückswirkung beim Fangen wird verdoppelt.
+- **Goldrausch:** Das Einkommen aus dem Geld-Eimer und die Verkaufspreise sind verdoppelt.
+- **Schnellbiss:** Fische beißen doppelt so schnell an.
+- Die Events laufen zusätzlich zum normalen Wetter, Tag-Nacht-Wechsel, Schatzkisten und Piratenüberfällen.
