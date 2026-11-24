@@ -470,6 +470,12 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 @keyframes remarkIn{0%{opacity:0;transform:translate(-50%,18px) scale(.94)}100%{opacity:1;transform:translate(-50%,0) scale(1)}}
 #characterRemark{position:fixed;z-index:36;left:50%;top:calc(env(safe-area-inset-top,0px) + 78px);width:min(88vw,520px);padding:11px 18px;border:1px solid rgba(255,226,155,.55);border-radius:18px;background:linear-gradient(135deg,rgba(12,42,61,.97),rgba(13,25,54,.96));box-shadow:0 10px 34px rgba(0,0,0,.38),0 0 24px rgba(255,205,111,.15);color:#fff1c9;font-weight:900;font-size:clamp(14px,3vw,18px);line-height:1.35;text-align:center;opacity:0;pointer-events:none;transform:translate(-50%,18px) scale(.94)}
 #characterRemark.show{opacity:1;animation:remarkIn .36s cubic-bezier(.2,.8,.2,1) both}
+#fisherBubble{position:fixed;z-index:4;left:clamp(82px,calc(20vw + 62px),310px);top:clamp(108px,calc(36vh - 146px),280px);width:min(62vw,270px);padding:11px 14px 12px;border:2px solid rgba(255,226,155,.8);border-radius:19px;background:linear-gradient(145deg,rgba(255,250,226,.98),rgba(255,229,164,.97));box-shadow:0 8px 24px rgba(0,0,0,.3),0 0 22px rgba(255,210,106,.2);color:#173446;text-align:left;opacity:0;transform:translateY(8px) scale(.96);pointer-events:none;transition:opacity .22s ease,transform .22s ease}
+#fisherBubble:before{content:"";position:absolute;left:-11px;top:28px;width:17px;height:17px;background:#ffedc0;border-left:2px solid rgba(255,226,155,.8);border-bottom:2px solid rgba(255,226,155,.8);transform:rotate(45deg)}
+#fisherBubble.show{opacity:1;transform:translateY(0) scale(1)}
+#fisherBubbleSpeaker{display:block;margin-bottom:3px;color:#84521f;font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+#fisherBubbleText{display:block;font-size:clamp(12px,2.7vw,15px);font-weight:900;line-height:1.27}
+@media(max-width:430px){#fisherBubble{left:clamp(78px,calc(18vw + 56px),185px);top:clamp(100px,calc(36vh - 126px),220px);width:min(64vw,225px);padding:9px 11px;border-radius:15px}#fisherBubble:before{top:21px}#fisherBubbleSpeaker{font-size:9px}#fisherBubbleText{font-size:12px}}
 @media(max-width:600px){
  #endingCopy{bottom:112px;padding-bottom:7px}
  #endingCopy h2{font-size:clamp(22px,7vw,32px)}
@@ -494,8 +500,13 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 #questSpinFishName{display:block;margin-top:10px;font-size:clamp(22px,6vw,31px);color:#fff0bd;text-shadow:0 3px 15px rgba(0,0,0,.45)}
 #questSpinFishMeta{margin-top:2px;color:#bfe4ef;font-size:14px;font-weight:800}
 #questSpinFooter{margin:9px 0 0;color:#c5dfe8;font-size:12px;line-height:1.4}
-#questSpinCard.winner{animation:questWinner .55s ease-out;border-color:#ffe18b;box-shadow:0 24px 85px rgba(0,0,0,.65),0 0 55px rgba(255,211,106,.55)}
-@keyframes questWinner{0%{transform:scale(.94)}65%{transform:scale(1.035)}100%{transform:scale(1)}}
+#questSpinCard{position:relative}
+#questSpinCard:before{content:"";position:absolute;inset:7px;border:1px solid rgba(255,255,255,.09);border-radius:22px;pointer-events:none}
+#questSpinCard.winner{animation:questWinner .72s cubic-bezier(.16,.85,.24,1);border-color:#fff0a1;box-shadow:0 24px 85px rgba(0,0,0,.65),0 0 55px rgba(255,211,106,.65),inset 0 0 35px rgba(255,219,115,.12)}
+#questSpinCard.winner #questSpinVisual{border-color:#ffe18b;box-shadow:0 0 36px rgba(255,214,107,.42),inset 0 0 24px rgba(255,255,255,.12)}
+#questSpinCard.winner #questSpinFishName{text-shadow:0 0 18px rgba(255,223,125,.65),0 3px 15px rgba(0,0,0,.45)}
+@keyframes questWinner{0%{transform:scale(.88) rotate(-1deg);filter:brightness(1.8)}55%{transform:scale(1.045) rotate(.5deg);filter:brightness(1.25)}100%{transform:scale(1) rotate(0);filter:brightness(1)}}
+@keyframes questSpinPulse{0%,100%{box-shadow:0 0 0 rgba(255,226,135,0)}50%{box-shadow:0 0 30px rgba(255,226,135,.7)}}
 #questProgressSummary{margin:0;padding:8px 11px;border-radius:12px;background:rgba(116,180,204,.1);border:1px solid rgba(174,224,241,.15);color:#ffe8ab;font-size:13px;font-weight:800}
 .questCard.claimed{opacity:.68;border-color:rgba(119,237,185,.4)}
 #questPanel{width:min(94vw,520px);max-height:min(88dvh,760px);display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:26px;background:radial-gradient(ellipse at 50% 0,rgba(102,91,192,.28),transparent 56%),linear-gradient(155deg,#12394d,#071c2b 85%);border:1px solid rgba(193,225,255,.4);box-shadow:0 22px 70px rgba(0,0,0,.5);overflow:hidden}
@@ -529,6 +540,7 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 <div class="t"><span id="rb"></span></div><div class="t" id="fn">???</div><div class="t" id="fi"></div>
 <div class="t"><button id="ok">Behalten</button> <button id="sl">Verkaufen</button></div></div></div>
 <div id="characterRemark" aria-live="polite"></div>
+<div id="fisherBubble" aria-live="polite"><span id="fisherBubbleSpeaker"></span><span id="fisherBubbleText"></span></div>
 <div class="ov" id="book"><div id="bookShell">
   <header id="bookHead">
     <div class="bookHeading"><span class="bookEyebrow">DEINE SAMMLUNG</span><h2>📖 Fisch-Index</h2><p>Entdecke alle Fische und ihre Mutationen.</p></div>
@@ -851,28 +863,49 @@ if(Math.random()<mutationChance){mu=1;if(level>=6&&Math.random()<.22+(level-6)*.
 var size=rollFishSize(f),weight=makeFishWeight(f,size);
 return{f:f,mu:mu,size:size,weight:weight,level:level};
 }
-function drawQuestSpinFish(item){
-var canvas=$('questSpinCanvas'),ctx=canvas.getContext('2d');
+function drawQuestSpinFish(item,winner,phase){
+var canvas=$('questSpinCanvas'),ctx=canvas.getContext('2d'),time=(phase||0)*.18,accent=item.mu?MC[item.mu]:RC[item.f.r];
 ctx.setTransform(2,0,0,2,0,0);ctx.clearRect(0,0,280,170);
-var glow=ctx.createRadialGradient(140,84,5,140,84,125);
-glow.addColorStop(0,(item.mu?MC[item.mu]:RC[item.f.r])+'55');glow.addColorStop(1,'rgba(4,20,33,0)');
+var bg=ctx.createLinearGradient(0,0,280,170);bg.addColorStop(0,'#143c55');bg.addColorStop(.5,'#0a2940');bg.addColorStop(1,'#06182b');ctx.fillStyle=bg;ctx.fillRect(0,0,280,170);
+var glow=ctx.createRadialGradient(140,84,5,140,84,winner?150:125);
+glow.addColorStop(0,accent+(winner?'aa':'66'));glow.addColorStop(.52,accent+'24');glow.addColorStop(1,'rgba(4,20,33,0)');
 ctx.fillStyle=glow;ctx.fillRect(0,0,280,170);
-drawFish(ctx,item.f,140,87,1,Math.min(78,item.f.L*2.05)*([.78,1,1.16,1.38][item.size]),t,false,item.mu);
+ctx.save();ctx.translate(140,84);ctx.rotate(time*.65);
+for(var ray=0;ray<18;ray++){ctx.rotate(Math.PI/9);ctx.globalAlpha=winner?.16:.07;ctx.fillStyle=accent;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(132,-4);ctx.lineTo(132,4);ctx.closePath();ctx.fill()}
+ctx.restore();ctx.globalAlpha=1;
+for(var ring=0;ring<(winner?4:2);ring++){ctx.save();ctx.translate(140,84);ctx.rotate(time*(ring%2?-.35:.5));ctx.strokeStyle=accent;ctx.globalAlpha=winner?.52:.19;ctx.lineWidth=winner?2.2:1.2;ctx.setLineDash([winner?7:4,7]);ctx.beginPath();ctx.ellipse(0,0,76+ring*12,34+ring*6,0,0,Math.PI*2);ctx.stroke();ctx.restore()}
+ctx.setLineDash([]);
+for(var star=0;star<(winner?34:14);star++){
+var angle=star*2.399+time*(winner?1.8:.75),rad=winner?48+(star*17%70):52+(star*19%60),sx=140+Math.cos(angle)*rad,sy=84+Math.sin(angle)*rad*.56,pulse=.55+.45*Math.sin(time*5+star);
+ctx.globalAlpha=pulse*(winner?.95:.52);ctx.fillStyle=star%4===0?'#fff4ba':'#effbff';ctx.beginPath();ctx.arc(sx,sy,winner?1.1+(star%3):.8+(star%2)*.5,0,Math.PI*2);ctx.fill();
+if(winner&&star%5===0){ctx.strokeStyle='#fff4c9';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(sx-4,sy);ctx.lineTo(sx+4,sy);ctx.moveTo(sx,sy-4);ctx.lineTo(sx,sy+4);ctx.stroke()}
+}
+ctx.globalAlpha=1;
+if(winner){ctx.save();ctx.translate(140,84);ctx.rotate(-time*.3);ctx.strokeStyle='#fff0ab';ctx.globalAlpha=.85;ctx.lineWidth=2.8;ctx.shadowColor='#ffd968';ctx.shadowBlur=16;ctx.beginPath();ctx.arc(0,0,62+Math.sin(time*4)*3,0,Math.PI*2);ctx.stroke();ctx.restore();ctx.shadowBlur=0}
+ctx.save();ctx.translate(140,87);ctx.rotate(winner?Math.sin(time*1.5)*.025:Math.sin(time*2)*.055);ctx.shadowColor=accent;ctx.shadowBlur=winner?32:10;
+drawFish(ctx,item.f,0,0,1,Math.min(winner?96:78,item.f.L*2.05)*([.78,1,1.16,1.38][item.size]),t+time,false,item.mu);
+ctx.restore();ctx.shadowBlur=0;
+if(winner){ctx.save();ctx.globalAlpha=.85;ctx.fillStyle='#fff1b0';ctx.font='900 11px sans-serif';ctx.textAlign='center';ctx.shadowColor='#ffc94b';ctx.shadowBlur=12;ctx.fillText('✦  DEIN FANG  ✦',140,18);ctx.restore()}
 }
 function spinQuestFish(item,index,total,onDone){
 var overlay=$('questSpinov'),card=$('questSpinCard'),heading=$('questSpinHeading'),name=$('questSpinFishName'),meta=$('questSpinFishMeta'),footer=$('questSpinFooter');
-var canvas=$('questSpinCanvas'),available=FISH.filter(function(f){return !f.w||f.w===world});if(!available.length)available=FISH;
+var available=FISH.filter(function(f){return !f.w||f.w===world});if(!available.length)available=FISH;
 overlay.className='ov on';card.className='';heading.textContent='🎣 Zufallsfisch '+(index+1)+' / '+total;name.textContent='???';meta.textContent='Die Angel dreht sich …';
 footer.textContent='Quest-Stufe '+item.level+'/10 · bessere Chancen auf seltene Fische!';
-var step=0,steps=24;
+var step=0,steps=27;
 function frame(){
-var preview=step===steps-1?item:{f:available[Math.floor(Math.random()*available.length)],mu:Math.random()<.08?1:0,size:1};
-drawQuestSpinFish(preview);name.textContent=step===steps-1?(MN[item.mu]||'')+item.f.n:preview.f.n;
-meta.textContent=step===steps-1?RN[item.f.r]+' · '+fishSizeName(item.size)+' · '+formatWeight(item.weight)+' kg':'Fisch wird gezogen …';
-if(step<steps-1){step++;setTimeout(frame,45+step*6);return}
-card.classList.add('winner');SND.win(item.f.r);if(item.f.r>=3)vib([45,35,65]);
+var winner=step>=steps-1,preview=winner?item:{f:available[Math.floor(Math.random()*available.length)],mu:Math.random()<.08?1:0,size:1};
+drawQuestSpinFish(preview,winner,step);name.textContent=winner?(MN[item.mu]||'')+item.f.n:preview.f.n;
+meta.textContent=winner?RN[item.f.r]+' · '+(MN[item.mu]||'Normal · ')+fishSizeName(item.size)+' · '+formatWeight(item.weight)+' kg':'Fisch wird gezogen …';
+if(!winner){
+step++;
+var progress=step/steps,delay=48+Math.pow(progress,3)*155;
+setTimeout(frame,delay);return;
+}
+heading.textContent='✨ GEWONNEN!';
+card.classList.add('winner');SND.win(item.f.r);if(item.f.r>=3){vib([45,35,65]);SND.epic()}
 footer.textContent='🎁 '+(MN[item.mu]||'')+item.f.n+' ist dein Gewinn!';
-setTimeout(function(){overlay.className='ov';card.className='';onDone()},1000);
+setTimeout(function(){overlay.className='ov';card.className='';onDone()},1550);
 }
 frame();
 }
@@ -1046,7 +1079,7 @@ function pick(p){p*=activeEvent&&activeEvent.id==='doubleLuck'?2:1;if(activeEven
 while(i<5&&r>=w[i]){r-=w[i];i++}
 var l=FISH.filter(function(f){return f.r==i&&(!f.w||f.w==world)});cur={r:i,ch:w[i]/s,f:l[Math.floor(Math.random()*l.length)],p:p}}
 function geo(){return{bx:W*.2,tx:W*.2+46,ty:SURF-64}}
-function down(e){au();if(ss&&Math.hypot(e.clientX-ss.x,e.clientY-ss.y)<85){ss=null;wish=true;vib([30,30,80]);say('Wunsch erfüllt! ⭐',2);SND.wish();for(var i=0;i<30;i++)bub.push({x:e.clientX,y:e.clientY,vx:rnd(-160,160),vy:rnd(-160,160),r:rnd(2,5),l:1.2});if(st!=='bite'&&st!=='mini')return}
+function down(e){au();hideFisherBubble();if(ss&&Math.hypot(e.clientX-ss.x,e.clientY-ss.y)<85){ss=null;wish=true;vib([30,30,80]);say('Wunsch erfüllt! ⭐',2);SND.wish();for(var i=0;i<30;i++)bub.push({x:e.clientX,y:e.clientY,vx:rnd(-160,160),vy:rnd(-160,160),r:rnd(2,5),l:1.2});if(st!=='bite'&&st!=='mini')return}
 if(st==='idle'){st='charge';pw=0;pd=1;castFollow=0}
 else if(st==='bite'){startMini()}
 else if(st==='mini'){tap()}}
@@ -1063,6 +1096,8 @@ function burst(px,py,n,col){for(var i=0;i<n;i++)bub.push({x:px,y:py,vx:rnd(-200,
 (function(){var cn=$('n').parentNode,tp=0,tl=0;cn.style.pointerEvents='auto';cn.addEventListener('click',function(){var nw=Date.now();tp=nw-tl<1500?tp+1:1;tl=nw;if(tp>=7){tp=0;openAdmin();SND.wish()}})})();
 function say(s,d){msg=s;mT=d||1}
 function showCharacterRemark(line,d){var el=$('characterRemark');if(!el)return;var names={lukas:'Lukas',soa:'Soa',kian:'Kian'},who=names[selectedCharacter]||'Lukas';el.textContent=who+': „'+line+'“';el.classList.remove('show');void el.offsetWidth;el.classList.add('show');characterRemarkTimer=d||4.2}
+function showFisherBubble(line){var names={lukas:'Lukas',soa:'Soa',kian:'Kian'},faces={lukas:'💪',soa:'😊',kian:'🏴‍☠️'},who=names[selectedCharacter]||'Lukas';$('fisherBubbleSpeaker').textContent=(faces[selectedCharacter]||'🎣')+' '+who+' sagt:';$('fisherBubbleText').textContent=line||'Ich warte hier, bis ich nochmal geworfen habe!';$('fisherBubble').classList.add('show')}
+function hideFisherBubble(){$('fisherBubble').classList.remove('show')}
 function maybeCommentOnCatch(f,size,mu){var line=null,r=Math.random(),pickLine=function(lines){return lines[Math.floor(Math.random()*lines.length)]};if(size===3&&r<.94){line=pickLine(['WAS?! Der ist ja gigantisch! Hast du den gesehen?!','Das ist ein echter Meeresriese!','Der ist fast so groß wie unser Boot!','Was für ein Gewicht – den Fang vergisst man nicht!'])}else if(f.r>=5&&r<.82){line=pickLine(['MYTHISCH! So einen sieht man fast nie!','Das ist ein Fang für die Geschichtsbücher!','Ich kann kaum glauben, wie selten dieser Fisch ist!'])}else if(f.r===4&&r<.7){line=pickLine(['Legendär! Der glitzert ja wie ein Schatz!','Wow, ein legendärer Fang. Richtig stark!','Den sollten wir uns gut merken!'])}else if(f.r===3&&r<.52){line=pickLine(['Unmöglich selten! Was für ein Glück!','Der ist unglaublich selten – super gemacht!','So einen Fang sieht man nicht alle Tage!'])}else if(f.r===2&&r<.34){line=pickLine(['Sehr selten! Heute läuft es richtig gut!','Schau dir den an – ein seltener Fang!','Der gehört zu den besonderen Fischen!'])}else if(mu===3&&r<.6){line='Regenbogen-Mutation! Der sieht ja magisch aus!'}else if(mu===2&&r<.48){line='Diamant! Der funkelt sogar unter Wasser!'}else if(mu===1&&r<.32){line='Gold-Mutation! Der könnte ein kleines Vermögen wert sein!'}else if(size===2&&r<.46){line='Der ist ganz schön groß! Bestimmt ordentlich schwer.'}if(line)showCharacterRemark(line,4.8)}
 function vib(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
 function startMini(){
@@ -1090,7 +1125,7 @@ $('fi').textContent='Gewicht: '+formatWeight(cur.weight)+' kg · Größe: '+fish
 var mc=mu&&!mdone[mu]&&mutationCount(mu)>=mutationGoal(mu);if(mc){mdone[mu]=1;var rw=[0,40000,150000,500000][mu],paidMutation=creditCoins(rw);save();$('n').textContent=coins;$('fi').textContent+=' · '+MN[mu].trim()+'-INDEX-ZIEL ERREICHT ('+mutationCount(mu)+'/'+mutationGoal(mu)+')! +'+paidMutation+' Münzen'}
 if(found()===FISH.length&&!done){done=true;var indexPaid=creditCoins(10000);save();$('n').textContent=coins;$('fi').textContent+=' · INDEX KOMPLETT! +'+indexPaid+' Münzen und goldene Angel'}rt=0;st='reveal';$('cardov').className='ov on';revStart();
 if(cur.r>=2)vib([60,40,60,40,150]);maybeCommentOnCatch(f,cur.sizeIndex,mu)}
-function closeCatchCard(){fxClr();$('cardov').className='ov';st='idle';if(pendingChest)showChest()}
+function closeCatchCard(){fxClr();$('cardov').className='ov';st='idle';if(pendingChest)showChest();else showFisherBubble('Ich warte hier, bis ich nochmal geworfen habe!')}
 $('ok').onclick=function(){
 if(cardSold)return;
 cardSold=true;
@@ -1106,7 +1141,7 @@ if(catchKey&&inv[catchKey]>0&&bucket.length<5){
 closeCatchCard();
 };
 $('sl').onclick=function(){if(cardSold)return;cardSold=true;SND.coin();if(catchKey&&inv[catchKey]>0){var caughtInfo=bucketFishInfo(catchKey);inv[catchKey]--;creditCoins(caughtInfo?fishSellValue(caughtInfo.f,caughtInfo.mu,caughtInfo.size):lastCatchValue);questProgress('sell',1);save();$('n').textContent=coins}closeCatchCard()};
-$('bk').onclick=function(){openBook()};$('cl').onclick=function(){$('book').className='ov'};$('questBtn').onclick=openQuests;$('questClose').onclick=function(){$('questov').className='ov'};
+$('bk').onclick=function(){openBook()};$('cl').onclick=function(){$('book').className='ov'};$('questBtn').onclick=openQuests;$('questClose').onclick=function(){$('questov').className='ov';showFisherBubble('Ich warte hier, bis ich nochmal geworfen habe!')};
 $('sh').onclick=function(){openShop2()};$('cs').onclick=function(){$('shop').className='ov'};
 var UP=[{k:'rod',n:'Bessere Angel',d:'Balken wird langsamer',max:5,c:function(l){return 60*Math.pow(2,l)}},
 {k:'charm',n:'Glücksbringer',d:'Mehr seltene Fische, dauerhaft',max:5,c:function(l){return 100*Math.pow(2,l)}},
@@ -1426,7 +1461,7 @@ $('chestOpen').style.display='none';$('chestClose').style.display='inline-block'
 },5400);
 }
 $('chestOpen').onclick=openChest;
-$('chestClose').onclick=function(){$('chestov').className='ov';$('chestCard').className='';$('caseTrack').style.transition='none';$('caseTrack').style.transform='translateX(0)';};
+$('chestClose').onclick=function(){$('chestov').className='ov';$('chestCard').className='';$('caseTrack').style.transition='none';$('caseTrack').style.transform='translateX(0)';showFisherBubble('Ich warte hier, bis ich nochmal geworfen habe!')};
 function fitPirateCanvas(){var rect=pirateCanvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);pirateCanvas.width=Math.max(1,Math.round(rect.width*dpr));pirateCanvas.height=Math.max(1,Math.round(rect.height*dpr));pirateCtx.setTransform(dpr,0,0,dpr,0,0)}
 function spawnPirateTarget(){var w=pirateCanvas.clientWidth||560,h=pirateCanvas.clientHeight||320;pirate.target={x:rnd(48,Math.max(49,w-48)),y:rnd(48,Math.max(49,h-48)),age:0,duration:2.45}}
 function startPirate(){$('adminov').className='ov';$('cardov').className='ov';fxClr();st='idle';cur=null;m=null;$('pirateov').className='ov on';fitPirateCanvas();pirate={time:30,hits:0,needed:7,misses:0,maxMisses:3,target:null,finished:false};spawnPirateTarget();$('pirateResult').style.display='none';$('pirateClose').style.display='none';$('piratec').style.display='block';$('pirateHint').textContent='Ziele mit dem Mauszeiger anvisieren und anklicken!';SND.boom()}
