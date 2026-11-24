@@ -104,3 +104,12 @@ Der Perlen-Dreizack bleibt dauerhaft im Spielstand, gibt einen kleinen Glücksbo
 - Im Admin-Menü können der komplette Fisch-Index inklusive Gold-, Diamant- und Rainbow-Varianten sowie alle Welten freigeschaltet und der Perlen-Dreizack vergeben werden.
 - Der neue **Sternen-Abgrund** kostet 75.000 Münzen, bietet **3× Glück**, eine eigene Kristall-Unterwasserwelt und 12 exklusive Fische über alle Seltenheitsstufen.
 - Das Finale wurde auf neun Kapitel erweitert: Lukas erreicht die Küste, fährt nach Hause und erlebt eine längere Wiedersehensszene mit Umarmung und kurzen Gesprächen mit seiner Familie.
+
+
+## Fischgrößen und Film-Finale
+
+- Jeder Fang erhält eine zufällige Größe: **Small**, **Normal**, **Big** oder selten **Gigantic**. Das angezeigte Gewicht wird aus der Fischart und der Größenklasse berechnet.
+- Die Größenklasse verändert den Verkaufswert und den passiven Geld-Eimer-Ertrag: Small ×0,65, Normal ×1, Big ×1,75 und Gigantic ×3,5.
+- Alte gespeicherte Fänge ohne Größenangabe bleiben als Normal-Fische nutzbar.
+- Das Finale läuft jetzt automatisch als Vollbild-Animationsfilm mit gezeichneten Figuren, Boot, Heimfahrt, Familien-Wiedersehen, Dialogen und Szenenübergängen. Die Szenen können weiterhin zurück- oder übersprungen werden.
+- Bei besonders großen oder sehr seltenen Fängen kommentiert die Spielfigur gelegentlich den Fang – nicht bei jedem Fisch.
