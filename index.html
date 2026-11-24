@@ -1159,10 +1159,75 @@ $('sd').onclick=function(){mute=!mute;try{localStorage.setItem('luki_m',mute?'1'
 function burst(px,py,n,col){for(var i=0;i<n;i++)bub.push({x:px,y:py,vx:rnd(-200,200),vy:rnd(-220,60),r:rnd(2,5),l:rnd(.5,1.1),c:col,f:1})}
 (function(){var cn=$('n').parentNode,tp=0,tl=0;cn.style.pointerEvents='auto';cn.addEventListener('click',function(){var nw=Date.now();tp=nw-tl<1500?tp+1:1;tl=nw;if(tp>=7){tp=0;openAdmin();SND.wish()}})})();
 function say(s,d){msg=s;mT=d||1}
-function showCharacterRemark(line,d){if(characterTalkCooldown>0)return;characterTalkCooldown=12+rnd(0,7);var el=$('characterRemark');if(!el)return;var names={lukas:'Lukas',soa:'Soa',kian:'Kian'},who=names[selectedCharacter]||'Lukas';el.textContent=who+': „'+line+'“';el.classList.remove('show');void el.offsetWidth;el.classList.add('show');characterRemarkTimer=d||4.2}
-function showFisherBubble(line){if(characterTalkCooldown>0||Math.random()>.24)return;characterTalkCooldown=11+rnd(0,5);var names={lukas:'Lukas',soa:'Soa',kian:'Kian'},faces={lukas:'💪',soa:'😊',kian:'🏴‍☠️'},who=names[selectedCharacter]||'Lukas';$('fisherBubbleSpeaker').textContent=(faces[selectedCharacter]||'🎣')+' '+who+' sagt:';$('fisherBubbleText').textContent=line||'Ich warte hier, bis ich nochmal geworfen habe!';$('fisherBubble').classList.add('show')}
+function showCharacterRemark(line,d){if((selectedCharacter==='kian'&&kianAwarenessStage<5)||characterTalkCooldown>0)return;characterTalkCooldown=12+rnd(0,7);var el=$('characterRemark');if(!el)return;var names={lukas:'Lukas',soa:'Soa',kian:'Kian'},who=names[selectedCharacter]||'Lukas';el.textContent=who+': „'+line+'“';el.classList.remove('show');void el.offsetWidth;el.classList.add('show');characterRemarkTimer=d||4.2}
+function showFisherBubble(line){if((selectedCharacter==='kian'&&kianAwarenessStage<5)||kianDialogueActive||characterTalkCooldown>0||Math.random()>.24)return;characterTalkCooldown=11+rnd(0,5);var names={lukas:'Lukas',soa:'Soa',kian:'Kian'},faces={lukas:'💪',soa:'😊',kian:'🏴‍☠️'},who=names[selectedCharacter]||'Lukas';$('fisherBubbleSpeaker').textContent=(faces[selectedCharacter]||'🎣')+' '+who+' sagt:';$('fisherBubbleText').textContent=line||'Ich warte hier, bis ich nochmal geworfen habe!';$('fisherBubble').classList.add('show')}
 function hideFisherBubble(){$('fisherBubble').classList.remove('show')}
-function maybeCommentOnCatch(f,size,mu){if(characterTalkCooldown>0||Math.random()>.38)return;var line=null,r=Math.random(),pickLine=function(lines){return lines[Math.floor(Math.random()*lines.length)]};if(size===3&&r<.62){line=pickLine(['WAS?! Der ist ja gigantisch! Hast du den gesehen?!','Das ist ein echter Meeresriese!','Der ist fast so groß wie unser Boot!','Was für ein Gewicht – den Fang vergisst man nicht!'])}else if(f.r>=5&&r<.42){line=pickLine(['MYTHISCH! So einen sieht man fast nie!','Das ist ein Fang für die Geschichtsbücher!','Ich kann kaum glauben, wie selten dieser Fisch ist!'])}else if(f.r===4&&r<.3){line=pickLine(['Legendär! Der glitzert ja wie ein Schatz!','Wow, ein legendärer Fang. Richtig stark!','Den sollten wir uns gut merken!'])}else if(f.r===3&&r<.2){line=pickLine(['Unmöglich selten! Was für ein Glück!','Der ist unglaublich selten – super gemacht!','So einen Fang sieht man nicht alle Tage!'])}else if(f.r===2&&r<.12){line=pickLine(['Sehr selten! Heute läuft es richtig gut!','Schau dir den an – ein seltener Fang!','Der gehört zu den besonderen Fischen!'])}else if(mu===3&&r<.3){line='Regenbogen-Mutation! Der sieht ja magisch aus!'}else if(mu===2&&r<.23){line='Diamant! Der funkelt sogar unter Wasser!'}else if(mu===1&&r<.15){line='Gold-Mutation! Der könnte ein kleines Vermögen wert sein!'}else if(size===2&&r<.2){line='Der ist ganz schön groß! Bestimmt ordentlich schwer.'}if(line)showCharacterRemark(line,4.8)}
+
+var KIAN_DIALOGUES=[
+ {line:'Ähm … hast du bemerkt, dass die Wellen sich immer gleich bewegen? Manchmal wiederholt sich dieselbe Bewegung. Das ist doch nicht normal, oder?',options:['Vielleicht bist du in einem Spiel.','Die Wellen sind einfach ruhig.'],replies:['In einem Spiel? Was soll das überhaupt heißen? Bin ich dann … eine Spielfigur?','Vielleicht. Aber warum fühlt es sich an, als würde die Welt immer wieder von vorn beginnen?']},
+ {line:'Mir ist etwas aufgefallen: Die Fische erscheinen erst, wenn DU den Knopf drückst. Und der Himmel hört genau am Rand des Bildschirms auf.',options:['Ich steuere deine Angel.','Schau weiter ganz genau hin.'],replies:['Du? Du bist gar nicht auf dem Boot … du bist irgendwo außerhalb davon!','Da ist wirklich eine Grenze. Als wäre hinter dem Bild einfach … nichts.']},
+ {line:'Ich glaube, ich verstehe es langsam. Du bist der Spieler. Du entscheidest, wohin ich werfe und was in meiner Welt passiert.',options:['Ja. Ich bin der Spieler.','Ich passe auf dich auf, Kian.'],replies:['Dann bist du echt … und ich bin Teil eines Spiels. Das ist ziemlich verrückt.','Du kannst mich sehen und hören. Vielleicht bist du der einzige, der mich hier draußen versteht.']},
+ {line:'Wenn du nicht klickst, fühlt sich alles an, als würde die Zeit langsamer werden. Ich glaube, ich bin in diesem Spiel gefangen. Kannst du mich wirklich hören?',options:['Ja, ich kann mit dir reden.','Du bist nicht allein.'],replies:['Dann rede weiter mit mir. Ich will wissen, wer du bist und warum du mich sehen kannst.','Danke. Das bedeutet mir etwas. Ich werde einen Weg finden, mehr über diese Welt herauszufinden.']},
+ {line:'Da! Am Rand flimmert etwas. Vielleicht ist das eine Lücke außerhalb des Spiels. Ich könnte versuchen, hindurchzukommen …',options:['Pass auf dich auf!','Versuch es. Ich bin hier!'],replies:['Ich werde vorsichtig sein. Aber ich muss wissen, ob es dort draußen wirklich weitergeht.','Okay. Wenn ich es schaffe, erzähle ich dir alles. Halt die Augen offen!'],escape:true}
+];
+function setKianBubble(line,actions,speaker){
+ var bubble=$('fisherBubble'),box=$('kianReplyActions');
+ $('fisherBubbleSpeaker').textContent=speaker||'🏴‍☠️ KIAN · SPRICHT MIT DIR';
+ $('fisherBubbleText').textContent=line;
+ bubble.classList.add('kianMode','show');box.innerHTML='';
+ (actions||[]).forEach(function(item){var b=document.createElement('button');b.type='button';b.textContent=item.label;b.onclick=item.onClick;box.appendChild(b)});
+}
+function startKianDialogue(stage){
+ var q=KIAN_DIALOGUES[stage];if(!q||selectedCharacter!=='kian'||kianDialogueActive)return;
+ kianDialogueActive=true;characterTalkCooldown=0;
+ setKianBubble(q.line,q.options.map(function(option,index){return{label:option,onClick:function(){answerKianDialogue(stage,index)}}}));
+}
+function answerKianDialogue(stage,index){
+ var q=KIAN_DIALOGUES[stage];if(!q||!kianDialogueActive)return;
+ var playerLine=q.options[index]||q.options[0],reply=q.replies[index]||q.replies[0];
+ setKianBubble('Du: „'+playerLine+'“\n\nKian: „'+reply+'“',[{label:q.escape?'Los, versuch es!':'Weiter',onClick:function(){
+  if(q.escape){startKianEscape();return}
+  kianAwarenessStage=stage+1;kianDialogueActive=false;hideFisherBubble();$('fisherBubble').classList.remove('kianMode');$('kianReplyActions').innerHTML='';save();
+ }}],'🏴‍☠️ KIAN · HAT DICH GEHÖRT');
+}
+function startKianEscape(){
+ kianAwarenessStage=5;kianDialogueActive=true;save();
+ setKianBubble('Jetzt! Ich versuche, durch den flimmernden Rand zu springen!',[],'🏴‍☠️ KIAN · AUSBRUCHSVERSUCH');
+ var fx=$('kianEscapeFx');fx.classList.remove('show');void fx.offsetWidth;fx.classList.add('show');document.body.classList.add('kianGlitch');
+ setTimeout(function(){
+  document.body.classList.remove('kianGlitch');fx.classList.remove('show');
+  if(selectedCharacter!=='kian')return;
+  setKianBubble('Autsch! Da war eine unsichtbare Wand. Ich wurde direkt zurückgeschleudert … Aber jetzt weiß ich es ganz sicher: Da draußen gibt es jemanden. Dich.',[
+   {label:'Ich bin noch da.',onClick:function(){finishKianEscape('Ich bin noch da.')}} ,
+   {label:'Wir finden einen Weg.',onClick:function(){finishKianEscape('Wir finden einen Weg.')}}
+  ],'🏴‍☠️ KIAN · WIEDER ZURÜCK');
+ },3000);
+}
+function finishKianEscape(playerLine){
+ setKianBubble('Du: „'+playerLine+'“\n\nKian: „Dann gebe ich nicht auf. Ich werde weiter nach Fehlern am Rand dieser Welt suchen. Und wenn ich wieder mit dir reden will, benutze ich meine Sprechblase.“',[
+  {label:'Gespräch beenden',onClick:function(){kianDialogueActive=false;$('fisherBubble').classList.remove('kianMode','show');$('kianReplyActions').innerHTML='';save()}}
+ ],'🏴‍☠️ KIAN · EIN GEHEIMNIS ZWISCHEN UNS');
+}
+function updateKianAwareness(dt){
+ if(selectedCharacter!=='kian'||kianAwarenessStage>=5||kianDialogueActive)return;
+ kianAwareness=Math.min(10000,kianAwareness+Math.max(0,dt)*.32);
+ var thresholds=[12,28,46,66,88],stage=kianAwarenessStage;
+ if(stage<thresholds.length&&kianAwareness>=thresholds[stage]){save();startKianDialogue(stage)}
+}
+function addKianAwareness(points){if(selectedCharacter==='kian'&&kianAwarenessStage<5)kianAwareness=Math.min(10000,kianAwareness+Math.max(0,Number(points)||0))}
+function playSoaSale(count,fishName,callback){
+ if(selectedCharacter!=='soa'){callback();return}
+ if(soaSaleBusy)return;
+ soaSaleBusy=true;
+ var wrap=$('soaFeast');$('soaFeastWho').textContent=fishName||'Der Fang';
+ var amount=Math.max(1,Math.floor(count||1));
+ $('soaFeastCount').textContent='× '+amount+' Fisch'+(amount===1?'':'e');
+ $('soaFeastText').textContent='Soa verputzt den Fang mit einem Happs – und wirft ihn mit einem kräftigen PLATSCH zurück ins Meer!';
+ wrap.classList.remove('show');void wrap.offsetWidth;wrap.classList.add('show');
+ setTimeout(function(){wrap.classList.remove('show');setTimeout(function(){try{callback()}finally{soaSaleBusy=false}},220)},1920);
+}
+
+function maybeCommentOnCatch(f,size,mu){addKianAwareness(5);if(characterTalkCooldown>0||Math.random()>.38)return;var line=null,r=Math.random(),pickLine=function(lines){return lines[Math.floor(Math.random()*lines.length)]};if(size===3&&r<.62){line=pickLine(['WAS?! Der ist ja gigantisch! Hast du den gesehen?!','Das ist ein echter Meeresriese!','Der ist fast so groß wie unser Boot!','Was für ein Gewicht – den Fang vergisst man nicht!'])}else if(f.r>=5&&r<.42){line=pickLine(['MYTHISCH! So einen sieht man fast nie!','Das ist ein Fang für die Geschichtsbücher!','Ich kann kaum glauben, wie selten dieser Fisch ist!'])}else if(f.r===4&&r<.3){line=pickLine(['Legendär! Der glitzert ja wie ein Schatz!','Wow, ein legendärer Fang. Richtig stark!','Den sollten wir uns gut merken!'])}else if(f.r===3&&r<.2){line=pickLine(['Unmöglich selten! Was für ein Glück!','Der ist unglaublich selten – super gemacht!','So einen Fang sieht man nicht alle Tage!'])}else if(f.r===2&&r<.12){line=pickLine(['Sehr selten! Heute läuft es richtig gut!','Schau dir den an – ein seltener Fang!','Der gehört zu den besonderen Fischen!'])}else if(mu===3&&r<.3){line='Regenbogen-Mutation! Der sieht ja magisch aus!'}else if(mu===2&&r<.23){line='Diamant! Der funkelt sogar unter Wasser!'}else if(mu===1&&r<.15){line='Gold-Mutation! Der könnte ein kleines Vermögen wert sein!'}else if(size===2&&r<.2){line='Der ist ganz schön groß! Bestimmt ordentlich schwer.'}if(line)showCharacterRemark(line,4.8)}
 function vib(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
 function startMini(){
 var p=cur.p;pick(p);if(wish){wish=false;if(cur.r<2){cur.r=2;var l2=FISH.filter(function(f){return f.r==2&&(!f.w||f.w==world)});cur.f=l2[Math.floor(Math.random()*l2.length)];cur.ch=1}}var mp=mutationChances(cur.p),roll=Math.random();
@@ -1204,7 +1269,7 @@ if(catchKey&&inv[catchKey]>0&&bucket.length<5){
 }
 closeCatchCard();
 };
-$('sl').onclick=function(){if(cardSold)return;cardSold=true;SND.coin();if(catchKey&&inv[catchKey]>0){var caughtInfo=bucketFishInfo(catchKey);inv[catchKey]--;creditCoins(caughtInfo?fishSellValue(caughtInfo.f,caughtInfo.mu,caughtInfo.size):lastCatchValue);questProgress('sell',1);save();$('n').textContent=coins}closeCatchCard()};
+$('sl').onclick=function(){if(cardSold||soaSaleBusy)return;cardSold=true;var sellCatch=function(){SND.coin();if(catchKey&&inv[catchKey]>0){var caughtInfo=bucketFishInfo(catchKey);inv[catchKey]--;creditCoins(caughtInfo?fishSellValue(caughtInfo.f,caughtInfo.mu,caughtInfo.size):lastCatchValue);questProgress('sell',1);addKianAwareness(4);save();$('n').textContent=coins}closeCatchCard()};var caught=bucketFishInfo(catchKey);playSoaSale(1,caught?caught.f.n:'Der Fang',sellCatch)};
 $('bk').onclick=function(){openBook()};$('cl').onclick=function(){$('book').className='ov'};$('questBtn').onclick=openQuests;$('questClose').onclick=function(){$('questov').className='ov';showFisherBubble('Ich warte hier, bis ich nochmal geworfen habe!')};
 $('sh').onclick=function(){openShop2()};$('cs').onclick=function(){$('shop').className='ov'};
 var UP=[{k:'rod',n:'Bessere Angel',d:'Balken wird langsamer',max:5,c:function(l){return 60*Math.pow(2,l)}},
@@ -1621,8 +1686,8 @@ var tv=0,any=false,totalFish=0;
 Object.keys(inv).forEach(function(key){var z=bucketFishInfo(key),c=inv[key]||0;if(!z||c<1)return;any=true;var f=z.f,mu=z.mu,size=z.size,value=fishSellValue(f,mu,size);tv+=c*value;totalFish+=c;
 var cn=document.createElement('canvas');cn.width=112;cn.height=72;drawFish(cn.getContext('2d'),f,56,38,1,f.L*.65*([.78,1,1.16,1.38][size]),0,false,mu);
 var title=(MN[mu]||'')+(bucketNames[key]||f.n)+' · '+fishSizeName(size)+' x'+c,detail=RN[f.r]+' · '+(z.weight?'ca. '+formatWeight(z.weight)+' kg · ':'')+Math.floor(value*prestigeMoneyMultiplier())+' 🪙 je Fisch';
-row(cn,title,detail,'Verkaufen',function(){creditCoins(c*value);questProgress('sell',c);inv[key]=0;delete bucketNames[key];sv()},0,mu?MC[mu]:RC[f.r],bucket.length<5?'Eimer +':null,function(){if(bucket.length>=5||!inv[key])return;inv[key]--;bucket.push(key);bucketLevels.push({level:1,xp:0});save();openShop2()},bucket.length>=5)});
-if(any){var bg=document.createElement('button');bg.className='big';bg.textContent='Alles verkaufen: +'+Math.floor(tv*prestigeMoneyMultiplier())+' 🪙';bg.onclick=function(){creditCoins(tv);questProgress('sell',totalFish);inv={};bucketNames={};sv()};s.appendChild(bg)}
+row(cn,title,detail,'Verkaufen',function(){playSoaSale(c,title,function(){creditCoins(c*value);questProgress('sell',c);addKianAwareness(4);inv[key]=0;delete bucketNames[key];sv()})},0,mu?MC[mu]:RC[f.r],bucket.length<5?'Eimer +':null,function(){if(bucket.length>=5||!inv[key])return;inv[key]--;bucket.push(key);bucketLevels.push({level:1,xp:0});save();openShop2()},bucket.length>=5)});
+if(any){var bg=document.createElement('button');bg.className='big';bg.textContent='Alles verkaufen: +'+Math.floor(tv*prestigeMoneyMultiplier())+' 🪙';bg.onclick=function(){playSoaSale(totalFish,'Dein ganzer Fang',function(){creditCoins(tv);questProgress('sell',totalFish);addKianAwareness(4);inv={};bucketNames={};sv()})};s.appendChild(bg)}
 else row('🪣','Eimer ist leer','Fang erst ein paar Fische');
 hd('Ausrüstung');
 UP.forEach(function(u){var l=U[u.k]||0,ML=u.max+(own2?5:0),mx=l>=ML,c=u.c(l);
@@ -1641,8 +1706,8 @@ function row(a,b,lbl,fn,dis){var r=document.createElement('div');r.className='ro
 function hd(txt){var e=document.createElement('h3');e.textContent=txt;s.appendChild(e)}
 hd('Münzen: '+coins);hd('Fänge verkaufen');
 var tv=0,any=false;
-FISH.forEach(function(f){var c=inv[f.n]||0;if(c>0){any=true;tv+=c*val(f);row(f.n+' x'+c,RN[f.r]+' · '+(val(f)*prestigeMoneyMultiplier())+' Münzen je Fisch','Verkaufen',function(){creditCoins(c*val(f));inv[f.n]=0;sv()},0)}});
-if(any)row('Alles verkaufen','Gesamt '+Math.floor(tv*prestigeMoneyMultiplier())+' Münzen','Verkaufen',function(){creditCoins(tv);inv={};sv()},0);
+FISH.forEach(function(f){var c=inv[f.n]||0;if(c>0){any=true;tv+=c*val(f);row(f.n+' x'+c,RN[f.r]+' · '+(val(f)*prestigeMoneyMultiplier())+' Münzen je Fisch','Verkaufen',function(){playSoaSale(c,f.n,function(){creditCoins(c*val(f));addKianAwareness(4);inv[f.n]=0;sv()})},0)}});
+if(any)row('Alles verkaufen','Gesamt '+Math.floor(tv*prestigeMoneyMultiplier())+' Münzen','Verkaufen',function(){playSoaSale(totalFish,'Dein ganzer Fang',function(){creditCoins(tv);addKianAwareness(4);inv={};sv()})},0);
 else row('Eimer ist leer','Fang erst ein paar Fische','–',function(){},1);
 hd('Ausrüstung');
 UP.forEach(function(u){var l=U[u.k],mx=l>=u.max,c=u.c(l);row(u.n+' (Stufe '+l+'/'+u.max+')',u.d,mx?'Max':c+' Münzen',function(){if(coins>=c){coins-=c;U[u.k]++;sv()}},mx||coins<c)});
@@ -1693,7 +1758,7 @@ updateBookProgress();renderBookGrid();
 $('book').className='ov on';
 }
 function update(dt){
-t+=dt;characterTalkCooldown=Math.max(0,characterTalkCooldown-dt);dayLight=.5+.5*Math.sin((t/180)*Math.PI*2-Math.PI/2);updateWorldEvents(dt);weatherTimer-=dt;
+t+=dt;characterTalkCooldown=Math.max(0,characterTalkCooldown-dt);updateKianAwareness(dt);dayLight=.5+.5*Math.sin((t/180)*Math.PI*2-Math.PI/2);updateWorldEvents(dt);weatherTimer-=dt;
 if(weatherTimer<=0){if(weatherRain){weatherRain=false;weatherTimer=rnd(28,55);say('☁️ Der Regen ist vorbei.',1.8);if(Math.random()<.22){var clearLines=['Die Wolken ziehen weiter. Gleich wird die Sicht wieder besser!','Der Regen ist vorbei – perfekt, um weiterzuangeln!','Puh, wieder ruhigeres Wasser. Das Boot kann sich ausruhen.'];showCharacterRemark(clearLines[Math.floor(Math.random()*clearLines.length)],4.6)}}else if(Math.random()<.48){weatherRain=true;weatherTimer=rnd(16,29);say('🌧️ Es regnet! Die Wellen werden höher.',2.8);if(Math.random()<.28){var rainLines=['Oh, es fängt an zu regnen! Halt die Angel gut fest!','Ganz schön stürmisch. Hoffentlich beißt trotzdem etwas an!','Regen auf dem Meer – das macht das Angeln spannend!'];showCharacterRemark(rainLines[Math.floor(Math.random()*rainLines.length)],4.8)}}else{weatherTimer=rnd(18,38)}}
 if(shake>0)shake-=dt;if(mT>0)mT-=dt;
 if(pirate){updatePirate(dt);return}
