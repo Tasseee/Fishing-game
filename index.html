@@ -410,7 +410,7 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
   <div id="bookFoot">💡 Tipp: Tippe auf eine Mutation, um nur diese Variante zu sammeln.</div>
 </div></div>
 <div class="ov" id="shop"><div class="bh"><span>Laden</span><button id="cs">Zurück</button></div><div id="sc"></div></div>
-<div class="ov" id="chestov"><div id="chestCard"><div id="chestArt">🎁</div><h2>GEHEIME SCHATZKISTE!</h2><p>Eine kostenlose Fundkiste! Die Leiste rast durch mögliche Belohnungen und stoppt auf deinem Gewinn.</p><div id="caseWrap"><div id="casePointer"></div><div id="caseViewport"><div id="caseTrack"></div></div></div><div id="caseOdds">40% Münzen · 30% Köder · 30% Upgrade-Stufen</div><div id="chestReward"></div><button id="chestOpen">Kiste öffnen!</button> <button id="chestClose">Weiter angeln</button></div></div>
+<div class="ov" id="chestov"><div id="chestCard"><div id="chestArt">🎁</div><h2>GEHEIME SCHATZKISTE!</h2><p>Eine kostenlose Fundkiste! Die Leiste rast durch mögliche Belohnungen und stoppt auf deinem Gewinn.</p><div id="caseWrap"><div id="casePointer"></div><div id="caseViewport"><div id="caseTrack"></div></div></div><div id="caseOdds">24% Münzen · 20% Köder · 22% Upgrades · 15% seltener Fisch · 12% Mutation · 5% Schatzkarte · 2% Hauptpreis</div><div id="chestReward"></div><button id="chestOpen">Kiste öffnen!</button> <button id="chestClose">Weiter angeln</button></div></div>
 <div class="ov" id="pirateov"><div id="piratePanel"><h2>🏴‍☠️ PIRATENSCHIFF!</h2><p>Die Piraten greifen an! Triff 7 schrumpfende Zielscheiben. Jede Scheibe wird schnell kleiner. Du hast 30 Sekunden und darfst höchstens 3 Ziele verpassen.</p><div id="pirateStats"><span class="pstat" id="pirateTime">Zeit: 30 s</span><span class="pstat" id="pirateHits">Treffer: 0/7</span><span class="pstat" id="pirateMisses">Verfehlt: 0/3</span></div><canvas id="piratec"></canvas><div id="pirateHint">Ziele mit dem Mauszeiger anvisieren und anklicken!</div><div id="pirateResult"></div><button id="pirateClose">Zurück zum Angeln</button></div></div>
 
 
@@ -795,11 +795,24 @@ $('adminStartPirates').onclick=function(){
 };
 
 function grantRandomUpgrades(amount){var granted=0,names=[];for(var i=0;i<amount;i++){var pool=UP.filter(function(u){return(U[u.k]||0)<u.max+(own2?5:0)});if(!pool.length)break;var u=pool[Math.floor(Math.random()*pool.length)];U[u.k]=(U[u.k]||0)+1;granted++;names.push(u.n)}return{count:granted,names:names}}
+var CHEST_PRIZES=[
+{type:'coins',chance:24,icon:'💰',name:'Münzregen',sub:'+25% Münzen',color:'#ffd36a'},
+{type:'bait',chance:20,icon:'🪱',name:'Köderpaket',sub:'25 Köder',color:'#69d9b7'},
+{type:'upgrade',chance:22,icon:'⚡',name:'Upgrade-Paket',sub:'10 Stufen',color:'#c8a4ff'},
+{type:'rareFish',chance:15,icon:'🐠',name:'Seltener Fisch',sub:'Seltenheit ab 3',color:'#69c8ef'},
+{type:'mutantFish',chance:12,icon:'💎',name:'Mutations-Fisch',sub:'Zufällige Mutation',color:'#8fe8ff'},
+{type:'map',chance:5,icon:'🗺️',name:'Schatzkarte',sub:'12.500 Münzen',color:'#e7bd7a'},
+{type:'pearlRod',chance:2,icon:'🔱',name:'PERLEN-DREIZACK',sub:'HAUPTPREIS · dauerhaft',color:'#75fff0'}
+];
+function rollChestPrize(){
+var roll=Math.random()*100,total=0;
+for(var i=0;i<CHEST_PRIZES.length;i++){total+=CHEST_PRIZES[i].chance;if(roll<total)return CHEST_PRIZES[i]}
+return CHEST_PRIZES[CHEST_PRIZES.length-1];
+}
 function buildCaseReel(winner){
 var track=$('caseTrack');track.innerHTML='';track.style.transition='none';track.style.transform='translateX(0)';
-var prizePool=[{type:'coins',icon:'💰',name:'Münzregen',sub:'+25% Münzen',color:'#ffd36a'},{type:'bait',icon:'🪱',name:'Köderpaket',sub:'25 Köder',color:'#69d9b7'},{type:'upgrade',icon:'⚡',name:'Upgrade',sub:'10 Stufen',color:'#c8a4ff'}];
-var chosen=prizePool.find(function(p){return p.type===winner.type}),winIndex=23,slots=[];
-for(var i=0;i<30;i++)slots.push(prizePool[Math.floor(Math.random()*prizePool.length)]);
+var chosen=CHEST_PRIZES.find(function(p){return p.type===winner.type}),winIndex=23,slots=[];
+for(var i=0;i<30;i++)slots.push(CHEST_PRIZES[Math.floor(Math.random()*CHEST_PRIZES.length)]);
 slots[winIndex]=chosen;
 slots.forEach(function(prize,i){
 var slot=document.createElement('div');slot.className='caseSlot'+(i===winIndex?' winner':'');slot.style.setProperty('--slot-color',prize.color);
@@ -809,12 +822,18 @@ var sub=document.createElement('small');sub.textContent=prize.sub;slot.appendChi
 });
 return winIndex;
 }
+function addChestFish(mu,minR){
+var pool=FISH.filter(function(f){return f.r>=minR&&(!f.w||f.w===world)});
+if(!pool.length)pool=FISH.filter(function(f){return f.r>=minR});
+var fish=pool[Math.floor(Math.random()*pool.length)],key=fish.n+(mu?'#'+mu:'');
+if(mu){var mk=mu+'|'+fish.n;mcoll[mk]=(mcoll[mk]||0)+1}else coll[fish.n]=(coll[fish.n]||0)+1;
+inv[key]=(inv[key]||0)+1;$('f').textContent=found();
+return {fish:fish,key:key,mu:mu};
+}
 function openChest(){
 if($('chestOpen').disabled)return;
 $('chestOpen').disabled=true;$('chestCard').className='opening spinning';SND.epic();
-var roll=Math.random(),prize;
-if(roll<.4)prize={type:'coins'};else if(roll<.7)prize={type:'bait'};else prize={type:'upgrade'};
-var winnerIndex=buildCaseReel(prize),viewport=$('caseViewport'),track=$('caseTrack'),winner=track.children[winnerIndex];
+var prize=rollChestPrize(),winnerIndex=buildCaseReel(prize),viewport=$('caseViewport'),track=$('caseTrack'),winner=track.children[winnerIndex];
 requestAnimationFrame(function(){
 var target=winner.offsetLeft+winner.offsetWidth/2-viewport.clientWidth/2;
 track.style.transition='transform 5.2s cubic-bezier(.08,.72,.12,1)';
@@ -822,10 +841,19 @@ track.style.transform='translateX('+(-Math.max(0,target))+'px)';
 });
 setTimeout(function(){
 var msg='';
-if(prize.type==='coins'){var reward=Math.max(50,Math.round(coins*.25));creditCoins(reward);msg='💰 Münzregen! +'+reward.toLocaleString('de-DE')+' Münzen (25% deines aktuellen Geldes).'}
+if(prize.type==='coins'){var reward=Math.max(50,Math.round(coins*.25));creditCoins(reward);msg='💰 Münzregen! +'+reward.toLocaleString('de-DE')+' Münzen (25% deines Geldes).'}
 else if(prize.type==='bait'){U.bait=(U.bait||0)+25;msg='🪱 25 Glücksköder erhalten!'}
-else{var g=grantRandomUpgrades(10);msg=g.count?'⚡ '+g.count+' zufällige Upgrade-Stufen erhalten!':'Alle Upgrades sind bereits auf Maximum.'}
-save();$('n').textContent=coins;$('chestCard').className='opened';$('chestArt').textContent='💎';$('chestReward').textContent=msg;$('chestOpen').style.display='none';$('chestClose').style.display='inline-block';SND.wish();
+else if(prize.type==='upgrade'){var g=grantRandomUpgrades(10);msg=g.count?'⚡ '+g.count+' zufällige Upgrade-Stufen erhalten!':'Alle Upgrades sind bereits auf Maximum.'}
+else if(prize.type==='rareFish'){var rf=addChestFish(0,3);msg='🐠 Seltener Fang: '+rf.fish.n+' ('+RN[rf.fish.r]+') liegt jetzt in deinem Fangbestand.'}
+else if(prize.type==='mutantFish'){var mu=1+Math.floor(Math.random()*3),mf=addChestFish(mu,1);msg='💎 Mutations-Fang: '+MN[mu]+mf.fish.n+' liegt jetzt in deinem Fangbestand.'}
+else if(prize.type==='map'){creditCoins(12500);msg='🗺️ Schatzkarte gefunden! Sie führt zu 12.500 Münzen.'}
+else if(prize.type==='pearlRod'){
+if(!hasPearlRod){hasPearlRod=true;msg='🔱 HAUPTPREIS! Der PERLEN-DREIZACK gehört jetzt dauerhaft dir. Er leuchtet und gibt dir extra Fangglück!'}
+else{creditCoins(200000);msg='🔱 Hauptpreis-Duplikat! Du besitzt den Perlen-Dreizack bereits und erhältst 200.000 Münzen.'}
+}
+save();$('n').textContent=coins;$('chestCard').className='opened';$('chestArt').textContent=prize.type==='pearlRod'?'🔱':'💎';$('chestReward').textContent=msg;
+$('caseOdds').textContent=CHEST_PRIZES.map(function(p){return p.chance+'% '+p.name}).join(' · ');
+$('chestOpen').style.display='none';$('chestClose').style.display='inline-block';SND.wish();
 },5400);
 }
 $('chestOpen').onclick=openChest;
