@@ -42,3 +42,11 @@ Der Spielstand wird lokal im Browser über `localStorage` gespeichert und nicht 
 - Ein Piratenüberfall kann direkt gestartet werden.
 - Im Spiel wechseln Tag und Nacht automatisch in einem Zyklus von ungefähr drei Minuten.
 - Gelegentlich setzt Regen ein. Währenddessen werden die Wellen höher und das Boot schaukelt stärker.
+
+## Geld-Eimer
+
+- Im Laden gibt es einen Geld-Eimer mit maximal **5 Fischen**.
+- Gefangene Fische können aus dem Fangbestand in freie Eimerplätze gesetzt und später wieder herausgenommen werden.
+- Jeder eingesetzte Fisch bringt automatisch Münzen pro Sekunde. Je höher seine Seltenheit, desto höher das Einkommen; Gold-, Diamant- und Rainbow-Mutationen erhöhen es zusätzlich.
+- Das Einkommen läuft auch weiter, wenn ein Menü geöffnet ist, und der Eimer-Spielstand wird lokal gespeichert.
+- Grundverdienst pro Sekunde: Normal 0,10; Selten 0,25; Sehr selten 0,70; Unmöglich 2; Legendär 6; Mythisch 18 Münzen. Mutations-Multiplikatoren: normal x1, Gold x1,5, Diamant x2,5, Rainbow x4.
