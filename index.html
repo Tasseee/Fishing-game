@@ -1630,7 +1630,7 @@ $('characterov').className='ov on';
 $('characterSwitch').onclick=function(){openCharacterSelect()};
 $('characterConfirm').onclick=function(){
 if(!pendingCharacterChoice)return;
-if(selectedCharacter!==pendingCharacterChoice){selectedCharacter=pendingCharacterChoice;seaStoryTime=0;seaMoodStage=0;crewStoryShown=0;kianAwareness=0;kianAwarenessStage=0;kianDialogueActive=false;endingComplete=false;tutorialSeen=false;storyIndex=0;endingScenes=getEndingScenes()}
+if(selectedCharacter!==pendingCharacterChoice){selectedCharacter=pendingCharacterChoice;seaStoryTime=0;seaMoodStage=0;crewStoryShown=0;kianAwareness=0;kianAwarenessStage=0;kianDialogueActive=false;endingComplete=false;tutorialSeen=false;storyIndex=0;hideFisherBubble();$('fisherBubble').classList.remove('kianMode','crewMode');$('kianReplyActions').innerHTML='';endingScenes=getEndingScenes()}
 else selectedCharacter=pendingCharacterChoice;
 save();$('characterov').className='ov';
 if(!tutorialSeen)openTutorial();
