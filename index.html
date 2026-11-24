@@ -765,7 +765,7 @@ if(catchKey&&inv[catchKey]>0&&bucket.length<5){
   inv[catchKey]--;
   bucket.push(catchKey);
   save();
-  say('🪣 Fisch im Geld-Eimer! +'+bucketFishRate(catchKey).toFixed(2).replace('.',',')+' Münzen pro Sekunde.',2.6);
+  say('🪣 Fisch im Geld-Eimer! +'+(bucketFishRate(catchKey)*prestigeMoneyMultiplier()).toFixed(2).replace('.',',')+' Münzen pro Sekunde.',2.6);
 }else if(bucket.length>=5){
   say('🪣 Dein Geld-Eimer ist voll. Der Fisch bleibt im Fangbestand.',2.8);
   save();
@@ -957,15 +957,15 @@ track.style.transform='translateX('+(-Math.max(0,target))+'px)';
 });
 setTimeout(function(){
 var msg='';
-if(prize.type==='coins'){var reward=Math.max(50,Math.round(coins*.25));creditCoins(reward);msg='💰 Münzregen! +'+reward.toLocaleString('de-DE')+' Münzen (25% deines Geldes).'}
+if(prize.type==='coins'){var reward=creditCoins(Math.max(50,Math.round(coins*.25)));msg='💰 Münzregen! +'+reward.toLocaleString('de-DE')+' Münzen (25% deines Geldes, inklusive Rebirth-Bonus).'}
 else if(prize.type==='bait'){U.bait=(U.bait||0)+25;msg='🪱 25 Glücksköder erhalten!'}
 else if(prize.type==='upgrade'){var g=grantRandomUpgrades(10);msg=g.count?'⚡ '+g.count+' zufällige Upgrade-Stufen erhalten!':'Alle Upgrades sind bereits auf Maximum.'}
 else if(prize.type==='rareFish'){var rf=addChestFish(0,3);msg='🐠 Seltener Fang: '+rf.fish.n+' ('+RN[rf.fish.r]+') liegt jetzt in deinem Fangbestand.'}
 else if(prize.type==='mutantFish'){var mu=1+Math.floor(Math.random()*3),mf=addChestFish(mu,1);msg='💎 Mutations-Fang: '+MN[mu]+mf.fish.n+' liegt jetzt in deinem Fangbestand.'}
-else if(prize.type==='map'){creditCoins(12500);msg='🗺️ Schatzkarte gefunden! Sie führt zu 12.500 Münzen.'}
+else if(prize.type==='map'){var mapPay=creditCoins(12500);msg='🗺️ Schatzkarte gefunden! Sie führt zu '+mapPay.toLocaleString('de-DE')+' Münzen.'}
 else if(prize.type==='pearlRod'){
 if(!hasPearlRod){hasPearlRod=true;msg='🔱 HAUPTPREIS! Der PERLEN-DREIZACK gehört jetzt dauerhaft dir. Er leuchtet und gibt dir extra Fangglück!'}
-else{creditCoins(200000);msg='🔱 Hauptpreis-Duplikat! Du besitzt den Perlen-Dreizack bereits und erhältst 200.000 Münzen.'}
+else{var duplicatePay=creditCoins(200000);msg='🔱 Hauptpreis-Duplikat! Du besitzt den Perlen-Dreizack bereits und erhältst '+duplicatePay.toLocaleString('de-DE')+' Münzen.'}
 }
 save();$('n').textContent=coins;$('chestCard').className='opened';$('chestArt').textContent=prize.type==='pearlRod'?'🔱':'💎';$('chestReward').textContent=msg;
 $('caseOdds').textContent=CHEST_PRIZES.map(function(p){return p.chance+'% '+p.name}).join(' · ');
@@ -977,7 +977,7 @@ $('chestClose').onclick=function(){$('chestov').className='ov';$('chestCard').cl
 function fitPirateCanvas(){var rect=pirateCanvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);pirateCanvas.width=Math.max(1,Math.round(rect.width*dpr));pirateCanvas.height=Math.max(1,Math.round(rect.height*dpr));pirateCtx.setTransform(dpr,0,0,dpr,0,0)}
 function spawnPirateTarget(){var w=pirateCanvas.clientWidth||560,h=pirateCanvas.clientHeight||320;pirate.target={x:rnd(48,Math.max(49,w-48)),y:rnd(48,Math.max(49,h-48)),age:0,duration:2.45}}
 function startPirate(){$('adminov').className='ov';$('cardov').className='ov';fxClr();st='idle';cur=null;m=null;$('pirateov').className='ov on';fitPirateCanvas();pirate={time:30,hits:0,needed:7,misses:0,maxMisses:3,target:null,finished:false};spawnPirateTarget();$('pirateResult').style.display='none';$('pirateClose').style.display='none';$('piratec').style.display='block';$('pirateHint').textContent='Ziele mit dem Mauszeiger anvisieren und anklicken!';SND.boom()}
-function finishPirate(won){if(!pirate||pirate.finished)return;pirate.finished=true;var text;if(won){var reward=Math.floor(lifetimeEarned*.07);creditCoins(reward);text='🏆 Piraten besiegt! Deine Beute: +'+reward.toLocaleString('de-DE')+' Münzen (7% aller jemals verdienten Münzen).';SND.epic()}else{var lost=coins;coins=0;text='☠️ Die Piraten haben gewonnen! Du verlierst '+lost.toLocaleString('de-DE')+' Münzen.';SND.lose()}save();$('n').textContent=coins;$('piratec').style.display='none';$('pirateHint').textContent='Der Kampf ist vorbei.';$('pirateResult').textContent=text;$('pirateResult').style.display='block';$('pirateClose').style.display='inline-block';pirateTimer=rnd(10,300)}
+function finishPirate(won){if(!pirate||pirate.finished)return;pirate.finished=true;var text;if(won){var reward=creditCoins(Math.floor(lifetimeEarned*.07));text='🏆 Piraten besiegt! Deine Beute: +'+reward.toLocaleString('de-DE')+' Münzen (7% aller jemals verdienten Münzen, inklusive Rebirth-Bonus).';SND.epic()}else{var lost=coins;coins=0;text='☠️ Die Piraten haben gewonnen! Du verlierst '+lost.toLocaleString('de-DE')+' Münzen.';SND.lose()}save();$('n').textContent=coins;$('piratec').style.display='none';$('pirateHint').textContent='Der Kampf ist vorbei.';$('pirateResult').textContent=text;$('pirateResult').style.display='block';$('pirateClose').style.display='inline-block';pirateTimer=rnd(10,300)}
 $('pirateClose').onclick=function(){pirate=null;$('pirateov').className='ov';$('piratec').style.display='block';st='idle'};
 pirateCanvas.addEventListener('pointerdown',function(e){if(!pirate||pirate.finished)return;e.preventDefault();var rect=pirateCanvas.getBoundingClientRect(),px=e.clientX-rect.left,py=e.clientY-rect.top,tar=pirate.target,rad=Math.max(9,38*(1-tar.age/tar.duration));if(Math.hypot(px-tar.x,py-tar.y)<=rad){pirate.hits++;SND.hit();if(pirate.hits>=pirate.needed)finishPirate(true);else spawnPirateTarget()}else{pirate.misses++;SND.miss();if(pirate.misses>=pirate.maxMisses)finishPirate(false)}});
 function updatePirate(dt){if(!pirate||pirate.finished)return;pirate.time-=dt;pirate.target.age+=dt;if(pirate.target.age>=pirate.target.duration){pirate.misses++;if(pirate.misses>=pirate.maxMisses){finishPirate(false);return}spawnPirateTarget()}if(pirate.time<=0){finishPirate(false);return}$('pirateTime').textContent='Zeit: '+Math.ceil(pirate.time)+' s';$('pirateHits').textContent='Treffer: '+pirate.hits+'/'+pirate.needed;$('pirateMisses').textContent='Verfehlt: '+pirate.misses+'/'+pirate.maxMisses}
@@ -1056,8 +1056,8 @@ function row(a,b,lbl,fn,dis){var r=document.createElement('div');r.className='ro
 function hd(txt){var e=document.createElement('h3');e.textContent=txt;s.appendChild(e)}
 hd('Münzen: '+coins);hd('Fänge verkaufen');
 var tv=0,any=false;
-FISH.forEach(function(f){var c=inv[f.n]||0;if(c>0){any=true;tv+=c*val(f);row(f.n+' x'+c,RN[f.r]+' · '+val(f)+' Münzen je Fisch','Verkaufen',function(){creditCoins(c*val(f));inv[f.n]=0;sv()},0)}});
-if(any)row('Alles verkaufen','Gesamt '+tv+' Münzen','Verkaufen',function(){creditCoins(tv);inv={};sv()},0);
+FISH.forEach(function(f){var c=inv[f.n]||0;if(c>0){any=true;tv+=c*val(f);row(f.n+' x'+c,RN[f.r]+' · '+(val(f)*prestigeMoneyMultiplier())+' Münzen je Fisch','Verkaufen',function(){creditCoins(c*val(f));inv[f.n]=0;sv()},0)}});
+if(any)row('Alles verkaufen','Gesamt '+Math.floor(tv*prestigeMoneyMultiplier())+' Münzen','Verkaufen',function(){creditCoins(tv);inv={};sv()},0);
 else row('Eimer ist leer','Fang erst ein paar Fische','–',function(){},1);
 hd('Ausrüstung');
 UP.forEach(function(u){var l=U[u.k],mx=l>=u.max,c=u.c(l);row(u.n+' (Stufe '+l+'/'+u.max+')',u.d,mx?'Max':c+' Münzen',function(){if(coins>=c){coins-=c;U[u.k]++;sv()}},mx||coins<c)});
