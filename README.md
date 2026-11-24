@@ -33,3 +33,12 @@ Die Fangkarte zeigt Seltenheitschance, Mutationschance und die kombinierte Fangc
 ## Spielstand
 
 Der Spielstand wird lokal im Browser über `localStorage` gespeichert und nicht automatisch zwischen Geräten synchronisiert.
+
+## Admin-Menü, Tageszeit und Wetter
+
+- Sieben schnelle Klicks auf die Münzanzeige öffnen das geheime Admin-Menü.
+- Im Admin-Menü lassen sich der Münzbestand und der Glückswert einstellen. Der Glückswert beeinflusst seltene Fische und Mutationen ab dem nächsten Wurf.
+- Eine Schatztruhe kann für den nächsten erfolgreichen Fang vorgemerkt werden.
+- Ein Piratenüberfall kann direkt gestartet werden.
+- Im Spiel wechseln Tag und Nacht automatisch in einem Zyklus von ungefähr drei Minuten.
+- Gelegentlich setzt Regen ein. Währenddessen werden die Wellen höher und das Boot schaukelt stärker.
