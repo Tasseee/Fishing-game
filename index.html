@@ -377,13 +377,54 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 @media(max-width:650px){#characterPanel{padding:15px 12px}#characterOptions{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.characterChoice{min-height:170px;padding:9px 7px}.characterPortrait{height:78px;font-size:42px}.characterChoice small{font-size:10px}}
 @media(max-width:360px){.characterBottom{align-items:stretch;flex-direction:column}#characterConfirm{width:100%}}
 
+
+/* Cinematic finale and rebirth */
+#endGoalHud{font-size:10px;line-height:1.1;color:#ffe7a4;opacity:.9;white-space:nowrap}
+#endingov{z-index:35;background:radial-gradient(ellipse at 50% 0,rgba(255,197,103,.22),transparent 58%),rgba(1,8,16,.94);backdrop-filter:blur(14px)}
+#endingPanel{width:min(94vw,700px);max-height:94vh;overflow:auto;padding:clamp(13px,3vw,23px);border:1px solid rgba(255,222,147,.58);border-radius:28px;background:linear-gradient(155deg,#17465b,#082436 75%,#061a2a);box-shadow:0 26px 90px rgba(0,0,0,.65),0 0 46px rgba(255,190,85,.18);text-align:center}
+.endingEyebrow{font-size:11px;letter-spacing:.2em;color:#91e6ef;font-weight:900;margin-bottom:10px}
+.endingVisual{height:clamp(165px,33vw,245px);position:relative;overflow:hidden;border:1px solid rgba(210,243,249,.25);border-radius:20px;background:linear-gradient(#6bb8d4 0%,#f5c68b 53%,#5ab5bd 54%,#075071 100%);isolation:isolate}
+.endingSun{position:absolute;right:13%;top:9%;font-size:clamp(28px,6vw,43px);filter:drop-shadow(0 0 20px rgba(255,239,166,.8))}
+.endingSea{position:absolute;left:0;right:0;bottom:0;height:43%;background:repeating-linear-gradient(174deg,transparent 0 15px,rgba(195,245,244,.18) 16px 18px),linear-gradient(#168da1,#064263)}
+.endingShore{position:absolute;left:0;right:0;bottom:31%;height:18%;background:linear-gradient(#e9d39b,#b68a5c);clip-path:polygon(0 60%,22% 15%,44% 40%,65% 0,100% 40%,100% 100%,0 100%)}
+.endingHouse{position:absolute;right:7%;bottom:29%;font-size:clamp(34px,8vw,58px);filter:drop-shadow(0 5px 5px rgba(0,0,0,.25))}
+.endingBoat,.endingCar,.endingLukas,.endingFamily,.endingHug{position:absolute;z-index:2;transition:left .8s cubic-bezier(.2,.8,.2,1),transform .8s ease,opacity .45s ease;filter:drop-shadow(0 4px 5px rgba(0,0,0,.24))}
+.endingBoat{left:28%;bottom:22%;font-size:clamp(35px,8vw,55px)}
+.endingCar{left:12%;bottom:22%;font-size:clamp(35px,8vw,54px);opacity:0;transform:translateX(-30px)}
+.endingLukas{left:39%;bottom:24%;font-size:clamp(32px,7vw,50px);opacity:.45}
+.endingFamily{right:17%;bottom:23%;font-size:clamp(36px,8vw,56px);opacity:.7}
+.endingHug{left:69%;bottom:23%;font-size:clamp(32px,7vw,51px);opacity:0;transform:scale(.45)}
+.endingVisualLabel{position:absolute;left:10px;bottom:9px;padding:5px 11px;border:1px solid rgba(255,255,255,.25);border-radius:999px;background:rgba(2,28,43,.58);font-size:12px;font-weight:900;color:#fff2c7}
+.endingVisual.walk .endingBoat,.endingVisual.hug .endingBoat,.endingVisual.talk .endingBoat{left:7%;opacity:.75}
+.endingVisual.walk .endingCar{left:48%;opacity:1;transform:translateX(0);animation:endingDrive 2.2s ease-in-out infinite alternate}
+.endingVisual.walk .endingLukas{left:62%;opacity:1}
+.endingVisual.hug .endingCar,.endingVisual.talk .endingCar{left:59%;opacity:1;transform:translateX(0)}
+.endingVisual.hug .endingLukas,.endingVisual.talk .endingLukas{left:70%;opacity:1;transform:translateX(-10px) scale(1.12)}
+.endingVisual.hug .endingFamily,.endingVisual.talk .endingFamily{right:14%;opacity:1;transform:scale(1.12)}
+.endingVisual.hug .endingHug,.endingVisual.talk .endingHug{opacity:1;transform:scale(1);animation:endingHeart 1.6s ease-in-out infinite}
+@keyframes endingDrive{from{transform:translateX(-8px)}to{transform:translateX(18px)}}
+@keyframes endingHeart{0%,100%{transform:scale(.94)}50%{transform:scale(1.1)}}
+.endingCopy{padding:12px 8px 4px}
+.endingCopy>span{font-size:11px;letter-spacing:.15em;color:#8fe4ed;font-weight:900}
+.endingCopy h2{font-size:clamp(25px,6vw,36px);margin:5px 0;color:#ffe6a3;text-shadow:0 3px 17px rgba(255,185,72,.18)}
+.endingCopy p{max-width:590px;margin:0 auto;color:#d9edf2;font-size:clamp(14px,3.4vw,17px);line-height:1.5}
+.endingProgress{height:6px;margin:15px 5px 10px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+.endingProgress i{display:block;height:100%;width:25%;border-radius:99px;background:linear-gradient(90deg,#65d8df,#ffe08a);transition:width .25s ease}
+.endingControls{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.endingControls span{font-size:13px;color:#b9d8e1;font-weight:800}
+#endingActions{display:none;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+#endingActions button{width:100%;padding:11px 8px;font-size:clamp(13px,3.2vw,17px)}
+#endingRebirth{background:linear-gradient(180deg,#c8a7ff,#8d68d1);box-shadow:0 4px 0 #533b8c,0 7px 17px rgba(161,123,255,.2)}
+.endingFoot{font-size:11px;color:#9dbcc8;margin:12px 0 0}
+@media(max-width:430px){#endingPanel{padding:12px 10px;border-radius:21px}.endingControls button{padding:8px 13px;font-size:14px}#endingActions{grid-template-columns:1fr}.endingFoot{font-size:10px}}
+
 </style>
 </head>
 <body>
 <canvas id="c" aria-label="Angelspiel"></canvas>
 <canvas id="fxc" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:6"></canvas>
 <div id="eventBanner" aria-live="polite"><span id="eventIcon"></span><span class="eventBannerCopy"><b id="eventTitle"></b><small id="eventDetail"></small></span><strong id="eventClock"></strong></div>
-<div id="hud"><div>🪙 <span id="n">0</span><small id="incomeRateHud" class="coinRate">+0,00/s</small></div><div><button id="sd">🔊</button> <button id="help" aria-label="Tutorial">?</button> <button id="sh">Laden</button> <button id="bk">Index <span id="f">0</span>/<span id="ft">0</span></button></div></div>
+<div id="hud"><div>🪙 <span id="n">0</span><small id="incomeRateHud" class="coinRate">+0,00/s</small><small id="endGoalHud" class="coinRate">🏁 Ziel: 100.000 Münzen + Index</small></div><div><button id="sd">🔊</button> <button id="help" aria-label="Tutorial">?</button> <button id="sh">Laden</button> <button id="bk">Index <span id="f">0</span>/<span id="ft">0</span></button></div></div>
 <div class="ov" id="cardov"><div id="card"><canvas id="cc" width="560" height="340"></canvas>
 <div class="t"><span id="rb"></span></div><div class="t" id="fn">???</div><div class="t" id="fi"></div>
 <div class="t"><button id="ok">Behalten</button> <button id="sl">Verkaufen</button></div></div></div>
@@ -429,6 +470,33 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 <div class="storySpeech"><span id="storyChapter">KAPITEL 1 · GESTRANDET</span><p id="storyText"></p><div id="storyHint"></div></div></div>
 <div class="storyProgress"><i id="storyProgressFill"></i></div>
 <div class="storyControls"><button id="tutorialPrev">Zurück</button><span id="storyCounter">1 / 6</span><button id="tutorialNext">Weiter</button></div>
+</div></div>
+<div class="ov" id="endingov" role="dialog" aria-modal="true" aria-labelledby="endingTitle">
+<div id="endingPanel">
+  <div class="endingEyebrow">LUKI ANGELN · DAS FINALE</div>
+  <div class="endingVisual landing" id="endingVisual">
+    <div class="endingSun">☀️</div><div class="endingSea"></div><div class="endingShore"></div>
+    <div class="endingHouse">🏡</div><div class="endingBoat">⛵</div>
+    <div class="endingCar">🚗</div><div class="endingLukas">🧑</div>
+    <div class="endingFamily">👨‍👩‍👧</div><div class="endingHug">🫂</div>
+    <div class="endingVisualLabel" id="endingVisualLabel">Land in Sicht!</div>
+  </div>
+  <div class="endingCopy">
+    <span id="endingChapter">KAPITEL 1 · LAND IN SICHT</span>
+    <h2 id="endingTitle">Endlich wieder zu Hause</h2>
+    <p id="endingText"></p>
+  </div>
+  <div class="endingProgress"><i id="endingProgressFill"></i></div>
+  <div class="endingControls">
+    <button id="endingPrev">Zurück</button>
+    <span id="endingCounter">1 / 4</span>
+    <button id="endingNext">Weiter</button>
+  </div>
+  <div id="endingActions">
+    <button id="endingContinue">Weiterspielen</button>
+    <button id="endingRebirth">Rebirthen · 2× Geld</button>
+  </div>
+  <p class="endingFoot">Dein Ziel: den Fisch-Index vervollständigen und 100.000 Münzen besitzen.</p>
 </div></div>
 <div class="ov" id="adminov"><div id="adminPanel">
   <div class="adminHead"><div><h2>🛠️ ADMIN-MENÜ</h2><p>Spielwerte und Events steuern</p></div><button id="adminClose">Schließen</button></div>
@@ -539,13 +607,14 @@ var FISH=[
 FISH.sort(function(a,b){return a.r-b.r});
 var $=function(i){return document.getElementById(i)};
 var cv=$('c'),x=cv.getContext('2d'),W,H,D,SURF,cc=$('cc').getContext('2d');
-var cam=0,camT=0,mcoll={},mdone={},idxMu=0,ss=null,ssT=360,wish=false,world=0,own2=false,own3=false,coll={},inv={},coins=0,lifetimeEarned=0,done=false,U={rod:0,charm:0,bait:0,reach:0,pat:0},cardSold=true,catchKey=null,lastCatchValue=0,pendingChest=false,adminLuck=0,dayLight=0,weatherRain=false,weatherTimer=34,activeEvent=null,eventTime=0,eventTimer=42,eventBannerTick=0,bookQuery="",bookRarity="all",bucket=[],bucketFraction=0,bucketSaveTimer=0,tutorialSeen=false,selectedCharacter="",pendingCharacterChoice="",hasPearlRod=false,pirate=null,pirateTimer=0;
-try{var S=JSON.parse(localStorage.getItem('luki3')||'null')||{coll:JSON.parse(localStorage.getItem('luki2')||'{}')};coll=S.coll||{};inv=S.inv||{};coins=S.coins||0;lifetimeEarned=Math.max(coins,Number(S.earned)||coins);done=!!S.done;own2=!!S.o2;mcoll=S.mc||{};mdone=S.md||{};own3=!!S.o3;world=own2?(S.w|0):0;if(world==2&&!own3)world=0;U=S.up||U;pendingChest=!!S.pendingChest;adminLuck=Math.max(0,Math.min(100,Number(S.adminLuck)||0));bucket=Array.isArray(S.bucket)?S.bucket.slice(0,5):[];bucketFraction=Math.max(0,Math.min(.999999,Number(S.bucketFraction)||0));tutorialSeen=!!S.tutorialSeen;selectedCharacter=["lukas","soa","kian"].indexOf(S.character)>=0?S.character:(S.character==="nino"?"lukas":"");hasPearlRod=!!S.pearlRod}catch(e){}
+var cam=0,camT=0,mcoll={},mdone={},idxMu=0,ss=null,ssT=360,wish=false,world=0,own2=false,own3=false,coll={},inv={},coins=0,lifetimeEarned=0,done=false,U={rod:0,charm:0,bait:0,reach:0,pat:0},cardSold=true,catchKey=null,lastCatchValue=0,pendingChest=false,adminLuck=0,dayLight=0,weatherRain=false,weatherTimer=34,activeEvent=null,eventTime=0,eventTimer=42,eventBannerTick=0,bookQuery="",bookRarity="all",bucket=[],bucketFraction=0,bucketSaveTimer=0,tutorialSeen=false,selectedCharacter="",pendingCharacterChoice="",hasPearlRod=false,pirate=null,pirateTimer=0,rebirths=0,endingComplete=false,endingShown=false,endingStep=0;var END_MONEY_GOAL=100000;
+try{var S=JSON.parse(localStorage.getItem('luki3')||'null')||{coll:JSON.parse(localStorage.getItem('luki2')||'{}')};coll=S.coll||{};inv=S.inv||{};coins=S.coins||0;lifetimeEarned=Math.max(coins,Number(S.earned)||coins);done=!!S.done;own2=!!S.o2;mcoll=S.mc||{};mdone=S.md||{};own3=!!S.o3;world=own2?(S.w|0):0;if(world==2&&!own3)world=0;U=S.up||U;pendingChest=!!S.pendingChest;adminLuck=Math.max(0,Math.min(100,Number(S.adminLuck)||0));bucket=Array.isArray(S.bucket)?S.bucket.slice(0,5):[];bucketFraction=Math.max(0,Math.min(.999999,Number(S.bucketFraction)||0));tutorialSeen=!!S.tutorialSeen;selectedCharacter=["lukas","soa","kian"].indexOf(S.character)>=0?S.character:(S.character==="nino"?"lukas":"");hasPearlRod=!!S.pearlRod;rebirths=Math.max(0,Math.floor(Number(S.rebirths)||0));endingComplete=!!S.endingComplete}catch(e){}
 U.reach=U.reach||0;U.pat=U.pat||0;U.star=U.star||0;U.mut=U.mut||0;U.baitBought=U.baitBought||0;
 function starInterval(){return Math.max(38,Math.round(360*Math.pow(.82,Math.min(10,U.star||0))))}
 ssT=starInterval();
-function save(){try{localStorage.setItem('luki3',JSON.stringify({coll:coll,inv:inv,coins:coins,earned:lifetimeEarned,done:done,o2:own2,o3:own3,w:world,mc:mcoll,md:mdone,up:U,pendingChest:pendingChest,adminLuck:adminLuck,bucket:bucket,bucketFraction:bucketFraction,tutorialSeen:tutorialSeen,character:selectedCharacter,pearlRod:hasPearlRod}))}catch(e){}}
-function creditCoins(amount){amount=Math.max(0,Math.floor(Number(amount)||0));coins+=amount;lifetimeEarned+=amount;return amount;}
+function save(){try{localStorage.setItem('luki3',JSON.stringify({coll:coll,inv:inv,coins:coins,earned:lifetimeEarned,done:done,o2:own2,o3:own3,w:world,mc:mcoll,md:mdone,up:U,pendingChest:pendingChest,adminLuck:adminLuck,bucket:bucket,bucketFraction:bucketFraction,tutorialSeen:tutorialSeen,character:selectedCharacter,pearlRod:hasPearlRod,rebirths:rebirths,endingComplete:endingComplete}))}catch(e){}}
+function prestigeMoneyMultiplier(){return Math.pow(2,Math.min(20,rebirths))}
+function creditCoins(amount){amount=Math.max(0,Math.floor((Number(amount)||0)*prestigeMoneyMultiplier()));coins+=amount;lifetimeEarned+=amount;return amount;}
 function val(f,mu){return([5,25,120,650,2200,6500][f.r]+Math.round(f.L/2))*[1,3,8,25][mu||0]}
 function bucketFishInfo(key){var p=String(key).split('#'),mu=p.length>1?Number(p[1]):0,f=FISH.find(function(q){return q.n===p[0]});return f&&Number.isInteger(mu)&&mu>=0&&mu<=3?{f:f,mu:mu}:null}
 function bucketFishRate(key){var z=bucketFishInfo(key);if(!z)return 0;return[.10,.25,.7,2,6,18][z.f.r]*[1,1.5,2.5,4][z.mu]}
@@ -592,7 +661,7 @@ if(eventTimer<=0)startWorldEvent();
 }
 }
 function isRainy(){return weatherRain||!!(activeEvent&&activeEvent.id==='mutationRain')}
-function updateBucketIncome(dt){var rate=bucketRate()*moneyMultiplier();if(dt>0&&rate>0)bucketFraction+=rate*dt;var whole=Math.floor(bucketFraction+1e-9);if(whole>0){bucketFraction-=whole;coins+=whole;lifetimeEarned+=whole;$('n').textContent=coins}var label='+'+rate.toFixed(2).replace('.',',')+'/s',hud=$('incomeRateHud');if(hud&&hud.textContent!==label)hud.textContent=label;bucketSaveTimer+=dt;if(bucketSaveTimer>=5){bucketSaveTimer%=5;save()}}
+function updateBucketIncome(dt){var rate=bucketRate()*moneyMultiplier()*prestigeMoneyMultiplier();if(dt>0&&rate>0)bucketFraction+=rate*dt;var whole=Math.floor(bucketFraction+1e-9);if(whole>0){bucketFraction-=whole;coins+=whole;lifetimeEarned+=whole;$('n').textContent=coins}var label='+'+rate.toFixed(2).replace('.',',')+'/s'+(rebirths?' · '+prestigeMoneyMultiplier()+'×':'');var hud=$('incomeRateHud');if(hud&&hud.textContent!==label)hud.textContent=label;bucketSaveTimer+=dt;if(bucketSaveTimer>=5){bucketSaveTimer%=5;save()}}
 function mutationChances(p){var factor=(1+p*.12)*(world?1.25:1)*(1+(U.mut||0)*.32)*1.15,p3=Math.min(1,.0075*factor),p2=Math.max(0,Math.min(1,.024*factor)-p3),p1=Math.max(0,Math.min(1,.078*factor)-Math.min(1,.024*factor)),p0=Math.max(0,1-p1-p2-p3);return[p0,p1,p2,p3]}
 function oddsText(p){p=Math.max(0,Math.min(1,p));return '1 von '+Math.max(1,Math.round(1/Math.max(p,.000000001)))+' ('+(p*100).toFixed(3).replace('.',',')+'%)'}
 function mutationGoal(mu){return[0,12,8,5][mu]||0}
@@ -638,7 +707,7 @@ g.strokeStyle='rgba(4,27,40,.6)';g.lineWidth=Math.max(1,L*.018);g.beginPath();g.
 if(mu){g.save();for(var q=0;q<6;q++){var a2=t*1.7+q*Math.PI/3;g.globalAlpha=.45+.45*Math.sin(t*5+q);g.fillStyle=mu===1?'#fff4b5':mu===2?'#d9faff':'#fff';g.shadowColor=glow;g.shadowBlur=9;g.beginPath();g.arc(Math.cos(a2)*L*.74,Math.sin(a2)*h*.74,L*.045,0,Math.PI*2);g.fill()}g.restore()}
 }
 g.restore()}
-var st='idle',t=0,last=0,pw=0,pd=1,fly=0,castFollow=0,bob={x:0,y:0,tx:0},wt=0,bt=0,cur=null,m=null,msg='',mT=0,shake=0,tot=0,rt=0,ripples=[],bub=[],shadows=[];
+var st='idle',t=0,last=0,pw=0,pd=1,fly=0,castFollow=0,bob={x:0,y:0,tx:0,vx:0,depth:0,lureX:0,lureY:0,driftDir:1},wt=0,bt=0,cur=null,m=null,msg='',mT=0,shake=0,tot=0,rt=0,ripples=[],bub=[],shadows=[];
 for(var i=0;i<4;i++)shadows.push({x:rnd(0,500),y:rnd(.5,.9),v:rnd(18,40)*(Math.random()<.5?1:-1),f:FISH[i]});
 function found(){var k=0;FISH.forEach(function(f){if(coll[f.n])k++});return k}
 if(done&&found()<FISH.length)done=false;
@@ -651,7 +720,7 @@ function down(e){au();if(ss&&Math.hypot(e.clientX-ss.x,e.clientY-ss.y)<85){ss=nu
 if(st==='idle'){st='charge';pw=0;pd=1;castFollow=0}
 else if(st==='bite'){startMini()}
 else if(st==='mini'){tap()}}
-function up(){if(st==='charge'){var g=geo();st='fly';fly=0;castFollow=1;SND.cast();bob.x=g.tx;bob.y=g.ty;bob.tx=g.bx+90+pw*(W-g.bx-130)*(1+U.reach*.35);camT=Math.max(0,bob.tx-W*.65);cur={p:pw*(1+U.reach*.3)+U.charm*.12+adminLuck/10};if(U.bait>0){U.bait--;cur.p+=.5;save()}}}
+function up(){if(st==='charge'){var g=geo();st='fly';fly=0;castFollow=1;SND.cast();bob.x=g.tx;bob.y=g.ty;bob.vx=0;bob.depth=0;bob.lureX=g.tx;bob.lureY=SURF+18;bob.tx=g.bx+90+pw*(W-g.bx-130)*(1+U.reach*.35);bob.driftDir=bob.tx>=g.tx?1:-1;camT=Math.max(0,bob.tx-W*.65);cur={p:pw*(1+U.reach*.3)+U.charm*.12+adminLuck/10};if(U.bait>0){U.bait--;cur.p+=.5;save()}}}
 cv.addEventListener('pointerdown',down);cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
 var AC=null,mute=false;try{mute=localStorage.getItem('luki_m')=='1'}catch(e){}
 function au(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==='suspended')AC.resume();return AC}
@@ -737,6 +806,54 @@ function closeTutorial(){tutorialSeen=true;save();$('tutorialov').className='ov'
 $('help').onclick=openTutorial;
 $('tutorialPrev').onclick=function(){storyIndex=Math.max(0,storyIndex-1);renderStory()};
 $('tutorialNext').onclick=function(){if(storyIndex>=storyScenes.length-1){closeTutorial();return}storyIndex++;renderStory()};
+
+var endingScenes=[
+ {chapter:'KAPITEL 1 · LAND IN SICHT',title:'Endlich wieder Land!',text:'Nach all den Abenteuern taucht die Küste am Horizont auf. Lukas lenkt sein Boot in eine kleine Bucht, springt an Land und kann es kaum glauben: Er hat es wirklich geschafft.',label:'Lukas erreicht die Küste',stage:'landing'},
+ {chapter:'KAPITEL 2 · AUF DEM HEIMWEG',title:'Der Weg nach Hause',text:'Am Ufer wartet sein altes Auto. Lukas steigt ein und fährt nach Hause. In Gedanken ist er schon bei seiner Familie.',label:'Auf dem Weg nach Hause',stage:'walk'},
+ {chapter:'KAPITEL 3 · WIEDER VEREINT',title:'Eine feste Umarmung',text:'Vor dem Haus wartet seine Familie bereits. Als Lukas aus dem Auto steigt, laufen sie auf ihn zu. Er schließt alle fest in die Arme. Endlich sind sie wieder zusammen!',label:'Endlich wieder zusammen',stage:'hug'},
+ {chapter:'KAPITEL 4 · LUKAS’ WORTE',title:'„Ich bin wieder zu Hause.“',text:'„Ich habe euch so vermisst. Das Meer war riesig und der Weg zurück war lang, aber ich habe es geschafft. Danke, dass ihr auf mich gewartet habt. Jetzt bin ich wieder zu Hause.“',label:'Ein neues Kapitel beginnt',stage:'talk'}
+];
+function renderEnding(){
+ var sc=endingScenes[endingStep];
+ $('endingChapter').textContent=sc.chapter;
+ $('endingTitle').textContent=sc.title;
+ $('endingText').textContent=sc.text;
+ $('endingVisualLabel').textContent=sc.label;
+ $('endingVisual').className='endingVisual '+sc.stage;
+ $('endingCounter').textContent=(endingStep+1)+' / '+endingScenes.length;
+ $('endingProgressFill').style.width=((endingStep+1)/endingScenes.length*100)+'%';
+ $('endingPrev').disabled=endingStep===0;
+ $('endingNext').style.display=endingStep===endingScenes.length-1?'none':'inline-block';
+ $('endingActions').style.display=endingStep===endingScenes.length-1?'grid':'none';
+}
+function startEnding(){
+ if(endingShown||endingComplete)return;
+ endingShown=true;endingStep=0;renderEnding();$('endingov').className='ov on';st='idle';save();
+}
+function maybeStartEnding(){
+ if(endingComplete||endingShown||!done||found()!==FISH.length||coins<END_MONEY_GOAL)return;
+ var blockers=['cardov','shop','book','chestov','pirateov','tutorialov','characterov','adminov'];
+ for(var i=0;i<blockers.length;i++)if($(blockers[i])&&$(blockers[i]).classList.contains('on'))return;
+ startEnding();
+}
+$('endingPrev').onclick=function(){endingStep=Math.max(0,endingStep-1);renderEnding()};
+$('endingNext').onclick=function(){endingStep=Math.min(endingScenes.length-1,endingStep+1);renderEnding()};
+$('endingContinue').onclick=function(){endingComplete=true;endingShown=false;save();$('endingov').className='ov';st='idle';say('🏁 Du hast das Abenteuer abgeschlossen. Du kannst frei weiterspielen!',3)};
+function rebirthGame(){
+ rebirths++;
+ coins=0;lifetimeEarned=0;done=false;own2=false;own3=false;world=0;
+ coll={};inv={};mcoll={};mdone={};bucket=[];bucketFraction=0;pendingChest=false;
+ U={rod:0,charm:0,bait:0,reach:0,pat:0,star:0,mut:0,baitBought:0};
+ adminLuck=0;hasPearlRod=false;endingComplete=false;endingShown=false;endingStep=0;
+ activeEvent=null;eventTime=0;eventTimer=42;pirate=null;pirateTimer=0;
+ st='idle';cam=0;camT=0;pw=0;fly=0;cur=null;ss=null;wish=false;weatherRain=false;
+ $('endingov').className='ov';$('shop').className='ov';$('book').className='ov';
+ $('cardov').className='ov';$('pirateov').className='ov';$('n').textContent='0';
+ $('f').textContent='0';$('ft').textContent=FISH.length;$('incomeRateHud').textContent='+0,00/s · '+prestigeMoneyMultiplier()+'×';
+ save();SND.epic();say('✨ REBIRTH '+rebirths+'! Ab jetzt bekommst du '+prestigeMoneyMultiplier()+'× so viele Münzen.',4);
+}
+$('endingRebirth').onclick=rebirthGame;
+
 var characterButtons=document.querySelectorAll('.characterChoice');
 characterButtons.forEach(function(btn){btn.onclick=function(){
 pendingCharacterChoice=btn.getAttribute('data-character');
@@ -912,7 +1029,7 @@ if(lbl){var bt=document.createElement('button');bt.textContent=lbl;bt.disabled=!
 function hd(q){var e=document.createElement('h3');e.textContent=q;s.appendChild(e)}
 var tp=document.createElement('div');tp.style.cssText='text-align:center;margin-bottom:4px';tp.innerHTML='<span class="coin"></span>';tp.firstChild.textContent='🪙 '+coins;s.appendChild(tp);
 hd('Geld-Eimer · '+bucket.length+'/5');
-var passive=bucketRate()*moneyMultiplier();row('🪣','Passives Einkommen',passive.toFixed(2).replace('.',',')+' 🪙 pro Sekunde',null,null,0,'#ffd36a');
+var passive=bucketRate()*moneyMultiplier()*prestigeMoneyMultiplier();row('🪣','Passives Einkommen',passive.toFixed(2).replace('.',',')+' 🪙 pro Sekunde',null,null,0,'#ffd36a');
 if(!bucket.length)row('🐟','Noch keine Fische eingesetzt','Setze gefangene Fische ein, um automatisch Münzen zu verdienen.');
 bucket.forEach(function(key,index){var z=bucketFishInfo(key);if(!z)return;var cn=document.createElement('canvas');cn.width=112;cn.height=72;drawFish(cn.getContext('2d'),z.f,56,38,1,z.f.L*.65,0,false,z.mu);row(cn,(MN[z.mu]||'')+z.f.n,'+'+(bucketFishRate(key)*moneyMultiplier()).toFixed(2).replace('.',',')+' 🪙/s · '+RN[z.f.r],'Entnehmen',function(){bucket.splice(index,1);inv[key]=(inv[key]||0)+1;save();openShop2()},0,z.mu?MC[z.mu]:RC[z.f.r])});
 hd('Gefangene Fische');
@@ -920,8 +1037,8 @@ hd('Fang verkaufen');
 var tv=0,any=false;
 [0,1,2,3].forEach(function(mu){FISH.forEach(function(f){var key=f.n+(mu?'#'+mu:''),c=inv[key]||0;if(c<1)return;any=true;tv+=c*fishSellValue(f,mu);
 var cn=document.createElement('canvas');cn.width=112;cn.height=72;drawFish(cn.getContext('2d'),f,56,38,1,f.L*.65,0,false,mu);
-row(cn,MN[mu]+f.n+' x'+c,RN[f.r]+' · '+fishSellValue(f,mu)+' 🪙 je Fisch','Verkaufen',function(){creditCoins(c*fishSellValue(f,mu));inv[key]=0;sv()},0,mu?MC[mu]:RC[f.r],bucket.length<5?'Eimer +':null,function(){if(bucket.length>=5||!inv[key])return;inv[key]--;bucket.push(key);save();openShop2()},bucket.length>=5)})});
-if(any){var bg=document.createElement('button');bg.className='big';bg.textContent='Alles verkaufen: +'+tv+' 🪙';bg.onclick=function(){creditCoins(tv);inv={};sv()};s.appendChild(bg)}
+row(cn,MN[mu]+f.n+' x'+c,RN[f.r]+' · '+(fishSellValue(f,mu)*prestigeMoneyMultiplier())+' 🪙 je Fisch','Verkaufen',function(){creditCoins(c*fishSellValue(f,mu));inv[key]=0;sv()},0,mu?MC[mu]:RC[f.r],bucket.length<5?'Eimer +':null,function(){if(bucket.length>=5||!inv[key])return;inv[key]--;bucket.push(key);save();openShop2()},bucket.length>=5)})});
+if(any){var bg=document.createElement('button');bg.className='big';bg.textContent='Alles verkaufen: +'+Math.floor(tv*prestigeMoneyMultiplier())+' 🪙';bg.onclick=function(){creditCoins(tv);inv={};sv()};s.appendChild(bg)}
 else row('🪣','Eimer ist leer','Fang erst ein paar Fische');
 hd('Ausrüstung');
 UP.forEach(function(u){var l=U[u.k]||0,ML=u.max+(own2?5:0),mx=l>=ML,c=u.c(l);
@@ -995,15 +1112,16 @@ t+=dt;dayLight=.5+.5*Math.sin((t/180)*Math.PI*2-Math.PI/2);updateWorldEvents(dt)
 if(weatherTimer<=0){if(weatherRain){weatherRain=false;weatherTimer=rnd(28,55);say('☁️ Der Regen ist vorbei.',1.8)}else if(Math.random()<.48){weatherRain=true;weatherTimer=rnd(16,29);say('🌧️ Es regnet! Die Wellen werden höher.',2.8)}else{weatherTimer=rnd(18,38)}}
 if(shake>0)shake-=dt;if(mT>0)mT-=dt;
 if(pirate){updatePirate(dt);return}
-var blocked=$('shop').classList.contains('on')||$('book').classList.contains('on')||$('cardov').classList.contains('on')||$('chestov').classList.contains('on');if(!blocked){pirateTimer-=dt;if(pirateTimer<=0&&st==='idle'){startPirate();return}}
+var blocked=$('shop').classList.contains('on')||$('book').classList.contains('on')||$('cardov').classList.contains('on')||$('chestov').classList.contains('on')||$('endingov').classList.contains('on');if(!blocked){pirateTimer-=dt;if(pirateTimer<=0&&st==='idle'){startPirate();return}}
 ssT-=dt;if(ssT<=0&&!ss){ss={x:W*rnd(.55,1),y:rnd(8,SURF*.3),a:0};ssT=starInterval()}
 if(st==='idle'||st==='charge')camT=0;cam+=(camT-cam)*Math.min(1,dt*2.5);
 if(ss){ss.a+=dt/3.2;ss.x-=dt*W*.3;ss.y+=dt*SURF*.25;if(ss.a>=1)ss=null}
 var g=geo();
 castFollow=Math.max(0,castFollow-dt*2.8);if(st==='charge'){pw+=pd*dt*1.1;if(pw>=1){pw=1;pd=-1}if(pw<=0){pw=0;pd=1}}
-if(st==='fly'){fly+=dt/.7;var k=Math.min(1,fly);bob.x=g.tx+(bob.tx-g.tx)*k;bob.y=g.ty+(SURF-g.ty)*k-Math.sin(k*Math.PI)*130;
-if(fly>=1){st='wait';bob.y=SURF;SND.splash();wt=rnd(1.8,4.8)*Math.max(.15,1-U.pat*.08);ripples.push({x:bob.x,r:0});for(var i=0;i<8;i++)bub.push({x:bob.x-cam,y:SURF,vx:rnd(-60,60),vy:rnd(-80,-20),r:rnd(1.5,3.5),l:.8})}}
-if(st==='wait'){wt-=dt*(activeEvent&&activeEvent.id==='fastBite'?2:activeEvent&&activeEvent.id==='fishShoal'?1.4:1);if(Math.random()<dt*.8)ripples.push({x:bob.x,r:0});if(wt<=0){st='bite';bt=1.1;vib(80);SND.bite();shake=.15;ripples.push({x:bob.x,r:0})}}
+if(st==='fly'){fly+=dt/.7;var k=Math.min(1,fly),ease=1-Math.pow(1-k,3);bob.x=g.tx+(bob.tx-g.tx)*ease;bob.y=g.ty+(SURF-g.ty)*ease-Math.sin(k*Math.PI)*(105+pw*60);bob.lureX=bob.x-bob.driftDir*8;bob.lureY=bob.y+18+k*25;
+if(fly>=1){st='wait';bob.y=SURF;bob.vx=bob.driftDir*Math.max(9,W*.025)*(1+pw*.45);bob.depth=0;SND.splash();wt=rnd(1.8,4.8)*Math.max(.15,1-U.pat*.08);ripples.push({x:bob.x,r:0});for(var i=0;i<8;i++)bub.push({x:bob.x-cam,y:SURF,vx:rnd(-60,60),vy:rnd(-80,-20),r:rnd(1.5,3.5),l:.8})}}
+if(st==='wait'||st==='bite'||st==='mini'){bob.x+=(bob.vx||0)*dt;bob.depth=Math.min(38,(bob.depth||0)+dt*20);bob.y=SURF+Math.sin(t*2.8)*1.7+(isRainy()?Math.sin(t*5)*1.2:0);bob.lureX=bob.x-(bob.vx||0)*.13+Math.sin(t*1.8)*2.5;bob.lureY=SURF+16+bob.depth+Math.sin(t*2.3)*3;camT=Math.max(0,bob.x-W*.62)}
+if(st==='wait'){wt-=dt*(activeEvent&&activeEvent.id==='fastBite'?2:activeEvent&&activeEvent.id==='fishShoal'?1.4:1);if(Math.random()<dt*.8)ripples.push({x:bob.x,r:0});if(Math.random()<dt*.9)bub.push({x:bob.lureX-cam,y:bob.lureY,vx:rnd(-9,9),vy:rnd(-25,-10),r:rnd(1.2,2.8),l:.8});if(wt<=0){st='bite';bt=1.1;vib(80);SND.bite();shake=.15;ripples.push({x:bob.x,r:0})}}
 if(st==='bite'){bt-=dt;if(bt<=0){st='idle';say('Zu langsam – weg war er',1.6)}}
 if(st==='mini'){if(cur.r>=2){m.zc+=Math.sin(t*2.2)*dt*.055*(cur.r-1);m.zc=Math.max(.16,Math.min(.84,m.zc))}m.pos+=m.dm*m.spd*dt*(cur.r>=3?1+.12*Math.sin(t*5):1);if(m.pos>=1){m.pos=1;m.dm=-1}if(m.pos<=0){m.pos=0;m.dm=1}}
 ripples.forEach(function(r){r.r+=dt*50});ripples=ripples.filter(function(r){return r.r<60});
@@ -1147,7 +1265,8 @@ var showLine=st==='charge'||st==='fly'||st==='wait'||st==='bite'||st==='mini';
 if(showLine){var bx2=st==='charge'?g.tx+10:bob.x,by2=st==='charge'?g.ty+60:bob.y,off=(st==='bite'?Math.sin(t*40)*3:0);
 x.strokeStyle='rgba(233,246,238,.85)';x.lineWidth=1.4;x.beginPath();x.moveTo(g.tx,g.ty);x.quadraticCurveTo((g.tx+bx2)/2,Math.max(g.ty,by2)+(st==='fly'?0:30),bx2,by2+off);x.stroke();
 if(st!=='charge'){var dip=st==='bite'?10+Math.sin(t*30)*4:Math.sin(t*3)*2;
-x.fillStyle='#ff4d4d';x.beginPath();x.arc(bx2,by2+dip,7,Math.PI,0);x.fill();x.fillStyle='#fff';x.beginPath();x.arc(bx2,by2+dip,7,0,Math.PI);x.fill()}}
+x.fillStyle='#ff4d4d';x.beginPath();x.arc(bx2,by2+dip,7,Math.PI,0);x.fill();x.fillStyle='#fff';x.beginPath();x.arc(bx2,by2+dip,7,0,Math.PI);x.fill();
+var lx=bob.lureX||bx2,ly=bob.lureY||SURF+24;x.strokeStyle='rgba(215,247,255,.72)';x.lineWidth=1.15;x.beginPath();x.moveTo(bx2,by2+dip+5);x.quadraticCurveTo((bx2+lx)/2+Math.sin(t*2)*4,(by2+ly)/2,lx,ly);x.stroke();x.save();x.shadowColor='#ffe58c';x.shadowBlur=10;x.fillStyle='#ffe58c';x.beginPath();x.ellipse(lx,ly,4,6,Math.sin(t*2)*.2,0,Math.PI*2);x.fill();x.strokeStyle='#f4fbff';x.lineWidth=1.4;x.beginPath();x.arc(lx+1,ly+5,4,.15,Math.PI*1.3);x.stroke();x.restore()}}
 if(st==='mini'){var fx=bob.x+Math.sin(t*14)*10*(1+m.spd*.2),fy=SURF+(H-SURF)*.28+Math.sin(t*9)*12;
 x.strokeStyle='rgba(233,246,238,.5)';x.lineWidth=1;x.beginPath();x.moveTo(bob.x,SURF);x.lineTo(fx+20,fy);x.stroke();
 drawFish(x,{c:'#000',h:.5,L:26},fx,fy,Math.sin(t*14)>0?1:-1,26,t*2,true);
@@ -1231,7 +1350,7 @@ var k=sil?1+Math.sin(rt*30)*.04:1+Math.max(0,.4-(rt-1))*.8;
 drawFish(c,f,150,88,1,Math.min(62,f.L*2.1)*k,t,sil,cur.mu||0);
 if(sil){c.fillStyle='#e9f6ee';c.font='800 40px sans-serif';c.textAlign='center';c.fillText('?',140,100)}
 else if($('card').className.indexOf('show')<0){$('card').className='show r'+cur.r}}
-function loop(n){var realDt=Math.max(0,(n-last)/1000),dt=Math.min(.05,realDt);last=n;updateBucketIncome(Math.min(realDt,43200));if(!$('shop').classList.contains('on')&&!$('book').classList.contains('on')&&!$('adminov').classList.contains('on')&&!$('tutorialov').classList.contains('on'))update(dt);if(st==='reveal'){rt+=dt;drawCard()}draw();if(pirate)drawPirate();requestAnimationFrame(loop)}
+function loop(n){var realDt=Math.max(0,(n-last)/1000),dt=Math.min(.05,realDt);last=n;updateBucketIncome(Math.min(realDt,43200));maybeStartEnding();if(!$('shop').classList.contains('on')&&!$('book').classList.contains('on')&&!$('adminov').classList.contains('on')&&!$('tutorialov').classList.contains('on')&&!$('endingov').classList.contains('on'))update(dt);if(st==='reveal'){rt+=dt;drawCard()}draw();if(pirate)drawPirate();requestAnimationFrame(loop)}
 requestAnimationFrame(loop);
 })();
 </script>
