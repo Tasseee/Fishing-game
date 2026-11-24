@@ -1177,6 +1177,41 @@ function setKianBubble(line,actions,speaker){
  bubble.classList.add('kianMode','show');box.innerHTML='';
  (actions||[]).forEach(function(item){var b=document.createElement('button');b.type='button';b.textContent=item.label;b.onclick=item.onClick;box.appendChild(b)});
 }
+
+var CREW_STORY_THRESHOLDS=[40,150,330,570,870,1170];
+var CREW_STORY_DIALOGUES=[
+ {speaker:'LUKAS · SOA · KIAN',line:'Das Boot hat sich gelöst und Luki ist nicht mitgekommen. Aber wir drei sind zusammen. Wir lachen noch, die Sonne scheint – das wird schon ein Abenteuer!',reply:'Die drei winken dir zu. Noch glauben sie fest daran, bald wieder zu Hause zu sein.'},
+ {speaker:'KIAN · AUF DEM BOOT',line:'Die Küste ist kaum noch zu sehen. Ich glaube, die Strömung zieht uns immer weiter raus. Hat jemand eine Ahnung, wo wir sind?',reply:'Soa: „Wir bleiben zusammen.“ Lukas lächelt: „Alles gut. Wir schaffen das.“'},
+ {speaker:'SOA · GANZ LEISE',line:'Ich merke, dass ich immer dann etwas esse, wenn ich Angst bekomme. Für einen Moment muss ich dann nicht darüber nachdenken. Aber danach ist die Sorge immer noch da.',reply:'Kian setzt sich zu ihm. Lukas hört zu. Niemand macht sich über Soa lustig.'},
+ {speaker:'LUKAS · WENN NIEMAND HINSIEHT',line:'Ich sage immer, dass alles gut ist. Wenn die beiden gerade nicht schauen, fühlt sich das Lächeln plötzlich schwer an. Ich will nicht, dass sie sich auch noch um mich sorgen.',reply:'Soa: „Du musst für uns nicht dauernd stark sein.“ Kian nickt und bleibt neben ihm sitzen.'},
+ {speaker:'KIAN · DIE WELT WIEDERHOLT SICH',line:'Dieselbe Möwe. Dieselbe Wolke. Sogar der Wellenschlag kommt genau gleich wieder. Ich glaube, etwas stimmt mit dieser Welt ganz und gar nicht.',reply:'Lukas: „Wir glauben dir.“ Soa: „Du musst das nicht allein herausfinden.“'},
+ {speaker:'DIE DREI · IN DER STILLEN NACHT',line:'Keiner von ihnen kann noch so tun, als wäre alles leicht. Soa spricht über seine Gefühle. Lukas lässt sein Lächeln kurz los. Kian bittet darum, dass die anderen bei ihm bleiben. Sie beschließen, gemeinsam ein Signal für Hilfe zu setzen.',reply:'Sie haben noch einen weiten Weg vor sich. Aber diesmal tragen sie die Sorgen nicht mehr jeder für sich.'}
+];
+function setCrewStoryBubble(line,reply,speaker){
+ var bubble=$('fisherBubble'),box=$('kianReplyActions');
+ bubble.classList.remove('kianMode');bubble.classList.add('crewMode','show');
+ $('fisherBubbleSpeaker').textContent=speaker||'DIE DREI · AUF DEM MEER';
+ $('fisherBubbleText').textContent=line;
+ box.innerHTML='';
+ var b=document.createElement('button');b.type='button';b.textContent='Ich höre euch zu';b.onclick=function(){
+  $('fisherBubbleText').textContent=reply;
+  box.innerHTML='';
+  var done=document.createElement('button');done.type='button';done.textContent='Weiter';done.onclick=function(){bubble.classList.remove('crewMode','show');box.innerHTML='';save()};
+  box.appendChild(done);
+ };box.appendChild(b);
+}
+function advanceCrewStory(){
+ var next=0;while(next<CREW_STORY_THRESHOLDS.length&&seaStoryTime>=CREW_STORY_THRESHOLDS[next])next++;
+ seaMoodStage=Math.max(seaMoodStage,next);
+ if(crewStoryShown<seaMoodStage&&!kianDialogueActive&&!$('fisherBubble').classList.contains('show')){
+  var idx=crewStoryShown++,scene=CREW_STORY_DIALOGUES[idx];save();setCrewStoryBubble(scene.line,scene.reply,scene.speaker);
+ }
+}
+function crewIsObserved(){return !document.hidden&&document.hasFocus()&&(Date.now()-lastCrewAttention<8500)}
+document.addEventListener('pointerdown',function(){lastCrewAttention=Date.now()},{passive:true});
+document.addEventListener('keydown',function(){lastCrewAttention=Date.now()});
+document.addEventListener('visibilitychange',function(){if(!document.hidden)lastCrewAttention=Date.now()});
+
 function startKianDialogue(stage){
  var q=KIAN_DIALOGUES[stage];if(!q||kianDialogueActive||$('fisherBubble').classList.contains('show'))return;
  kianDialogueActive=true;characterTalkCooldown=0;
@@ -1196,7 +1231,6 @@ function startKianEscape(){
  var fx=$('kianEscapeFx');fx.classList.remove('show');void fx.offsetWidth;fx.classList.add('show');document.body.classList.add('kianGlitch');
  setTimeout(function(){
   document.body.classList.remove('kianGlitch');fx.classList.remove('show');
-  if(false){kianDialogueActive=false;$('fisherBubble').classList.remove('kianMode','show');return;}
   setKianBubble('Autsch! Da war eine unsichtbare Wand. Ich wurde direkt zurückgeschleudert … Aber jetzt weiß ich es ganz sicher: Da draußen gibt es jemanden. Dich.',[
    {label:'Ich bin noch da.',onClick:function(){finishKianEscape('Ich bin noch da.')}} ,
    {label:'Wir finden einen Weg.',onClick:function(){finishKianEscape('Wir finden einen Weg.')}}
@@ -1222,7 +1256,7 @@ function playSoaSale(count,fishName,callback){
  var amount=Math.max(1,Math.floor(count||1));
  $('soaFeastCount').textContent='× '+amount+' Fisch'+(amount===1?'':'e');
  var feastLines=[
- 'Soa lacht kurz, schnappt sich den Fang und wirft ihn mit einem PLATSCH zurück. Am Anfang fühlt sich alles noch leicht an.',
+ 'Soa freut sich über den Fang und wirft ihn mit einem PLATSCH zurück. Am Anfang fühlt sich alles noch leicht an.',
  'Soa greift wieder nach dem Essen. „Wenn ich kaue, muss ich nicht daran denken, wie weit wir schon draußen sind.“ Dann wirft er den Fisch zurück.',
  'Soa versucht, das mulmige Gefühl mit Essen zu überdecken. Für einen Moment wird es still in seinem Kopf – danach kommt die Sorge zurück.',
  'Soa hält kurz inne. „Ich glaube, ich esse gerade, damit ich nicht sagen muss, wie traurig ich bin.“ Er legt eine Hand auf den Bauch und schaut weg.',
@@ -1765,7 +1799,7 @@ updateBookProgress();renderBookGrid();
 $('book').className='ov on';
 }
 function update(dt){
-t+=dt;seaStoryTime+=dt;characterTalkCooldown=Math.max(0,characterTalkCooldown-dt);advanceCrewStory(dt);updateKianAwareness(dt);dayLight=.5+.5*Math.sin((t/180)*Math.PI*2-Math.PI/2);updateWorldEvents(dt);weatherTimer-=dt;
+t+=dt;seaStoryTime+=dt;characterTalkCooldown=Math.max(0,characterTalkCooldown-dt);advanceCrewStory();updateKianAwareness(dt);dayLight=.5+.5*Math.sin((t/180)*Math.PI*2-Math.PI/2);updateWorldEvents(dt);weatherTimer-=dt;
 if(weatherTimer<=0){if(weatherRain){weatherRain=false;weatherTimer=rnd(28,55);say('☁️ Der Regen ist vorbei.',1.8);if(Math.random()<.22){var clearLines=['Die Wolken ziehen weiter. Gleich wird die Sicht wieder besser!','Der Regen ist vorbei – perfekt, um weiterzuangeln!','Puh, wieder ruhigeres Wasser. Das Boot kann sich ausruhen.'];showCharacterRemark(clearLines[Math.floor(Math.random()*clearLines.length)],4.6)}}else if(Math.random()<.48){weatherRain=true;weatherTimer=rnd(16,29);say('🌧️ Es regnet! Die Wellen werden höher.',2.8);if(Math.random()<.28){var rainLines=['Oh, es fängt an zu regnen! Halt die Angel gut fest!','Ganz schön stürmisch. Hoffentlich beißt trotzdem etwas an!','Regen auf dem Meer – das macht das Angeln spannend!'];showCharacterRemark(rainLines[Math.floor(Math.random()*rainLines.length)],4.8)}}else{weatherTimer=rnd(18,38)}}
 if(shake>0)shake-=dt;if(mT>0)mT-=dt;
 if(pirate){updatePirate(dt);return}
@@ -1786,8 +1820,34 @@ bub.forEach(function(b){b.x+=(b.vx||0)*dt;b.y+=(b.vy||-30)*dt;b.l-=dt});bub=bub.
 if(Math.random()<dt*2)bub.push({x:rnd(0,W),y:H+4,vy:-rnd(25,60),r:rnd(1.5,3.5),l:rnd(5,9)});
 shadows.forEach(function(s){s.x+=s.v*dt;if(s.x>W+60)s.x=-60;if(s.x<-60)s.x=W+60})}
 function txt(s,px,py,sz,col){x.font='800 '+sz+'px '+getComputedStyle(document.body).fontFamily;x.textAlign='center';x.fillStyle=col||'#e9f6ee';x.fillText(s,px,py)}
+
+function drawCrewCompanion(px,ground,id,stage,observed){
+ x.save();x.translate(px,ground);
+ var worry=Math.max(0,Math.min(1,(stage-1)/4)),lean=id==='lukas'&&!observed?.36:id==='soa'?worry*.22:id==='kian'?worry*.08:worry*.14;
+ x.rotate(lean);x.scale(.68,.68);
+ var shirt=id==='lukas'?'#ef6d54':id==='soa'?'#55aaa0':'#315878',hair=id==='lukas'?'#513024':id==='soa'?'#855334':'#282638';
+ x.fillStyle='rgba(0,0,0,.2)';x.beginPath();x.ellipse(0,1,13,3,0,0,Math.PI*2);x.fill();
+ x.strokeStyle='#202a3b';x.lineWidth=4;x.lineCap='round';x.beginPath();x.moveTo(-5,-17);x.lineTo(-6,-4);x.moveTo(5,-17);x.lineTo(7,-4);x.stroke();
+ x.fillStyle=shirt;x.beginPath();x.roundRect(-10,-39,20,24,5);x.fill();
+ x.strokeStyle=shirt;x.lineWidth=4;
+ if(id==='soa'&&stage>=2){var reach=Math.sin(t*3)*1.5;x.beginPath();x.moveTo(-8,-34);x.quadraticCurveTo(-14,-31,-6+reach,-48);x.stroke();x.beginPath();x.moveTo(8,-33);x.lineTo(12,-20);x.stroke()}
+ else if(id==='kian'&&stage>=3){x.beginPath();x.moveTo(-8,-34);x.lineTo(-13,-25);x.moveTo(8,-34);x.lineTo(13,-43);x.stroke()}
+ else{x.beginPath();x.moveTo(-8,-34);x.lineTo(-13,-22);x.moveTo(8,-34);x.lineTo(13,-22);x.stroke()}
+ x.fillStyle='#e5b18a';x.beginPath();x.arc(0,-48,10,0,Math.PI*2);x.fill();
+ x.fillStyle=hair;x.beginPath();x.arc(0,-51,10,Math.PI,Math.PI*2);x.lineTo(9,-46);x.quadraticCurveTo(0,-50,-8,-45);x.closePath();x.fill();
+ if(id==='kian'){x.fillStyle='#b84442';x.beginPath();x.moveTo(-9,-55);x.lineTo(9,-53);x.lineTo(4,-49);x.closePath();x.fill()}
+ x.fillStyle='#263044';x.beginPath();x.arc(-3,-48,1,0,Math.PI*2);x.arc(3,-48,1,0,Math.PI*2);x.fill();
+ x.strokeStyle='#704338';x.lineWidth=1.2;x.beginPath();
+ if((id==='lukas'&&!observed)||stage>=4&&id!=='kian')x.arc(0,-44,3,Math.PI+.2,Math.PI*2-.2);
+ else x.arc(0,-47,3,.2,Math.PI-.2);
+ x.stroke();
+ if(id==='kian'&&stage>=3){x.strokeStyle='rgba(196,226,255,.65)';x.lineWidth=1.4;x.beginPath();x.moveTo(14,-56);x.lineTo(19,-63);x.lineTo(16,-49);x.stroke()}
+ x.font='700 7px sans-serif';x.textAlign='center';x.fillStyle='rgba(240,249,255,.85)';x.fillText(id==='lukas'?'LUKAS':id==='soa'?'SOA':'KIAN',0,10);
+ x.restore();
+}
+
 function drawBoat(g){
-var bx=g.bx,by=SURF+Math.sin(t*2.4)*(isRainy()?5:1.4),rl=U.rod;
+var bx=g.bx,by=SURF+Math.sin(t*2.4)*(isRainy()?5:1.4),rl=U.rod,charId=selectedCharacter||'lukas',moodStage=seaMoodStage,observed=crewIsObserved();
 /* water shadow and floating buoys */
 x.save();x.globalAlpha=.2;x.fillStyle='#00111c';x.beginPath();x.ellipse(bx+2,by+19,116,13,0,0,Math.PI*2);x.fill();x.restore();
 for(var k=0;k<8;k++){var ux=bx+125+k*350,uy=by+Math.sin(t*1.7+k)*2;x.strokeStyle='rgba(218,248,255,.32)';x.lineWidth=1.5;x.beginPath();x.ellipse(ux,uy+5,18,3,0,0,Math.PI*2);x.stroke();x.fillStyle='#fff';x.beginPath();x.arc(ux,uy,4,Math.PI,0);x.fill();x.fillStyle='#ed5960';x.fillRect(ux-4,uy-2,8,2)}
@@ -1804,11 +1864,12 @@ x.strokeStyle='#55352a';x.lineWidth=4;x.beginPath();x.moveTo(bx+72,by-20);x.line
 x.shadowColor='#ffd36a';x.shadowBlur=17;x.fillStyle='#ffe5a1';x.beginPath();x.arc(bx+72,by-64,6,0,Math.PI*2);x.fill();x.shadowBlur=0;
 x.strokeStyle='#513323';x.lineWidth=3;x.beginPath();x.moveTo(bx-78,by-19);x.lineTo(bx-78,by-67);x.stroke();
 x.fillStyle='#f05c55';x.beginPath();x.moveTo(bx-76,by-65);x.lineTo(bx-50,by-59+Math.sin(t*4)*2);x.lineTo(bx-76,by-52);x.closePath();x.fill();
+var bodyLean=charId==='lukas'&&!observed?.34:charId==='soa'?Math.max(0,moodStage-1)*.035:charId==='kian'?Math.max(0,moodStage-2)*.012:Math.max(0,moodStage-2)*.025;x.save();x.translate(bx-22,by-42);x.rotate(bodyLean);x.translate(-(bx-22),-(by-42));
 /* fisherman's legs and shoes */
 x.fillStyle='#172f55';x.fillRect(bx-40,by-32,15,21);x.fillRect(bx-22,by-32,15,21);
 x.fillStyle='#34232c';x.beginPath();x.ellipse(bx-33,by-10,9,4,0,0,Math.PI*2);x.ellipse(bx-14,by-10,9,4,0,0,Math.PI*2);x.fill();
 /* Outfit matches the selected angler. */
-var charId=selectedCharacter||'lukas',jacketColors=charId==='kian'?['#24455b','#122b40','#071b2a']:charId==='soa'?['#81c4bd','#398c8d','#1d565e']:['#ff9364','#ef5948','#a92f3d'];
+var jacketColors=charId==='kian'?['#24455b','#122b40','#071b2a']:charId==='soa'?['#81c4bd','#398c8d','#1d565e']:['#ff9364','#ef5948','#a92f3d'];
 var jacket=x.createLinearGradient(bx-45,by-65,bx-8,by-31);jacket.addColorStop(0,jacketColors[0]);jacket.addColorStop(.5,jacketColors[1]);jacket.addColorStop(1,jacketColors[2]);x.fillStyle=jacket;x.beginPath();
 if(charId==='lukas'){x.moveTo(bx-45,by-60);x.quadraticCurveTo(bx-28,by-72,bx-8,by-58);x.lineTo(bx+1,by-31);x.lineTo(bx-48,by-31)}
 else if(charId==='soa'){x.moveTo(bx-39,by-58);x.quadraticCurveTo(bx-27,by-65,bx-11,by-56);x.quadraticCurveTo(bx-2,by-47,bx-8,by-30);x.lineTo(bx-43,by-30)}
@@ -1826,7 +1887,7 @@ x.fillStyle='#f5c39a';x.beginPath();x.arc(handX,handY,4.8,0,Math.PI*2);x.fill();
 x.fillStyle='#e5ae82';x.fillRect(bx-31,by-70,12,13);
 var face=x.createRadialGradient(bx-19,by-82,2,bx-22,by-79,17);face.addColorStop(0,'#ffe4be');face.addColorStop(1,'#bd785e');x.fillStyle=face;x.beginPath();x.ellipse(bx-22,by-80,13,16,-.12,0,Math.PI*2);x.fill();
 x.fillStyle='#54332e';x.beginPath();x.arc(bx-33,by-83,3,0,Math.PI*2);x.arc(bx-11,by-83,2.5,0,Math.PI*2);x.fill();
-x.strokeStyle='#66362e';x.lineWidth=1.5;x.beginPath();x.arc(bx-21,by-75,5,.1,1.8);x.stroke();
+x.strokeStyle='#66362e';x.lineWidth=1.5;x.beginPath();var mainSad=(charId==='lukas'&&!observed)||(moodStage>=4&&(charId==='soa'||charId==='lukas'));if(mainSad)x.arc(bx-21,by-72,5,Math.PI+.2,Math.PI*2-.2);else x.arc(bx-21,by-78,5,.1,1.8);x.stroke();
 /* Hair and signature accessories. */
 if(charId==='lukas'){x.fillStyle='#513024';x.beginPath();x.arc(bx-22,by-91,14,Math.PI,Math.PI*2);x.lineTo(bx-9,by-84);x.quadraticCurveTo(bx-21,by-89,bx-31,by-83);x.closePath();x.fill()}
 else if(charId==='soa'){x.fillStyle='#855334';x.beginPath();x.arc(bx-22,by-90,14,Math.PI,Math.PI*2);x.arc(bx-34,by-88,5,0,Math.PI*2);x.arc(bx-11,by-88,5,0,Math.PI*2);x.fill()}
@@ -1840,6 +1901,8 @@ x.beginPath();x.moveTo(bx-33,by-91);x.quadraticCurveTo(bx-41,by-72,bx-34,by-63);
 x.beginPath();x.moveTo(bx-12,by-91);x.quadraticCurveTo(bx-1,by-72,bx-9,by-62);x.lineTo(bx-17,by-70);x.lineTo(bx-18,by-90);x.fill();
 x.fillStyle='#27243b';[-33,-11].forEach(function(hx){x.beginPath();x.moveTo(hx,by-97);x.lineTo(hx-7,by-104);x.lineTo(hx+1,by-102);x.lineTo(hx+7,by-108);x.lineTo(hx+5,by-98);x.closePath();x.fill()});
 }
+x.restore();
+var companions=['lukas','soa','kian'].filter(function(id){return id!==charId});drawCrewCompanion(bx+34,by-18,companions[0],moodStage,observed);drawCrewCompanion(bx+72,by-18,companions[1],moodStage,observed);
 /* fishing rod with guides and shiny tip */
 var rodAngle=-.30-castPose*1.18,rodLength=42,tipX=handX+Math.cos(rodAngle)*rodLength,tipY=handY+Math.sin(rodAngle)*rodLength;
 var rodColor=hasPearlRod?'#75fff0':done?'#ffe16f':rl>=9?'#fb83e6':rl>=7?'#b98cff':rl>=5?'#c7edf7':rl>=3?'#63b8ff':rl>=1?'#e5c36d':'#9d7447';
@@ -1907,7 +1970,7 @@ var g=geo(),sg=x.createLinearGradient(0,0,0,SURF);if(world===3){sg.addColorStop(
 x.fillStyle=sg;x.fillRect(0,0,W,SURF);x.save();x.fillStyle='rgba(255,190,112,'+(dayLight*.13)+')';x.fillRect(0,0,W,SURF);x.fillStyle='rgba(2,8,29,'+((1-dayLight)*.32)+')';x.fillRect(0,0,W,SURF);x.restore();
 var skyGlow=x.createRadialGradient(W*.72,SURF*.52,4,W*.72,SURF*.52,SURF*.72);skyGlow.addColorStop(0,world===3?'rgba(186,151,255,.42)':world===2?'rgba(255,245,194,.55)':world===1?'rgba(130,255,218,.22)':'rgba(255,194,139,.3)');skyGlow.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=skyGlow;x.fillRect(0,0,W,SURF);
 for(var cl=0;cl<4;cl++){var cx=W*(.12+cl*.25)+Math.sin(t*.12+cl)*12,cy=SURF*(.19+(cl%2)*.17);x.fillStyle='rgba(238,251,255,'+(world===1?.12:.22)+')';x.beginPath();x.ellipse(cx,cy,28,7,0,0,Math.PI*2);x.ellipse(cx-13,cy+1,15,6,0,0,Math.PI*2);x.ellipse(cx+14,cy+1,17,5,0,0,Math.PI*2);x.fill()}
-for(var isl=0;isl<3;isl++){var ix=((isl*W*.43+W*.12-cam*.12)%(W+180)+W+180)%(W+180)-70,iy=SURF*.83;x.fillStyle=world===3?'rgba(70,57,122,.42)':world===2?'rgba(13,96,102,.48)':world===1?'rgba(15,52,79,.55)':'rgba(40,42,73,.55)';x.beginPath();x.moveTo(ix-85,iy);x.quadraticCurveTo(ix-34,iy-32,ix,iy-16);x.quadraticCurveTo(ix+42,iy-45,ix+95,iy);x.lineTo(ix+95,SURF);x.lineTo(ix-85,SURF);x.fill()}
+for(var isl=0;isl<3;isl++){var ix=((isl*W*.43+W*.12-cam*.12-seaStoryTime*1.8)%(W+180)+W+180)%(W+180)-70,iy=SURF*.83;x.fillStyle=world===3?'rgba(70,57,122,.42)':world===2?'rgba(13,96,102,.48)':world===1?'rgba(15,52,79,.55)':'rgba(40,42,73,.55)';x.beginPath();x.moveTo(ix-85,iy);x.quadraticCurveTo(ix-34,iy-32,ix,iy-16);x.quadraticCurveTo(ix+42,iy-45,ix+95,iy);x.lineTo(ix+95,SURF);x.lineTo(ix-85,SURF);x.fill()}
 x.save();x.globalAlpha=(1-dayLight)*.78;x.fillStyle='rgba(255,255,255,.8)';for(var i=0;i<(world==2?0:24);i++){x.fillRect((i*97)%W,(i*53)%(SURF*.55),i%5===0?2:1.5,i%5===0?2:1.5)}x.restore();
 var celestialX=W*(.16+.68*((t%180)/180)),celestialY=SURF*(.22+.12*Math.cos((t%180)/180*Math.PI*2));x.save();if(dayLight>.32){var sunGlow=x.createRadialGradient(celestialX,celestialY,5,celestialX,celestialY,62);sunGlow.addColorStop(0,'rgba(255,231,158,'+(.18+dayLight*.28)+')');sunGlow.addColorStop(1,'rgba(255,231,158,0)');x.fillStyle=sunGlow;x.fillRect(celestialX-65,celestialY-65,130,130);x.fillStyle='#ffe8a8';x.beginPath();x.arc(celestialX,celestialY,19,0,Math.PI*2);x.fill()}else{x.fillStyle='rgba(255,236,190,.95)';x.beginPath();x.arc(celestialX,celestialY,17,0,Math.PI*2);x.fill();x.fillStyle='rgba(13,31,58,.8)';x.beginPath();x.arc(celestialX+7,celestialY-5,16,0,Math.PI*2);x.fill()}x.restore();
 if(world==1){for(var q=0;q<3;q++){x.fillStyle='hsla('+(150+q*60+Math.sin(t+q)*20)+',90%,60%,.18)';x.beginPath();x.moveTo(0,SURF*.5);for(var u=0;u<=W;u+=20)x.lineTo(u,SURF*(.15+q*.12)+Math.sin(u*.01+t*.8+q)*18);x.lineTo(W,SURF*.7);x.lineTo(0,SURF*.7);x.fill()}}
