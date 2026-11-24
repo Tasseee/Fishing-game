@@ -24,7 +24,7 @@ Es gibt sechs Seltenheitsstufen: Normal, Selten, Sehr selten, Unmöglich, Legend
 
 Jede Seltenheit startet im Angel-Minispiel mit genau **3 Leben**.
 
-Bei jedem erfolgreichen Fang gibt es eine feste **1%-Chance** auf eine Schatzkiste. Glücks-Upgrades verändern diese Chance nicht. Eine Kiste enthält zufällig 25% des aktuellen Geldbestands (mindestens 50 Münzen), 25 Glücksköder oder 10 zufällige Upgrade-Stufen, soweit noch verfügbar.
+Bei jedem erfolgreichen Fang gibt es eine feste **5%-Chance** auf eine Schatzkiste. Während des Events „Schatzflut“ steigt die Chance auf 8%. Glücks-Upgrades verändern diese Chance nicht. Eine Kiste enthält zufällig 25% des aktuellen Geldbestands (mindestens 50 Münzen), 25 Glücksköder oder 10 zufällige Upgrade-Stufen, soweit noch verfügbar.
 
 Ein Piratenschiff taucht in zufälligen Abständen zwischen **10 Sekunden und 5 Minuten** auf. Im Kampf müssen 7 schrumpfende Zielscheiben in 30 Sekunden getroffen werden; höchstens 3 Fehlschüsse sind erlaubt. Ein Sieg zahlt 7% aller bisher verdienten Münzen aus. Bei einer Niederlage geht der aktuelle Münzbestand verloren.
 
@@ -32,10 +32,13 @@ Die Fangkarte zeigt Seltenheitschance, Mutationschance und die kombinierte Fangc
 
 ## Quests
 
-- Es gibt immer **3 aktive Quests** gleichzeitig. Die Aufgaben wechseln zwischen Fische fangen, Fische verkaufen, seltene Fische entdecken, Mutationen fangen und gigantische Fische angeln.
-- Der Fortschritt wird automatisch gezählt. Eine fertige Quest kann über **📜 Quests** unten links abgeholt werden.
-- Als Belohnung gibt es Münzen oder zusätzliche Fische, die direkt im Fangbestand landen.
-- Aktive Aufgaben und Fortschritt werden zusammen mit dem restlichen Spielstand lokal gespeichert. Nach dem Einlösen erscheint direkt eine neue Aufgabe. Beim Rebirth werden drei neue Aufgaben gestartet.
+- Es gibt insgesamt **30 Aufgaben** in zehn Abschnitten. Du hast immer 3 aktive Quests gleichzeitig; erst wenn alle drei eingelöst wurden, erscheinen die nächsten drei.
+- Aufgaben reichen vom Fischefangen und Verkaufen bis zu seltenen Fischen, Mutationen und gigantischen Fängen.
+- Fertige Aufgaben kannst du über **📜 Quests** unten links einlösen. Münzen werden direkt gutgeschrieben.
+- Fischbelohnungen zeigen einen Zufalls-Spin. Mit jeder schwierigeren Quest steigen die Chancen auf seltene, legendäre und mythische Fische. Der gewonnene Fisch landet nach dem Spin im Fangbestand.
+- Nach allen 30 Aufgaben gibt es einen zusätzlichen Münzbonus. Beim Rebirth beginnt die Quest-Reihe wieder von vorn.
+- Quest-Abschnitt, Fortschritt und eingelöste Belohnungen werden lokal mit dem restlichen Spielstand gespeichert.
+- Der Angler kommentiert jetzt häufiger besondere Größen und Seltenheiten, Mutationen, Events sowie Regen und Wetterwechsel.
 
 ## Spielstand
 
