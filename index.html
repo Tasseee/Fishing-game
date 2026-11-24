@@ -593,13 +593,52 @@ body.kianGlitch #c{animation:kianCanvasGlitch .13s steps(2,end) infinite;filter:
 @keyframes catchNameReveal{0%{opacity:0;transform:translateY(18px) scale(.72);letter-spacing:.12em}70%{opacity:1;transform:translateY(-2px) scale(1.06)}100%{opacity:1;transform:none;letter-spacing:normal}}
 @keyframes catchInfoRise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){#card.show,#card.show #cc,#card.show #rb,#card.show #fn,#card.show #fi{animation:none!important}}
+
+/* Spielmodus-Auswahl und Hinweis zu sensiblen Themen */
+#modeov,#storyWarning{z-index:110;background:radial-gradient(ellipse at 50% 0,rgba(70,164,190,.25),transparent 58%),rgba(1,8,18,.95);backdrop-filter:blur(14px)}
+#modePanel,#storyWarningPanel{width:min(94vw,620px);max-height:92vh;overflow:auto;padding:clamp(18px,4vw,28px);border:1px solid rgba(151,226,240,.36);border-radius:26px;background:linear-gradient(155deg,#17445b,#071c2b 86%);box-shadow:0 25px 90px rgba(0,0,0,.68);text-align:center}
+.modeEyebrow{font-size:10px;letter-spacing:.2em;font-weight:900;color:#80e1eb}
+#modePanel h2,#storyWarningPanel h2{margin:7px 0 9px;color:#fff0bd;font-size:clamp(25px,5.5vw,36px)}
+#modePanel p,#storyWarningPanel p{margin:8px auto 17px;max-width:530px;color:#c5dce5;font-size:14px;line-height:1.55}
+.modeChoices{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modeChoice{min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:9px;padding:17px 14px;border:1px solid rgba(163,223,239,.22);border-radius:19px;background:linear-gradient(155deg,#19445b,#092438);color:#effaff;text-shadow:none;white-space:normal}
+.modeChoice.selected{border:2px solid #ffe08a;background:linear-gradient(155deg,#365a68,#122e40);box-shadow:0 0 0 2px rgba(255,224,138,.14),0 0 20px rgba(255,204,93,.2)}
+.modeChoice .modeIcon{font-size:40px;line-height:1.2}
+.modeChoice b{font-size:20px}
+.modeChoice small{font-size:12px;line-height:1.45;color:#c5dce5}
+.modeClose{display:none;margin:16px auto 0}
+.modeActions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px}
+#storyWarningPanel{border-color:rgba(255,211,130,.5);background:linear-gradient(155deg,#244154,#102638 86%)}
+#storyWarningPanel .modeEyebrow{color:#ffd98a}
+#storyWarningPanel p{text-align:left}
+.soaFeastScene{height:142px;border-radius:18px;background:radial-gradient(ellipse at 54% 88%,rgba(112,235,206,.16),transparent 65%),linear-gradient(180deg,rgba(5,27,42,.08),rgba(2,18,29,.45))}
+.soaFeastCharacter{position:absolute;right:11%;bottom:0;width:126px;height:132px;z-index:1;animation:soaHeadBite 2.7s ease-in-out both;filter:drop-shadow(0 6px 6px rgba(0,0,0,.25))}
+.soaFeastBody{position:absolute;left:34px;bottom:-9px;width:66px;height:65px;border-radius:30px 30px 13px 13px;background:linear-gradient(145deg,#80c9bf,#3c9290 64%,#1b5b68);border:2px solid rgba(230,255,247,.35)}
+.soaFeastHead{position:absolute;left:39px;top:18px;width:48px;height:53px;border-radius:48% 48% 46% 46%;background:linear-gradient(145deg,#ffddb7,#d99a76);border:2px solid rgba(255,239,218,.65);z-index:2;animation:soaHeadBite 2.7s ease-in-out both}
+.soaFeastHair{position:absolute;left:-2px;top:-5px;width:49px;height:21px;border-radius:50% 50% 30% 25%;background:#855334;box-shadow:-6px 9px 0 -2px #855334,7px 9px 0 -2px #855334}
+.soaFeastEyes{position:absolute;left:12px;top:25px;width:4px;height:4px;border-radius:50%;background:#49302b;box-shadow:18px 0 #49302b}
+.soaFeastMouth{position:absolute;left:19px;top:36px;width:10px;height:5px;border:2px solid #8b4e4a;border-top:0;border-radius:0 0 9px 9px;transform-origin:center;animation:soaMouthChew 2.7s ease-in-out both}
+.soaFeastArm{position:absolute;left:-1px;top:76px;width:67px;height:13px;border-radius:999px;background:linear-gradient(#f3c49f,#d99977);transform-origin:88% 50%;transform:rotate(15deg);z-index:3;animation:soaArmLift 2.7s ease-in-out both}
+.soaFeastFish{position:absolute;left:12%;top:42%;z-index:4;font-size:42px;filter:drop-shadow(0 5px 7px rgba(0,0,0,.32));animation:soaFishToMouth 2.7s cubic-bezier(.3,.05,.25,1) both}
+.soaFeastChew{position:absolute;left:48%;top:14%;z-index:5;font-size:12px;font-weight:1000;letter-spacing:.08em;color:#ffe38c;text-shadow:0 2px 8px #092638;opacity:0;animation:soaChewText 2.7s ease-out both}
+.soaFeastSplash{position:absolute;right:8%;bottom:5%;z-index:5;font-size:28px;opacity:0;animation:soaFeastSplash 2.7s ease-out both}
+@keyframes soaFishToMouth{0%{transform:translate(-25px,15px) rotate(-22deg) scale(.65);opacity:0}12%{opacity:1}36%{transform:translate(35px,0) rotate(6deg) scale(1)}51%{transform:translate(98px,-19px) rotate(-7deg) scale(.8);opacity:1}62%,100%{transform:translate(112px,-22px) rotate(-18deg) scale(.04);opacity:0}}
+@keyframes soaArmLift{0%,14%{transform:rotate(18deg) translateY(2px)}38%,55%{transform:rotate(-28deg) translateY(-8px)}65%,100%{transform:rotate(8deg) translateY(1px)}}
+@keyframes soaHeadBite{0%,37%,100%{transform:translateY(0) rotate(0)}45%,61%{transform:translateY(5px) rotate(5deg)}53%,70%{transform:translateY(-1px) rotate(-2deg)}}
+@keyframes soaMouthChew{0%,38%,100%{transform:scaleY(.45)}45%,60%,73%{transform:scaleY(1.8)}52%,66%{transform:scaleY(.6)}}
+@keyframes soaChewText{0%,44%{opacity:0;transform:scale(.5) translateY(5px)}52%,69%{opacity:1;transform:scale(1) translateY(0)}84%,100%{opacity:0;transform:translateY(-5px)}}
+@keyframes soaFeastSplash{0%,72%{opacity:0;transform:translateY(10px) scale(.5)}87%{opacity:1;transform:translateY(-4px) scale(1.15)}100%{opacity:0;transform:translateY(-12px) scale(.8)}}
+.soaFeast[data-mood="3"] .soaFeastMouth,.soaFeast[data-mood="4"] .soaFeastMouth,.soaFeast[data-mood="5"] .soaFeastMouth,.soaFeast[data-mood="6"] .soaFeastMouth{border-radius:9px 9px 0 0;border-bottom:0;border-top:2px solid #8b4e4a}
+@media(max-width:520px){.modeChoices{grid-template-columns:1fr}.modeChoice{min-height:0;padding:14px}.soaFeastCharacter{right:7%}.soaFeastScene{height:130px}}
+@media(prefers-reduced-motion:reduce){.soaFeastCharacter,.soaFeastHead,.soaFeastArm,.soaFeastFish,.soaFeastChew,.soaFeastSplash{animation:none!important}.soaFeastFish{opacity:0}}
+
 </style>
 </head>
 <body>
 <canvas id="c" aria-label="Angelspiel"></canvas>
 <canvas id="fxc" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:6"></canvas>
 <div id="eventBanner" aria-live="polite"><span id="eventIcon"></span><span class="eventBannerCopy"><b id="eventTitle"></b><small id="eventDetail"></small></span><strong id="eventClock"></strong></div>
-<div id="hud"><div>🪙 <span id="n">0</span><small id="incomeRateHud" class="coinRate">+0,00/s</small><small id="endGoalHud" class="coinRate">🏁 Ziel: 100.000 Münzen + Index</small></div><div><button id="sd">🔊</button> <button id="characterSwitch" aria-label="Figur wechseln" title="Figur wechseln">👤</button> <button id="help" aria-label="Tutorial">?</button> <button id="sh">Laden</button> <button id="bk">Index <span id="f">0</span>/<span id="ft">0</span></button></div></div>
+<div id="hud"><div>🪙 <span id="n">0</span><small id="incomeRateHud" class="coinRate">+0,00/s</small><small id="endGoalHud" class="coinRate">🏁 Ziel: 100.000 Münzen + Index</small></div><div><button id="sd">🔊</button> <button id="characterSwitch" aria-label="Figur wechseln" title="Figur wechseln">👤</button> <button id="modeSwitch" aria-label="Spielmodus wechseln" title="Spielmodus wechseln">🎭</button> <button id="help" aria-label="Tutorial">?</button> <button id="sh">Laden</button> <button id="bk">Index <span id="f">0</span>/<span id="ft">0</span></button></div></div>
 <button id="questBtn" aria-label="Quests öffnen" title="Quests">📜 Quests <span id="questBadge">0</span></button>
 <div class="ov" id="cardov"><div id="card"><canvas id="cc" width="560" height="340"></canvas>
 <div class="t"><span id="rb"></span></div><div class="t" id="fn">???</div><div class="t" id="fi"></div>
@@ -607,7 +646,10 @@ body.kianGlitch #c{animation:kianCanvasGlitch .13s steps(2,end) infinite;filter:
 <div id="characterRemark" aria-live="polite"></div>
 <div id="fisherBubble" aria-live="polite"><span id="fisherBubbleSpeaker"></span><span id="fisherBubbleText"></span><div id="kianReplyActions"></div></div>
 <div id="kianEscapeFx" aria-hidden="true"><div class="kianRift"></div><div class="kianEscapeRunner">🏴‍☠️</div><div class="kianEscapeCaption">KIAN · AUSBRUCHSVERSUCH</div></div>
-<div id="soaFeast" aria-hidden="true"><div id="soaFeastCard"><span class="soaFeastEyebrow">SOAS FISCH-RESTAURANT</span><div class="soaFeastScene"><span class="soaFeastFish">🐟</span><span class="soaFeastFace">😋</span><span class="soaFeastSplash">💦</span></div><b id="soaFeastWho">Ein Fisch</b><span id="soaFeastCount">× 1</span><p id="soaFeastText">Mampf … PLATSCH! Zurück ins Meer!</p></div></div>
+<div id="soaFeast" aria-hidden="true"><div id="soaFeastCard"><span class="soaFeastEyebrow">SOAS FISCH-RESTAURANT</span><div class="soaFeastScene" aria-label="Soa hebt einen Fisch zum Mund und isst ihn in einer kurzen Comic-Animation">
+ <div class="soaFeastCharacter" aria-hidden="true"><div class="soaFeastBody"></div><div class="soaFeastArm"></div><div class="soaFeastHead"><div class="soaFeastHair"></div><div class="soaFeastEyes"></div><div class="soaFeastMouth"></div></div></div>
+ <span class="soaFeastFish" aria-hidden="true">🐟</span><span class="soaFeastChew" aria-hidden="true">MAMPF!</span><span class="soaFeastSplash" aria-hidden="true">✨</span>
+</div><b id="soaFeastWho">Ein Fisch</b><span id="soaFeastCount">× 1</span><p id="soaFeastText">Mampf … PLATSCH! Zurück ins Meer!</p></div></div>
 <div class="ov" id="book"><div id="bookShell">
   <header id="bookHead">
     <div class="bookHeading"><span class="bookEyebrow">DEINE SAMMLUNG</span><h2>📖 Fisch-Index</h2><p>Entdecke alle Fische und ihre Mutationen.</p></div>
@@ -637,6 +679,21 @@ body.kianGlitch #c{animation:kianCanvasGlitch .13s steps(2,end) infinite;filter:
 <div class="ov" id="pirateov"><div id="piratePanel"><h2>🏴‍☠️ PIRATENSCHIFF!</h2><p>Die Piraten greifen an! Triff 7 schrumpfende Zielscheiben. Jede Scheibe wird schnell kleiner. Du hast 30 Sekunden und darfst höchstens 3 Ziele verpassen.</p><div id="pirateStats"><span class="pstat" id="pirateTime">Zeit: 30 s</span><span class="pstat" id="pirateHits">Treffer: 0/7</span><span class="pstat" id="pirateMisses">Verfehlt: 0/3</span></div><canvas id="piratec"></canvas><div id="pirateHint">Ziele mit dem Mauszeiger anvisieren und anklicken!</div><div id="pirateResult"></div><button id="pirateClose">Zurück zum Angeln</button></div></div>
 
 
+<div class="ov" id="modeov" role="dialog" aria-modal="true" aria-labelledby="modeTitle"><div id="modePanel">
+ <div class="modeEyebrow">LUKI ANGELN</div><h2 id="modeTitle">Wie möchtest du spielen?</h2>
+ <p id="modeCurrent">Wähle deinen Spielmodus. Deine Figur kannst du danach weiterhin jederzeit wechseln.</p>
+ <div class="modeChoices">
+  <button class="modeChoice" id="modeNormal"><span class="modeIcon">🎣</span><b>Normalmodus</b><small>Das klassische Angelspiel ohne die ernsten Storyverläufe. Angeln, sammeln, verbessern und frei spielen.</small></button>
+  <button class="modeChoice" id="modeStory"><span class="modeIcon">📖</span><b>Storymodus</b><small>Persönliche Geschichten über Einsamkeit, schwierige Gefühle und den Mut, darüber zu sprechen.</small></button>
+ </div>
+ <button id="modeClose" class="modeClose">Zurück zum Spiel</button>
+</div></div>
+<div class="ov" id="storyWarning" role="dialog" aria-modal="true" aria-labelledby="storyWarningTitle"><div id="storyWarningPanel">
+ <div class="modeEyebrow">HINWEIS ZU SENSIBLEN THEMEN</div><h2 id="storyWarningTitle">Bevor die Geschichte beginnt</h2>
+ <p>Der Storymodus behandelt Einsamkeit, depressive Gefühle, innere Belastung und den Umgang mit schwierigen Situationen. Die Figuren können im Verlauf trauriger wirken und über ihre Gefühle sprechen.</p>
+ <p>Die Geschichte enthält keine drastischen Darstellungen. Sie soll Verständnis schaffen und zeigen, dass man nicht alles allein tragen muss. Du kannst jederzeit zurück zum Normalmodus wechseln.</p>
+ <div class="modeActions"><button id="storyWarningBack">Zurück</button><button id="storyWarningContinue">Hinweis gelesen – Story starten</button></div>
+</div></div>
 <div class="ov" id="characterov"><div id="characterPanel">
 <div class="characterTop"><span>WÄHLE DEINEN ANGLER</span><h2>Wer geht mit dir aufs Meer?</h2><p>Such dir eine Figur aus. Deine Auswahl bleibt im Spielstand gespeichert.</p></div>
 <div id="characterOptions">
@@ -806,12 +863,12 @@ var FISH=[
 FISH.sort(function(a,b){return a.r-b.r});
 var $=function(i){return document.getElementById(i)};
 var cv=$('c'),x=cv.getContext('2d'),W,H,D,SURF,cc=$('cc').getContext('2d');
-var cam=0,camT=0,mcoll={},mdone={},idxMu=0,ss=null,ssT=360,wish=false,world=0,own2=false,own3=false,own4=false,coll={},inv={},coins=0,lifetimeEarned=0,done=false,U={rod:0,charm:0,bait:0,reach:0,pat:0},cardSold=true,catchKey=null,lastCatchValue=0,pendingChest=false,adminLuck=0,dayLight=0,weatherRain=false,weatherTimer=34,activeEvent=null,eventTime=0,eventTimer=42,eventBannerTick=0,bookQuery="",bookRarity="all",bucket=[],bucketLevels=[],bucketNames={},bucketFraction=0,bucketSaveTimer=0,bucketUiTick=0,activeQuests=[],questBatch=0,questFinalBonusClaimed=false,tutorialSeen=false,selectedCharacter="",pendingCharacterChoice="",hasPearlRod=false,pirate=null,pirateTimer=0,rebirths=0,endingComplete=false,endingShown=false,endingStep=0,endingSceneElapsed=0,endingReady=false,characterRemarkTimer=0,characterTalkCooldown=0,kianAwareness=0,kianAwarenessStage=0,kianDialogueActive=false,soaSaleBusy=false,seaStoryTime=0,seaMoodStage=0,crewStoryShown=0,lastCrewAttention=Date.now();var END_MONEY_GOAL=100000;
-try{var S=JSON.parse(localStorage.getItem('luki3')||'null')||{coll:JSON.parse(localStorage.getItem('luki2')||'{}')};coll=S.coll||{};inv=S.inv||{};coins=S.coins||0;lifetimeEarned=Math.max(coins,Number(S.earned)||coins);done=!!S.done;own2=!!S.o2;mcoll=S.mc||{};mdone=S.md||{};own3=!!S.o3;own4=!!S.o4;world=own2?(S.w|0):0;if(world==2&&!own3)world=0;if(world==3&&!own4)world=0;U=S.up||U;pendingChest=!!S.pendingChest;adminLuck=Math.max(0,Math.min(100,Number(S.adminLuck)||0));bucket=Array.isArray(S.bucket)?S.bucket.slice(0,5):[];bucketLevels=Array.isArray(S.bucketLevels)?S.bucketLevels.slice(0,bucket.length):[];while(bucketLevels.length<bucket.length)bucketLevels.push({level:1,xp:0});bucketLevels=bucketLevels.map(function(d){d=d&&typeof d==='object'?d:{};var level=Math.max(1,Math.min(10,Math.floor(Number(d.level)||1)));return{level:level,xp:level>=10?0:Math.max(0,Math.min(level*60-0.001,Number(d.xp)||0))}});bucketNames=S.bucketNames&&typeof S.bucketNames==='object'?S.bucketNames:{};bucketFraction=Math.max(0,Math.min(.999999,Number(S.bucketFraction)||0));activeQuests=Array.isArray(S.quests)?S.quests:[];questBatch=Math.max(0,Math.min(10,Math.floor(Number(S.questBatch)||0)));questFinalBonusClaimed=!!S.questFinalBonusClaimed;tutorialSeen=!!S.tutorialSeen;selectedCharacter=["lukas","soa","kian"].indexOf(S.character)>=0?S.character:(S.character==="nino"?"lukas":"");hasPearlRod=!!S.pearlRod;rebirths=Math.max(0,Math.floor(Number(S.rebirths)||0));endingComplete=!!S.endingComplete;kianAwareness=Math.max(0,Math.min(10000,Number(S.kianAwareness)||0));kianAwarenessStage=Math.max(0,Math.min(5,Math.floor(Number(S.kianAwarenessStage)||0)));seaStoryTime=Math.max(0,Number(S.seaStoryTime)||0);seaMoodStage=Math.max(0,Math.min(6,Math.floor(Number(S.seaMoodStage)||0)));crewStoryShown=Math.max(0,Math.min(6,Math.floor(Number(S.crewStoryShown)||0)));if(S.storyVersion!==2){seaStoryTime=0;seaMoodStage=0;crewStoryShown=0;kianAwareness=0;kianAwarenessStage=0;kianDialogueActive=false;endingComplete=false;tutorialSeen=false}if(S.kianStoryVersion!==2){kianAwareness=0;kianAwarenessStage=0;kianDialogueActive=false}}catch(e){}
+var cam=0,camT=0,mcoll={},mdone={},idxMu=0,ss=null,ssT=360,wish=false,world=0,own2=false,own3=false,own4=false,coll={},inv={},coins=0,lifetimeEarned=0,done=false,U={rod:0,charm:0,bait:0,reach:0,pat:0},cardSold=true,catchKey=null,lastCatchValue=0,pendingChest=false,adminLuck=0,dayLight=0,weatherRain=false,weatherTimer=34,activeEvent=null,eventTime=0,eventTimer=42,eventBannerTick=0,bookQuery="",bookRarity="all",bucket=[],bucketLevels=[],bucketNames={},bucketFraction=0,bucketSaveTimer=0,bucketUiTick=0,activeQuests=[],questBatch=0,questFinalBonusClaimed=false,tutorialSeen=false,selectedCharacter="",pendingCharacterChoice="",hasPearlRod=false,pirate=null,pirateTimer=0,rebirths=0,endingComplete=false,endingShown=false,endingStep=0,endingSceneElapsed=0,endingReady=false,characterRemarkTimer=0,characterTalkCooldown=0,kianAwareness=0,kianAwarenessStage=0,kianDialogueActive=false,soaSaleBusy=false,seaStoryTime=0,seaMoodStage=0,crewStoryShown=0,lastCrewAttention=Date.now(),gameMode='',pendingGameMode='';var END_MONEY_GOAL=100000;
+try{var S=JSON.parse(localStorage.getItem('luki3')||'null')||{coll:JSON.parse(localStorage.getItem('luki2')||'{}')};coll=S.coll||{};gameMode=(S.mode==='normal'||S.mode==='story')?S.mode:'';inv=S.inv||{};coins=S.coins||0;lifetimeEarned=Math.max(coins,Number(S.earned)||coins);done=!!S.done;own2=!!S.o2;mcoll=S.mc||{};mdone=S.md||{};own3=!!S.o3;own4=!!S.o4;world=own2?(S.w|0):0;if(world==2&&!own3)world=0;if(world==3&&!own4)world=0;U=S.up||U;pendingChest=!!S.pendingChest;adminLuck=Math.max(0,Math.min(100,Number(S.adminLuck)||0));bucket=Array.isArray(S.bucket)?S.bucket.slice(0,5):[];bucketLevels=Array.isArray(S.bucketLevels)?S.bucketLevels.slice(0,bucket.length):[];while(bucketLevels.length<bucket.length)bucketLevels.push({level:1,xp:0});bucketLevels=bucketLevels.map(function(d){d=d&&typeof d==='object'?d:{};var level=Math.max(1,Math.min(10,Math.floor(Number(d.level)||1)));return{level:level,xp:level>=10?0:Math.max(0,Math.min(level*60-0.001,Number(d.xp)||0))}});bucketNames=S.bucketNames&&typeof S.bucketNames==='object'?S.bucketNames:{};bucketFraction=Math.max(0,Math.min(.999999,Number(S.bucketFraction)||0));activeQuests=Array.isArray(S.quests)?S.quests:[];questBatch=Math.max(0,Math.min(10,Math.floor(Number(S.questBatch)||0)));questFinalBonusClaimed=!!S.questFinalBonusClaimed;tutorialSeen=!!S.tutorialSeen;selectedCharacter=["lukas","soa","kian"].indexOf(S.character)>=0?S.character:(S.character==="nino"?"lukas":"");hasPearlRod=!!S.pearlRod;rebirths=Math.max(0,Math.floor(Number(S.rebirths)||0));endingComplete=!!S.endingComplete;kianAwareness=Math.max(0,Math.min(10000,Number(S.kianAwareness)||0));kianAwarenessStage=Math.max(0,Math.min(5,Math.floor(Number(S.kianAwarenessStage)||0)));seaStoryTime=Math.max(0,Number(S.seaStoryTime)||0);seaMoodStage=Math.max(0,Math.min(6,Math.floor(Number(S.seaMoodStage)||0)));crewStoryShown=Math.max(0,Math.min(6,Math.floor(Number(S.crewStoryShown)||0)));if(S.storyVersion!==2){seaStoryTime=0;seaMoodStage=0;crewStoryShown=0;kianAwareness=0;kianAwarenessStage=0;kianDialogueActive=false;endingComplete=false;tutorialSeen=false}if(S.kianStoryVersion!==2){kianAwareness=0;kianAwarenessStage=0;kianDialogueActive=false}}catch(e){}
 U.reach=U.reach||0;U.pat=U.pat||0;U.star=U.star||0;U.mut=U.mut||0;U.baitBought=U.baitBought||0;
 function starInterval(){return Math.max(38,Math.round(360*Math.pow(.82,Math.min(10,U.star||0))))}
 ssT=starInterval();
-function save(){try{localStorage.setItem('luki3',JSON.stringify({coll:coll,inv:inv,coins:coins,earned:lifetimeEarned,done:done,o2:own2,o3:own3,o4:own4,w:world,mc:mcoll,md:mdone,up:U,pendingChest:pendingChest,adminLuck:adminLuck,bucket:bucket,bucketLevels:bucketLevels,bucketNames:bucketNames,bucketFraction:bucketFraction,quests:activeQuests,questBatch:questBatch,questFinalBonusClaimed:questFinalBonusClaimed,tutorialSeen:tutorialSeen,character:selectedCharacter,pearlRod:hasPearlRod,rebirths:rebirths,endingComplete:endingComplete,kianAwareness:kianAwareness,kianAwarenessStage:kianAwarenessStage,kianStoryVersion:2,seaStoryTime:seaStoryTime,seaMoodStage:seaMoodStage,crewStoryShown:crewStoryShown,storyVersion:2}))}catch(e){}}
+function save(){try{localStorage.setItem('luki3',JSON.stringify({mode:gameMode,coll:coll,inv:inv,coins:coins,earned:lifetimeEarned,done:done,o2:own2,o3:own3,o4:own4,w:world,mc:mcoll,md:mdone,up:U,pendingChest:pendingChest,adminLuck:adminLuck,bucket:bucket,bucketLevels:bucketLevels,bucketNames:bucketNames,bucketFraction:bucketFraction,quests:activeQuests,questBatch:questBatch,questFinalBonusClaimed:questFinalBonusClaimed,tutorialSeen:tutorialSeen,character:selectedCharacter,pearlRod:hasPearlRod,rebirths:rebirths,endingComplete:endingComplete,kianAwareness:kianAwareness,kianAwarenessStage:kianAwarenessStage,kianStoryVersion:2,seaStoryTime:seaStoryTime,seaMoodStage:seaMoodStage,crewStoryShown:crewStoryShown,storyVersion:2}))}catch(e){}}
 
 var QUEST_DEFS=[
 {id:'catch3',icon:'🎣',title:'Erste Ausbeute',detail:'Fange 3 Fische.',type:'catch',target:3,coins:250,level:1},
@@ -1166,8 +1223,8 @@ $('sd').onclick=function(){mute=!mute;try{localStorage.setItem('luki_m',mute?'1'
 function burst(px,py,n,col){for(var i=0;i<n;i++)bub.push({x:px,y:py,vx:rnd(-200,200),vy:rnd(-220,60),r:rnd(2,5),l:rnd(.5,1.1),c:col,f:1})}
 (function(){var cn=$('n').parentNode,tp=0,tl=0;cn.style.pointerEvents='auto';cn.addEventListener('click',function(){var nw=Date.now();tp=nw-tl<1500?tp+1:1;tl=nw;if(tp>=7){tp=0;openAdmin();SND.wish()}})})();
 function say(s,d){msg=s;mT=d||1}
-function showCharacterRemark(line,d){if((selectedCharacter==='kian'&&kianAwarenessStage<5)||characterTalkCooldown>0)return;characterTalkCooldown=12+rnd(0,7);var el=$('characterRemark');if(!el)return;var names={lukas:'Lukas',soa:'Soa',kian:'Kian'},who=names[selectedCharacter]||'Lukas';el.textContent=who+': „'+line+'“';el.classList.remove('show');void el.offsetWidth;el.classList.add('show');characterRemarkTimer=d||4.2}
-function showFisherBubble(line){if((selectedCharacter==='kian'&&kianAwarenessStage<5)||kianDialogueActive||characterTalkCooldown>0||Math.random()>.24)return;characterTalkCooldown=11+rnd(0,5);var names={lukas:'Lukas',soa:'Soa',kian:'Kian'},faces={lukas:'💪',soa:'😊',kian:'🏴‍☠️'},who=names[selectedCharacter]||'Lukas';$('fisherBubbleSpeaker').textContent=(faces[selectedCharacter]||'🎣')+' '+who+' sagt:';$('fisherBubbleText').textContent=line||'Ich warte hier, bis ich nochmal geworfen habe!';$('fisherBubble').classList.add('show')}
+function showCharacterRemark(line,d){if((gameMode==='story'&&selectedCharacter==='kian'&&kianAwarenessStage<5)||characterTalkCooldown>0)return;characterTalkCooldown=12+rnd(0,7);var el=$('characterRemark');if(!el)return;var names={lukas:'Lukas',soa:'Soa',kian:'Kian'},who=names[selectedCharacter]||'Lukas';el.textContent=who+': „'+line+'“';el.classList.remove('show');void el.offsetWidth;el.classList.add('show');characterRemarkTimer=d||4.2}
+function showFisherBubble(line){if((gameMode==='story'&&selectedCharacter==='kian'&&kianAwarenessStage<5)||kianDialogueActive||characterTalkCooldown>0||Math.random()>.24)return;characterTalkCooldown=11+rnd(0,5);var names={lukas:'Lukas',soa:'Soa',kian:'Kian'},faces={lukas:'💪',soa:'😊',kian:'🏴‍☠️'},who=names[selectedCharacter]||'Lukas';$('fisherBubbleSpeaker').textContent=(faces[selectedCharacter]||'🎣')+' '+who+' sagt:';$('fisherBubbleText').textContent=line||'Ich warte hier, bis ich nochmal geworfen habe!';$('fisherBubble').classList.add('show')}
 function hideFisherBubble(){$('fisherBubble').classList.remove('show')}
 
 var KIAN_DIALOGUES=[
@@ -1219,7 +1276,7 @@ function setCrewStoryBubble(line,reply,speaker){
  };box.appendChild(b);
 }
 function advanceCrewStory(){
- if(!selectedCharacter)return;
+ if(gameMode!=='story'||!selectedCharacter)return;
  var next=0;while(next<CREW_STORY_THRESHOLDS.length&&seaStoryTime>=CREW_STORY_THRESHOLDS[next])next++;
  seaMoodStage=Math.max(seaMoodStage,next);
  if(selectedCharacter==='kian')return;
@@ -1264,30 +1321,30 @@ function finishKianEscape(playerLine){
  ],'🏴‍☠️ KIAN · EIN GEHEIMNIS ZWISCHEN UNS');
 }
 function updateKianAwareness(dt){
- if(selectedCharacter!=='kian'||kianAwarenessStage>=5||kianDialogueActive||$('fisherBubble').classList.contains('show'))return;
+ if(gameMode!=='story'||selectedCharacter!=='kian'||kianAwarenessStage>=5||kianDialogueActive||$('fisherBubble').classList.contains('show'))return;
  kianAwareness=Math.min(10000,kianAwareness+Math.max(0,dt));
  var thresholds=[180,480,840,1260,1800],stage=kianAwarenessStage;
  if(stage<thresholds.length&&kianAwareness>=thresholds[stage]){save();startKianDialogue(stage)}
 }
 
 function playSoaSale(count,fishName,callback){
- if(selectedCharacter!=='soa'){callback();return}
+ if(gameMode!=='story'||selectedCharacter!=='soa'){callback();return}
  if(soaSaleBusy){callback();return}
  soaSaleBusy=true;
  var wrap=$('soaFeast');$('soaFeastWho').textContent=fishName||'Der Fang';
  var amount=Math.max(1,Math.floor(count||1));
  $('soaFeastCount').textContent='× '+amount+' Fisch'+(amount===1?'':'e');
  var feastLines=[
- 'Soa freut sich über den Fang und wirft ihn mit einem PLATSCH zurück. Am Anfang fühlt sich alles noch leicht an.',
- 'Soa greift wieder nach dem Essen. „Wenn ich kaue, muss ich nicht daran denken, wie weit wir schon draußen sind.“ Dann wirft er den Fisch zurück.',
- 'Soa versucht, das mulmige Gefühl mit Essen zu überdecken. Für einen Moment wird es still in seinem Kopf – danach kommt die Sorge zurück.',
- 'Soa hält kurz inne. „Ich glaube, ich esse gerade, damit ich nicht sagen muss, wie traurig ich bin.“ Er legt eine Hand auf den Bauch und schaut weg.',
- 'Soa atmet tief durch. „Ich möchte nicht mehr so tun, als wäre alles okay. Könnt ihr einfach bei mir bleiben?“ Er wirft den Fisch sanft zurück ins Meer.',
- 'Heute nimmt Soa sich Zeit. Er muss nichts überspielen. Du hörst dir selbst zu, bevor der Fisch zurück ins Wasser springt.'
+ 'Soa hebt den Fisch hoch und nimmt einen übertriebenen Comic-Bissen. „Mampf!“ Für einen Moment fühlt sich alles leicht an.',
+ 'Soa greift wieder nach einem Snack. „Das lenkt mich kurz ab. Vielleicht sollte ich mir heute einfach einen gemütlichen Tag machen.“',
+ 'Soa kaut nachdenklich. „Das hilft für einen Moment, aber die Sorge ist danach noch da. Ich frage mich, was mich eigentlich beschäftigt.“',
+ 'Soa hält inne. „Vielleicht esse ich gerade, damit ich nicht sagen muss, dass ich traurig bin.“ Seine fröhliche Miene wird nachdenklich.',
+ 'Soa schaut aufs Wasser. „Ich möchte jemandem erzählen, was in mir los ist. Ich muss nicht so tun, als wäre immer alles okay.“',
+ 'Soa wirkt ruhiger. „Es tut gut, über das zu reden, was mich beschäftigt. Ich kann auch andere Dinge finden, die mir helfen.“'
 ];
-$('soaFeastText').textContent=feastLines[Math.min(5,seaMoodStage)];
+$('soaFeastText').textContent=feastLines[Math.min(5,seaMoodStage)];$('soaFeast').setAttribute('data-mood',String(Math.min(6,seaMoodStage)));
  wrap.classList.remove('show');void wrap.offsetWidth;wrap.classList.add('show');
- setTimeout(function(){wrap.classList.remove('show');setTimeout(function(){try{callback()}finally{soaSaleBusy=false}},220)},1920);
+ setTimeout(function(){wrap.classList.remove('show');setTimeout(function(){try{callback()}finally{soaSaleBusy=false}},220)},2700);
 }
 
 function maybeCommentOnCatch(f,size,mu){if(characterTalkCooldown>0||Math.random()>.38)return;var line=null,r=Math.random(),pickLine=function(lines){return lines[Math.floor(Math.random()*lines.length)]};if(size===3&&r<.62){line=pickLine(['WAS?! Der ist ja gigantisch! Hast du den gesehen?!','Das ist ein echter Meeresriese!','Der ist fast so groß wie unser Boot!','Was für ein Gewicht – den Fang vergisst man nicht!'])}else if(f.r>=5&&r<.42){line=pickLine(['MYTHISCH! So einen sieht man fast nie!','Das ist ein Fang für die Geschichtsbücher!','Ich kann kaum glauben, wie selten dieser Fisch ist!'])}else if(f.r===4&&r<.3){line=pickLine(['Legendär! Der glitzert ja wie ein Schatz!','Wow, ein legendärer Fang. Richtig stark!','Den sollten wir uns gut merken!'])}else if(f.r===3&&r<.2){line=pickLine(['Unmöglich selten! Was für ein Glück!','Der ist unglaublich selten – super gemacht!','So einen Fang sieht man nicht alle Tage!'])}else if(f.r===2&&r<.12){line=pickLine(['Sehr selten! Heute läuft es richtig gut!','Schau dir den an – ein seltener Fang!','Der gehört zu den besonderen Fischen!'])}else if(mu===3&&r<.3){line='Regenbogen-Mutation! Der sieht ja magisch aus!'}else if(mu===2&&r<.23){line='Diamant! Der funkelt sogar unter Wasser!'}else if(mu===1&&r<.15){line='Gold-Mutation! Der könnte ein kleines Vermögen wert sein!'}else if(size===2&&r<.2){line='Der ist ganz schön groß! Bestimmt ordentlich schwer.'}if(line)showCharacterRemark(line,4.8)}
@@ -1372,11 +1429,19 @@ var STORY_INTROS={
  {chapter:'KAPITEL 6 · WAS KOMMT ALS NÄCHSTES?',text:'Noch liegt eine lange Reise vor Kian. Was ihn erwartet, weiß er selbst noch nicht.',hint:'Entdecke Fische, verbessere deine Ausrüstung und lass dich überraschen.'}
  ]
 };
-function getStoryIntro(){return STORY_INTROS[selectedCharacter]||STORY_INTROS.lukas}
+var NORMAL_INTROS=[
+ {chapter:'WILLKOMMEN AUF SEE',text:'Willkommen an Bord! Such dir einen ruhigen Platz und wirf deine Angel aus. Dein Ziel ist es, Fische zu fangen und deine Sammlung zu erweitern.',hint:'Du kannst jederzeit eine andere Figur auswählen.'},
+ {chapter:'AUSHOLEN UND WERFEN',text:'Halte den Finger auf dem Wasser gedrückt, um auszuholen. Lass im richtigen Moment los, damit dein Köder weit hinausfliegt.',hint:'Gedrückt halten = ausholen. Loslassen = auswerfen.'},
+ {chapter:'EIN FISCH BEISST AN',text:'Wenn „JETZT TIPPEN!“ erscheint, beginnt das Fang-Minispiel. Bewege den Zeiger in das goldene Feld und tippe im richtigen Moment.',hint:'Bei seltenen Fischen brauchst du mehrere Treffer.'},
+ {chapter:'DEINE SAMMLUNG',text:'Jeder Fang landet in deinem Inventar. Im Fisch-Index kannst du entdecken, welche Arten und Mutationen du schon gefunden hast.',hint:'Öffne den Index über die Schaltfläche oben.'},
+ {chapter:'VERBESSERE DEINE AUSRÜSTUNG',text:'Verkaufe Fische, sammle Münzen und verbessere Angel, Köder und Ausrüstung. Mit stärkeren Upgrades kannst du bessere Fänge bekommen.',hint:'Im Laden findest du deine Verbesserungen.'},
+ {chapter:'VIEL SPASS BEIM ANGELN!',text:'Entdecke neue Gebiete, erledige Quests und vervollständige deinen Fisch-Index. Du kannst jederzeit zwischen Lukas, Soa und Kian wechseln.',hint:'Viel Erfolg und Petri Heil!'}
+];
+function getStoryIntro(){return gameMode==='normal'?NORMAL_INTROS:(STORY_INTROS[selectedCharacter]||STORY_INTROS.lukas)}
 var storyScenes=getStoryIntro();
 
 function renderStory(){
-storyScenes=getStoryIntro();var sc=storyScenes[storyIndex];$('tutorialPanel').querySelector('h2').textContent=({lukas:'🌊 Lukas · Hinter dem Lächeln',soa:'🐟 Soa · Was das Essen verbirgt',kian:'🌀 Kian · Ein ruhiger Tag auf See'}[selectedCharacter]||'🌊 Deine Reise auf See');$('storyChapter').textContent=sc.chapter;$('storyText').textContent=sc.text;$('storyHint').textContent=sc.hint;
+storyScenes=getStoryIntro();var sc=storyScenes[storyIndex];$('tutorialPanel').querySelector('h2').textContent=gameMode==='normal'?'🎣 Klassischer Angelmodus':({lukas:'🌊 Lukas · Hinter dem Lächeln',soa:'🐟 Soa · Was das Essen verbirgt',kian:'🌀 Kian · Ein ruhiger Tag auf See'}[selectedCharacter]||'🌊 Deine Reise auf See');var storyEyebrow=$('tutorialPanel').querySelector('.storyEyebrow');if(storyEyebrow)storyEyebrow.textContent=gameMode==='normal'?'KLASSISCHES ANGELSPIEL':'EINE PERSÖNLICHE GESCHICHTE';$('storyChapter').textContent=sc.chapter;$('storyText').textContent=sc.text;$('storyHint').textContent=sc.hint;
 $('storyCounter').textContent=(storyIndex+1)+' / '+storyScenes.length;
 $('storyProgressFill').style.width=((storyIndex+1)/storyScenes.length*100)+'%';
 $('tutorialPrev').disabled=storyIndex===0;
@@ -1590,8 +1655,8 @@ function startEnding(){
  endingScenes=getEndingScenes();endingShown=true;endingStep=0;endingSceneElapsed=0;endingReady=false;renderEnding();$('endingov').className='ov on';st='idle';save();
 }
 function maybeStartEnding(){
- if(endingComplete||endingShown||st!=='idle'||!done||found()!==FISH.length||coins<END_MONEY_GOAL)return;
- var blockers=['cardov','shop','book','questov','chestov','pirateov','tutorialov','characterov','adminov'];
+ if(gameMode!=='story'||endingComplete||endingShown||st!=='idle'||!done||found()!==FISH.length||coins<END_MONEY_GOAL)return;
+ var blockers=['cardov','shop','book','questov','chestov','pirateov','tutorialov','characterov','adminov','modeov','storyWarning'];
  for(var i=0;i<blockers.length;i++)if($(blockers[i])&&$(blockers[i]).classList.contains('on'))return;
  startEnding();
 }
@@ -1620,6 +1685,33 @@ characterButtons.forEach(function(other){other.classList.toggle('selected',other
 $('characterChoiceHint').textContent='Ausgewählt: '+btn.querySelector('b').textContent;
 $('characterConfirm').disabled=false;
 }});
+function openModeSelect(){
+ pendingGameMode=gameMode;
+ $('modeCurrent').textContent=gameMode?'Aktueller Modus: '+(gameMode==='story'?'Storymodus':'Normalmodus')+'. Du kannst jederzeit wechseln und deine Figur behalten.':'Wähle deinen Spielmodus. Deine Figur kannst du danach weiterhin jederzeit wechseln.';
+ $('modeNormal').classList.toggle('selected',gameMode==='normal');
+ $('modeStory').classList.toggle('selected',gameMode==='story');
+ $('modeClose').style.display=selectedCharacter?'inline-flex':'none';
+ $('modeov').className='ov on';
+}
+function applyGameMode(mode){
+ var changed=gameMode!==mode;gameMode=mode;pendingGameMode=mode;
+ $('modeov').className='ov';$('storyWarning').className='ov';
+ if(changed&&mode==='normal'){
+  kianDialogueActive=false;hideFisherBubble();$('fisherBubble').classList.remove('crewMode','kianMode');$('kianReplyActions').innerHTML='';
+  $('kianEscapeFx').classList.remove('show');document.body.classList.remove('kianGlitch');
+  $('characterRemark').classList.remove('show');characterRemarkTimer=0;
+ }
+ save();
+ if(!selectedCharacter)openCharacterSelect();
+ else if(mode==='story'&&!tutorialSeen)openTutorial();
+}
+$('modeSwitch').onclick=openModeSelect;
+$('modeNormal').onclick=function(){applyGameMode('normal')};
+$('modeStory').onclick=function(){$('modeov').className='ov';$('storyWarning').className='ov on'};
+$('modeClose').onclick=function(){$('modeov').className='ov'};
+$('storyWarningBack').onclick=function(){$('storyWarning').className='ov';openModeSelect()};
+$('storyWarningContinue').onclick=function(){applyGameMode('story')};
+
 function openCharacterSelect(){
 pendingCharacterChoice=selectedCharacter||'';
 characterButtons.forEach(function(btn){btn.classList.toggle('selected',btn.getAttribute('data-character')===pendingCharacterChoice)});
@@ -1633,9 +1725,9 @@ if(!pendingCharacterChoice)return;
 if(selectedCharacter!==pendingCharacterChoice){selectedCharacter=pendingCharacterChoice;seaStoryTime=0;seaMoodStage=0;crewStoryShown=0;kianAwareness=0;kianAwarenessStage=0;kianDialogueActive=false;endingComplete=false;tutorialSeen=false;storyIndex=0;hideFisherBubble();$('fisherBubble').classList.remove('kianMode','crewMode');$('kianReplyActions').innerHTML='';endingScenes=getEndingScenes()}
 else selectedCharacter=pendingCharacterChoice;
 save();$('characterov').className='ov';
-if(!tutorialSeen)openTutorial();
+if(gameMode==='story'&&!tutorialSeen)openTutorial();
 };
-if(!selectedCharacter)openCharacterSelect();else if(!tutorialSeen)openTutorial();
+if(!gameMode)openModeSelect();else if(!selectedCharacter)openCharacterSelect();else if(gameMode==='story'&&!tutorialSeen)openTutorial();
 
 function adminNotice(message){$('adminNotice').textContent=message}
 function openAdmin(){
@@ -1881,7 +1973,7 @@ updateBookProgress();renderBookGrid();
 $('book').className='ov on';
 }
 function update(dt){
-t+=dt;seaStoryTime+=dt;characterTalkCooldown=Math.max(0,characterTalkCooldown-dt);advanceCrewStory();updateKianAwareness(dt);dayLight=.5+.5*Math.sin((t/180)*Math.PI*2-Math.PI/2);updateWorldEvents(dt);weatherTimer-=dt;
+t+=dt;if(gameMode==='story')seaStoryTime+=dt;characterTalkCooldown=Math.max(0,characterTalkCooldown-dt);advanceCrewStory();updateKianAwareness(dt);dayLight=.5+.5*Math.sin((t/180)*Math.PI*2-Math.PI/2);updateWorldEvents(dt);weatherTimer-=dt;
 if(weatherTimer<=0){if(weatherRain){weatherRain=false;weatherTimer=rnd(28,55);say('☁️ Der Regen ist vorbei.',1.8);if(Math.random()<.22){var clearLines=['Die Wolken ziehen weiter. Gleich wird die Sicht wieder besser!','Der Regen ist vorbei – perfekt, um weiterzuangeln!','Puh, wieder ruhigeres Wasser. Das Boot kann sich ausruhen.'];showCharacterRemark(clearLines[Math.floor(Math.random()*clearLines.length)],4.6)}}else if(Math.random()<.48){weatherRain=true;weatherTimer=rnd(16,29);say('🌧️ Es regnet! Die Wellen werden höher.',2.8);if(Math.random()<.28){var rainLines=['Oh, es fängt an zu regnen! Halt die Angel gut fest!','Ganz schön stürmisch. Hoffentlich beißt trotzdem etwas an!','Regen auf dem Meer – das macht das Angeln spannend!'];showCharacterRemark(rainLines[Math.floor(Math.random()*rainLines.length)],4.8)}}else{weatherTimer=rnd(18,38)}}
 if(shake>0)shake-=dt;if(mT>0)mT-=dt;
 if(pirate){updatePirate(dt);return}
@@ -1929,7 +2021,7 @@ function drawCrewCompanion(px,ground,id,stage,observed){
 }
 
 function drawBoat(g){
-var bx=g.bx,by=SURF+Math.sin(t*2.4)*(isRainy()?5:1.4),rl=U.rod,charId=selectedCharacter||'lukas',moodStage=seaMoodStage,observed=crewIsObserved();
+var bx=g.bx,by=SURF+Math.sin(t*2.4)*(isRainy()?5:1.4),rl=U.rod,charId=selectedCharacter||'lukas',moodStage=gameMode==='story'?seaMoodStage:0,observed=gameMode!=='story'||crewIsObserved(),moodProgress=gameMode==='story'&&moodStage<7?Math.min(1,moodStage/6):0;
 /* water shadow and floating buoys */
 x.save();x.globalAlpha=.2;x.fillStyle='#00111c';x.beginPath();x.ellipse(bx+2,by+19,116,13,0,0,Math.PI*2);x.fill();x.restore();
 for(var k=0;k<8;k++){var ux=bx+125+k*350,uy=by+Math.sin(t*1.7+k)*2;x.strokeStyle='rgba(218,248,255,.32)';x.lineWidth=1.5;x.beginPath();x.ellipse(ux,uy+5,18,3,0,0,Math.PI*2);x.stroke();x.fillStyle='#fff';x.beginPath();x.arc(ux,uy,4,Math.PI,0);x.fill();x.fillStyle='#ed5960';x.fillRect(ux-4,uy-2,8,2)}
@@ -1946,7 +2038,7 @@ x.strokeStyle='#55352a';x.lineWidth=4;x.beginPath();x.moveTo(bx+72,by-20);x.line
 x.shadowColor='#ffd36a';x.shadowBlur=17;x.fillStyle='#ffe5a1';x.beginPath();x.arc(bx+72,by-64,6,0,Math.PI*2);x.fill();x.shadowBlur=0;
 x.strokeStyle='#513323';x.lineWidth=3;x.beginPath();x.moveTo(bx-78,by-19);x.lineTo(bx-78,by-67);x.stroke();
 x.fillStyle='#f05c55';x.beginPath();x.moveTo(bx-76,by-65);x.lineTo(bx-50,by-59+Math.sin(t*4)*2);x.lineTo(bx-76,by-52);x.closePath();x.fill();
-var bodyLean=charId==='lukas'?((!observed&&moodStage<7)?.34:0):charId==='soa'&&moodStage<7?Math.max(0,moodStage-1)*.035:charId==='kian'&&moodStage<7?Math.max(0,moodStage-2)*.025:0;x.save();x.translate(bx-22,by-42);x.rotate(bodyLean);x.translate(-(bx-22),-(by-42));
+var bodyLean=charId==='lukas'?moodProgress*.2+(!observed&&moodStage<7?.08:0):charId==='soa'?moodProgress*.15:charId==='kian'?moodProgress*.17:0;x.save();x.translate(bx-22,by-42);x.rotate(bodyLean);x.translate(-(bx-22),-(by-42));
 /* fisherman's legs and shoes */
 x.fillStyle='#172f55';x.fillRect(bx-40,by-32,15,21);x.fillRect(bx-22,by-32,15,21);
 x.fillStyle='#34232c';x.beginPath();x.ellipse(bx-33,by-10,9,4,0,0,Math.PI*2);x.ellipse(bx-14,by-10,9,4,0,0,Math.PI*2);x.fill();
@@ -1968,8 +2060,9 @@ x.fillStyle='#f5c39a';x.beginPath();x.arc(handX,handY,4.8,0,Math.PI*2);x.fill();
 /* neck and face */
 x.fillStyle='#e5ae82';x.fillRect(bx-31,by-70,12,13);
 var face=x.createRadialGradient(bx-19,by-82,2,bx-22,by-79,17);face.addColorStop(0,'#ffe4be');face.addColorStop(1,'#bd785e');x.fillStyle=face;x.beginPath();x.ellipse(bx-22,by-80,13,16,-.12,0,Math.PI*2);x.fill();
-x.fillStyle='#54332e';x.beginPath();x.arc(bx-33,by-83,3,0,Math.PI*2);x.arc(bx-11,by-83,2.5,0,Math.PI*2);x.fill();
-x.strokeStyle='#66362e';x.lineWidth=1.5;x.beginPath();var mainSad=(charId==='lukas'&&!observed&&moodStage<7)||(moodStage>=3&&moodStage<7&&charId==='soa')||(moodStage>=4&&moodStage<7&&charId==='kian');if(mainSad)x.arc(bx-21,by-72,5,Math.PI+.2,Math.PI*2-.2);else x.arc(bx-21,by-78,5,.1,1.8);x.stroke();
+x.fillStyle='#54332e';x.beginPath();x.arc(bx-33,by-83+moodProgress*1.2,3,0,Math.PI*2);x.arc(bx-11,by-83+moodProgress*1.2,2.5,0,Math.PI*2);x.fill();
+x.strokeStyle='#704b42';x.lineWidth=1.5;x.beginPath();x.moveTo(bx-37,by-88+moodProgress*2);x.lineTo(bx-28,by-87-moodProgress*2);x.moveTo(bx-16,by-87-moodProgress*2);x.lineTo(bx-7,by-88+moodProgress*2);x.stroke();
+x.strokeStyle='#66362e';x.lineWidth=1.5;x.beginPath();var mainSad=gameMode==='story'&&moodStage<7&&moodProgress>=.28;if(mainSad)x.arc(bx-21,by-72,5,Math.PI+.2,Math.PI*2-.2);else x.arc(bx-21,by-78,5,.1,1.8);x.stroke();
 /* Hair and signature accessories. */
 if(charId==='lukas'){x.fillStyle='#513024';x.beginPath();x.arc(bx-22,by-91,14,Math.PI,Math.PI*2);x.lineTo(bx-9,by-84);x.quadraticCurveTo(bx-21,by-89,bx-31,by-83);x.closePath();x.fill()}
 else if(charId==='soa'){x.fillStyle='#855334';x.beginPath();x.arc(bx-22,by-90,14,Math.PI,Math.PI*2);x.arc(bx-34,by-88,5,0,Math.PI*2);x.arc(bx-11,by-88,5,0,Math.PI*2);x.fill()}
@@ -2284,7 +2377,7 @@ var k=sil?1+Math.sin(rt*30)*.04:1+Math.max(0,.4-(rt-1))*.8;
 drawFish(c,f,150,88,1,Math.min(62,f.L*2.1)*k*([.78,1,1.16,1.38][cur.sizeIndex===undefined?1:cur.sizeIndex]),t,sil,cur.mu||0);
 if(sil){c.fillStyle='#e9f6ee';c.font='800 40px sans-serif';c.textAlign='center';c.fillText('?',140,100)}
 else if($('card').className.indexOf('show')<0){$('card').className='show r'+cur.r}}
-function loop(n){var realDt=Math.max(0,(n-last)/1000),dt=Math.min(.05,realDt);last=n;updateBucketIncome(Math.min(realDt,43200));maybeStartEnding();if(!$('shop').classList.contains('on')&&!$('book').classList.contains('on')&&!$('questov').classList.contains('on')&&!$('questSpinov').classList.contains('on')&&!$('adminov').classList.contains('on')&&!$('tutorialov').classList.contains('on')&&!$('endingov').classList.contains('on')&&!$('soaFeast').classList.contains('show')&&!$('characterov').classList.contains('on'))update(dt);if(st==='reveal'){rt+=dt;drawCard()}if(endingShown){endingSceneElapsed+=Math.min(realDt,.12);if(endingStep<endingScenes.length-1&&endingSceneElapsed>=endingDurations[endingStep]){endingStep++;renderEnding()}else if(endingStep===endingScenes.length-1&&endingSceneElapsed>=endingDurations[endingStep]&&!endingReady){endingReady=true;$('endingPanel').classList.add('finale-ready');$('endingActions').style.display='grid'}}draw();if(endingShown)drawEndingFilm();if(characterRemarkTimer>0){characterRemarkTimer-=realDt;if(characterRemarkTimer<=0){characterRemarkTimer=0;$('characterRemark').classList.remove('show')}}if(pirate)drawPirate();requestAnimationFrame(loop)}
+function loop(n){var realDt=Math.max(0,(n-last)/1000),dt=Math.min(.05,realDt);last=n;updateBucketIncome(Math.min(realDt,43200));maybeStartEnding();if(!$('shop').classList.contains('on')&&!$('book').classList.contains('on')&&!$('questov').classList.contains('on')&&!$('questSpinov').classList.contains('on')&&!$('adminov').classList.contains('on')&&!$('tutorialov').classList.contains('on')&&!$('endingov').classList.contains('on')&&!$('soaFeast').classList.contains('show')&&!$('characterov').classList.contains('on')&&!$('modeov').classList.contains('on')&&!$('storyWarning').classList.contains('on'))update(dt);if(st==='reveal'){rt+=dt;drawCard()}if(endingShown){endingSceneElapsed+=Math.min(realDt,.12);if(endingStep<endingScenes.length-1&&endingSceneElapsed>=endingDurations[endingStep]){endingStep++;renderEnding()}else if(endingStep===endingScenes.length-1&&endingSceneElapsed>=endingDurations[endingStep]&&!endingReady){endingReady=true;$('endingPanel').classList.add('finale-ready');$('endingActions').style.display='grid'}}draw();if(endingShown)drawEndingFilm();if(characterRemarkTimer>0){characterRemarkTimer-=realDt;if(characterRemarkTimer<=0){characterRemarkTimer=0;$('characterRemark').classList.remove('show')}}if(pirate)drawPirate();requestAnimationFrame(loop)}
 requestAnimationFrame(loop);
 })();
 </script>
