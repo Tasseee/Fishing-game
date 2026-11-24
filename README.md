@@ -134,3 +134,6 @@ Der Perlen-Dreizack bleibt dauerhaft im Spielstand, gibt einen kleinen Glücksbo
 - Fische im Geld-Eimer können über **Umbenennen** einen eigenen Namen erhalten. Der Name wird gespeichert und bleibt auch beim Herausnehmen des Fisches erhalten.
 
 - Die Level-Fortschrittsbalken im Geld-Eimer werden während des geöffneten Shops etwa zehnmal pro Sekunde aktualisiert. Das neun Kapitel lange Finale wurde um animierte Lichtstrahlen, schwebende Lichtpartikel, Burst-Effekte und einen leuchtenden Herz-Moment erweitert.
+
+- **Kian-Meta-Story:** Wenn Kian ausgewählt ist, bemerkt er über mehrere Spielphasen hinweg, dass die Welt ein Spiel ist. Er erkennt den Spieler, stellt über anklickbare Sprechblasen Fragen und versucht schließlich mit einem Bildschirm-Glitch auszubrechen. Fortschritt und Gesprächsstufe bleiben gespeichert.
+- **Soas Verkaufsanimation:** Wenn Soa als Angler ausgewählt ist, löst jeder Fischverkauf zuerst eine kurze Cartoon-Sequenz aus: Soa schnappt sich den Fang, mampft zufrieden und wirft ihn mit einem PLATSCH zurück ins Meer. Danach wird der Verkauf wie gewohnt verbucht.
