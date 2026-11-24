@@ -113,3 +113,6 @@ Der Perlen-Dreizack bleibt dauerhaft im Spielstand, gibt einen kleinen Glücksbo
 - Alte gespeicherte Fänge ohne Größenangabe bleiben als Normal-Fische nutzbar.
 - Das Finale läuft jetzt automatisch als Vollbild-Animationsfilm mit gezeichneten Figuren, Boot, Heimfahrt, Familien-Wiedersehen, Dialogen und Szenenübergängen. Die Szenen können weiterhin zurück- oder übersprungen werden.
 - Bei besonders großen oder sehr seltenen Fängen kommentiert die Spielfigur gelegentlich den Fang – nicht bei jedem Fisch.
+
+
+- Fische im Geld-Eimer können über **Umbenennen** einen eigenen Namen erhalten. Der Name wird gespeichert und bleibt auch beim Herausnehmen des Fisches erhalten.
