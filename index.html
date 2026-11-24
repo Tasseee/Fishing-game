@@ -599,7 +599,7 @@ body.kianGlitch #c{animation:kianCanvasGlitch .13s steps(2,end) infinite;filter:
 <canvas id="c" aria-label="Angelspiel"></canvas>
 <canvas id="fxc" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:6"></canvas>
 <div id="eventBanner" aria-live="polite"><span id="eventIcon"></span><span class="eventBannerCopy"><b id="eventTitle"></b><small id="eventDetail"></small></span><strong id="eventClock"></strong></div>
-<div id="hud"><div>🪙 <span id="n">0</span><small id="incomeRateHud" class="coinRate">+0,00/s</small><small id="endGoalHud" class="coinRate">🏁 Ziel: 100.000 Münzen + Index</small></div><div><button id="sd">🔊</button> <button id="help" aria-label="Tutorial">?</button> <button id="sh">Laden</button> <button id="bk">Index <span id="f">0</span>/<span id="ft">0</span></button></div></div>
+<div id="hud"><div>🪙 <span id="n">0</span><small id="incomeRateHud" class="coinRate">+0,00/s</small><small id="endGoalHud" class="coinRate">🏁 Ziel: 100.000 Münzen + Index</small></div><div><button id="sd">🔊</button> <button id="characterSwitch" aria-label="Figur wechseln" title="Figur wechseln">👤</button> <button id="help" aria-label="Tutorial">?</button> <button id="sh">Laden</button> <button id="bk">Index <span id="f">0</span>/<span id="ft">0</span></button></div></div>
 <button id="questBtn" aria-label="Quests öffnen" title="Quests">📜 Quests <span id="questBadge">0</span></button>
 <div class="ov" id="cardov"><div id="card"><canvas id="cc" width="560" height="340"></canvas>
 <div class="t"><span id="rb"></span></div><div class="t" id="fn">???</div><div class="t" id="fi"></div>
@@ -1627,6 +1627,7 @@ $('characterChoiceHint').textContent=pendingCharacterChoice?'Ausgewählt: '+pend
 $('characterConfirm').disabled=!pendingCharacterChoice;
 $('characterov').className='ov on';
 }
+$('characterSwitch').onclick=function(){openCharacterSelect()};
 $('characterConfirm').onclick=function(){
 if(!pendingCharacterChoice)return;
 if(selectedCharacter!==pendingCharacterChoice){selectedCharacter=pendingCharacterChoice;seaStoryTime=0;seaMoodStage=0;crewStoryShown=0;kianAwareness=0;kianAwarenessStage=0;kianDialogueActive=false;endingComplete=false;tutorialSeen=false;storyIndex=0;endingScenes=getEndingScenes()}
@@ -2283,7 +2284,7 @@ var k=sil?1+Math.sin(rt*30)*.04:1+Math.max(0,.4-(rt-1))*.8;
 drawFish(c,f,150,88,1,Math.min(62,f.L*2.1)*k*([.78,1,1.16,1.38][cur.sizeIndex===undefined?1:cur.sizeIndex]),t,sil,cur.mu||0);
 if(sil){c.fillStyle='#e9f6ee';c.font='800 40px sans-serif';c.textAlign='center';c.fillText('?',140,100)}
 else if($('card').className.indexOf('show')<0){$('card').className='show r'+cur.r}}
-function loop(n){var realDt=Math.max(0,(n-last)/1000),dt=Math.min(.05,realDt);last=n;updateBucketIncome(Math.min(realDt,43200));maybeStartEnding();if(!$('shop').classList.contains('on')&&!$('book').classList.contains('on')&&!$('questov').classList.contains('on')&&!$('questSpinov').classList.contains('on')&&!$('adminov').classList.contains('on')&&!$('tutorialov').classList.contains('on')&&!$('endingov').classList.contains('on')&&!$('soaFeast').classList.contains('show'))update(dt);if(st==='reveal'){rt+=dt;drawCard()}if(endingShown){endingSceneElapsed+=Math.min(realDt,.12);if(endingStep<endingScenes.length-1&&endingSceneElapsed>=endingDurations[endingStep]){endingStep++;renderEnding()}else if(endingStep===endingScenes.length-1&&endingSceneElapsed>=endingDurations[endingStep]&&!endingReady){endingReady=true;$('endingPanel').classList.add('finale-ready');$('endingActions').style.display='grid'}}draw();if(endingShown)drawEndingFilm();if(characterRemarkTimer>0){characterRemarkTimer-=realDt;if(characterRemarkTimer<=0){characterRemarkTimer=0;$('characterRemark').classList.remove('show')}}if(pirate)drawPirate();requestAnimationFrame(loop)}
+function loop(n){var realDt=Math.max(0,(n-last)/1000),dt=Math.min(.05,realDt);last=n;updateBucketIncome(Math.min(realDt,43200));maybeStartEnding();if(!$('shop').classList.contains('on')&&!$('book').classList.contains('on')&&!$('questov').classList.contains('on')&&!$('questSpinov').classList.contains('on')&&!$('adminov').classList.contains('on')&&!$('tutorialov').classList.contains('on')&&!$('endingov').classList.contains('on')&&!$('soaFeast').classList.contains('show')&&!$('characterov').classList.contains('on'))update(dt);if(st==='reveal'){rt+=dt;drawCard()}if(endingShown){endingSceneElapsed+=Math.min(realDt,.12);if(endingStep<endingScenes.length-1&&endingSceneElapsed>=endingDurations[endingStep]){endingStep++;renderEnding()}else if(endingStep===endingScenes.length-1&&endingSceneElapsed>=endingDurations[endingStep]&&!endingReady){endingReady=true;$('endingPanel').classList.add('finale-ready');$('endingActions').style.display='grid'}}draw();if(endingShown)drawEndingFilm();if(characterRemarkTimer>0){characterRemarkTimer-=realDt;if(characterRemarkTimer<=0){characterRemarkTimer=0;$('characterRemark').classList.remove('show')}}if(pirate)drawPirate();requestAnimationFrame(loop)}
 requestAnimationFrame(loop);
 })();
 </script>
