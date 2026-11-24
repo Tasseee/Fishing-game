@@ -370,7 +370,7 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 .characterChoice{display:flex;flex-direction:column;align-items:center;gap:7px;min-width:0;min-height:205px;padding:12px 9px;border:1px solid rgba(163,223,239,.2);border-radius:18px;background:linear-gradient(155deg,#19445b,#092438);color:#effaff;white-space:normal;text-align:center;box-shadow:0 5px 14px rgba(0,0,0,.22);text-shadow:none}
 .characterChoice:hover:not(:disabled){transform:translateY(-2px)}.characterChoice.selected{border:2px solid #ffe08a;background:linear-gradient(155deg,#365a68,#122e40);box-shadow:0 0 0 2px rgba(255,224,138,.14),0 0 20px rgba(255,204,93,.2)}
 .characterPortrait{display:grid;place-items:center;width:100%;height:104px;border-radius:13px;font-size:54px;background:radial-gradient(circle at 50% 30%,rgba(255,255,255,.16),transparent 68%),rgba(1,16,28,.38)}
-.portraitLukas{background-color:rgba(196,101,70,.13)}.portraitSoa{background-color:rgba(93,186,164,.13)}.portraitKian{background-color:rgba(75,119,164,.15)}.portraitNino{background-color:rgba(185,124,197,.15)}
+.portraitLukas{background-color:rgba(196,101,70,.13)}.portraitSoa{background-color:rgba(93,186,164,.13)}.portraitKian{background-color:rgba(75,119,164,.15)}
 .characterChoice b{font-size:15px;color:#fff0bd}.characterChoice small{font-size:11px;line-height:1.35;color:#bad5df;font-weight:600}
 .characterBottom{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding-top:13px;border-top:1px solid rgba(164,222,237,.16)}
 #characterChoiceHint{font-size:12px;color:#a9cbd8}#characterConfirm{font-size:14px;padding:10px 16px}#characterConfirm:disabled{opacity:.4}
@@ -420,7 +420,6 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 <button class="characterChoice" data-character="lukas"><span class="characterPortrait portraitLukas">💪</span><b>Lukas</b><small>Groß und kräftig, braune Haare und ein mutiger Angler.</small></button>
 <button class="characterChoice" data-character="soa"><span class="characterPortrait portraitSoa">😊</span><b>Soa</b><small>Etwas kleiner, rundlicher und freundlich. Immer gut gelaunt.</small></button>
 <button class="characterChoice" data-character="kian"><span class="characterPortrait portraitKian">🏴‍☠️</span><b>Kian</b><small>Groß, schlank und mit Piraten-Outfit unterwegs.</small></button>
-<button class="characterChoice" data-character="nino"><span class="characterPortrait portraitNino">🎀</span><b>Nino Nakano</b><small>Anime-Fanlook mit violettrosa Haaren, Schleifen und frecher Tsundere-Art.</small></button>
 </div>
 <div class="characterBottom"><span id="characterChoiceHint">Wähle eine Figur aus.</span><button id="characterConfirm" disabled>Mit dieser Figur starten</button></div>
 </div></div>
@@ -541,7 +540,7 @@ FISH.sort(function(a,b){return a.r-b.r});
 var $=function(i){return document.getElementById(i)};
 var cv=$('c'),x=cv.getContext('2d'),W,H,D,SURF,cc=$('cc').getContext('2d');
 var cam=0,camT=0,mcoll={},mdone={},idxMu=0,ss=null,ssT=360,wish=false,world=0,own2=false,own3=false,coll={},inv={},coins=0,lifetimeEarned=0,done=false,U={rod:0,charm:0,bait:0,reach:0,pat:0},cardSold=true,catchKey=null,lastCatchValue=0,pendingChest=false,adminLuck=0,dayLight=0,weatherRain=false,weatherTimer=34,activeEvent=null,eventTime=0,eventTimer=42,eventBannerTick=0,bookQuery="",bookRarity="all",bucket=[],bucketFraction=0,bucketSaveTimer=0,tutorialSeen=false,selectedCharacter="",pendingCharacterChoice="",hasPearlRod=false,pirate=null,pirateTimer=0;
-try{var S=JSON.parse(localStorage.getItem('luki3')||'null')||{coll:JSON.parse(localStorage.getItem('luki2')||'{}')};coll=S.coll||{};inv=S.inv||{};coins=S.coins||0;lifetimeEarned=Math.max(coins,Number(S.earned)||coins);done=!!S.done;own2=!!S.o2;mcoll=S.mc||{};mdone=S.md||{};own3=!!S.o3;world=own2?(S.w|0):0;if(world==2&&!own3)world=0;U=S.up||U;pendingChest=!!S.pendingChest;adminLuck=Math.max(0,Math.min(100,Number(S.adminLuck)||0));bucket=Array.isArray(S.bucket)?S.bucket.slice(0,5):[];bucketFraction=Math.max(0,Math.min(.999999,Number(S.bucketFraction)||0));tutorialSeen=!!S.tutorialSeen;selectedCharacter=["lukas","soa","kian","nino"].indexOf(S.character)>=0?S.character:"";hasPearlRod=!!S.pearlRod}catch(e){}
+try{var S=JSON.parse(localStorage.getItem('luki3')||'null')||{coll:JSON.parse(localStorage.getItem('luki2')||'{}')};coll=S.coll||{};inv=S.inv||{};coins=S.coins||0;lifetimeEarned=Math.max(coins,Number(S.earned)||coins);done=!!S.done;own2=!!S.o2;mcoll=S.mc||{};mdone=S.md||{};own3=!!S.o3;world=own2?(S.w|0):0;if(world==2&&!own3)world=0;U=S.up||U;pendingChest=!!S.pendingChest;adminLuck=Math.max(0,Math.min(100,Number(S.adminLuck)||0));bucket=Array.isArray(S.bucket)?S.bucket.slice(0,5):[];bucketFraction=Math.max(0,Math.min(.999999,Number(S.bucketFraction)||0));tutorialSeen=!!S.tutorialSeen;selectedCharacter=["lukas","soa","kian"].indexOf(S.character)>=0?S.character:(S.character==="nino"?"lukas":"");hasPearlRod=!!S.pearlRod}catch(e){}
 U.reach=U.reach||0;U.pat=U.pat||0;U.star=U.star||0;U.mut=U.mut||0;U.baitBought=U.baitBought||0;
 function starInterval(){return Math.max(38,Math.round(360*Math.pow(.82,Math.min(10,U.star||0))))}
 ssT=starInterval();
@@ -1034,7 +1033,7 @@ x.fillStyle='#f05c55';x.beginPath();x.moveTo(bx-76,by-65);x.lineTo(bx-50,by-59+M
 x.fillStyle='#172f55';x.fillRect(bx-40,by-32,15,21);x.fillRect(bx-22,by-32,15,21);
 x.fillStyle='#34232c';x.beginPath();x.ellipse(bx-33,by-10,9,4,0,0,Math.PI*2);x.ellipse(bx-14,by-10,9,4,0,0,Math.PI*2);x.fill();
 /* Outfit matches the selected angler. */
-var charId=selectedCharacter||'lukas',jacketColors=charId==='kian'?['#24455b','#122b40','#071b2a']:charId==='nino'?['#9e79c8','#684a9d','#3c2b66']:charId==='soa'?['#81c4bd','#398c8d','#1d565e']:['#ff9364','#ef5948','#a92f3d'];
+var charId=selectedCharacter||'lukas',jacketColors=charId==='kian'?['#24455b','#122b40','#071b2a']:charId==='soa'?['#81c4bd','#398c8d','#1d565e']:['#ff9364','#ef5948','#a92f3d'];
 var jacket=x.createLinearGradient(bx-45,by-65,bx-8,by-31);jacket.addColorStop(0,jacketColors[0]);jacket.addColorStop(.5,jacketColors[1]);jacket.addColorStop(1,jacketColors[2]);x.fillStyle=jacket;x.beginPath();
 if(charId==='lukas'){x.moveTo(bx-45,by-60);x.quadraticCurveTo(bx-28,by-72,bx-8,by-58);x.lineTo(bx+1,by-31);x.lineTo(bx-48,by-31)}
 else if(charId==='soa'){x.moveTo(bx-39,by-58);x.quadraticCurveTo(bx-27,by-65,bx-11,by-56);x.quadraticCurveTo(bx-2,by-47,bx-8,by-30);x.lineTo(bx-43,by-30)}
@@ -1042,7 +1041,6 @@ else{x.moveTo(bx-39,by-60);x.quadraticCurveTo(bx-26,by-68,bx-10,by-58);x.lineTo(
 x.closePath();x.fill();
 x.strokeStyle='rgba(255,235,205,.62)';x.lineWidth=2;x.beginPath();x.moveTo(bx-25,by-57);x.lineTo(bx-25,by-33);x.stroke();
 if(charId==='kian'){x.fillStyle='#b84442';x.beginPath();x.moveTo(bx-34,by-57);x.lineTo(bx-17,by-42);x.lineTo(bx-29,by-35);x.closePath();x.fill()}
-if(charId==='nino'){x.fillStyle='#f4d7e8';x.beginPath();x.moveTo(bx-13,by-58);x.lineTo(bx-4,by-46);x.lineTo(bx-17,by-43);x.closePath();x.fill()}
 
 /* Ausholen und Vorwärtsschwung der Angel */
 var castPose=st==='charge'?pw:st==='fly'?Math.max(0,1-fly):Math.max(0,castFollow);
