@@ -814,7 +814,7 @@ list.appendChild(card);
 });
 }
 function openQuests(){renderQuests();$('questov').className='ov on'}
-ensureQuests();updateQuestBadge();
+ensureQuests();updateQuestBadge();save();
 
 function prestigeMoneyMultiplier(){return Math.pow(2,Math.min(20,rebirths))}
 function creditCoins(amount){amount=Math.max(0,Math.floor((Number(amount)||0)*prestigeMoneyMultiplier()));coins+=amount;lifetimeEarned+=amount;return amount;}
@@ -1165,7 +1165,7 @@ $('endingContinue').onclick=function(){endingComplete=true;endingShown=false;sav
 function rebirthGame(){
  rebirths++;
  coins=0;lifetimeEarned=0;done=false;own2=false;own3=false;own4=false;world=0;
- coll={};inv={};mcoll={};mdone={};bucket=[];bucketNames={};bucketFraction=0;activeQuests=[];ensureQuests();pendingChest=false;
+ coll={};inv={};mcoll={};mdone={};bucket=[];bucketNames={};bucketFraction=0;activeQuests=[];ensureQuests();updateQuestBadge();pendingChest=false;
  U={rod:0,charm:0,bait:0,reach:0,pat:0,star:0,mut:0,baitBought:0};
  adminLuck=0;hasPearlRod=false;endingComplete=false;endingShown=false;endingStep=0;
  activeEvent=null;eventTime=0;eventTimer=42;eventBannerTick=0;pirate=null;pirateTimer=rnd(90,180);ssT=starInterval();bucketSaveTimer=0;mT=0;ripples=[];bub=[];
