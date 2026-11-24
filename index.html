@@ -499,7 +499,7 @@ $('eventIcon').textContent=activeEvent.icon;
 $('eventTitle').textContent=activeEvent.name;
 $('eventDetail').textContent=activeEvent.detail;
 $('eventClock').textContent=Math.max(0,Math.ceil(eventTime))+'s';
-banner.className='show';
+banner.classList.add('show');
 }
 function startWorldEvent(){
 activeEvent=WORLD_EVENTS[Math.floor(Math.random()*WORLD_EVENTS.length)];
@@ -797,7 +797,7 @@ var got=idxMu?mcoll[idxMu+'|'+f.n]:coll[f.n],d=document.createElement('div');
 d.className='cell '+(got?'discovered':'undiscovered');
 d.style.setProperty('--fish-accent',got?(idxMu?MC[idxMu]:RC[f.r]):'rgba(145,180,194,.3)');
 var c=document.createElement('canvas');c.width=320;c.height=180;
-var g=c.getContext('2d');drawFish(g,f,160,94,1,f.L*2.5,0,!got,idxMu);
+var g=c.getContext('2d');drawFish(g,f,160,90,1,f.L*1.9,0,!got,idxMu);
 d.appendChild(c);
 var b=document.createElement('b');b.textContent=got?f.n:'???';d.appendChild(b);
 var meta=document.createElement('span');
