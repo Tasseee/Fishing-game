@@ -1338,7 +1338,7 @@ function playSoaSale(count,fishName,callback){
  var feastLines=[
  'Soa hebt den Fisch hoch und nimmt einen übertriebenen Comic-Bissen. „Mampf!“ Für einen Moment fühlt sich alles leicht an.',
  'Soa greift wieder nach einem Snack. „Das lenkt mich kurz ab. Vielleicht sollte ich mir heute einfach einen gemütlichen Tag machen.“',
- 'Soa kaut nachdenklich. „Das hilft für einen Moment, aber die Sorge ist danach noch da. Ich frage mich, was mich eigentlich beschäftigt.“',
+ 'Soa kaut nachdenklich. „Das lenkt mich kurz ab, aber die Sorge ist danach noch da. Ich frage mich, was mich eigentlich beschäftigt.“',
  'Soa hält inne. „Vielleicht esse ich gerade, damit ich nicht sagen muss, dass ich traurig bin.“ Seine fröhliche Miene wird nachdenklich.',
  'Soa schaut aufs Wasser. „Ich möchte jemandem erzählen, was in mir los ist. Ich muss nicht so tun, als wäre immer alles okay.“',
  'Soa wirkt ruhiger. „Es tut gut, über das zu reden, was mich beschäftigt. Ich kann auch andere Dinge finden, die mir helfen.“'
@@ -1695,7 +1695,8 @@ function openModeSelect(){
  $('modeov').className='ov on';
 }
 function applyGameMode(mode){
- var changed=gameMode!==mode;gameMode=mode;pendingGameMode=mode;$('modeSwitch').title='Aktueller Modus: '+(mode==='story'?'Storymodus':'Normalmodus');$('modeSwitch').setAttribute('aria-label','Spielmodus wechseln: '+(mode==='story'?'Storymodus':'Normalmodus'));
+ var changed=gameMode!==mode;gameMode=mode;pendingGameMode=mode;
+ if(changed){tutorialSeen=false;storyIndex=0;}$('modeSwitch').title='Aktueller Modus: '+(mode==='story'?'Storymodus':'Normalmodus');$('modeSwitch').setAttribute('aria-label','Spielmodus wechseln: '+(mode==='story'?'Storymodus':'Normalmodus'));
  $('modeov').className='ov';$('storyWarning').className='ov';
  if(changed&&mode==='normal'){
   kianDialogueActive=false;hideFisherBubble();$('fisherBubble').classList.remove('crewMode','kianMode');$('kianReplyActions').innerHTML='';
@@ -2022,7 +2023,11 @@ function drawCrewCompanion(px,ground,id,stage,observed){
 }
 
 function drawBoat(g){
-var bx=g.bx,by=SURF+Math.sin(t*2.4)*(isRainy()?5:1.4),rl=U.rod,charId=selectedCharacter||'lukas',moodStage=gameMode==='story'?seaMoodStage:0,observed=gameMode!=='story'||crewIsObserved(),moodProgress=gameMode==='story'&&moodStage<7?Math.min(1,moodStage/6):0;
+var bx=g.bx,by=SURF+Math.sin(t*2.4)*(isRainy()?5:1.4),rl=U.rod,charId=selectedCharacter||'lukas',moodStage=gameMode==='story'?seaMoodStage:0,observed=gameMode!=='story'||crewIsObserved(),moodProgress=0;
+if(gameMode==='story'&&moodStage<7){
+ if(charId==='kian')moodProgress=Math.max(0,Math.min(1,(kianAwareness-180)/1620));
+ else{var moodThresholds=[40,150,330,570,870,1170],moodPrevious=0,moodPosition=0;for(var moodIndex=0;moodIndex<moodThresholds.length;moodIndex++){if(seaStoryTime<moodThresholds[moodIndex]){moodPosition=moodIndex+(seaStoryTime-moodPrevious)/(moodThresholds[moodIndex]-moodPrevious);break}moodPrevious=moodThresholds[moodIndex];moodPosition=moodIndex+1}moodProgress=Math.min(1,moodPosition/6)}
+}
 /* water shadow and floating buoys */
 x.save();x.globalAlpha=.2;x.fillStyle='#00111c';x.beginPath();x.ellipse(bx+2,by+19,116,13,0,0,Math.PI*2);x.fill();x.restore();
 for(var k=0;k<8;k++){var ux=bx+125+k*350,uy=by+Math.sin(t*1.7+k)*2;x.strokeStyle='rgba(218,248,255,.32)';x.lineWidth=1.5;x.beginPath();x.ellipse(ux,uy+5,18,3,0,0,Math.PI*2);x.stroke();x.fillStyle='#fff';x.beginPath();x.arc(ux,uy,4,Math.PI,0);x.fill();x.fillStyle='#ed5960';x.fillRect(ux-4,uy-2,8,2)}
@@ -2063,7 +2068,7 @@ x.fillStyle='#e5ae82';x.fillRect(bx-31,by-70,12,13);
 var face=x.createRadialGradient(bx-19,by-82,2,bx-22,by-79,17);face.addColorStop(0,'#ffe4be');face.addColorStop(1,'#bd785e');x.fillStyle=face;x.beginPath();x.ellipse(bx-22,by-80,13,16,-.12,0,Math.PI*2);x.fill();
 x.fillStyle='#54332e';x.beginPath();x.arc(bx-33,by-83+moodProgress*1.2,3,0,Math.PI*2);x.arc(bx-11,by-83+moodProgress*1.2,2.5,0,Math.PI*2);x.fill();
 x.strokeStyle='#704b42';x.lineWidth=1.5;x.beginPath();x.moveTo(bx-37,by-88+moodProgress*2);x.lineTo(bx-28,by-87-moodProgress*2);x.moveTo(bx-16,by-87-moodProgress*2);x.lineTo(bx-7,by-88+moodProgress*2);x.stroke();
-x.strokeStyle='#66362e';x.lineWidth=1.5;x.beginPath();var mainSad=gameMode==='story'&&moodStage<7&&moodProgress>=.16;if(mainSad)x.arc(bx-21,by-72,5,Math.PI+.2,Math.PI*2-.2);else x.arc(bx-21,by-78,5,.1,1.8);x.stroke();
+x.strokeStyle='#66362e';x.lineWidth=1.7;x.beginPath();x.moveTo(bx-26,by-78);x.quadraticCurveTo(bx-21,by-73+10*moodProgress,bx-16,by-78);x.stroke();
 /* Hair and signature accessories. */
 if(charId==='lukas'){x.fillStyle='#513024';x.beginPath();x.arc(bx-22,by-91,14,Math.PI,Math.PI*2);x.lineTo(bx-9,by-84);x.quadraticCurveTo(bx-21,by-89,bx-31,by-83);x.closePath();x.fill()}
 else if(charId==='soa'){x.fillStyle='#855334';x.beginPath();x.arc(bx-22,by-90,14,Math.PI,Math.PI*2);x.arc(bx-34,by-88,5,0,Math.PI*2);x.arc(bx-11,by-88,5,0,Math.PI*2);x.fill()}
