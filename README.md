@@ -40,7 +40,7 @@ Die Fangkarte zeigt Seltenheitschance, Mutationschance und die kombinierte Fangc
 - Nach allen 30 Aufgaben gibt es einen zusätzlichen Münzbonus. Beim Rebirth beginnt die Quest-Reihe wieder von vorn.
 - Quest-Abschnitt, Fortschritt und eingelöste Belohnungen werden lokal mit dem restlichen Spielstand gespeichert.
 - Der Angler kommentiert jetzt häufiger besondere Größen und Seltenheiten, Mutationen, Events sowie Regen und Wetterwechsel.
-- Der normale Fangmoment hat jetzt eine mehrstufige Reveal-Sequenz mit dunkler werdendem Hintergrund, magischen Energie-Ringen, rotierenden Lichtstrahlen, Partikel-Sog und einer großen Schockwelle beim Auftauchen des Fisches.
+- Jede der sechs Seltenheitsstufen hat jetzt eine eigene Fang-Animation: Normal zeigt Wasserwellen und aufsteigende Blasen, Selten blaue Kometen, Sehr selten violette Runen-Sechsecke, Unmöglich einen orangefarbenen Energiewirbel, Legendär einen goldenen Sonnenaufgang mit Krone und Mythisch eine mehrfarbige Galaxie. Auch Partikel, Schockwellen und Klanghöhe unterscheiden sich je nach Stufe.
 - Die Fang-Animation wurde für flüssigere Darstellung optimiert: Die Effekt-Ebene rendert mit geringerer interner Auflösung, Partikelmengen und zusätzliche Funken sind begrenzt und Leuchteffekte werden nur noch bei ausgewählten Partikeln berechnet.
 - Der Angler hat eine Sprechpause und kommentiert Fänge, Wetter und Events deutlich seltener. Auch die Sprechblase nach dem Fang erscheint nur gelegentlich.
 - Die Fangkarte bekommt einen kräftigen Auftritt mit schwebendem Fisch, animiertem Seltenheits-Badge und nacheinander eingeblendeten Fangdetails. Je seltener der Fang und je höher die Mutation, desto länger und spektakulärer wird die Enthüllung.
