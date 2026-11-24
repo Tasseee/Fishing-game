@@ -67,3 +67,25 @@ Der Spielstand wird lokal im Browser über `localStorage` gespeichert und nicht 
 - **Goldrausch:** Das Einkommen aus dem Geld-Eimer und die Verkaufspreise sind verdoppelt.
 - **Schnellbiss:** Fische beißen doppelt so schnell an.
 - Die Events laufen zusätzlich zum normalen Wetter, Tag-Nacht-Wechsel, Schatzkisten und Piratenüberfällen.
+
+## Charakterauswahl
+
+- Beim ersten Start wählst du deinen Angler: **Lukas**, **Soa**, **Kian** oder **Nino Nakano** (Anime-Fanlook).
+- Jede Figur hat eigene Farben, Frisur und Kleidung im Spiel.
+- Die Auswahl wird im lokalen Spielstand gespeichert und bleibt bei späteren Besuchen erhalten.
+
+## Schatzkiste und Hauptpreis
+
+Die kostenlose Schatzkiste zeigt ihre Gewinnchancen an und rollt die Belohnung in einer horizontalen Leiste aus. Die sieben möglichen Belohnungen sind:
+
+| Belohnung | Wahrscheinlichkeit |
+|---|---:|
+| Münzregen (+25% deines Geldes) | 24% |
+| 25 Glücksköder | 20% |
+| 10 zufällige Upgrade-Stufen | 22% |
+| Seltener Fisch | 15% |
+| Mutations-Fisch | 12% |
+| Schatzkarte (+12.500 Münzen) | 5% |
+| **Hauptpreis: Perlen-Dreizack** | **2%** |
+
+Der Perlen-Dreizack bleibt dauerhaft im Spielstand, gibt einen kleinen Glücksbonus und lässt die Angel türkis leuchten. Ein weiterer Treffer auf den bereits gewonnenen Hauptpreis wird in 200.000 Münzen umgewandelt.
