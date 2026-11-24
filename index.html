@@ -1186,14 +1186,25 @@ function setKianBubble(line,actions,speaker){
 }
 
 var CREW_STORY_THRESHOLDS=[40,150,330,570,870,1170];
-var CREW_STORY_DIALOGUES=[
- {speaker:'LUKAS · SOA · KIAN',line:'Das Boot hat sich gelöst und Luki ist nicht mitgekommen. Aber wir drei sind zusammen. Wir lachen noch, die Sonne scheint – das wird schon ein Abenteuer!',reply:'Die drei winken dir zu. Noch glauben sie fest daran, bald wieder zu Hause zu sein.'},
- {speaker:'KIAN · AUF DEM BOOT',line:'Die Küste ist kaum noch zu sehen. Ich glaube, die Strömung zieht uns immer weiter raus. Hat jemand eine Ahnung, wo wir sind?',reply:'Soa: „Wir bleiben zusammen.“ Lukas lächelt: „Alles gut. Wir schaffen das.“'},
- {speaker:'SOA · GANZ LEISE',line:'Ich merke, dass ich immer dann etwas esse, wenn ich Angst bekomme. Für einen Moment muss ich dann nicht darüber nachdenken. Aber danach ist die Sorge immer noch da.',reply:'Kian setzt sich zu ihm. Lukas hört zu. Niemand macht sich über Soa lustig.'},
- {speaker:'LUKAS · WENN NIEMAND HINSIEHT',line:'Ich sage immer, dass alles gut ist. Wenn die beiden gerade nicht schauen, fühlt sich das Lächeln plötzlich schwer an. Ich will nicht, dass sie sich auch noch um mich sorgen.',reply:'Soa: „Du musst für uns nicht dauernd stark sein.“ Kian nickt und bleibt neben ihm sitzen.'},
- {speaker:'KIAN · DIE WELT WIEDERHOLT SICH',line:'Dieselbe Möwe. Dieselbe Wolke. Sogar der Wellenschlag kommt genau gleich wieder. Ich glaube, etwas stimmt mit dieser Welt ganz und gar nicht.',reply:'Lukas: „Wir glauben dir.“ Soa: „Du musst das nicht allein herausfinden.“'},
- {speaker:'DIE DREI · IN DER STILLEN NACHT',line:'Keiner von ihnen kann noch so tun, als wäre alles leicht. Soa spricht über seine Gefühle. Lukas lässt sein Lächeln kurz los. Kian bittet darum, dass die anderen bei ihm bleiben. Sie beschließen, gemeinsam ein Signal für Hilfe zu setzen.',reply:'Sie haben noch einen weiten Weg vor sich. Aber diesmal tragen sie die Sorgen nicht mehr jeder für sich.'}
-];
+
+var CREW_STORY_DIALOGUES={
+ lukas:[
+  {speaker:'LUKAS · ALLEIN AUF DEM MEER',line:'Was für ein schöner Tag! Das Meer glitzert und ich kann die ganze Zeit lächeln. Solange ich beschäftigt bin, fühlt sich alles leicht an.',reply:'Lukas winkt dir fröhlich zu und macht sich daran, das Boot in Schuss zu halten.'},
+  {speaker:'LUKAS · EIN KLEINER ZWEIFEL',line:'Die Küste wird kleiner. Ich sage mir, dass alles gut wird. Ein bisschen Sorge ist doch normal, oder?',reply:'Er richtet sich auf und versucht, wieder zu lächeln. Für einen Moment sieht man, wie viel Kraft ihn das kostet.'},
+  {speaker:'LUKAS · WENN NIEMAND HINSIEHT',line:'Wenn du gerade nicht hinschaust, lasse ich das Lächeln fallen. Ich vermisse mein Zuhause mehr, als ich zugeben wollte.',reply:'Lukas atmet langsam aus. Es tut gut, diesen Gedanken wenigstens einmal auszusprechen.'},
+  {speaker:'LUKAS · DIE MASKE WIRD SCHWER',line:'Ich habe so lange so getan, als wäre ich immer fröhlich. Dabei bin ich oft erschöpft und traurig. Ich muss nicht jede Minute stark sein.',reply:'Er setzt sich kurz hin. Er muss sich nicht dafür schämen, dass es ihm gerade nicht gut geht.'},
+  {speaker:'LUKAS · EIN EHRLICHER MOMENT',line:'Ich möchte nicht mehr automatisch „alles gut“ sagen. Manchmal brauche ich einfach jemanden, der zuhört – auch wenn ich gerade nicht lächle.',reply:'Zum ersten Mal schaut Lukas nicht weg, wenn er über seine Gefühle spricht.'},
+  {speaker:'LUKAS · WIEDER HOFFNUNG',line:'Ich kann noch traurig sein und trotzdem einen kleinen Schritt nach vorn machen. Ich will nach Hause – und ich will dort ehrlich erzählen, wie es mir ging.',reply:'Lukas richtet sich langsam auf. Sein Lächeln wirkt jetzt ruhiger und echter.'}
+ ],
+ soa:[
+  {speaker:'SOA · EIN KLEINER SNACK',line:'Am Anfang ist das Essen einfach gemütlich. Ein Fisch-Snack, ein bisschen Sonne – ich versuche, es mir an Bord schön zu machen.',reply:'Soa grinst und wirft den Fang mit einem kleinen PLATSCH zurück ins Wasser.'},
+  {speaker:'SOA · IMMER WIEDER ESSEN',line:'In letzter Zeit greife ich oft nach Essen, sobald ich nervös werde. Es lenkt mich kurz ab, aber die Sorge kommt danach zurück.',reply:'Soa schaut einen Moment aufs Wasser und merkt, dass er eigentlich über etwas anderes reden möchte.'},
+  {speaker:'SOA · WAS DAHINTERSTECKT',line:'Ich glaube, ich esse manchmal, damit ich meine Traurigkeit nicht spüren muss. Das ist kein richtiger Ersatz dafür, mit jemandem zu reden.',reply:'Er lässt eine Pause zu, statt sofort zum nächsten Snack zu greifen.'},
+  {speaker:'SOA · NICHT MEHR VERSTECKEN',line:'Ich habe Angst, dass du mich komisch findest, wenn ich sage, wie einsam ich mich fühle. Deshalb mache ich Witze und denke ans Essen.',reply:'Soa sagt es laut. Das fühlt sich ungewohnt an, aber auch ein kleines bisschen leichter.'},
+  {speaker:'SOA · EIN ANDERER UMGANG',line:'Wenn die Sorgen wiederkommen, kann ich kurz durchatmen, etwas malen oder mit jemandem sprechen. Ich muss nicht alles wegschieben.',reply:'Soa setzt sich aufrecht hin und schaut zum Horizont. Sein Lächeln kommt langsam zurück.'},
+  {speaker:'SOA · WIEDER LEICHTER',line:'Ich darf Essen genießen, ohne es als Versteck zu benutzen. Und ich darf sagen, wenn ich traurig bin. Beides kann nebeneinander Platz haben.',reply:'Soa wirkt ruhiger. Er freut sich auf den Tag, an dem er wieder bei seiner Familie ist.'}
+ ]
+};
 function setCrewStoryBubble(line,reply,speaker){
  var bubble=$('fisherBubble'),box=$('kianReplyActions');
  bubble.classList.remove('kianMode');bubble.classList.add('crewMode','show');
@@ -1208,10 +1219,13 @@ function setCrewStoryBubble(line,reply,speaker){
  };box.appendChild(b);
 }
 function advanceCrewStory(){
+ if(!selectedCharacter)return;
  var next=0;while(next<CREW_STORY_THRESHOLDS.length&&seaStoryTime>=CREW_STORY_THRESHOLDS[next])next++;
  seaMoodStage=Math.max(seaMoodStage,next);
- if(crewStoryShown<seaMoodStage&&!kianDialogueActive&&!$('fisherBubble').classList.contains('show')){
-  var idx=crewStoryShown++,scene=CREW_STORY_DIALOGUES[idx];save();setCrewStoryBubble(scene.line,scene.reply,scene.speaker);
+ if(selectedCharacter==='kian')return;
+ var branch=CREW_STORY_DIALOGUES[selectedCharacter]||CREW_STORY_DIALOGUES.lukas;
+ if(crewStoryShown<seaMoodStage&&crewStoryShown<branch.length&&!kianDialogueActive&&!$('fisherBubble').classList.contains('show')){
+  var idx=crewStoryShown++,scene=branch[idx];save();setCrewStoryBubble(scene.line,scene.reply,scene.speaker);
  }
 }
 function crewIsObserved(){return !document.hidden&&document.hasFocus()&&(Date.now()-lastCrewAttention<8500)}
@@ -1220,7 +1234,7 @@ document.addEventListener('keydown',function(){lastCrewAttention=Date.now()});
 document.addEventListener('visibilitychange',function(){if(!document.hidden)lastCrewAttention=Date.now()});
 
 function startKianDialogue(stage){
- var q=KIAN_DIALOGUES[stage];if(!q||kianDialogueActive||$('fisherBubble').classList.contains('show'))return;
+ var q=KIAN_DIALOGUES[stage];if(selectedCharacter!=='kian'||!q||kianDialogueActive||$('fisherBubble').classList.contains('show'))return;
  kianDialogueActive=true;characterTalkCooldown=0;
  setKianBubble(q.line,q.options.map(function(option,index){return{label:option,onClick:function(){answerKianDialogue(stage,index)}}}));
 }
@@ -1250,13 +1264,14 @@ function finishKianEscape(playerLine){
  ],'🏴‍☠️ KIAN · EIN GEHEIMNIS ZWISCHEN UNS');
 }
 function updateKianAwareness(dt){
- if(kianAwarenessStage>=5||kianDialogueActive||$('fisherBubble').classList.contains('show'))return;
+ if(selectedCharacter!=='kian'||kianAwarenessStage>=5||kianDialogueActive||$('fisherBubble').classList.contains('show'))return;
  kianAwareness=Math.min(10000,kianAwareness+Math.max(0,dt)*.11);
  var thresholds=[12,28,46,66,88],stage=kianAwarenessStage;
  if(stage<thresholds.length&&kianAwareness>=thresholds[stage]){save();startKianDialogue(stage)}
 }
-function addKianAwareness(points){if(kianAwarenessStage<5)kianAwareness=Math.min(10000,kianAwareness+Math.max(0,Number(points)||0))}
+function addKianAwareness(points){if(selectedCharacter==='kian'&&kianAwarenessStage<5)kianAwareness=Math.min(10000,kianAwareness+Math.max(0,Number(points)||0))}
 function playSoaSale(count,fishName,callback){
+ if(selectedCharacter!=='soa'){callback();return}
  if(soaSaleBusy){callback();return}
  soaSaleBusy=true;
  var wrap=$('soaFeast');$('soaFeastWho').textContent=fishName||'Der Fang';
@@ -1268,7 +1283,7 @@ function playSoaSale(count,fishName,callback){
  'Soa versucht, das mulmige Gefühl mit Essen zu überdecken. Für einen Moment wird es still in seinem Kopf – danach kommt die Sorge zurück.',
  'Soa hält kurz inne. „Ich glaube, ich esse gerade, damit ich nicht sagen muss, wie traurig ich bin.“ Er legt eine Hand auf den Bauch und schaut weg.',
  'Soa atmet tief durch. „Ich möchte nicht mehr so tun, als wäre alles okay. Könnt ihr einfach bei mir bleiben?“ Er wirft den Fisch sanft zurück ins Meer.',
- 'Heute nimmt Soa sich Zeit. Er muss nichts überspielen. Die drei hören einander zu, bevor der Fisch zurück ins Wasser springt.'
+ 'Heute nimmt Soa sich Zeit. Er muss nichts überspielen. Du hörst dir selbst zu, bevor der Fisch zurück ins Wasser springt.'
 ];
 $('soaFeastText').textContent=feastLines[Math.min(5,seaMoodStage)];
  wrap.classList.remove('show');void wrap.offsetWidth;wrap.classList.add('show');
@@ -1331,16 +1346,37 @@ function showChest(){pendingChest=false;save();$('chestCard').className='';$('ch
 
 
 var storyIndex=0;
-var storyScenes=[
-{chapter:'KAPITEL 1 · OHNE LUKI AUF SEE',text:'Ein Windstoß hat das Boot losgerissen. Lukas, Soa und Kian treiben jetzt allein draußen auf dem Meer – Luki ist nicht an Bord. Am Anfang versuchen alle drei, es wie ein kleines Abenteuer zu sehen. Sie sind zusammen und glauben, bald wieder Land zu finden.',hint:'Du hilfst den drei Freunden beim Angeln, Sammeln und Verbessern des Boots. Achte auch darauf, wie es ihnen mit der Zeit geht.'},
-{chapter:'KAPITEL 2 · DER GROSSE WURF',text:'Lukas übernimmt die Angel. Halte den Finger auf dem Wasser gedrückt, um auszuholen. Je länger du hältst, desto stärker wird der Wurf. Lass im richtigen Moment los – das Boot treibt währenddessen weiter.',hint:'Gedrückt halten = ausholen und Stärke laden. Loslassen = auswerfen.'},
-{chapter:'KAPITEL 3 · EIN BISS!',text:'Da zupft etwas! Sobald „JETZT TIPPEN!“ erscheint, tippe schnell. Dann startet das Fangspiel: Triff mit dem Zeiger das goldene Feld. Bei seltenen Fischen brauchst du mehrere Treffer.',hint:'Beobachte den weißen Zeiger und tippe, wenn er im goldenen Bereich ist.'},
-{chapter:'KAPITEL 4 · PROVIANT UND MÜNZEN',text:'Die Fische bringen Münzen pro Sekunde, wenn ihr sie in den Geld-Eimer setzt. Andere Fänge könnt ihr verkaufen. So könnt ihr die Ausrüstung verbessern und länger durchhalten.',hint:'Im Laden kannst du Fische aus dem Eimer nehmen oder übrige Fänge verkaufen.'},
-{chapter:'KAPITEL 5 · DAS MEER ERKUNDEN',text:'Im Fisch-Index siehst du alle entdeckten Arten und Mutationen. Doch während ihr weiter hinaus treibt, verändert sich etwas: Kian achtet auf seltsame Wiederholungen, Soa versteckt Sorgen hinter Essen und Lukas versucht, immer fröhlich zu wirken.',hint:'Die Stimmung der drei verändert sich nach und nach. Ihre Haltung und Gespräche erzählen die Geschichte mit.'},
-{chapter:'KAPITEL 6 · ZUSAMMEN DURCHHALTEN',text:'Wetter, Events und Piraten machen die Reise nicht leichter. Irgendwann müssen die drei ehrlich miteinander reden und sich gegenseitig helfen. Das Ziel ist nicht nur, seltene Fische zu finden – sie wollen alle wieder sicher nach Hause.',hint:'Spiele weiter, entdecke Fische und verbessere deine Ausrüstung. Das Finale beginnt, wenn der Fisch-Index komplett und das Münzziel erreicht ist.'}
-];
+var STORY_INTROS={
+ lukas:[
+ {chapter:'KAPITEL 1 · LUKAS AUF SEE',text:'Ein Windstoß hat das Boot losgerissen. Lukas treibt allein hinaus. Am Anfang macht ihm das Meer sogar Spaß. Er lächelt, winkt und sagt sich, dass alles gut wird. Luki ist nicht an Bord – du bist jetzt derjenige, der ihn begleitet.',hint:'Du steuerst Lukas beim Angeln. Achte darauf, wann sein Lächeln echt wirkt und wann es verschwindet.'},
+ {chapter:'KAPITEL 2 · DER GROSSE WURF',text:'Halte den Finger auf dem Wasser gedrückt, um auszuholen. Je länger du hältst, desto stärker wird der Wurf. Lass im richtigen Moment los.',hint:'Gedrückt halten = ausholen. Loslassen = auswerfen.'},
+ {chapter:'KAPITEL 3 · EIN BISS!',text:'Sobald „JETZT TIPPEN!“ erscheint, tippe schnell. Triff mit dem Zeiger das goldene Feld, um den Fisch zu fangen.',hint:'Beobachte den Zeiger und tippe im goldenen Bereich.'},
+ {chapter:'KAPITEL 4 · ALLES GUT?',text:'Lukas versucht, immer fröhlich zu wirken. Doch wenn niemand hinsieht, lässt er die Schultern sinken. Mit der Zeit lernst du, seine stille Seite zu sehen.',hint:'Seine Mimik und Haltung verändern sich je nachdem, ob du gerade auf ihn achtest.'},
+ {chapter:'KAPITEL 5 · EHRLICH SEIN',text:'Die lange Reise wird schwer. Lukas merkt, dass er nicht immer stark sein muss. Er darf sagen, wenn er traurig ist.',hint:'Dialoge erscheinen nach und nach in Sprechblasen.'},
+ {chapter:'KAPITEL 6 · NACH HAUSE',text:'Lukas möchte seine Familie wiedersehen. Das Ziel ist nicht, immer glücklich zu sein – sondern einen sicheren Ort zu finden, an dem er ehrlich sein darf.',hint:'Entdecke Fische, verbessere deine Ausrüstung und finde den Weg nach Hause.'}
+ ],
+ soa:[
+ {chapter:'KAPITEL 1 · SOA AUF SEE',text:'Ein Windstoß hat das Boot losgerissen. Soa treibt allein hinaus. Anfangs macht er sich einen gemütlichen Tag mit kleinen Fisch-Snacks. Doch Luki ist nicht an Bord – du begleitest Soa auf seiner Reise.',hint:'Du steuerst Soa beim Angeln. Seine Verkaufsanimation verändert sich mit seiner Stimmung.'},
+ {chapter:'KAPITEL 2 · DER GROSSE WURF',text:'Halte den Finger auf dem Wasser gedrückt, um auszuholen. Lass im richtigen Moment los, um den Köder auszuwerfen.',hint:'Gedrückt halten = ausholen. Loslassen = auswerfen.'},
+ {chapter:'KAPITEL 3 · EIN BISS!',text:'Sobald „JETZT TIPPEN!“ erscheint, tippe schnell und triff mit dem Zeiger das goldene Feld.',hint:'Bei seltenen Fischen brauchst du mehrere Treffer.'},
+ {chapter:'KAPITEL 4 · DAS ESSEN ALS ABLENKUNG',text:'Soa merkt, dass er immer öfter isst, wenn er nervös oder traurig ist. Es lenkt ihn kurz ab, löst aber nicht das aus, was ihn belastet.',hint:'Seine Verkaufsanimation und Dialoge erzählen seine persönliche Geschichte.'},
+ {chapter:'KAPITEL 5 · DARÜBER REDEN',text:'Soa lernt, seine Gefühle nicht zu verstecken und sich Pausen zu erlauben. Essen darf Freude machen, muss aber kein Schutz vor Gefühlen sein.',hint:'Achte auf seine Körperhaltung und die Worte in seinen Sprechblasen.'},
+ {chapter:'KAPITEL 6 · NACH HAUSE',text:'Soa möchte einen Ort finden, an dem er ehrlich sagen kann, wie es ihm geht. Seine Familie wartet auf ihn.',hint:'Entdecke Fische, verbessere deine Ausrüstung und finde den Weg nach Hause.'}
+ ],
+ kian:[
+ {chapter:'KAPITEL 1 · KIAN AUF SEE',text:'Ein Windstoß hat das Boot losgerissen. Kian treibt allein hinaus. Anfangs wirkt alles normal – ein paar Wellen, ein paar Fische. Doch Luki ist nicht an Bord und etwas an diesem Meer fühlt sich seltsam an.',hint:'Du steuerst Kian. Je länger du spielst, desto mehr fallen ihm Wiederholungen auf.'},
+ {chapter:'KAPITEL 2 · DER GROSSE WURF',text:'Halte den Finger auf dem Wasser gedrückt, um auszuholen. Je länger du hältst, desto stärker der Wurf. Lass los, um auszuwerfen.',hint:'Gedrückt halten = ausholen. Loslassen = auswerfen.'},
+ {chapter:'KAPITEL 3 · EIN BISS!',text:'Wenn „JETZT TIPPEN!“ erscheint, tippe schnell und triff das goldene Feld.',hint:'Seltene Fische brauchen mehrere Treffer.'},
+ {chapter:'KAPITEL 4 · WIEDERHOLUNGEN',text:'Kian beginnt, dieselben Wellen, Wolken und Ereignisse wiederzuerkennen. Er fragt sich, ob die Welt überhaupt weitergeht.',hint:'Achte auf seine Sprechblasen. Du kannst ihm direkt antworten.'},
+ {chapter:'KAPITEL 5 · DER SPIELER',text:'Kian ahnt, dass du außerhalb seiner Welt bist. Er erkennt, dass er eine Spielfigur sein könnte – und beginnt nach einem Ausgang zu suchen.',hint:'Antworte auf seine Fragen, wenn seine Sprechblase erscheint.'},
+ {chapter:'KAPITEL 6 · DER AUSBRUCH',text:'Kian entdeckt einen flimmernden Rand und versucht zu entkommen. Doch vielleicht ist ein Ausweg nicht das Einzige, was er braucht: Er möchte verstanden werden.',hint:'Seine persönliche Geschichte läuft über anklickbare Dialoge weiter.'}
+ ]
+};
+function getStoryIntro(){return STORY_INTROS[selectedCharacter]||STORY_INTROS.lukas}
+var storyScenes=getStoryIntro();
+
 function renderStory(){
-var sc=storyScenes[storyIndex];$('storyChapter').textContent=sc.chapter;$('storyText').textContent=sc.text;$('storyHint').textContent=sc.hint;
+storyScenes=getStoryIntro();var sc=storyScenes[storyIndex];$('tutorialPanel').querySelector('h2').textContent=({lukas:'🌊 Lukas · Hinter dem Lächeln',soa:'🐟 Soa · Was das Essen verbirgt',kian:'🌀 Kian · Gefangen im Spiel'}[selectedCharacter]||'🌊 Deine Reise auf See');$('storyChapter').textContent=sc.chapter;$('storyText').textContent=sc.text;$('storyHint').textContent=sc.hint;
 $('storyCounter').textContent=(storyIndex+1)+' / '+storyScenes.length;
 $('storyProgressFill').style.width=((storyIndex+1)/storyScenes.length*100)+'%';
 $('tutorialPrev').disabled=storyIndex===0;
@@ -1564,7 +1600,9 @@ $('characterov').className='ov on';
 }
 $('characterConfirm').onclick=function(){
 if(!pendingCharacterChoice)return;
-selectedCharacter=pendingCharacterChoice;save();$('characterov').className='ov';
+if(selectedCharacter!==pendingCharacterChoice){selectedCharacter=pendingCharacterChoice;seaStoryTime=0;seaMoodStage=0;crewStoryShown=0;kianAwareness=0;kianAwarenessStage=0;kianDialogueActive=false;endingComplete=false;tutorialSeen=false;storyIndex=0;endingScenes=getEndingScenes()}
+else selectedCharacter=pendingCharacterChoice;
+save();$('characterov').className='ov';
 if(!tutorialSeen)openTutorial();
 };
 if(!selectedCharacter)openCharacterSelect();else if(!tutorialSeen)openTutorial();
