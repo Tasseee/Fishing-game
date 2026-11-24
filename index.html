@@ -223,12 +223,19 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 #adminNotice{padding:11px 13px;border-radius:13px;background:rgba(255,210,91,.1);border:1px solid rgba(255,210,91,.2);color:#ffe9ad;font-weight:700;font-size:13px;line-height:1.4}
 @media(max-width:430px){#adminPanel{padding:16px 12px}.adminEvents{grid-template-columns:1fr}.adminBlock{padding:11px}}
 
+
+/* Passive fish income */
+.coinRate{margin-left:5px;padding:3px 7px;border-radius:999px;background:rgba(95,231,176,.13);border:1px solid rgba(95,231,176,.28);color:#8ef0bd;font-size:12px;white-space:nowrap;text-shadow:none}
+#sc .row{flex-wrap:wrap}
+#sc .row button{flex:0 0 auto}
+@media(max-width:430px){.coinRate{font-size:10px;padding:2px 5px}#sc .row button{padding:6px 8px;font-size:12px}}
+
 </style>
 </head>
 <body>
 <canvas id="c" aria-label="Angelspiel"></canvas>
 <canvas id="fxc" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:6"></canvas>
-<div id="hud"><div>🪙 <span id="n">0</span></div><div><button id="sd">🔊</button> <button id="sh">Laden</button> <button id="bk">Index <span id="f">0</span>/<span id="ft">0</span></button></div></div>
+<div id="hud"><div>🪙 <span id="n">0</span><small id="incomeRateHud" class="coinRate">+0,00/s</small></div><div><button id="sd">🔊</button> <button id="sh">Laden</button> <button id="bk">Index <span id="f">0</span>/<span id="ft">0</span></button></div></div>
 <div class="ov" id="cardov"><div id="card"><canvas id="cc" width="560" height="340"></canvas>
 <div class="t"><span id="rb"></span></div><div class="t" id="fn">???</div><div class="t" id="fi"></div>
 <div class="t"><button id="ok">Behalten</button> <button id="sl">Verkaufen</button></div></div></div>
@@ -346,14 +353,18 @@ var FISH=[
 FISH.sort(function(a,b){return a.r-b.r});
 var $=function(i){return document.getElementById(i)};
 var cv=$('c'),x=cv.getContext('2d'),W,H,D,SURF,cc=$('cc').getContext('2d');
-var cam=0,camT=0,mcoll={},mdone={},idxMu=0,ss=null,ssT=360,wish=false,world=0,own2=false,own3=false,coll={},inv={},coins=0,lifetimeEarned=0,done=false,U={rod:0,charm:0,bait:0,reach:0,pat:0},cardSold=true,catchKey=null,lastCatchValue=0,pendingChest=false,adminLuck=0,dayLight=0,weatherRain=false,weatherTimer=34,pirate=null,pirateTimer=0;
-try{var S=JSON.parse(localStorage.getItem('luki3')||'null')||{coll:JSON.parse(localStorage.getItem('luki2')||'{}')};coll=S.coll||{};inv=S.inv||{};coins=S.coins||0;lifetimeEarned=Math.max(coins,Number(S.earned)||coins);done=!!S.done;own2=!!S.o2;mcoll=S.mc||{};mdone=S.md||{};own3=!!S.o3;world=own2?(S.w|0):0;if(world==2&&!own3)world=0;U=S.up||U;pendingChest=!!S.pendingChest;adminLuck=Math.max(0,Math.min(100,Number(S.adminLuck)||0))}catch(e){}
+var cam=0,camT=0,mcoll={},mdone={},idxMu=0,ss=null,ssT=360,wish=false,world=0,own2=false,own3=false,coll={},inv={},coins=0,lifetimeEarned=0,done=false,U={rod:0,charm:0,bait:0,reach:0,pat:0},cardSold=true,catchKey=null,lastCatchValue=0,pendingChest=false,adminLuck=0,dayLight=0,weatherRain=false,weatherTimer=34,bucket=[],bucketFraction=0,bucketSaveTimer=0,pirate=null,pirateTimer=0;
+try{var S=JSON.parse(localStorage.getItem('luki3')||'null')||{coll:JSON.parse(localStorage.getItem('luki2')||'{}')};coll=S.coll||{};inv=S.inv||{};coins=S.coins||0;lifetimeEarned=Math.max(coins,Number(S.earned)||coins);done=!!S.done;own2=!!S.o2;mcoll=S.mc||{};mdone=S.md||{};own3=!!S.o3;world=own2?(S.w|0):0;if(world==2&&!own3)world=0;U=S.up||U;pendingChest=!!S.pendingChest;adminLuck=Math.max(0,Math.min(100,Number(S.adminLuck)||0));bucket=Array.isArray(S.bucket)?S.bucket.slice(0,5):[];bucketFraction=Math.max(0,Math.min(.999999,Number(S.bucketFraction)||0))}catch(e){}
 U.reach=U.reach||0;U.pat=U.pat||0;U.star=U.star||0;U.mut=U.mut||0;U.baitBought=U.baitBought||0;
 function starInterval(){return Math.max(38,Math.round(360*Math.pow(.82,Math.min(10,U.star||0))))}
 ssT=starInterval();
-function save(){try{localStorage.setItem('luki3',JSON.stringify({coll:coll,inv:inv,coins:coins,earned:lifetimeEarned,done:done,o2:own2,o3:own3,w:world,mc:mcoll,md:mdone,up:U,pendingChest:pendingChest,adminLuck:adminLuck}))}catch(e){}}
+function save(){try{localStorage.setItem('luki3',JSON.stringify({coll:coll,inv:inv,coins:coins,earned:lifetimeEarned,done:done,o2:own2,o3:own3,w:world,mc:mcoll,md:mdone,up:U,pendingChest:pendingChest,adminLuck:adminLuck,bucket:bucket,bucketFraction:bucketFraction}))}catch(e){}}
 function creditCoins(amount){amount=Math.max(0,Math.floor(Number(amount)||0));coins+=amount;lifetimeEarned+=amount;return amount;}
 function val(f,mu){return([5,25,120,650,2200,6500][f.r]+Math.round(f.L/2))*[1,3,8,25][mu||0]}
+function bucketFishInfo(key){var p=String(key).split('#'),mu=p.length>1?Number(p[1]):0,f=FISH.find(function(q){return q.n===p[0]});return f&&Number.isInteger(mu)&&mu>=0&&mu<=3?{f:f,mu:mu}:null}
+function bucketFishRate(key){var z=bucketFishInfo(key);if(!z)return 0;return[.10,.25,.7,2,6,18][z.f.r]*[1,1.5,2.5,4][z.mu]}
+function bucketRate(){return bucket.reduce(function(total,key){return total+bucketFishRate(key)},0)}
+function updateBucketIncome(dt){var rate=bucketRate();if(dt>0&&rate>0)bucketFraction+=rate*dt;var whole=Math.floor(bucketFraction+1e-9);if(whole>0){bucketFraction-=whole;coins+=whole;lifetimeEarned+=whole;$('n').textContent=coins}var label='+'+rate.toFixed(2).replace('.',',')+'/s',hud=$('incomeRateHud');if(hud&&hud.textContent!==label)hud.textContent=label;bucketSaveTimer+=dt;if(bucketSaveTimer>=5){bucketSaveTimer%=5;save()}}
 function mutationChances(p){var factor=(1+p*.12)*(world?1.25:1)*(1+(U.mut||0)*.32)*1.15,p3=Math.min(1,.0075*factor),p2=Math.max(0,Math.min(1,.024*factor)-p3),p1=Math.max(0,Math.min(1,.078*factor)-Math.min(1,.024*factor)),p0=Math.max(0,1-p1-p2-p3);return[p0,p1,p2,p3]}
 function oddsText(p){p=Math.max(0,Math.min(1,p));return '1 von '+Math.max(1,Math.round(1/Math.max(p,.000000001)))+' ('+(p*100).toFixed(3).replace('.',',')+'%)'}
 function mutationGoal(mu){return[0,12,8,5][mu]||0}
@@ -543,17 +554,23 @@ c.restore()}
 var IC={rod:'🎣',charm:'🍀',reach:'🌊',pat:'⚡',star:'🌠',mut:'🧬'};
 function openShop2(){
 var s=$('sc');s.innerHTML='';
-function row(ic,a,b,lbl,fn,dis,bc){var r=document.createElement('div');r.className='row';if(bc)r.style.setProperty('--b',bc);
+function row(ic,a,b,lbl,fn,dis,bc,extraLbl,extraFn,extraDis){var r=document.createElement('div');r.className='row';if(bc)r.style.setProperty('--b',bc);
 var i=document.createElement('div');i.className='ic';if(typeof ic==='string')i.textContent=ic;else i.appendChild(ic);r.appendChild(i);
 var d=document.createElement('div');d.innerHTML='<b></b><small></small>';d.firstChild.textContent=a;d.lastChild.textContent=b;r.appendChild(d);
+if(extraLbl){var ex=document.createElement('button');ex.textContent=extraLbl;ex.disabled=!!extraDis;ex.onclick=extraFn;r.appendChild(ex)}
 if(lbl){var bt=document.createElement('button');bt.textContent=lbl;bt.disabled=!!dis;bt.onclick=fn;r.appendChild(bt)}s.appendChild(r)}
 function hd(q){var e=document.createElement('h3');e.textContent=q;s.appendChild(e)}
 var tp=document.createElement('div');tp.style.cssText='text-align:center;margin-bottom:4px';tp.innerHTML='<span class="coin"></span>';tp.firstChild.textContent='🪙 '+coins;s.appendChild(tp);
+hd('Geld-Eimer · '+bucket.length+'/5');
+var passive=bucketRate();row('🪣','Passives Einkommen',passive.toFixed(2).replace('.',',')+' 🪙 pro Sekunde',null,null,0,'#ffd36a');
+if(!bucket.length)row('🐟','Noch keine Fische eingesetzt','Setze gefangene Fische ein, um automatisch Münzen zu verdienen.');
+bucket.forEach(function(key,index){var z=bucketFishInfo(key);if(!z)return;var cn=document.createElement('canvas');cn.width=112;cn.height=72;drawFish(cn.getContext('2d'),z.f,56,38,1,z.f.L*.65,0,false,z.mu);row(cn,(MN[z.mu]||'')+z.f.n,'+'+bucketFishRate(key).toFixed(2).replace('.',',')+' 🪙/s · '+RN[z.f.r],'Entnehmen',function(){bucket.splice(index,1);inv[key]=(inv[key]||0)+1;save();openShop2()},0,z.mu?MC[z.mu]:RC[z.f.r])});
+hd('Gefangene Fische');
 hd('Fang verkaufen');
 var tv=0,any=false;
 [0,1,2,3].forEach(function(mu){FISH.forEach(function(f){var key=f.n+(mu?'#'+mu:''),c=inv[key]||0;if(c<1)return;any=true;tv+=c*val(f,mu);
 var cn=document.createElement('canvas');cn.width=112;cn.height=72;drawFish(cn.getContext('2d'),f,56,38,1,f.L*.65,0,false,mu);
-row(cn,MN[mu]+f.n+' x'+c,RN[f.r]+' · '+val(f,mu)+' 🪙 je Fisch','Verkaufen',function(){creditCoins(c*val(f,mu));inv[key]=0;sv()},0,mu?MC[mu]:RC[f.r])})});
+row(cn,MN[mu]+f.n+' x'+c,RN[f.r]+' · '+val(f,mu)+' 🪙 je Fisch','Verkaufen',function(){creditCoins(c*val(f,mu));inv[key]=0;sv()},0,mu?MC[mu]:RC[f.r],bucket.length<5?'Eimer +':null,function(){if(bucket.length>=5||!inv[key])return;inv[key]--;bucket.push(key);save();openShop2()},bucket.length>=5)})});
 if(any){var bg=document.createElement('button');bg.className='big';bg.textContent='Alles verkaufen: +'+tv+' 🪙';bg.onclick=function(){creditCoins(tv);inv={};sv()};s.appendChild(bg)}
 else row('🪣','Eimer ist leer','Fang erst ein paar Fische');
 hd('Ausrüstung');
@@ -768,7 +785,7 @@ var k=sil?1+Math.sin(rt*30)*.04:1+Math.max(0,.4-(rt-1))*.8;
 drawFish(c,f,150,88,1,Math.min(62,f.L*2.1)*k,t,sil,cur.mu||0);
 if(sil){c.fillStyle='#e9f6ee';c.font='800 40px sans-serif';c.textAlign='center';c.fillText('?',140,100)}
 else if($('card').className.indexOf('show')<0){$('card').className='show r'+cur.r}}
-function loop(n){var dt=Math.min(.05,(n-last)/1000);last=n;if(!$('shop').classList.contains('on')&&!$('book').classList.contains('on')&&!$('adminov').classList.contains('on'))update(dt);if(st==='reveal'){rt+=dt;drawCard()}draw();if(pirate)drawPirate();requestAnimationFrame(loop)}
+function loop(n){var realDt=Math.max(0,(n-last)/1000),dt=Math.min(.05,realDt);last=n;updateBucketIncome(Math.min(realDt,43200));if(!$('shop').classList.contains('on')&&!$('book').classList.contains('on')&&!$('adminov').classList.contains('on'))update(dt);if(st==='reveal'){rt+=dt;drawCard()}draw();if(pirate)drawPirate();requestAnimationFrame(loop)}
 requestAnimationFrame(loop);
 })();
 </script>
