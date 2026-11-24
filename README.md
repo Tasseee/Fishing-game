@@ -35,7 +35,7 @@ Die Fangkarte zeigt Seltenheitschance, Mutationschance und die kombinierte Fangc
 - Es gibt immer **3 aktive Quests** gleichzeitig. Die Aufgaben wechseln zwischen Fische fangen, Fische verkaufen, seltene Fische entdecken, Mutationen fangen und gigantische Fische angeln.
 - Der Fortschritt wird automatisch gezählt. Eine fertige Quest kann über **📜 Quests** unten links abgeholt werden.
 - Als Belohnung gibt es Münzen oder zusätzliche Fische, die direkt im Fangbestand landen.
-- Aktive Aufgaben und Fortschritt werden zusammen mit dem restlichen Spielstand lokal gespeichert. Nach dem Einlösen erscheint direkt eine neue Aufgabe.
+- Aktive Aufgaben und Fortschritt werden zusammen mit dem restlichen Spielstand lokal gespeichert. Nach dem Einlösen erscheint direkt eine neue Aufgabe. Beim Rebirth werden drei neue Aufgaben gestartet.
 
 ## Spielstand
 
