@@ -137,3 +137,14 @@ Der Perlen-Dreizack bleibt dauerhaft im Spielstand, gibt einen kleinen Glücksbo
 
 - **Kian-Meta-Story:** Wenn Kian ausgewählt ist, bemerkt er über mehrere Spielphasen hinweg, dass die Welt ein Spiel ist. Er erkennt den Spieler, stellt über anklickbare Sprechblasen Fragen und versucht schließlich mit einem Bildschirm-Glitch auszubrechen. Fortschritt und Gesprächsstufe bleiben gespeichert.
 - **Soas Verkaufsanimation:** Wenn Soa als Angler ausgewählt ist, löst jeder Fischverkauf zuerst eine kurze Cartoon-Sequenz aus: Soa schnappt sich den Fang, mampft zufrieden und wirft ihn mit einem PLATSCH zurück ins Meer. Danach wird der Verkauf wie gewohnt verbucht.
+
+
+## Neue Story: Drei Freunde auf dem offenen Meer
+
+- Die Handlung beginnt damit, dass Lukas, Soa und Kian ohne Luki mit dem Boot aufs offene Meer treiben. Zu Beginn sind alle drei noch optimistisch.
+- Über rund 20 Minuten aktiver Spielzeit entfaltet sich die Geschichte in sechs Stimmungsstufen. Dialoge erscheinen nach und nach in anklickbaren Sprechblasen; der Fortschritt wird gespeichert.
+- **Kian** bemerkt zunehmend Wiederholungen in der Spielwelt, erkennt den Spieler außerhalb seiner Welt und versucht, durch einen flimmernden Bildschirmrand auszubrechen.
+- **Soa** versucht, Sorgen mit Essen zu überdecken. Die Verkaufsanimation zeigt dieses Verhalten zunehmend ernster: Er hält kurz inne, spricht es aus und lernt, sich seinen Freunden anzuvertrauen. Die Animation bleibt eine Geschichte über Gefühle und keine Bewertung seines Körpers.
+- **Lukas** wirkt fröhlich, wenn jemand hinsieht. Sobald er unbeobachtet ist, verändern sich Gesichtsausdruck und Körperhaltung und zeigen seine Traurigkeit.
+- Alle drei sind während des Angelns gemeinsam auf dem Boot zu sehen. Ihre Haltung, Mimik und Bewegungen verändern sich mit der Stimmung der Reise.
+- Das Finale erzählt die Heimkehr aller drei zu ihren jeweiligen Familien. Sie müssen nicht plötzlich alle Sorgen los sein, aber sie können ehrlich darüber sprechen und sind wieder in Sicherheit.
