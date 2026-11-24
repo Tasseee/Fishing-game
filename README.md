@@ -30,6 +30,13 @@ Ein Piratenschiff taucht in zufälligen Abständen zwischen **10 Sekunden und 5 
 
 Die Fangkarte zeigt Seltenheitschance, Mutationschance und die kombinierte Fangchance inklusive Mutation an.
 
+## Quests
+
+- Es gibt immer **3 aktive Quests** gleichzeitig. Die Aufgaben wechseln zwischen Fische fangen, Fische verkaufen, seltene Fische entdecken, Mutationen fangen und gigantische Fische angeln.
+- Der Fortschritt wird automatisch gezählt. Eine fertige Quest kann über **📜 Quests** unten links abgeholt werden.
+- Als Belohnung gibt es Münzen oder zusätzliche Fische, die direkt im Fangbestand landen.
+- Aktive Aufgaben und Fortschritt werden zusammen mit dem restlichen Spielstand lokal gespeichert. Nach dem Einlösen erscheint direkt eine neue Aufgabe.
+
 ## Spielstand
 
 Der Spielstand wird lokal im Browser über `localStorage` gespeichert und nicht automatisch zwischen Geräten synchronisiert.
