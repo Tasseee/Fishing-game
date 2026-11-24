@@ -89,3 +89,11 @@ Die kostenlose Schatzkiste zeigt ihre Gewinnchancen an und rollt die Belohnung i
 | **Hauptpreis: Perlen-Dreizack** | **2%** |
 
 Der Perlen-Dreizack bleibt dauerhaft im Spielstand, gibt einen kleinen Glücksbonus und lässt die Angel türkis leuchten. Ein weiterer Treffer auf den bereits gewonnenen Hauptpreis wird in 200.000 Münzen umgewandelt.
+
+## Finale und Rebirth
+
+- Das Finale startet, sobald der komplette Fisch-Index entdeckt wurde und mindestens **100.000 Münzen** im aktuellen Bestand liegen.
+- In einer kurzen Abschluss-Szene erreicht Lukas das Festland, fährt nach Hause und umarmt seine Familie. Danach kann man normal weiterspielen oder rebirthen.
+- Ein Rebirth setzt Sammlung, Fänge, Welten, Ausrüstung, Geld-Eimer und Münzbestand zurück. Der Rebirth-Zähler bleibt erhalten.
+- Jeder Rebirth verdoppelt dauerhaft alle Münz-Einnahmen: beim ersten Rebirth **2×**, beim zweiten **4×**, danach **8×** usw. Der Bonus gilt für Verkäufe, Belohnungen und den Geld-Eimer.
+- Beim Angeln gleiten Pose und Köder nach dem Auswurf weiter; Schnur und Köder bewegen sich unter Wasser mit der Strömung.
