@@ -132,3 +132,5 @@ Der Perlen-Dreizack bleibt dauerhaft im Spielstand, gibt einen kleinen Glücksbo
 
 
 - Fische im Geld-Eimer können über **Umbenennen** einen eigenen Namen erhalten. Der Name wird gespeichert und bleibt auch beim Herausnehmen des Fisches erhalten.
+
+- Die Level-Fortschrittsbalken im Geld-Eimer werden während des geöffneten Shops etwa zehnmal pro Sekunde aktualisiert. Das neun Kapitel lange Finale wurde um animierte Lichtstrahlen, schwebende Lichtpartikel, Burst-Effekte und einen leuchtenden Herz-Moment erweitert.
