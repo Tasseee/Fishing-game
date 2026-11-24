@@ -141,7 +141,7 @@ Der Perlen-Dreizack bleibt dauerhaft im Spielstand, gibt einen kleinen Glücksbo
 
 ## Drei getrennte Storypfade
 
-- Zu Beginn wählst du **eine** Hauptfigur: Lukas, Soa oder Kian. Nur diese Figur ist während der Reise auf dem Boot zu sehen und wird gespielt. Luki ist nicht an Bord.
+- Zu Beginn wählst du **eine** Hauptfigur: Lukas, Soa oder Kian. Nur diese Figur ist während der Reise auf dem Boot zu sehen und wird gespielt. Luki ist nicht an Bord. Über das neue 👤-Symbol im HUD kannst du später den Storypfad wechseln; der neue Pfad startet dann von vorn.
 - Je nach Auswahl läuft eine eigene sechsstufige Story mit eigenen Sprechblasen, Stimmungen und einem eigenen neunkapiteligen Finale. Der aktive Storyfortschritt wird gespeichert; bei einem Figurenwechsel beginnt der neue Pfad von vorn.
 
 ### Lukas · Hinter dem Lächeln
