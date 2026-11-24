@@ -831,7 +831,7 @@ function startEnding(){
  endingShown=true;endingStep=0;renderEnding();$('endingov').className='ov on';st='idle';save();
 }
 function maybeStartEnding(){
- if(endingComplete||endingShown||!done||found()!==FISH.length||coins<END_MONEY_GOAL)return;
+ if(endingComplete||endingShown||st!=='idle'||!done||found()!==FISH.length||coins<END_MONEY_GOAL)return;
  var blockers=['cardov','shop','book','chestov','pirateov','tutorialov','characterov','adminov'];
  for(var i=0;i<blockers.length;i++)if($(blockers[i])&&$(blockers[i]).classList.contains('on'))return;
  startEnding();
@@ -957,7 +957,7 @@ track.style.transform='translateX('+(-Math.max(0,target))+'px)';
 });
 setTimeout(function(){
 var msg='';
-if(prize.type==='coins'){var reward=creditCoins(Math.max(50,Math.round(coins*.25)));msg='💰 Münzregen! +'+reward.toLocaleString('de-DE')+' Münzen (25% deines Geldes, inklusive Rebirth-Bonus).'}
+if(prize.type==='coins'){var baseReward=Math.max(50,Math.round(coins*.25)),reward=creditCoins(baseReward/prestigeMoneyMultiplier());msg='💰 Münzregen! +'+reward.toLocaleString('de-DE')+' Münzen (25% deines Geldes).'}
 else if(prize.type==='bait'){U.bait=(U.bait||0)+25;msg='🪱 25 Glücksköder erhalten!'}
 else if(prize.type==='upgrade'){var g=grantRandomUpgrades(10);msg=g.count?'⚡ '+g.count+' zufällige Upgrade-Stufen erhalten!':'Alle Upgrades sind bereits auf Maximum.'}
 else if(prize.type==='rareFish'){var rf=addChestFish(0,3);msg='🐠 Seltener Fang: '+rf.fish.n+' ('+RN[rf.fish.r]+') liegt jetzt in deinem Fangbestand.'}
@@ -977,7 +977,7 @@ $('chestClose').onclick=function(){$('chestov').className='ov';$('chestCard').cl
 function fitPirateCanvas(){var rect=pirateCanvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);pirateCanvas.width=Math.max(1,Math.round(rect.width*dpr));pirateCanvas.height=Math.max(1,Math.round(rect.height*dpr));pirateCtx.setTransform(dpr,0,0,dpr,0,0)}
 function spawnPirateTarget(){var w=pirateCanvas.clientWidth||560,h=pirateCanvas.clientHeight||320;pirate.target={x:rnd(48,Math.max(49,w-48)),y:rnd(48,Math.max(49,h-48)),age:0,duration:2.45}}
 function startPirate(){$('adminov').className='ov';$('cardov').className='ov';fxClr();st='idle';cur=null;m=null;$('pirateov').className='ov on';fitPirateCanvas();pirate={time:30,hits:0,needed:7,misses:0,maxMisses:3,target:null,finished:false};spawnPirateTarget();$('pirateResult').style.display='none';$('pirateClose').style.display='none';$('piratec').style.display='block';$('pirateHint').textContent='Ziele mit dem Mauszeiger anvisieren und anklicken!';SND.boom()}
-function finishPirate(won){if(!pirate||pirate.finished)return;pirate.finished=true;var text;if(won){var reward=creditCoins(Math.floor(lifetimeEarned*.07));text='🏆 Piraten besiegt! Deine Beute: +'+reward.toLocaleString('de-DE')+' Münzen (7% aller jemals verdienten Münzen, inklusive Rebirth-Bonus).';SND.epic()}else{var lost=coins;coins=0;text='☠️ Die Piraten haben gewonnen! Du verlierst '+lost.toLocaleString('de-DE')+' Münzen.';SND.lose()}save();$('n').textContent=coins;$('piratec').style.display='none';$('pirateHint').textContent='Der Kampf ist vorbei.';$('pirateResult').textContent=text;$('pirateResult').style.display='block';$('pirateClose').style.display='inline-block';pirateTimer=rnd(10,300)}
+function finishPirate(won){if(!pirate||pirate.finished)return;pirate.finished=true;var text;if(won){var reward=creditCoins(Math.floor((lifetimeEarned/prestigeMoneyMultiplier())*.07));text='🏆 Piraten besiegt! Deine Beute: +'+reward.toLocaleString('de-DE')+' Münzen (7% aller jemals verdienten Münzen).';SND.epic()}else{var lost=coins;coins=0;text='☠️ Die Piraten haben gewonnen! Du verlierst '+lost.toLocaleString('de-DE')+' Münzen.';SND.lose()}save();$('n').textContent=coins;$('piratec').style.display='none';$('pirateHint').textContent='Der Kampf ist vorbei.';$('pirateResult').textContent=text;$('pirateResult').style.display='block';$('pirateClose').style.display='inline-block';pirateTimer=rnd(10,300)}
 $('pirateClose').onclick=function(){pirate=null;$('pirateov').className='ov';$('piratec').style.display='block';st='idle'};
 pirateCanvas.addEventListener('pointerdown',function(e){if(!pirate||pirate.finished)return;e.preventDefault();var rect=pirateCanvas.getBoundingClientRect(),px=e.clientX-rect.left,py=e.clientY-rect.top,tar=pirate.target,rad=Math.max(9,38*(1-tar.age/tar.duration));if(Math.hypot(px-tar.x,py-tar.y)<=rad){pirate.hits++;SND.hit();if(pirate.hits>=pirate.needed)finishPirate(true);else spawnPirateTarget()}else{pirate.misses++;SND.miss();if(pirate.misses>=pirate.maxMisses)finishPirate(false)}});
 function updatePirate(dt){if(!pirate||pirate.finished)return;pirate.time-=dt;pirate.target.age+=dt;if(pirate.target.age>=pirate.target.duration){pirate.misses++;if(pirate.misses>=pirate.maxMisses){finishPirate(false);return}spawnPirateTarget()}if(pirate.time<=0){finishPirate(false);return}$('pirateTime').textContent='Zeit: '+Math.ceil(pirate.time)+' s';$('pirateHits').textContent='Treffer: '+pirate.hits+'/'+pirate.needed;$('pirateMisses').textContent='Verfehlt: '+pirate.misses+'/'+pirate.maxMisses}
