@@ -482,13 +482,35 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
  #endingDialogue{top:16%;padding:9px 12px;font-size:13px}
 }
 @media(prefers-reduced-motion:reduce){#characterRemark.show{animation:none}#endingFilm{image-rendering:auto}}
+#questBtn{padding:7px 9px;font-size:14px;white-space:nowrap}
+#questBadge{display:inline-flex;align-items:center;justify-content:center;min-width:19px;height:19px;padding:0 4px;margin-left:3px;border-radius:99px;background:#102f40;color:#fff;font-size:12px}
+#questov{z-index:9}
+#questPanel{width:min(94vw,520px);max-height:min(88dvh,760px);display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:26px;background:radial-gradient(ellipse at 50% 0,rgba(102,91,192,.28),transparent 56%),linear-gradient(155deg,#12394d,#071c2b 85%);border:1px solid rgba(193,225,255,.4);box-shadow:0 22px 70px rgba(0,0,0,.5);overflow:hidden}
+#questHead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#questHead h2{margin:2px 0 0;font-size:26px}
+.questEyebrow{font-size:11px;letter-spacing:.16em;color:#a9d8ec;font-weight:800}
+#questIntro{margin:0;color:#cce4ec;font-size:14px;line-height:1.4}
+#questList{overflow-y:auto;overscroll-behavior:contain;padding:2px 3px 12px;display:flex;flex-direction:column;gap:10px}
+.questCard{padding:13px;border-radius:18px;background:linear-gradient(135deg,rgba(26,75,97,.95),rgba(8,30,46,.98));border:1px solid rgba(174,224,241,.2);box-shadow:0 7px 18px rgba(0,0,0,.2)}
+.questCard.done{border-color:rgba(255,211,106,.65);background:linear-gradient(135deg,rgba(85,66,36,.55),rgba(8,30,46,.98))}
+.questTop{display:flex;align-items:flex-start;gap:10px}
+.questIcon{flex:none;width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:rgba(255,255,255,.08);font-size:25px}
+.questCopy{flex:1;min-width:0}
+.questCopy b{display:block;font-size:17px;line-height:1.2}
+.questCopy small{display:block;margin-top:3px;color:#c3dce6;font-size:13px;line-height:1.35}
+.questReward{margin-top:10px;color:#ffe18b;font-weight:800;font-size:14px}
+.questProgressText{display:flex;justify-content:space-between;gap:8px;margin-top:10px;font-size:12px;color:#e1f2f6}
+.questTrack{height:9px;margin-top:5px;background:rgba(0,0,0,.35);border-radius:99px;overflow:hidden}
+.questTrack i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#55d9bd,#ffe17d);transition:width .2s}
+.questClaim{width:100%;margin-top:11px;padding:8px 12px;font-size:14px}
+@media(max-width:430px){#questPanel{padding:15px;max-height:90dvh}#questHead h2{font-size:22px}#questBtn{padding:6px 7px;font-size:12px}#hud{gap:5px}#hud>div:last-child{display:flex;align-items:center;gap:4px}#hud button{padding:6px 8px;font-size:12px}}
 </style>
 </head>
 <body>
 <canvas id="c" aria-label="Angelspiel"></canvas>
 <canvas id="fxc" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:6"></canvas>
 <div id="eventBanner" aria-live="polite"><span id="eventIcon"></span><span class="eventBannerCopy"><b id="eventTitle"></b><small id="eventDetail"></small></span><strong id="eventClock"></strong></div>
-<div id="hud"><div>🪙 <span id="n">0</span><small id="incomeRateHud" class="coinRate">+0,00/s</small><small id="endGoalHud" class="coinRate">🏁 Ziel: 100.000 Münzen + Index</small></div><div><button id="sd">🔊</button> <button id="help" aria-label="Tutorial">?</button> <button id="sh">Laden</button> <button id="bk">Index <span id="f">0</span>/<span id="ft">0</span></button></div></div>
+<div id="hud"><div>🪙 <span id="n">0</span><small id="incomeRateHud" class="coinRate">+0,00/s</small><small id="endGoalHud" class="coinRate">🏁 Ziel: 100.000 Münzen + Index</small></div><div><button id="sd">🔊</button> <button id="help" aria-label="Tutorial">?</button> <button id="questBtn">📜 Quests <span id="questBadge">0</span></button> <button id="sh">Laden</button> <button id="bk">Index <span id="f">0</span>/<span id="ft">0</span></button></div></div>
 <div class="ov" id="cardov"><div id="card"><canvas id="cc" width="560" height="340"></canvas>
 <div class="t"><span id="rb"></span></div><div class="t" id="fn">???</div><div class="t" id="fi"></div>
 <div class="t"><button id="ok">Behalten</button> <button id="sl">Verkaufen</button></div></div></div>
@@ -516,6 +538,7 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
   <div id="bookFoot">💡 Tipp: Tippe auf eine Mutation, um nur diese Variante zu sammeln.</div>
 </div></div>
 <div class="ov" id="shop"><div class="bh"><span>Laden</span><button id="cs">Zurück</button></div><div id="sc"></div></div>
+<div class="ov" id="questov"><div id="questPanel"><header id="questHead"><div><span class="questEyebrow">DEINE AUFGABEN</span><h2>📜 Angel-Quests</h2></div><button id="questClose">Zurück</button></header><p id="questIntro">Erfülle Aufgaben beim Angeln und Verkaufen. Hol dir danach deine Belohnung ab!</p><div id="questList"></div></div></div>
 <div class="ov" id="chestov"><div id="chestCard"><div id="chestArt">🎁</div><h2>GEHEIME SCHATZKISTE!</h2><p>Eine kostenlose Fundkiste! Die Leiste rast durch mögliche Belohnungen und stoppt auf deinem Gewinn.</p><div id="caseWrap"><div id="casePointer"></div><div id="caseViewport"><div id="caseTrack"></div></div></div><div id="caseOdds">24% Münzen · 20% Köder · 22% Upgrades · 15% seltener Fisch · 12% Mutation · 5% Schatzkarte · 2% Hauptpreis</div><div id="chestReward"></div><button id="chestOpen">Kiste öffnen!</button> <button id="chestClose">Weiter angeln</button></div></div>
 <div class="ov" id="pirateov"><div id="piratePanel"><h2>🏴‍☠️ PIRATENSCHIFF!</h2><p>Die Piraten greifen an! Triff 7 schrumpfende Zielscheiben. Jede Scheibe wird schnell kleiner. Du hast 30 Sekunden und darfst höchstens 3 Ziele verpassen.</p><div id="pirateStats"><span class="pstat" id="pirateTime">Zeit: 30 s</span><span class="pstat" id="pirateHits">Treffer: 0/7</span><span class="pstat" id="pirateMisses">Verfehlt: 0/3</span></div><canvas id="piratec"></canvas><div id="pirateHint">Ziele mit dem Mauszeiger anvisieren und anklicken!</div><div id="pirateResult"></div><button id="pirateClose">Zurück zum Angeln</button></div></div>
 
@@ -689,12 +712,109 @@ var FISH=[
 FISH.sort(function(a,b){return a.r-b.r});
 var $=function(i){return document.getElementById(i)};
 var cv=$('c'),x=cv.getContext('2d'),W,H,D,SURF,cc=$('cc').getContext('2d');
-var cam=0,camT=0,mcoll={},mdone={},idxMu=0,ss=null,ssT=360,wish=false,world=0,own2=false,own3=false,own4=false,coll={},inv={},coins=0,lifetimeEarned=0,done=false,U={rod:0,charm:0,bait:0,reach:0,pat:0},cardSold=true,catchKey=null,lastCatchValue=0,pendingChest=false,adminLuck=0,dayLight=0,weatherRain=false,weatherTimer=34,activeEvent=null,eventTime=0,eventTimer=42,eventBannerTick=0,bookQuery="",bookRarity="all",bucket=[],bucketNames={},bucketFraction=0,bucketSaveTimer=0,tutorialSeen=false,selectedCharacter="",pendingCharacterChoice="",hasPearlRod=false,pirate=null,pirateTimer=0,rebirths=0,endingComplete=false,endingShown=false,endingStep=0,endingSceneElapsed=0,endingReady=false,characterRemarkTimer=0;var END_MONEY_GOAL=100000;
-try{var S=JSON.parse(localStorage.getItem('luki3')||'null')||{coll:JSON.parse(localStorage.getItem('luki2')||'{}')};coll=S.coll||{};inv=S.inv||{};coins=S.coins||0;lifetimeEarned=Math.max(coins,Number(S.earned)||coins);done=!!S.done;own2=!!S.o2;mcoll=S.mc||{};mdone=S.md||{};own3=!!S.o3;own4=!!S.o4;world=own2?(S.w|0):0;if(world==2&&!own3)world=0;if(world==3&&!own4)world=0;U=S.up||U;pendingChest=!!S.pendingChest;adminLuck=Math.max(0,Math.min(100,Number(S.adminLuck)||0));bucket=Array.isArray(S.bucket)?S.bucket.slice(0,5):[];bucketNames=S.bucketNames&&typeof S.bucketNames==='object'?S.bucketNames:{};bucketFraction=Math.max(0,Math.min(.999999,Number(S.bucketFraction)||0));tutorialSeen=!!S.tutorialSeen;selectedCharacter=["lukas","soa","kian"].indexOf(S.character)>=0?S.character:(S.character==="nino"?"lukas":"");hasPearlRod=!!S.pearlRod;rebirths=Math.max(0,Math.floor(Number(S.rebirths)||0));endingComplete=!!S.endingComplete}catch(e){}
+var cam=0,camT=0,mcoll={},mdone={},idxMu=0,ss=null,ssT=360,wish=false,world=0,own2=false,own3=false,own4=false,coll={},inv={},coins=0,lifetimeEarned=0,done=false,U={rod:0,charm:0,bait:0,reach:0,pat:0},cardSold=true,catchKey=null,lastCatchValue=0,pendingChest=false,adminLuck=0,dayLight=0,weatherRain=false,weatherTimer=34,activeEvent=null,eventTime=0,eventTimer=42,eventBannerTick=0,bookQuery="",bookRarity="all",bucket=[],bucketNames={},bucketFraction=0,bucketSaveTimer=0,activeQuests=[],tutorialSeen=false,selectedCharacter="",pendingCharacterChoice="",hasPearlRod=false,pirate=null,pirateTimer=0,rebirths=0,endingComplete=false,endingShown=false,endingStep=0,endingSceneElapsed=0,endingReady=false,characterRemarkTimer=0;var END_MONEY_GOAL=100000;
+try{var S=JSON.parse(localStorage.getItem('luki3')||'null')||{coll:JSON.parse(localStorage.getItem('luki2')||'{}')};coll=S.coll||{};inv=S.inv||{};coins=S.coins||0;lifetimeEarned=Math.max(coins,Number(S.earned)||coins);done=!!S.done;own2=!!S.o2;mcoll=S.mc||{};mdone=S.md||{};own3=!!S.o3;own4=!!S.o4;world=own2?(S.w|0):0;if(world==2&&!own3)world=0;if(world==3&&!own4)world=0;U=S.up||U;pendingChest=!!S.pendingChest;adminLuck=Math.max(0,Math.min(100,Number(S.adminLuck)||0));bucket=Array.isArray(S.bucket)?S.bucket.slice(0,5):[];bucketNames=S.bucketNames&&typeof S.bucketNames==='object'?S.bucketNames:{};bucketFraction=Math.max(0,Math.min(.999999,Number(S.bucketFraction)||0));activeQuests=Array.isArray(S.quests)?S.quests:[];tutorialSeen=!!S.tutorialSeen;selectedCharacter=["lukas","soa","kian"].indexOf(S.character)>=0?S.character:(S.character==="nino"?"lukas":"");hasPearlRod=!!S.pearlRod;rebirths=Math.max(0,Math.floor(Number(S.rebirths)||0));endingComplete=!!S.endingComplete}catch(e){}
 U.reach=U.reach||0;U.pat=U.pat||0;U.star=U.star||0;U.mut=U.mut||0;U.baitBought=U.baitBought||0;
 function starInterval(){return Math.max(38,Math.round(360*Math.pow(.82,Math.min(10,U.star||0))))}
 ssT=starInterval();
-function save(){try{localStorage.setItem('luki3',JSON.stringify({coll:coll,inv:inv,coins:coins,earned:lifetimeEarned,done:done,o2:own2,o3:own3,o4:own4,w:world,mc:mcoll,md:mdone,up:U,pendingChest:pendingChest,adminLuck:adminLuck,bucket:bucket,bucketNames:bucketNames,bucketFraction:bucketFraction,tutorialSeen:tutorialSeen,character:selectedCharacter,pearlRod:hasPearlRod,rebirths:rebirths,endingComplete:endingComplete}))}catch(e){}}
+function save(){try{localStorage.setItem('luki3',JSON.stringify({coll:coll,inv:inv,coins:coins,earned:lifetimeEarned,done:done,o2:own2,o3:own3,o4:own4,w:world,mc:mcoll,md:mdone,up:U,pendingChest:pendingChest,adminLuck:adminLuck,bucket:bucket,bucketNames:bucketNames,bucketFraction:bucketFraction,quests:activeQuests,tutorialSeen:tutorialSeen,character:selectedCharacter,pearlRod:hasPearlRod,rebirths:rebirths,endingComplete:endingComplete}))}catch(e){}}
+var QUEST_DEFS=[
+{id:'catch3',icon:'🎣',title:'Erste Ausbeute',detail:'Fange 3 Fische.',type:'catch',target:3,coins:250},
+{id:'catch7',icon:'🐟',title:'Fleißiger Angler',detail:'Fange 7 Fische.',type:'catch',target:7,coins:700},
+{id:'sell3',icon:'🪙',title:'Händler am Hafen',detail:'Verkaufe insgesamt 3 Fische.',type:'sell',target:3,coins:450},
+{id:'sell6',icon:'💰',title:'Großer Handel',detail:'Verkaufe insgesamt 6 Fische.',type:'sell',target:6,fish:1},
+{id:'rare2',icon:'💎',title:'Seltene Begegnung',detail:'Fange 2 Fische ab Seltenheit „Sehr selten“.',type:'rare',target:2,fish:1},
+{id:'mut1',icon:'✨',title:'Magischer Fang',detail:'Fange einen Fisch mit Mutation.',type:'mut',target:1,coins:900},
+{id:'giant1',icon:'🐋',title:'Meeresgigant',detail:'Fange einen gigantischen Fisch.',type:'giant',target:1,fish:2}
+];
+function createQuest(exclude){
+var choices=QUEST_DEFS.filter(function(q){return exclude.indexOf(q.id)<0});
+if(!choices.length)choices=QUEST_DEFS;
+var d=choices[Math.floor(Math.random()*choices.length)];
+return{id:d.id,progress:0};
+}
+function questDef(id){return QUEST_DEFS.find(function(q){return q.id===id})||QUEST_DEFS[0]}
+function ensureQuests(){
+var clean=[],used=[];
+(activeQuests||[]).forEach(function(q){
+if(!q||!QUEST_DEFS.some(function(d){return d.id===q.id})||used.indexOf(q.id)>=0)return;
+var def=questDef(q.id);
+clean.push({id:q.id,progress:Math.max(0,Math.min(def.target,Math.floor(Number(q.progress)||0)))});
+used.push(q.id);
+});
+activeQuests=clean.slice(0,3);
+while(activeQuests.length<3){
+var ids=activeQuests.map(function(q){return q.id});
+var next=createQuest(ids);activeQuests.push(next);
+}
+}
+function questReadyCount(){return activeQuests.filter(function(q){return q.progress>=questDef(q.id).target}).length}
+function updateQuestBadge(){
+var badge=$('questBadge');if(badge)badge.textContent=String(questReadyCount());
+}
+function questProgress(kind,amount,info){
+amount=Math.max(0,Math.floor(Number(amount)||0));if(!amount)return;
+var changed=false,justDone=[];
+activeQuests.forEach(function(q){
+var d=questDef(q.id),step=0;
+if(d.type==='catch'&&kind==='catch')step=amount;
+if(d.type==='sell'&&kind==='sell')step=amount;
+if(d.type==='rare'&&kind==='catch'&&info&&info.f&&info.f.r>=2)step=amount;
+if(d.type==='mut'&&kind==='catch'&&info&&info.mu>0)step=amount;
+if(d.type==='giant'&&kind==='catch'&&info&&info.size===3)step=amount;
+if(step>0&&q.progress<d.target){
+var before=q.progress;q.progress=Math.min(d.target,q.progress+step);changed=true;
+if(before<d.target&&q.progress>=d.target)justDone.push(d.title);
+}
+});
+if(changed){
+save();updateQuestBadge();
+if($('questov').classList.contains('on'))renderQuests();
+if(justDone.length)say('📜 Quest geschafft: '+justDone.join(', ')+'. Öffne Quests und hole deine Belohnung ab!',3.5);
+}
+}
+function giveQuestFish(){
+var available=FISH.filter(function(f){return !f.w||f.w===world});
+if(!available.length)available=FISH;
+var f=available[Math.floor(Math.random()*available.length)];
+var mu=Math.random()<.22?1:0,size=rollFishSize(f),weight=makeFishWeight(f,size);
+var key=f.n+'#'+mu+'@'+size+'@'+weight.toFixed(2);
+inv[key]=(inv[key]||0)+1;
+return(MN[mu]||'')+f.n+' · '+fishSizeName(size);
+}
+function claimQuest(index){
+var q=activeQuests[index];if(!q)return;
+var d=questDef(q.id);if(q.progress<d.target)return;
+var rewards=[];
+if(d.coins){var paid=creditCoins(d.coins);rewards.push('+'+paid.toLocaleString('de-DE')+' Münzen')}
+if(d.fish){var fishNames=[];for(var i=0;i<d.fish;i++)fishNames.push(giveQuestFish());rewards.push(d.fish+' Fisch'+(d.fish===1?'':'e')+': '+fishNames.join(', '))}
+var used=activeQuests.filter(function(_,i){return i!==index}).map(function(item){return item.id});
+activeQuests[index]=createQuest(used);
+save();$('n').textContent=coins;updateQuestBadge();renderQuests();
+say('🎁 Quest-Belohnung: '+rewards.join(' · '),4.2);SND.coin();
+}
+function renderQuests(){
+var list=$('questList');if(!list)return;list.innerHTML='';
+activeQuests.forEach(function(q,index){
+var d=questDef(q.id),done=q.progress>=d.target,card=document.createElement('article');
+card.className='questCard'+(done?' done':'');
+var top=document.createElement('div');top.className='questTop';
+var ico=document.createElement('div');ico.className='questIcon';ico.textContent=d.icon;top.appendChild(ico);
+var copy=document.createElement('div');copy.className='questCopy';
+var title=document.createElement('b');title.textContent=d.title;copy.appendChild(title);
+var desc=document.createElement('small');desc.textContent=d.detail;copy.appendChild(desc);top.appendChild(copy);card.appendChild(top);
+var reward=document.createElement('div');reward.className='questReward';reward.textContent='Belohnung: '+(d.coins?d.coins.toLocaleString('de-DE')+' 🪙':'')+(d.coins&&d.fish?' + ':'')+(d.fish?d.fish+' 🎁 Fisch'+(d.fish===1?'':'e'):'');card.appendChild(reward);
+var progress=document.createElement('div');progress.className='questProgressText';
+var label=document.createElement('span');label.textContent=done?'Aufgabe abgeschlossen':'Fortschritt';progress.appendChild(label);
+var num=document.createElement('b');num.textContent=Math.min(q.progress,d.target)+' / '+d.target;progress.appendChild(num);card.appendChild(progress);
+var track=document.createElement('div');track.className='questTrack';var fill=document.createElement('i');fill.style.width=(Math.min(1,q.progress/d.target)*100)+'%';track.appendChild(fill);card.appendChild(track);
+var button=document.createElement('button');button.className='questClaim';button.textContent=done?'🎁 Belohnung abholen':'Noch nicht geschafft';button.disabled=!done;button.onclick=function(){claimQuest(index)};card.appendChild(button);
+list.appendChild(card);
+});
+}
+function openQuests(){renderQuests();$('questov').className='ov on'}
+ensureQuests();updateQuestBadge();
+
 function prestigeMoneyMultiplier(){return Math.pow(2,Math.min(20,rebirths))}
 function creditCoins(amount){amount=Math.max(0,Math.floor((Number(amount)||0)*prestigeMoneyMultiplier()));coins+=amount;lifetimeEarned+=amount;return amount;}
 function val(f,mu){return([5,25,120,650,2200,6500][f.r]+Math.round(f.L/2))*[1,3,8,25][mu||0]}
@@ -841,7 +961,7 @@ function win(){
 var chestChance=activeEvent&&activeEvent.id==='treasureTide'?.08:.01;if(!pendingChest&&Math.random()<chestChance)pendingChest=true;
 var f=cur.f,mu=cur.mu||0,mk=mu+'|'+f.n,isNew=mu?!mcoll[mk]:!coll[f.n];if(mu)mcoll[mk]=(mcoll[mk]||0)+1;else coll[f.n]=(coll[f.n]||0)+1;save();
 cur.sizeIndex=rollFishSize(f);cur.weight=makeFishWeight(f,cur.sizeIndex);
-cardSold=false;catchKey=f.n+'#'+mu+'@'+cur.sizeIndex+'@'+cur.weight.toFixed(2);lastCatchValue=fishSellValue(f,mu,cur.sizeIndex);var ik=catchKey;inv[ik]=(inv[ik]||0)+1;save();$('f').textContent=found();
+cardSold=false;catchKey=f.n+'#'+mu+'@'+cur.sizeIndex+'@'+cur.weight.toFixed(2);lastCatchValue=fishSellValue(f,mu,cur.sizeIndex);var ik=catchKey;inv[ik]=(inv[ik]||0)+1;questProgress('catch',1,{f:f,mu:mu,size:cur.sizeIndex});save();$('f').textContent=found();
 var card=$('card');card.className='';card.style.setProperty('--rc',mu?MC[mu]:RC[cur.r]);
 $('rb').textContent=(mu?MN[mu].toUpperCase()+'· ':'')+RN[cur.r];$('fn').textContent=MN[mu]+f.n+(isNew?' (neu!)':'')+' · '+fishSizeName(cur.sizeIndex);
 $('fi').textContent='Gewicht: '+formatWeight(cur.weight)+' kg · Größe: '+fishSizeName(cur.sizeIndex)+' · Wert: '+Math.floor(lastCatchValue*prestigeMoneyMultiplier())+' Münzen · Fangchance: '+oddsText(cur.totalChance)+'.';
@@ -863,8 +983,8 @@ if(catchKey&&inv[catchKey]>0&&bucket.length<5){
 }
 closeCatchCard();
 };
-$('sl').onclick=function(){if(cardSold)return;cardSold=true;SND.coin();if(catchKey&&inv[catchKey]>0){var caughtInfo=bucketFishInfo(catchKey);inv[catchKey]--;creditCoins(caughtInfo?fishSellValue(caughtInfo.f,caughtInfo.mu,caughtInfo.size):lastCatchValue);save();$('n').textContent=coins}closeCatchCard()};
-$('bk').onclick=function(){openBook()};$('cl').onclick=function(){$('book').className='ov'};
+$('sl').onclick=function(){if(cardSold)return;cardSold=true;SND.coin();if(catchKey&&inv[catchKey]>0){var caughtInfo=bucketFishInfo(catchKey);inv[catchKey]--;creditCoins(caughtInfo?fishSellValue(caughtInfo.f,caughtInfo.mu,caughtInfo.size):lastCatchValue);questProgress('sell',1);save();$('n').textContent=coins}closeCatchCard()};
+$('bk').onclick=function(){openBook()};$('cl').onclick=function(){$('book').className='ov'};$('questBtn').onclick=openQuests;$('questClose').onclick=function(){$('questov').className='ov'};
 $('sh').onclick=function(){openShop2()};$('cs').onclick=function(){$('shop').className='ov'};
 var UP=[{k:'rod',n:'Bessere Angel',d:'Balken wird langsamer',max:5,c:function(l){return 60*Math.pow(2,l)}},
 {k:'charm',n:'Glücksbringer',d:'Mehr seltene Fische, dauerhaft',max:5,c:function(l){return 100*Math.pow(2,l)}},
@@ -1034,7 +1154,7 @@ function startEnding(){
 }
 function maybeStartEnding(){
  if(endingComplete||endingShown||st!=='idle'||!done||found()!==FISH.length||coins<END_MONEY_GOAL)return;
- var blockers=['cardov','shop','book','chestov','pirateov','tutorialov','characterov','adminov'];
+ var blockers=['cardov','shop','book','questov','chestov','pirateov','tutorialov','characterov','adminov'];
  for(var i=0;i<blockers.length;i++)if($(blockers[i])&&$(blockers[i]).classList.contains('on'))return;
  startEnding();
 }
@@ -1044,12 +1164,12 @@ $('endingContinue').onclick=function(){endingComplete=true;endingShown=false;sav
 function rebirthGame(){
  rebirths++;
  coins=0;lifetimeEarned=0;done=false;own2=false;own3=false;own4=false;world=0;
- coll={};inv={};mcoll={};mdone={};bucket=[];bucketNames={};bucketFraction=0;pendingChest=false;
+ coll={};inv={};mcoll={};mdone={};bucket=[];bucketNames={};bucketFraction=0;activeQuests=[];ensureQuests();pendingChest=false;
  U={rod:0,charm:0,bait:0,reach:0,pat:0,star:0,mut:0,baitBought:0};
  adminLuck=0;hasPearlRod=false;endingComplete=false;endingShown=false;endingStep=0;
  activeEvent=null;eventTime=0;eventTimer=42;eventBannerTick=0;pirate=null;pirateTimer=rnd(90,180);ssT=starInterval();bucketSaveTimer=0;mT=0;ripples=[];bub=[];
  st='idle';cam=0;camT=0;pw=0;fly=0;cur=null;ss=null;wish=false;weatherRain=false;weatherTimer=34;tutorialSeen=false;
- $('endingov').className='ov';$('shop').className='ov';$('book').className='ov';
+ $('endingov').className='ov';$('shop').className='ov';$('book').className='ov';$('questov').className='ov';
  $('cardov').className='ov';$('pirateov').className='ov';$('adminov').className='ov';$('eventBanner').className='';$('n').textContent='0';
  $('f').textContent='0';$('ft').textContent=FISH.length;$('incomeRateHud').textContent='+0,00/s · '+prestigeMoneyMultiplier()+'×';
  save();SND.epic();say('✨ REBIRTH '+rebirths+'! Ab jetzt bekommst du '+prestigeMoneyMultiplier()+'× so viele Münzen.',4);openTutorial();
@@ -1245,12 +1365,12 @@ if(!bucket.length)row('🐟','Noch keine Fische eingesetzt','Setze gefangene Fis
 bucket.forEach(function(key,index){var z=bucketFishInfo(key);if(!z)return;var cn=document.createElement('canvas');cn.width=112;cn.height=72;drawFish(cn.getContext('2d'),z.f,56,38,1,z.f.L*.65,0,false,z.mu);row(cn,(MN[z.mu]||'')+(bucketNames[key]||z.f.n)+' · '+fishSizeName(z.size),'+'+(bucketFishRate(key)*moneyMultiplier()*prestigeMoneyMultiplier()).toFixed(2).replace('.',',')+' 🪙/s · '+RN[z.f.r]+(z.weight?' · '+formatWeight(z.weight)+' kg':''),'Entnehmen',function(){bucket.splice(index,1);inv[key]=(inv[key]||0)+1;save();openShop2()},0,z.mu?MC[z.mu]:RC[z.f.r],'✏️ Umbenennen',function(){var next=prompt('Gib deinem Fisch einen Namen (max. 24 Zeichen):',bucketNames[key]||z.f.n);if(next===null)return;next=next.replace(/[\x00-\x1f\x7f]/g,'').trim().slice(0,24);if(next)bucketNames[key]=next;else delete bucketNames[key];save();openShop2()},0)});
 hd('Gefangene Fische');
 hd('Fang verkaufen');
-var tv=0,any=false;
-Object.keys(inv).forEach(function(key){var z=bucketFishInfo(key),c=inv[key]||0;if(!z||c<1)return;any=true;var f=z.f,mu=z.mu,size=z.size,value=fishSellValue(f,mu,size);tv+=c*value;
+var tv=0,any=false,totalFish=0;
+Object.keys(inv).forEach(function(key){var z=bucketFishInfo(key),c=inv[key]||0;if(!z||c<1)return;any=true;var f=z.f,mu=z.mu,size=z.size,value=fishSellValue(f,mu,size);tv+=c*value;totalFish+=c;
 var cn=document.createElement('canvas');cn.width=112;cn.height=72;drawFish(cn.getContext('2d'),f,56,38,1,f.L*.65*([.78,1,1.16,1.38][size]),0,false,mu);
 var title=(MN[mu]||'')+(bucketNames[key]||f.n)+' · '+fishSizeName(size)+' x'+c,detail=RN[f.r]+' · '+(z.weight?'ca. '+formatWeight(z.weight)+' kg · ':'')+Math.floor(value*prestigeMoneyMultiplier())+' 🪙 je Fisch';
-row(cn,title,detail,'Verkaufen',function(){creditCoins(c*value);inv[key]=0;delete bucketNames[key];sv()},0,mu?MC[mu]:RC[f.r],bucket.length<5?'Eimer +':null,function(){if(bucket.length>=5||!inv[key])return;inv[key]--;bucket.push(key);save();openShop2()},bucket.length>=5)});
-if(any){var bg=document.createElement('button');bg.className='big';bg.textContent='Alles verkaufen: +'+Math.floor(tv*prestigeMoneyMultiplier())+' 🪙';bg.onclick=function(){creditCoins(tv);inv={};bucketNames={};sv()};s.appendChild(bg)}
+row(cn,title,detail,'Verkaufen',function(){creditCoins(c*value);questProgress('sell',c);inv[key]=0;delete bucketNames[key];sv()},0,mu?MC[mu]:RC[f.r],bucket.length<5?'Eimer +':null,function(){if(bucket.length>=5||!inv[key])return;inv[key]--;bucket.push(key);save();openShop2()},bucket.length>=5)});
+if(any){var bg=document.createElement('button');bg.className='big';bg.textContent='Alles verkaufen: +'+Math.floor(tv*prestigeMoneyMultiplier())+' 🪙';bg.onclick=function(){creditCoins(tv);questProgress('sell',totalFish);inv={};bucketNames={};sv()};s.appendChild(bg)}
 else row('🪣','Eimer ist leer','Fang erst ein paar Fische');
 hd('Ausrüstung');
 UP.forEach(function(u){var l=U[u.k]||0,ML=u.max+(own2?5:0),mx=l>=ML,c=u.c(l);
@@ -1325,7 +1445,7 @@ t+=dt;dayLight=.5+.5*Math.sin((t/180)*Math.PI*2-Math.PI/2);updateWorldEvents(dt)
 if(weatherTimer<=0){if(weatherRain){weatherRain=false;weatherTimer=rnd(28,55);say('☁️ Der Regen ist vorbei.',1.8)}else if(Math.random()<.48){weatherRain=true;weatherTimer=rnd(16,29);say('🌧️ Es regnet! Die Wellen werden höher.',2.8)}else{weatherTimer=rnd(18,38)}}
 if(shake>0)shake-=dt;if(mT>0)mT-=dt;
 if(pirate){updatePirate(dt);return}
-var blocked=$('shop').classList.contains('on')||$('book').classList.contains('on')||$('cardov').classList.contains('on')||$('chestov').classList.contains('on')||$('endingov').classList.contains('on');if(!blocked){pirateTimer-=dt;if(pirateTimer<=0&&st==='idle'){startPirate();return}}
+var blocked=$('shop').classList.contains('on')||$('book').classList.contains('on')||$('questov').classList.contains('on')||$('cardov').classList.contains('on')||$('chestov').classList.contains('on')||$('endingov').classList.contains('on');if(!blocked){pirateTimer-=dt;if(pirateTimer<=0&&st==='idle'){startPirate();return}}
 ssT-=dt;if(ssT<=0&&!ss){ss={x:W*rnd(.55,1),y:rnd(8,SURF*.3),a:0};ssT=starInterval()}
 if(st==='idle'||st==='charge')camT=0;cam+=(camT-cam)*Math.min(1,dt*2.5);
 if(ss){ss.a+=dt/3.2;ss.x-=dt*W*.3;ss.y+=dt*SURF*.25;if(ss.a>=1)ss=null}
@@ -1571,7 +1691,7 @@ var k=sil?1+Math.sin(rt*30)*.04:1+Math.max(0,.4-(rt-1))*.8;
 drawFish(c,f,150,88,1,Math.min(62,f.L*2.1)*k*([.78,1,1.16,1.38][cur.sizeIndex===undefined?1:cur.sizeIndex]),t,sil,cur.mu||0);
 if(sil){c.fillStyle='#e9f6ee';c.font='800 40px sans-serif';c.textAlign='center';c.fillText('?',140,100)}
 else if($('card').className.indexOf('show')<0){$('card').className='show r'+cur.r}}
-function loop(n){var realDt=Math.max(0,(n-last)/1000),dt=Math.min(.05,realDt);last=n;updateBucketIncome(Math.min(realDt,43200));maybeStartEnding();if(!$('shop').classList.contains('on')&&!$('book').classList.contains('on')&&!$('adminov').classList.contains('on')&&!$('tutorialov').classList.contains('on')&&!$('endingov').classList.contains('on'))update(dt);if(st==='reveal'){rt+=dt;drawCard()}if(endingShown){endingSceneElapsed+=Math.min(realDt,.12);if(endingStep<endingScenes.length-1&&endingSceneElapsed>=endingDurations[endingStep]){endingStep++;renderEnding()}else if(endingStep===endingScenes.length-1&&endingSceneElapsed>=endingDurations[endingStep]&&!endingReady){endingReady=true;$('endingPanel').classList.add('finale-ready');$('endingActions').style.display='grid'}}draw();if(endingShown)drawEndingFilm();if(characterRemarkTimer>0){characterRemarkTimer-=realDt;if(characterRemarkTimer<=0){characterRemarkTimer=0;$('characterRemark').classList.remove('show')}}if(pirate)drawPirate();requestAnimationFrame(loop)}
+function loop(n){var realDt=Math.max(0,(n-last)/1000),dt=Math.min(.05,realDt);last=n;updateBucketIncome(Math.min(realDt,43200));maybeStartEnding();if(!$('shop').classList.contains('on')&&!$('book').classList.contains('on')&&!$('questov').classList.contains('on')&&!$('adminov').classList.contains('on')&&!$('tutorialov').classList.contains('on')&&!$('endingov').classList.contains('on'))update(dt);if(st==='reveal'){rt+=dt;drawCard()}if(endingShown){endingSceneElapsed+=Math.min(realDt,.12);if(endingStep<endingScenes.length-1&&endingSceneElapsed>=endingDurations[endingStep]){endingStep++;renderEnding()}else if(endingStep===endingScenes.length-1&&endingSceneElapsed>=endingDurations[endingStep]&&!endingReady){endingReady=true;$('endingPanel').classList.add('finale-ready');$('endingActions').style.display='grid'}}draw();if(endingShown)drawEndingFilm();if(characterRemarkTimer>0){characterRemarkTimer-=realDt;if(characterRemarkTimer<=0){characterRemarkTimer=0;$('characterRemark').classList.remove('show')}}if(pirate)drawPirate();requestAnimationFrame(loop)}
 requestAnimationFrame(loop);
 })();
 </script>
