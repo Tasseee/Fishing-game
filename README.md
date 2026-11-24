@@ -40,6 +40,8 @@ Die Fangkarte zeigt Seltenheitschance, Mutationschance und die kombinierte Fangc
 - Nach allen 30 Aufgaben gibt es einen zusätzlichen Münzbonus. Beim Rebirth beginnt die Quest-Reihe wieder von vorn.
 - Quest-Abschnitt, Fortschritt und eingelöste Belohnungen werden lokal mit dem restlichen Spielstand gespeichert.
 - Der Angler kommentiert jetzt häufiger besondere Größen und Seltenheiten, Mutationen, Events sowie Regen und Wetterwechsel.
+- Der normale Fangmoment hat jetzt eine mehrstufige Reveal-Sequenz mit dunkler werdendem Hintergrund, magischen Energie-Ringen, rotierenden Lichtstrahlen, Partikel-Sog und einer großen Schockwelle beim Auftauchen des Fisches.
+- Die Fangkarte bekommt einen kräftigen Auftritt mit schwebendem Fisch, animiertem Seltenheits-Badge und nacheinander eingeblendeten Fangdetails. Je seltener der Fang und je höher die Mutation, desto länger und spektakulärer wird die Enthüllung.
 
 ## Spielstand
 
