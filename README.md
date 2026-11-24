@@ -84,6 +84,15 @@ Der Spielstand wird lokal im Browser über `localStorage` gespeichert und nicht 
 - **Schnellbiss:** Fische beißen doppelt so schnell an.
 - Die Events laufen zusätzlich zum normalen Wetter, Tag-Nacht-Wechsel, Schatzkisten und Piratenüberfällen.
 
+## Spielmodi und Storymodus
+
+- Beim Spielstart kannst du zwischen **Normalmodus** und **Storymodus** wählen. Die Auswahl erscheint bei jedem Start erneut; der aktuelle Modus ist markiert und kann direkt fortgesetzt werden.
+- Der **Normalmodus** ist das klassische Angelspiel ohne die ernsten persönlichen Storyverläufe. Er enthält ein eigenes, neutrales Angel-Tutorial.
+- Der **Storymodus** erzählt die persönlichen Geschichten der ausgewählten Figur. Themen sind unter anderem Einsamkeit, depressive Gefühle und der Umgang mit Belastungen. Vor dem Einstieg erscheint ein Hinweis auf sensible Themen.
+- Über **🎭** im HUD kannst du den Modus jederzeit wechseln. Über **👤** kannst du in beiden Modi jederzeit zwischen Lukas, Soa und Kian wechseln.
+- Im Storymodus verändern sich Mimik und Haltung der Figur schrittweise mit dem Verlauf. Im Normalmodus bleiben die Figuren neutral und fröhlich.
+- Bei Soa gibt es im Storymodus eine kurze Comic-Animation, in der er den gefangenen Fisch sichtbar zum Mund führt und isst. Im Normalmodus läuft der Verkauf direkt wie im klassischen Spiel ab.
+
 ## Charakterauswahl
 
 - Beim ersten Start wählst du deinen Angler: **Lukas**, **Soa** oder **Kian**.
