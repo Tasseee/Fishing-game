@@ -97,3 +97,10 @@ Der Perlen-Dreizack bleibt dauerhaft im Spielstand, gibt einen kleinen Glücksbo
 - Ein Rebirth setzt Sammlung, Fänge, Welten, Ausrüstung, Geld-Eimer und Münzbestand zurück. Der Rebirth-Zähler bleibt erhalten.
 - Jeder Rebirth verdoppelt dauerhaft alle Münz-Einnahmen: beim ersten Rebirth **2×**, beim zweiten **4×**, danach **8×** usw. Der Bonus gilt für Verkäufe, Belohnungen und den Geld-Eimer.
 - Beim Angeln gleiten Pose und Köder nach dem Auswurf weiter; Schnur und Köder bewegen sich unter Wasser mit der Strömung.
+
+
+## Neue Inhalte
+
+- Im Admin-Menü können der komplette Fisch-Index inklusive Gold-, Diamant- und Rainbow-Varianten sowie alle Welten freigeschaltet und der Perlen-Dreizack vergeben werden.
+- Der neue **Sternen-Abgrund** kostet 75.000 Münzen, bietet **3× Glück**, eine eigene Kristall-Unterwasserwelt und 12 exklusive Fische über alle Seltenheitsstufen.
+- Das Finale wurde auf neun Kapitel erweitert: Lukas erreicht die Küste, fährt nach Hause und erlebt eine längere Wiedersehensszene mit Umarmung und kurzen Gesprächen mit seiner Familie.
