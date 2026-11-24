@@ -841,7 +841,7 @@ if(justDone.length)say('📜 Quest geschafft: '+justDone.join(', ')+'. Öffne Qu
 function rollQuestFish(level){
 level=Math.max(1,Math.min(10,Number(level)||1));
 var low=[68,22,7,2.2,.65,.15],high=[5,13,24,25,21,12],mix=(level-1)/9,weights=low.map(function(w,i){return w+(high[i]-w)*mix});
-var total=weights.reduce(function(a,b){return a+b},0),roll=Math.random()*total,rarity=0;
+var total=weights.reduce(function(a,b){return a+b},0),roll=Math.random()*total,rarity=weights.length-1;
 for(var i=0;i<weights.length-1;i++){if(roll<weights[i]){rarity=i;break}roll-=weights[i]}
 var pool=FISH.filter(function(f){return f.r===rarity&&(!f.w||f.w===world)});
 if(!pool.length)pool=FISH.filter(function(f){return f.r===rarity});
