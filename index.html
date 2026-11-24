@@ -749,9 +749,9 @@ if(lbl){var bt=document.createElement('button');bt.textContent=lbl;bt.disabled=!
 function hd(q){var e=document.createElement('h3');e.textContent=q;s.appendChild(e)}
 var tp=document.createElement('div');tp.style.cssText='text-align:center;margin-bottom:4px';tp.innerHTML='<span class="coin"></span>';tp.firstChild.textContent='🪙 '+coins;s.appendChild(tp);
 hd('Geld-Eimer · '+bucket.length+'/5');
-var passive=bucketRate();row('🪣','Passives Einkommen',passive.toFixed(2).replace('.',',')+' 🪙 pro Sekunde',null,null,0,'#ffd36a');
+var passive=bucketRate()*moneyMultiplier();row('🪣','Passives Einkommen',passive.toFixed(2).replace('.',',')+' 🪙 pro Sekunde',null,null,0,'#ffd36a');
 if(!bucket.length)row('🐟','Noch keine Fische eingesetzt','Setze gefangene Fische ein, um automatisch Münzen zu verdienen.');
-bucket.forEach(function(key,index){var z=bucketFishInfo(key);if(!z)return;var cn=document.createElement('canvas');cn.width=112;cn.height=72;drawFish(cn.getContext('2d'),z.f,56,38,1,z.f.L*.65,0,false,z.mu);row(cn,(MN[z.mu]||'')+z.f.n,'+'+bucketFishRate(key).toFixed(2).replace('.',',')+' 🪙/s · '+RN[z.f.r],'Entnehmen',function(){bucket.splice(index,1);inv[key]=(inv[key]||0)+1;save();openShop2()},0,z.mu?MC[z.mu]:RC[z.f.r])});
+bucket.forEach(function(key,index){var z=bucketFishInfo(key);if(!z)return;var cn=document.createElement('canvas');cn.width=112;cn.height=72;drawFish(cn.getContext('2d'),z.f,56,38,1,z.f.L*.65,0,false,z.mu);row(cn,(MN[z.mu]||'')+z.f.n,'+'+(bucketFishRate(key)*moneyMultiplier()).toFixed(2).replace('.',',')+' 🪙/s · '+RN[z.f.r],'Entnehmen',function(){bucket.splice(index,1);inv[key]=(inv[key]||0)+1;save();openShop2()},0,z.mu?MC[z.mu]:RC[z.f.r])});
 hd('Gefangene Fische');
 hd('Fang verkaufen');
 var tv=0,any=false;
@@ -815,7 +815,7 @@ function openBook(){
 var tb=$('tabs');tb.innerHTML='';
 ['Normal','Gold','Diamant','Rainbow'].forEach(function(n,i){
 var b=document.createElement('button'),cnt=i?mutationCount(i):found();
-b.textContent=(i?MN[i]:'')+n+' · '+cnt+'/'+FISH.length;
+b.textContent=n+' · '+cnt+'/'+FISH.length;
 b.className=i===idxMu?'active':'';
 b.onclick=function(){idxMu=i;openBook()};
 tb.appendChild(b);
