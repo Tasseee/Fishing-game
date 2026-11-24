@@ -6,39 +6,30 @@ Ein kleines Angelspiel direkt im Browser.
 
 Öffne [index.html](./index.html) im Browser. Es ist keine Installation und kein Build-Schritt nötig.
 
-## Seltenheiten und Fische
+## Optik-Update
 
-Es gibt sechs Seltenheitsstufen: Normal, Selten, Sehr selten, Unmöglich, Legendär und Mythisch. Legendär liegt zwischen Unmöglich und Mythisch. Die Sammlung enthält 79 verschiedene Fische über den normalen See, die Aurora-Welt und das Korallenriff.
+Die gesamte Spieloberfläche wurde visuell überarbeitet:
+- Der Angler hat jetzt eine gezeichnete Figur mit Gesicht, Mütze, Jacke und Armen.
+- Das Boot hat einen detaillierteren Holzkörper, Planken, Sitz, Laterne, Flagge und eine ausgearbeitete Angel.
+- Die Fische haben neue Körperformen, Flossen, Muster, Schuppen-Highlights, Augen und Mutations-Leuchteffekte.
+- Die Seen haben Wolken, Insel-Silhouetten, Lichtstrahlen, Wasserreflexe und Unterwasser-Partikel.
+- Der Fischfang zeigt eine eigene Timing-Konsole mit leuchtender Trefferzone, Fortschrittsmarkern und drei Leben.
+- Der Piratenkampf zeigt ein gezeichnetes Schiff mit Segeln, Totenkopfflagge, Mond, Meer und animiertem Ziel-Fadenkreuz.
+- Shop, Index, Fangkarte und Schatzkiste haben neue Glas-, Metall- und Licht-Effekte, stärkere Karten und überarbeitete Buttons.
+- Die Schatzkiste hat zusätzliche Leucht- und Öffnungseffekte.
 
-## Minispiel beim Angeln
+## Spielsysteme
 
-Jede Seltenheit startet mit genau **3 Leben**. Die benötigten Treffer und die Größe beziehungsweise Geschwindigkeit der Zielzone steigen weiter mit der Seltenheit.
+Es gibt sechs Seltenheitsstufen: Normal, Selten, Sehr selten, Unmöglich, Legendär und Mythisch. Die Sammlung enthält 79 verschiedene Fische über den normalen See, die Aurora-Welt und das Korallenriff.
 
-## Mutations-Wahrscheinlichkeiten
+Jede Seltenheit startet im Angel-Minispiel mit genau **3 Leben**.
 
-Die Fangkarte zeigt die Seltenheitschance, die Wahrscheinlichkeit der tatsächlich gezogenen Mutation (oder „keine Mutation“) und die kombinierte Gesamtchance aus beidem.
+Bei jedem erfolgreichen Fang gibt es eine feste **1%-Chance** auf eine Schatzkiste. Glücks-Upgrades verändern diese Chance nicht. Eine Kiste enthält zufällig 25% des aktuellen Geldbestands (mindestens 50 Münzen), 25 Glücksköder oder 10 zufällige Upgrade-Stufen, soweit noch verfügbar.
 
-## Schatzkiste
+Ein Piratenschiff taucht in zufälligen Abständen zwischen **10 Sekunden und 5 Minuten** auf. Im Kampf müssen 7 schrumpfende Zielscheiben in 30 Sekunden getroffen werden; höchstens 3 Fehlschüsse sind erlaubt. Ein Sieg zahlt 7% aller bisher verdienten Münzen aus. Bei einer Niederlage geht der aktuelle Münzbestand verloren.
 
-Bei jedem erfolgreichen Fang wird eine feste **1%-Chance** auf eine Schatzkiste geprüft. Glücks-Upgrades verändern diese Chance nicht. Beim Öffnen gibt es zufällig entweder:
-- Münzen in Höhe von 25% des aktuellen Geldbestands (mindestens 50 Münzen),
-- 25 Glücksköder,
-- oder 10 zufällige Upgrade-Stufen, soweit noch Stufen verfügbar sind.
+Die Fangkarte zeigt Seltenheitschance, Mutationschance und die kombinierte Fangchance inklusive Mutation an.
 
-Die Kiste hat eine eigene Öffnungsanimation.
+## Spielstand
 
-## Piratenschiff
-
-Ein Piratenschiff taucht in zufälligen Abständen zwischen **10 Sekunden und 5 Minuten** auf. Im Kampf müssen 7 kleiner werdende Zielscheiben angeklickt werden. Es gibt 30 Sekunden Zeit und höchstens 3 verfehlte Ziele.
-
-- Sieg: Beute in Höhe von **7% aller seit Beginn gezählten verdienten Münzen**.
-- Niederlage: Der aktuelle Münzbestand geht verloren.
-
-Das Spiel speichert die gesamten verdienten Münzen separat, damit Ausgaben und zwischenzeitliche Verluste den späteren Piratenbonus nicht verringern. Bei älteren Spielständen wird der aktuelle Münzbestand als bisheriger Mindestwert übernommen.
-
-## Weitere Funktionen
-
-- Responsives Interface und animierte Fangkarten.
-- Gold-, Diamant- und Rainbow-Mutationen.
-- Köderpreise steigen mit Käufen, Fangfortschritt und Ausrüstung.
-- Der Spielstand wird lokal im Browser über `localStorage` gespeichert und nicht automatisch zwischen Geräten synchronisiert.
+Der Spielstand wird lokal im Browser über `localStorage` gespeichert und nicht automatisch zwischen Geräten synchronisiert.
