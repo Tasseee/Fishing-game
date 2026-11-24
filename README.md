@@ -6,50 +6,39 @@ Ein kleines Angelspiel direkt im Browser.
 
 Öffne [index.html](./index.html) im Browser. Es ist keine Installation und kein Build-Schritt nötig.
 
-## Seltenheiten
+## Seltenheiten und Fische
 
-Die sechs Seltenheitsstufen sind jetzt:
+Es gibt sechs Seltenheitsstufen: Normal, Selten, Sehr selten, Unmöglich, Legendär und Mythisch. Legendär liegt zwischen Unmöglich und Mythisch. Die Sammlung enthält 79 verschiedene Fische über den normalen See, die Aurora-Welt und das Korallenriff.
 
-1. Normal
-2. Selten
-3. Sehr selten
-4. Unmöglich
-5. Legendär
-6. Mythisch
+## Minispiel beim Angeln
 
-Legendär liegt zwischen Unmöglich und Mythisch. Unmögliche Fische sind seltener als zuvor; legendäre und mythische Fänge sind noch seltener.
+Jede Seltenheit startet mit genau **3 Leben**. Die benötigten Treffer und die Größe beziehungsweise Geschwindigkeit der Zielzone steigen weiter mit der Seltenheit.
 
-## Fischsammlung
+## Mutations-Wahrscheinlichkeiten
 
-Es gibt jetzt **79 verschiedene Fische**, darunter **16 Neuzugänge**:
-- 6 neue Fische im normalen See
-- 5 neue Fische in der Aurora-Welt
-- 5 neue Fische im Korallenriff
+Die Fangkarte zeigt die Seltenheitschance, die Wahrscheinlichkeit der tatsächlich gezogenen Mutation (oder „keine Mutation“) und die kombinierte Gesamtchance aus beidem.
 
-## Minispiel
+## Schatzkiste
 
-Der Schwierigkeitsgrad steigt jetzt in sechs Stufen. Unmögliche, legendäre und mythische Fische brauchen mehr Treffer und haben kleinere Trefferzonen. Der Start-Lebenstand steigt ebenfalls mit der Seltenheit:
+Bei jedem erfolgreichen Fang wird eine feste **1%-Chance** auf eine Schatzkiste geprüft. Glücks-Upgrades verändern diese Chance nicht. Beim Öffnen gibt es zufällig entweder:
+- Münzen in Höhe von 25% des aktuellen Geldbestands (mindestens 50 Münzen),
+- 25 Glücksköder,
+- oder 10 zufällige Upgrade-Stufen, soweit noch Stufen verfügbar sind.
 
-| Seltenheit | Treffer nötig | Start-Leben |
-|---|---:|---:|
-| Normal | 1 | 4 |
-| Selten | 2 | 5 |
-| Sehr selten | 3 | 6 |
-| Unmöglich | 5 | 7 |
-| Legendär | 6 | 8 |
-| Mythisch | 7 | 9 |
+Die Kiste hat eine eigene Öffnungsanimation.
 
-Jede zweite Angel-Stufe gibt ein zusätzliches Leben. Mutierte Fische geben ebenfalls ein zusätzliches Leben, benötigen aber einen Treffer mehr.
+## Piratenschiff
+
+Ein Piratenschiff taucht in zufälligen Abständen zwischen **10 Sekunden und 5 Minuten** auf. Im Kampf müssen 7 kleiner werdende Zielscheiben angeklickt werden. Es gibt 30 Sekunden Zeit und höchstens 3 verfehlte Ziele.
+
+- Sieg: Beute in Höhe von **7% aller seit Beginn gezählten verdienten Münzen**.
+- Niederlage: Der aktuelle Münzbestand geht verloren.
+
+Das Spiel speichert die gesamten verdienten Münzen separat, damit Ausgaben und zwischenzeitliche Verluste den späteren Piratenbonus nicht verringern. Bei älteren Spielständen wird der aktuelle Münzbestand als bisheriger Mindestwert übernommen.
 
 ## Weitere Funktionen
 
-- Überarbeitetes, responsives Interface.
-- Seltene Fänge haben aufwendigere Reveal-Animationen.
-- Fangkarte zeigt die jeweilige Fangchance und den Verkaufspreis.
+- Responsives Interface und animierte Fangkarten.
+- Gold-, Diamant- und Rainbow-Mutationen.
 - Köderpreise steigen mit Käufen, Fangfortschritt und Ausrüstung.
-- Gold-, Diamant- und Rainbow-Index haben sichtbare Sammelziele.
-- Verkauf eines Fangs ist gegen Doppelklicks und falsche Inventar-Schlüssel abgesichert.
-
-## Spielstand
-
-Der Spielstand wird lokal im Browser über `localStorage` gespeichert. Er wird nicht automatisch zwischen verschiedenen Browsern oder Geräten synchronisiert.
+- Der Spielstand wird lokal im Browser über `localStorage` gespeichert und nicht automatisch zwischen Geräten synchronisiert.
