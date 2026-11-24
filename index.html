@@ -1150,7 +1150,7 @@ function pick(p){p*=activeEvent&&activeEvent.id==='doubleLuck'?2:1;if(activeEven
 while(i<5&&r>=w[i]){r-=w[i];i++}
 var l=FISH.filter(function(f){return f.r==i&&(!f.w||f.w==world)});cur={r:i,ch:w[i]/s,f:l[Math.floor(Math.random()*l.length)],p:p}}
 function geo(){return{bx:W*.2,tx:W*.2+46,ty:SURF-64}}
-function down(e){au();hideFisherBubble();if(ss&&Math.hypot(e.clientX-ss.x,e.clientY-ss.y)<85){ss=null;wish=true;vib([30,30,80]);say('Wunsch erfüllt! ⭐',2);SND.wish();for(var i=0;i<30;i++)bub.push({x:e.clientX,y:e.clientY,vx:rnd(-160,160),vy:rnd(-160,160),r:rnd(2,5),l:1.2});if(st!=='bite'&&st!=='mini')return}
+function down(e){au();if(kianDialogueActive||$('fisherBubble').classList.contains('crewMode'))return;hideFisherBubble();if(ss&&Math.hypot(e.clientX-ss.x,e.clientY-ss.y)<85){ss=null;wish=true;vib([30,30,80]);say('Wunsch erfüllt! ⭐',2);SND.wish();for(var i=0;i<30;i++)bub.push({x:e.clientX,y:e.clientY,vx:rnd(-160,160),vy:rnd(-160,160),r:rnd(2,5),l:1.2});if(st!=='bite'&&st!=='mini')return}
 if(st==='idle'){st='charge';pw=0;pd=1;castFollow=0}
 else if(st==='bite'){startMini()}
 else if(st==='mini'){tap()}}
@@ -1474,7 +1474,7 @@ function drawEndingFilm(){
   var friendPose=scene===3||scene===4?'slump':scene===5?'idle':scene===6?'walk':'hug';
   if(scene===8)friendPose='walk';
   friends.forEach(function(friend,idx){
-   var drift=scene===4?(idx-1)*ease*10:scene===8?(ease-.5)*12:0,px=friend.x*w/(w||1)+drift;
+   var drift=scene===4?(idx-1)*ease*10:scene===8?(ease-.5)*12:0,px=friend.x+drift;
    drawFilmPerson(g,px,h*.83,.66,friend.shirt,friend.hair,tim,friendPose);
    if(scene>=6){
     var familyPose=scene===6?'walk':scene===8?'walk':'hug';
