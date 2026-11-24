@@ -63,6 +63,7 @@ Der Spielstand wird lokal im Browser über `localStorage` gespeichert und nicht 
 - Im Laden gibt es einen Geld-Eimer mit maximal **5 Fischen**.
 - Gefangene Fische können aus dem Fangbestand in freie Eimerplätze gesetzt und später wieder herausgenommen werden.
 - Jeder eingesetzte Fisch bringt automatisch Münzen pro Sekunde. Je höher seine Seltenheit, desto höher das Einkommen; Gold-, Diamant- und Rainbow-Mutationen erhöhen es zusätzlich.
+- Fische im Geld-Eimer sammeln automatisch **1 XP pro Sekunde** und steigen bis **Level 10** auf. Das erste Level braucht 60 XP; jede weitere Stufe benötigt 60 XP mehr als die vorherige. Jedes Level erhöht das Einkommen des Fisches um **12%**. Level, Erfahrung und Fortschrittbalken werden gespeichert; beim Herausnehmen beginnt der Fisch beim nächsten Einsetzen wieder auf Level 1.
 - Das Einkommen läuft auch weiter, wenn ein Menü geöffnet ist, und der Eimer-Spielstand wird lokal gespeichert.
 - Grundverdienst pro Sekunde: Normal 0,10; Selten 0,25; Sehr selten 0,70; Unmöglich 2; Legendär 6; Mythisch 18 Münzen. Mutations-Multiplikatoren: normal x1, Gold x1,5, Diamant x2,5, Rainbow x4.
 
