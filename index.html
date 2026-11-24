@@ -230,12 +230,30 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 #sc .row button{flex:0 0 auto}
 @media(max-width:430px){.coinRate{font-size:10px;padding:2px 5px}#sc .row button{padding:6px 8px;font-size:12px}}
 
+
+/* First-run tutorial */
+#tutorialov{z-index:30;background:radial-gradient(ellipse at 50% 0,rgba(69,161,194,.34),transparent 58%),rgba(1,8,16,.94)}
+#tutorialPanel{width:min(94vw,650px);max-height:92vh;overflow:auto;padding:22px 21px;border:1px solid rgba(255,220,124,.48);border-radius:27px;background:linear-gradient(155deg,#17445b,#071c2b 82%);box-shadow:0 25px 90px rgba(0,0,0,.65),0 0 44px rgba(255,190,55,.14)}
+.tutorialTop{text-align:center;padding:4px 5px 15px;border-bottom:1px solid rgba(166,224,239,.16)}
+.tutorialEyebrow{font-size:11px;letter-spacing:.2em;color:#8be2f0;font-weight:800}
+.tutorialTop h2{margin:5px 0;color:#ffe5a0;font-size:clamp(27px,6vw,38px)}
+.tutorialTop p{margin:0;color:#c1dce5}
+.tutorialSteps{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:16px 0}
+.tutorialStep{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid rgba(166,224,239,.17);border-radius:15px;background:rgba(2,19,31,.42)}
+.tutorialStep>span{flex:none;display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:linear-gradient(180deg,#ffe994,#f0a832);color:#172a38;font-weight:900}
+.tutorialStep b{color:#fff0bd;font-size:14px}
+.tutorialStep p{margin:4px 0 0;color:#c5dce5;font-size:12px;line-height:1.42}
+.tutorialFoot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:13px;border-top:1px solid rgba(166,224,239,.16)}
+.tutorialFoot>span{color:#a9cbd7;font-size:12px;line-height:1.4}
+.tutorialFoot button{flex:none;padding:10px 15px;font-size:14px}
+@media(max-width:520px){#tutorialPanel{padding:15px 12px}.tutorialSteps{grid-template-columns:1fr;gap:7px}.tutorialStep{padding:10px}.tutorialFoot{align-items:stretch;flex-direction:column}.tutorialFoot button{width:100%}}
+
 </style>
 </head>
 <body>
 <canvas id="c" aria-label="Angelspiel"></canvas>
 <canvas id="fxc" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:6"></canvas>
-<div id="hud"><div>🪙 <span id="n">0</span><small id="incomeRateHud" class="coinRate">+0,00/s</small></div><div><button id="sd">🔊</button> <button id="sh">Laden</button> <button id="bk">Index <span id="f">0</span>/<span id="ft">0</span></button></div></div>
+<div id="hud"><div>🪙 <span id="n">0</span><small id="incomeRateHud" class="coinRate">+0,00/s</small></div><div><button id="sd">🔊</button> <button id="help" aria-label="Tutorial">?</button> <button id="sh">Laden</button> <button id="bk">Index <span id="f">0</span>/<span id="ft">0</span></button></div></div>
 <div class="ov" id="cardov"><div id="card"><canvas id="cc" width="560" height="340"></canvas>
 <div class="t"><span id="rb"></span></div><div class="t" id="fn">???</div><div class="t" id="fi"></div>
 <div class="t"><button id="ok">Behalten</button> <button id="sl">Verkaufen</button></div></div></div>
@@ -243,6 +261,20 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 <div class="ov" id="shop"><div class="bh"><span>Laden</span><button id="cs">Zurück</button></div><div id="sc"></div></div>
 <div class="ov" id="chestov"><div id="chestCard"><div id="chestArt">🎁</div><h2>GEHEIME SCHATZKISTE!</h2><p>Ein seltener Fund! Öffne die Kiste und entdecke deine Belohnung.</p><div id="chestReward"></div><button id="chestOpen">Kiste öffnen!</button> <button id="chestClose">Weiter angeln</button></div></div>
 <div class="ov" id="pirateov"><div id="piratePanel"><h2>🏴‍☠️ PIRATENSCHIFF!</h2><p>Die Piraten greifen an! Triff 7 schrumpfende Zielscheiben. Jede Scheibe wird schnell kleiner. Du hast 30 Sekunden und darfst höchstens 3 Ziele verpassen.</p><div id="pirateStats"><span class="pstat" id="pirateTime">Zeit: 30 s</span><span class="pstat" id="pirateHits">Treffer: 0/7</span><span class="pstat" id="pirateMisses">Verfehlt: 0/3</span></div><canvas id="piratec"></canvas><div id="pirateHint">Ziele mit dem Mauszeiger anvisieren und anklicken!</div><div id="pirateResult"></div><button id="pirateClose">Zurück zum Angeln</button></div></div>
+
+
+<div class="ov" id="tutorialov"><div id="tutorialPanel">
+  <div class="tutorialTop"><span class="tutorialEyebrow">WILLKOMMEN BEI</span><h2>🎣 Luki angeln</h2><p>Dein kleiner Guide für die ersten Fänge!</p></div>
+  <div class="tutorialSteps">
+    <div class="tutorialStep"><span>1</span><div><b>Auswerfen</b><p>Halte auf dem Wasser gedrückt, um den Wurf aufzuladen. Lass los, um die Angel auszuwerfen.</p></div></div>
+    <div class="tutorialStep"><span>2</span><div><b>Anbeißen lassen</b><p>Warte auf den Biss. Sobald „JETZT TIPPEN!“ erscheint, tippe, um das Fang-Minispiel zu starten.</p></div></div>
+    <div class="tutorialStep"><span>3</span><div><b>Fisch behalten = Geld verdienen</b><p>Drücke bei der Fangkarte auf „Behalten“. Der Fisch kommt automatisch in deinen Geld-Eimer, sofern noch einer der 5 Plätze frei ist. Jeder Eimer-Fisch bringt Münzen pro Sekunde – seltene und mutierte Fische bringen mehr.</p></div></div>
+    <div class="tutorialStep"><span>4</span><div><b>Eimer und Laden</b><p>Im Laden kannst du Fische aus dem Eimer nehmen oder Fänge verkaufen. Ist der Eimer voll, bleiben weitere behaltene Fische in deinem Fangbestand, bis du einen Platz freimachst.</p></div></div>
+    <div class="tutorialStep"><span>5</span><div><b>Index und Welten</b><p>Im Index sammelst du normale und mutierte Fische. Im Laden findest du außerdem Upgrades und weitere Angelwelten.</p></div></div>
+    <div class="tutorialStep"><span>6</span><div><b>Wetter und besondere Events</b><p>Tag und Nacht wechseln automatisch. Bei Regen werden die Wellen höher. Schatztruhen und Piratenüberfälle bringen besondere Überraschungen.</p></div></div>
+  </div>
+  <div class="tutorialFoot"><span>💡 Tipp: Sieh oben auf deine Münzen und das Einkommen pro Sekunde.</span><button id="tutorialStart">Alles klar – losangeln!</button></div>
+</div></div>
 
 <div class="ov" id="adminov"><div id="adminPanel">
   <div class="adminHead"><div><h2>🛠️ ADMIN-MENÜ</h2><p>Spielwerte und Events steuern</p></div><button id="adminClose">Schließen</button></div>
@@ -353,12 +385,12 @@ var FISH=[
 FISH.sort(function(a,b){return a.r-b.r});
 var $=function(i){return document.getElementById(i)};
 var cv=$('c'),x=cv.getContext('2d'),W,H,D,SURF,cc=$('cc').getContext('2d');
-var cam=0,camT=0,mcoll={},mdone={},idxMu=0,ss=null,ssT=360,wish=false,world=0,own2=false,own3=false,coll={},inv={},coins=0,lifetimeEarned=0,done=false,U={rod:0,charm:0,bait:0,reach:0,pat:0},cardSold=true,catchKey=null,lastCatchValue=0,pendingChest=false,adminLuck=0,dayLight=0,weatherRain=false,weatherTimer=34,bucket=[],bucketFraction=0,bucketSaveTimer=0,pirate=null,pirateTimer=0;
-try{var S=JSON.parse(localStorage.getItem('luki3')||'null')||{coll:JSON.parse(localStorage.getItem('luki2')||'{}')};coll=S.coll||{};inv=S.inv||{};coins=S.coins||0;lifetimeEarned=Math.max(coins,Number(S.earned)||coins);done=!!S.done;own2=!!S.o2;mcoll=S.mc||{};mdone=S.md||{};own3=!!S.o3;world=own2?(S.w|0):0;if(world==2&&!own3)world=0;U=S.up||U;pendingChest=!!S.pendingChest;adminLuck=Math.max(0,Math.min(100,Number(S.adminLuck)||0));bucket=Array.isArray(S.bucket)?S.bucket.slice(0,5):[];bucketFraction=Math.max(0,Math.min(.999999,Number(S.bucketFraction)||0))}catch(e){}
+var cam=0,camT=0,mcoll={},mdone={},idxMu=0,ss=null,ssT=360,wish=false,world=0,own2=false,own3=false,coll={},inv={},coins=0,lifetimeEarned=0,done=false,U={rod:0,charm:0,bait:0,reach:0,pat:0},cardSold=true,catchKey=null,lastCatchValue=0,pendingChest=false,adminLuck=0,dayLight=0,weatherRain=false,weatherTimer=34,bucket=[],bucketFraction=0,bucketSaveTimer=0,tutorialSeen=false,pirate=null,pirateTimer=0;
+try{var S=JSON.parse(localStorage.getItem('luki3')||'null')||{coll:JSON.parse(localStorage.getItem('luki2')||'{}')};coll=S.coll||{};inv=S.inv||{};coins=S.coins||0;lifetimeEarned=Math.max(coins,Number(S.earned)||coins);done=!!S.done;own2=!!S.o2;mcoll=S.mc||{};mdone=S.md||{};own3=!!S.o3;world=own2?(S.w|0):0;if(world==2&&!own3)world=0;U=S.up||U;pendingChest=!!S.pendingChest;adminLuck=Math.max(0,Math.min(100,Number(S.adminLuck)||0));bucket=Array.isArray(S.bucket)?S.bucket.slice(0,5):[];bucketFraction=Math.max(0,Math.min(.999999,Number(S.bucketFraction)||0));tutorialSeen=!!S.tutorialSeen}catch(e){}
 U.reach=U.reach||0;U.pat=U.pat||0;U.star=U.star||0;U.mut=U.mut||0;U.baitBought=U.baitBought||0;
 function starInterval(){return Math.max(38,Math.round(360*Math.pow(.82,Math.min(10,U.star||0))))}
 ssT=starInterval();
-function save(){try{localStorage.setItem('luki3',JSON.stringify({coll:coll,inv:inv,coins:coins,earned:lifetimeEarned,done:done,o2:own2,o3:own3,w:world,mc:mcoll,md:mdone,up:U,pendingChest:pendingChest,adminLuck:adminLuck,bucket:bucket,bucketFraction:bucketFraction}))}catch(e){}}
+function save(){try{localStorage.setItem('luki3',JSON.stringify({coll:coll,inv:inv,coins:coins,earned:lifetimeEarned,done:done,o2:own2,o3:own3,w:world,mc:mcoll,md:mdone,up:U,pendingChest:pendingChest,adminLuck:adminLuck,bucket:bucket,bucketFraction:bucketFraction,tutorialSeen:tutorialSeen}))}catch(e){}}
 function creditCoins(amount){amount=Math.max(0,Math.floor(Number(amount)||0));coins+=amount;lifetimeEarned+=amount;return amount;}
 function val(f,mu){return([5,25,120,650,2200,6500][f.r]+Math.round(f.L/2))*[1,3,8,25][mu||0]}
 function bucketFishInfo(key){var p=String(key).split('#'),mu=p.length>1?Number(p[1]):0,f=FISH.find(function(q){return q.n===p[0]});return f&&Number.isInteger(mu)&&mu>=0&&mu<=3?{f:f,mu:mu}:null}
@@ -455,7 +487,20 @@ var mc=mu&&!mdone[mu]&&mutationCount(mu)>=mutationGoal(mu);if(mc){mdone[mu]=1;va
 if(found()===FISH.length&&!done){done=true;creditCoins(10000);save();$('n').textContent=coins;$('fi').textContent='INDEX KOMPLETT! +10000 Münzen und goldene Angel'}rt=0;st='reveal';$('cardov').className='ov on';revStart();
 if(cur.r>=2)vib([60,40,60,40,150])}
 function closeCatchCard(){fxClr();$('cardov').className='ov';st='idle';if(pendingChest)showChest()}
-$('ok').onclick=function(){cardSold=true;closeCatchCard()};
+$('ok').onclick=function(){
+if(cardSold)return;
+cardSold=true;
+if(catchKey&&inv[catchKey]>0&&bucket.length<5){
+  inv[catchKey]--;
+  bucket.push(catchKey);
+  save();
+  say('🪣 Fisch im Geld-Eimer! +'+bucketFishRate(catchKey).toFixed(2).replace('.',',')+' Münzen pro Sekunde.',2.6);
+}else if(bucket.length>=5){
+  say('🪣 Dein Geld-Eimer ist voll. Der Fisch bleibt im Fangbestand.',2.8);
+  save();
+}
+closeCatchCard();
+};
 $('sl').onclick=function(){if(cardSold)return;cardSold=true;SND.coin();if(catchKey&&inv[catchKey]>0){inv[catchKey]--;creditCoins(lastCatchValue);save();$('n').textContent=coins}closeCatchCard()};
 $('bk').onclick=function(){openBook()};$('cl').onclick=function(){$('book').className='ov'};
 $('sh').onclick=function(){openShop2()};$('cs').onclick=function(){$('shop').className='ov'};
@@ -467,6 +512,15 @@ var UP=[{k:'rod',n:'Bessere Angel',d:'Balken wird langsamer',max:5,c:function(l)
 {k:'mut',n:'Mutations-Gen',d:'Mehr Gold-, Diamant- und Rainbow-Mutationen',max:5,c:function(l){return 200*Math.pow(2,l)}}];
 function sv(){SND.coin();save();$('n').textContent=coins;openShop2()}
 function showChest(){pendingChest=false;save();$('chestCard').className='';$('chestArt').textContent='🎁';$('chestReward').textContent='';$('chestOpen').style.display='inline-block';$('chestClose').style.display='none';$('chestOpen').disabled=false;$('chestov').className='ov on'}
+
+
+function openTutorial(){$('tutorialov').className='ov on'}
+function closeTutorial(){
+  tutorialSeen=true;save();$('tutorialov').className='ov';
+}
+$('help').onclick=openTutorial;
+$('tutorialStart').onclick=closeTutorial;
+if(!tutorialSeen)openTutorial();
 
 function adminNotice(message){$('adminNotice').textContent=message}
 function openAdmin(){
@@ -785,7 +839,7 @@ var k=sil?1+Math.sin(rt*30)*.04:1+Math.max(0,.4-(rt-1))*.8;
 drawFish(c,f,150,88,1,Math.min(62,f.L*2.1)*k,t,sil,cur.mu||0);
 if(sil){c.fillStyle='#e9f6ee';c.font='800 40px sans-serif';c.textAlign='center';c.fillText('?',140,100)}
 else if($('card').className.indexOf('show')<0){$('card').className='show r'+cur.r}}
-function loop(n){var realDt=Math.max(0,(n-last)/1000),dt=Math.min(.05,realDt);last=n;updateBucketIncome(Math.min(realDt,43200));if(!$('shop').classList.contains('on')&&!$('book').classList.contains('on')&&!$('adminov').classList.contains('on'))update(dt);if(st==='reveal'){rt+=dt;drawCard()}draw();if(pirate)drawPirate();requestAnimationFrame(loop)}
+function loop(n){var realDt=Math.max(0,(n-last)/1000),dt=Math.min(.05,realDt);last=n;updateBucketIncome(Math.min(realDt,43200));if(!$('shop').classList.contains('on')&&!$('book').classList.contains('on')&&!$('adminov').classList.contains('on')&&!$('tutorialov').classList.contains('on'))update(dt);if(st==='reveal'){rt+=dt;drawCard()}draw();if(pirate)drawPirate();requestAnimationFrame(loop)}
 requestAnimationFrame(loop);
 })();
 </script>
