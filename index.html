@@ -320,7 +320,7 @@ function size(){D=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.
 addEventListener('resize',size);size();
 function drawFish(g,f,px,py,dir,L,t,sil,mu){
 g.save();g.translate(px,py);g.scale(dir,1);
-var h=L*f.h,swim=Math.sin(t*7)*L*.045,tail=Math.sin(t*9)*L*.08;
+var h=L*f.h,swim=Math.sin(t*7)*L*.045,tail=Math.sin(t*9)*L*.08;g.translate(0,swim);
 var base=sil?'#071c28':f.c,light=sil?'#0b2638':(f.b||'#e9f6ee'),glow=mu===1?'#ffd24d':mu===2?'#8fe8ff':mu===3?'#fff':(f.gc||f.c);
 if(!sil&&(f.rb||mu===3)){base=g.createLinearGradient(-L*1.7,-h,L*1.4,h);['#ff466c','#ffad37','#fff05b','#42e58c','#40c9ff','#9b62ff','#f05bce'].forEach(function(c,i){base.addColorStop(i/6,c)})}
 if(!sil&&mu===1){base=g.createLinearGradient(-L,-h,L,h);base.addColorStop(0,'#b87512');base.addColorStop(.45,'#ffe477');base.addColorStop(1,'#fff6bd')}
@@ -328,15 +328,15 @@ if(!sil&&mu===2){base=g.createLinearGradient(-L,-h,L,h);base.addColorStop(0,'#39
 if(!sil&&(f.gl||mu)){g.shadowColor=glow;g.shadowBlur=L*(mu?1.05:.65)}
 /* tail and fins */
 g.fillStyle=sil?'#071c28':light;g.beginPath();g.moveTo(-L*.72,0);g.quadraticCurveTo(-L*1.25,-h*.2,-L*1.62,-h*1.05+tail);g.quadraticCurveTo(-L*1.5,0,-L*1.62,h*1.05+tail);g.quadraticCurveTo(-L*1.1,h*.18,-L*.72,0);g.fill();
-g.fillStyle=base;g.beginPath();g.ellipse(0,swim,L,h,0,0,Math.PI*2);g.fill();g.shadowBlur=0;
+g.fillStyle=base;g.beginPath();g.ellipse(0,0,L,h,0,0,Math.PI*2);g.fill();g.shadowBlur=0;
 g.globalAlpha=sil?1:.92;g.fillStyle=sil?'#071c28':light;
 g.beginPath();g.moveTo(-L*.45,-h*.58);g.quadraticCurveTo(-L*.12,-h*1.48,L*.27,-h*.62);g.quadraticCurveTo(-L*.08,-h*.78,-L*.45,-h*.58);g.fill();
 g.beginPath();g.moveTo(-L*.34,h*.62);g.quadraticCurveTo(-L*.02,h*1.25,L*.35,h*.55);g.quadraticCurveTo(0,h*.78,-L*.34,h*.62);g.fill();g.globalAlpha=1;
 var belly=g.createLinearGradient(0,-h,0,h);belly.addColorStop(0,'rgba(255,255,255,.06)');belly.addColorStop(.5,'rgba(255,255,255,0)');belly.addColorStop(1,sil?'rgba(0,0,0,0)':'rgba(255,255,255,.48)');
-g.fillStyle=belly;g.beginPath();g.ellipse(0,swim,L*.91,h*.9,0,0,Math.PI*2);g.fill();
+g.fillStyle=belly;g.beginPath();g.ellipse(0,0,L*.91,h*.9,0,0,Math.PI*2);g.fill();
 if(!sil){
 g.fillStyle=mu===1?'#fff0a3':mu===2?'#d9faff':light;g.globalAlpha=.82;g.beginPath();g.moveTo(-L*.05,h*.1);g.quadraticCurveTo(L*.14,h*.85,L*.56,h*.5);g.quadraticCurveTo(L*.36,h*.12,-L*.05,h*.1);g.fill();g.globalAlpha=1;
-g.save();g.beginPath();g.ellipse(0,swim,L*.98,h*.98,0,0,Math.PI*2);g.clip();
+g.save();g.beginPath();g.ellipse(0,0,L*.98,h*.98,0,0,Math.PI*2);g.clip();
 if(f.st){g.fillStyle=f.sc||'rgba(0,0,0,.28)';for(var i=0;i<4;i++){g.beginPath();g.moveTo(-L*.58+i*L*.34,-h);g.lineTo(-L*.43+i*L*.34,-h);g.lineTo(-L*.25+i*L*.34,h);g.lineTo(-L*.4+i*L*.34,h);g.closePath();g.fill()}}
 if(f.sp){g.fillStyle='rgba(255,255,255,.62)';for(i=0;i<9;i++){g.beginPath();g.arc(-L*.67+i*L*.18,-h*.45+(i%3)*h*.42,L*.045,0,Math.PI*2);g.fill()}}
 if(f.sr){g.fillStyle='rgba(255,255,255,.9)';for(i=0;i<14;i++){g.beginPath();g.arc(-L*.8+i*L*.13,((i*37)%11-5)*h*.14,L*.035,0,Math.PI*2);g.fill()}}
@@ -347,11 +347,11 @@ if(f.cr){g.fillStyle='#ffd24d';g.shadowColor='#ffe783';g.shadowBlur=7;g.beginPat
 if(f.hn){g.fillStyle=f.rb?'#fff':light;g.beginPath();g.moveTo(L*.76,-h*.18);g.lineTo(L*1.68,-h*.06);g.lineTo(L*.77,h*.18);g.closePath();g.fill()}
 if(f.lu){g.strokeStyle='#e9d6ff';g.lineWidth=Math.max(1.5,L*.035);g.beginPath();g.moveTo(L*.32,-h*.8);g.quadraticCurveTo(L*.86,-h*2.15,L*1.36,-h*1.26);g.stroke();g.shadowColor='#fff35e';g.shadowBlur=18;g.fillStyle='#fff35e';g.beginPath();g.arc(L*1.36,-h*1.26,L*.16,0,Math.PI*2);g.fill();g.shadowBlur=0}
 if(f.pk){g.fillStyle='#fff1ae';for(i=0;i<7;i++){var aa=i*Math.PI/3.5+.2,px2=Math.cos(aa)*L*.88,py2=Math.sin(aa)*h*.88;g.beginPath();g.moveTo(px2,py2);g.lineTo(px2+Math.cos(aa)*L*.26,py2+Math.sin(aa)*h*.26);g.lineTo(px2+Math.cos(aa+.18)*L*.06,py2+Math.sin(aa+.18)*h*.06);g.fill()}}
-g.strokeStyle='rgba(4,27,40,.32)';g.lineWidth=Math.max(1,L*.025);g.beginPath();g.arc(L*.32,swim,L*.25,-.95,.95);g.stroke();
-g.fillStyle='#fff';g.beginPath();g.arc(L*.61,swim-h*.2,L*.14,0,Math.PI*2);g.fill();g.fillStyle='#071c28';g.beginPath();g.arc(L*.65,swim-h*.2,L*.067,0,Math.PI*2);g.fill();
-g.fillStyle='rgba(255,255,255,.9)';g.beginPath();g.arc(L*.67,swim-h*.25,L*.026,0,Math.PI*2);g.fill();
-g.strokeStyle='rgba(4,27,40,.6)';g.lineWidth=Math.max(1,L*.018);g.beginPath();g.moveTo(L*.82,swim+h*.12);g.quadraticCurveTo(L*.94,swim+h*.17,L*1.02,swim+h*.1);g.stroke();
-if(mu){g.save();for(var q=0;q<6;q++){var a2=t*1.7+q*Math.PI/3;g.globalAlpha=.45+.45*Math.sin(t*5+q);g.fillStyle=mu===1?'#fff4b5':mu===2?'#d9faff':'#fff';g.shadowColor=glow;g.shadowBlur=9;g.beginPath();g.arc(Math.cos(a2)*L*.74,swim+Math.sin(a2)*h*.74,L*.045,0,Math.PI*2);g.fill()}g.restore()}
+g.strokeStyle='rgba(4,27,40,.32)';g.lineWidth=Math.max(1,L*.025);g.beginPath();g.arc(L*.32,0,L*.25,-.95,.95);g.stroke();
+g.fillStyle='#fff';g.beginPath();g.arc(L*.61,-h*.2,L*.14,0,Math.PI*2);g.fill();g.fillStyle='#071c28';g.beginPath();g.arc(L*.65,-h*.2,L*.067,0,Math.PI*2);g.fill();
+g.fillStyle='rgba(255,255,255,.9)';g.beginPath();g.arc(L*.67,-h*.25,L*.026,0,Math.PI*2);g.fill();
+g.strokeStyle='rgba(4,27,40,.6)';g.lineWidth=Math.max(1,L*.018);g.beginPath();g.moveTo(L*.82,h*.12);g.quadraticCurveTo(L*.94,h*.17,L*1.02,h*.1);g.stroke();
+if(mu){g.save();for(var q=0;q<6;q++){var a2=t*1.7+q*Math.PI/3;g.globalAlpha=.45+.45*Math.sin(t*5+q);g.fillStyle=mu===1?'#fff4b5':mu===2?'#d9faff':'#fff';g.shadowColor=glow;g.shadowBlur=9;g.beginPath();g.arc(Math.cos(a2)*L*.74,Math.sin(a2)*h*.74,L*.045,0,Math.PI*2);g.fill()}g.restore()}
 }
 g.restore()}
 var st='idle',t=0,last=0,pw=0,pd=1,fly=0,bob={x:0,y:0,tx:0},wt=0,bt=0,cur=null,m=null,msg='',mT=0,shake=0,tot=0,rt=0,ripples=[],bub=[],shadows=[];
@@ -381,7 +381,7 @@ function burst(px,py,n,col){for(var i=0;i<n;i++)bub.push({x:px,y:py,vx:rnd(-200,
 function say(s,d){msg=s;mT=d||1}
 function vib(p){try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}}
 function startMini(){
-var p=cur.p;pick(p);if(wish){wish=false;if(cur.r<2){cur.r=2;var l2=FISH.filter(function(f){return f.r==2&&(!f.w||f.w==world)});cur.f=l2[Math.floor(Math.random()*l2.length)];cur.ch=.09}}var mp=mutationChances(cur.p),roll=Math.random();cur.mu=roll<mp[3]?3:roll<mp[3]+mp[2]?2:roll<mp[3]+mp[2]+mp[1]?1:0;cur.mutationChance=mp[cur.mu];cur.totalChance=cur.ch*cur.mutationChance;var r=cur.r;
+var p=cur.p;pick(p);if(wish){wish=false;if(cur.r<2){cur.r=2;var l2=FISH.filter(function(f){return f.r==2&&(!f.w||f.w==world)});cur.f=l2[Math.floor(Math.random()*l2.length)];cur.ch=1}}var mp=mutationChances(cur.p),roll=Math.random();cur.mu=roll<mp[3]?3:roll<mp[3]+mp[2]?2:roll<mp[3]+mp[2]+mp[1]?1:0;cur.mutationChance=mp[cur.mu];var fishPool=FISH.filter(function(f){return f.r===cur.r&&(!f.w||f.w===world)}).length;cur.totalChance=cur.ch*cur.mutationChance/Math.max(1,fishPool);var r=cur.r;
 m={pos:0,dm:1,spd:[.92,1.08,1.28,1.68,1.92,2.18][r]*Math.max(.36,Math.pow(.91,U.rod||0)),zw:[.30,.25,.20,.125,.095,.07][r],zc:rnd(.25,.75),hits:0,need:[1,2,3,5,6,7][r]+(cur.mu?1:0),lives:3,maxLives:3};
 st='mini'}
 function tap(){
@@ -394,7 +394,7 @@ var f=cur.f,mu=cur.mu||0,mk=mu+'|'+f.n,isNew=mu?!mcoll[mk]:!coll[f.n];if(mu)mcol
 cardSold=false;catchKey=f.n+(mu?'#'+mu:'');lastCatchValue=val(f,mu);var ik=catchKey;inv[ik]=(inv[ik]||0)+1;save();$('f').textContent=found();
 var card=$('card');card.className='';card.style.setProperty('--rc',mu?MC[mu]:RC[cur.r]);
 $('rb').textContent=(mu?MN[mu].toUpperCase()+'· ':'')+RN[cur.r];$('fn').textContent=MN[mu]+f.n+(isNew?' (neu!)':'');
-$('fi').textContent='Seltenheit: '+oddsText(cur.ch)+' · '+(mu?MN[mu].trim():'keine Mutation')+': '+oddsText(cur.mutationChance)+' · Gesamt inkl. Mutation: '+oddsText(cur.totalChance)+'. Wert: '+lastCatchValue+' Münzen.';
+$('fi').textContent='Fangchance für genau diesen Fisch inkl. Mutation: '+oddsText(cur.totalChance)+'. Wert: '+lastCatchValue+' Münzen.';
 var mc=mu&&!mdone[mu]&&mutationCount(mu)>=mutationGoal(mu);if(mc){mdone[mu]=1;var rw=[0,40000,150000,500000][mu];creditCoins(rw);save();$('n').textContent=coins;$('fi').textContent=MN[mu].trim()+'-INDEX-ZIEL ERREICHT ('+mutationCount(mu)+'/'+mutationGoal(mu)+')! +'+rw+' Münzen'}
 if(found()===FISH.length&&!done){done=true;creditCoins(10000);save();$('n').textContent=coins;$('fi').textContent='INDEX KOMPLETT! +10000 Münzen und goldene Angel'}rt=0;st='reveal';$('cardov').className='ov on';revStart();
 if(cur.r>=2)vib([60,40,60,40,150])}
