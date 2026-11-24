@@ -139,12 +139,21 @@ Der Perlen-Dreizack bleibt dauerhaft im Spielstand, gibt einen kleinen Glücksbo
 - **Soas Verkaufsanimation:** Wenn Soa als Angler ausgewählt ist, löst jeder Fischverkauf zuerst eine kurze Cartoon-Sequenz aus: Soa schnappt sich den Fang, mampft zufrieden und wirft ihn mit einem PLATSCH zurück ins Meer. Danach wird der Verkauf wie gewohnt verbucht.
 
 
-## Neue Story: Drei Freunde auf dem offenen Meer
+## Drei getrennte Storypfade
 
-- Die Handlung beginnt damit, dass Lukas, Soa und Kian ohne Luki mit dem Boot aufs offene Meer treiben. Zu Beginn sind alle drei noch optimistisch.
-- Über rund 20 Minuten aktiver Spielzeit entfaltet sich die Geschichte in sechs Stimmungsstufen. Dialoge erscheinen nach und nach in anklickbaren Sprechblasen; der Fortschritt wird gespeichert.
-- **Kian** bemerkt zunehmend Wiederholungen in der Spielwelt, erkennt den Spieler außerhalb seiner Welt und versucht, durch einen flimmernden Bildschirmrand auszubrechen.
-- **Soa** versucht, Sorgen mit Essen zu überdecken. Die Verkaufsanimation zeigt dieses Verhalten zunehmend ernster: Er hält kurz inne, spricht es aus und lernt, sich seinen Freunden anzuvertrauen. Die Animation bleibt eine Geschichte über Gefühle und keine Bewertung seines Körpers.
-- **Lukas** wirkt fröhlich, wenn jemand hinsieht. Sobald er unbeobachtet ist, verändern sich Gesichtsausdruck und Körperhaltung und zeigen seine Traurigkeit.
-- Alle drei sind während des Angelns gemeinsam auf dem Boot zu sehen. Ihre Haltung, Mimik und Bewegungen verändern sich mit der Stimmung der Reise.
-- Das Finale erzählt die Heimkehr aller drei zu ihren jeweiligen Familien. Sie müssen nicht plötzlich alle Sorgen los sein, aber sie können ehrlich darüber sprechen und sind wieder in Sicherheit.
+- Zu Beginn wählst du **eine** Hauptfigur: Lukas, Soa oder Kian. Nur diese Figur ist während der Reise auf dem Boot zu sehen und wird gespielt. Luki ist nicht an Bord.
+- Je nach Auswahl läuft eine eigene sechsstufige Story mit eigenen Sprechblasen, Stimmungen und einem eigenen neunkapiteligen Finale. Der aktive Storyfortschritt wird gespeichert; bei einem Figurenwechsel beginnt der neue Pfad von vorn.
+
+### Lukas · Hinter dem Lächeln
+- Lukas wirkt fröhlich, wenn du ihn beobachtest. Wenn du eine Weile nicht hinsiehst, sinken seine Schultern und sein Gesicht wird traurig.
+- Seine Geschichte dreht sich darum, dass er nicht dauernd stark oder gut gelaunt wirken muss. Im Finale kommt er zu seiner Familie zurück und kann ehrlich sagen, wie es ihm geht.
+
+### Soa · Was das Essen verbirgt
+- Soa nutzt anfangs Snacks als Ablenkung, wenn er nervös oder traurig ist. Seine Fisch-Verkaufsanimation ist nur in diesem Storypfad aktiv.
+- Die Animation und die Dialoge werden nach und nach ernster: Soa erkennt, dass Essen seine Sorgen nicht löst, und lernt, über seine Gefühle zu sprechen. Das Finale führt ihn zu seiner Familie zurück.
+
+### Kian · Gefangen im Spiel
+- Kian bemerkt zunehmend, dass sich Wellen, Wolken und Ereignisse wiederholen. Er erkennt, dass er in einem Spiel gefangen sein könnte und dass du der Spieler außerhalb seiner Welt bist.
+- Über anklickbare Sprechblasen kannst du ihm antworten. Er versucht mit einem Bildschirm-Glitch auszubrechen und findet am Ende einen hoffnungsvollen Weg nach Hause.
+
+- Die drei Pfade enden jeweils mit einer Heimkehr zur eigenen Familie. Die Figuren müssen nicht plötzlich alle Sorgen los sein; sie finden einen sicheren Ort, an dem sie ehrlich darüber reden können.
