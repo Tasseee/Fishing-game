@@ -1900,7 +1900,7 @@ if(r>=4&&elapsed<3){RV.bt-=dt;if(RV.bt<=0){RV.bt=rnd(.35,.7);RV.B.push({x:rnd(W*
 RV.B.forEach(function(b){b.l-=dt;var px=b.x,py=0;g.save();g.strokeStyle='#fff';g.shadowColor=accent;g.shadowBlur=24;g.lineWidth=3.5;g.globalAlpha=Math.max(0,b.l*4);g.beginPath();g.moveTo(px,py);for(var y=0;y<cy;y+=cy/10){px+=(cx-px)*.12+rnd(-22,22);py=y+cy/10;g.lineTo(px,py)}g.stroke();g.restore()});
 RV.B=RV.B.filter(function(b){return b.l>0});
 if(r>=2){var bn=['','SELTEN!','SEHR SELTEN!','UNMÖGLICH!','LEGENDÄR!','MYTHISCH!!'][r],bs=Math.min(1,elapsed*3.6);g.save();g.translate(cx,Math.max(48,cy-137));g.scale(.55+.45*bs,.55+.45*bs);g.globalAlpha=Math.min(1,elapsed*2.5);g.textAlign='center';g.font='900 '+Math.min(54,W*.12)+'px '+getComputedStyle(document.body).fontFamily;g.fillStyle=col(1);g.shadowColor=accent;g.shadowBlur=28;g.fillText(bn,0,0);g.restore()}
-if(RV.sk>0){RV.sk-=dt;$('card').style.transform='translate('+Math.sin(now*.09)*5*RV.sk+'px,'+Math.cos(now*.11)*4*RV.sk+'px) scale('+(1+.012*RV.sk)+')'}
+if(RV.sk>0){RV.sk-=dt;$('card').style.transform=''}
 }
 for(i=P.length-1;i>=0;i--){
 p=P[i];p.l-=dt;if(p.l<=0){P.splice(i,1);continue}
