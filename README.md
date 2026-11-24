@@ -90,7 +90,8 @@ Der Spielstand wird lokal im Browser über `localStorage` gespeichert und nicht 
 - Der **Normalmodus** ist das klassische Angelspiel ohne die ernsten persönlichen Storyverläufe. Er enthält ein eigenes, neutrales Angel-Tutorial.
 - Der **Storymodus** erzählt die persönlichen Geschichten der ausgewählten Figur. Themen sind unter anderem Einsamkeit, depressive Gefühle und der Umgang mit Belastungen. Vor dem Einstieg erscheint ein Hinweis auf sensible Themen.
 - Über **🎭** im HUD kannst du den Modus jederzeit wechseln. Über **👤** kannst du in beiden Modi jederzeit zwischen Lukas, Soa und Kian wechseln.
-- Im Storymodus verändern sich Mimik und Haltung der Figur schrittweise mit dem Verlauf. Im Normalmodus bleiben die Figuren neutral und fröhlich.
+- Im Storymodus verändern sich Mimik und Haltung der Figur fließend mit dem Verlauf. Kian behält seinen unbeschwerten Anfang und wirkt erst nach den ersten Beobachtungen nach und nach ernster. Im Normalmodus bleiben die Figuren neutral und fröhlich.
+- Beim Wechsel des Spielmodus wird das passende Tutorial erneut angeboten; der bereits ausgewählte Charakter bleibt erhalten.
 - Bei Soa gibt es im Storymodus eine kurze Comic-Animation, in der er den gefangenen Fisch sichtbar zum Mund führt und isst. Im Normalmodus läuft der Verkauf direkt wie im klassischen Spiel ab.
 
 ## Charakterauswahl
