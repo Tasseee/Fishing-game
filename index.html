@@ -313,6 +313,54 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
 @keyframes eventBannerIn{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
 @media(max-width:430px){#eventBanner{top:calc(66px + env(safe-area-inset-top,0px));padding:7px 10px;gap:8px}#eventIcon{width:30px;height:30px;font-size:18px}#eventTitle{font-size:12px}#eventDetail{font-size:9px}#eventClock{font-size:12px}}
 
+
+#tutorialov{z-index:30;background:radial-gradient(ellipse at 50% 0,rgba(31,154,176,.3),transparent 60%),rgba(1,9,20,.95)}
+#tutorialPanel{width:min(94vw,680px);max-height:92vh;overflow:auto;padding:20px;border:1px solid rgba(124,224,232,.42);border-radius:28px;background:radial-gradient(circle at 10% 0,rgba(37,149,166,.18),transparent 45%),linear-gradient(155deg,#123c52,#061b2b 85%);box-shadow:0 25px 90px rgba(0,0,0,.68),0 0 38px rgba(82,211,224,.12)}
+.storyTop{text-align:center;padding:2px 4px 13px;border-bottom:1px solid rgba(158,223,236,.17)}
+.storyEyebrow{font-size:10px;letter-spacing:.18em;color:#7fe3ea;font-weight:900}
+.storyTop h2{margin:5px 0 0;color:#fff0bb;font-size:clamp(25px,6vw,36px)}
+.storyScene{display:grid;grid-template-columns:155px minmax(0,1fr);gap:14px;align-items:stretch;margin:17px 0}
+.storyFisher{position:relative;min-height:196px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(140,218,230,.25);border-radius:19px;background:radial-gradient(circle at 50% 24%,rgba(255,208,125,.25),transparent 35%),linear-gradient(180deg,#24617a,#0b3048 70%,#08243a)}
+.storyMoon{position:absolute;top:14px;right:18px;font-size:24px;filter:drop-shadow(0 0 12px #ffe29a)}
+.storyFisherEmoji{font-size:83px;line-height:1.1;filter:drop-shadow(0 8px 14px rgba(0,0,0,.32));animation:storyBob 2s ease-in-out infinite}
+.storyName{margin-top:8px;padding:3px 12px;border-radius:999px;background:rgba(3,19,31,.48);color:#ffe4a0;font-size:12px;font-weight:900;letter-spacing:.16em}
+.storySpeech{position:relative;min-width:0;padding:17px 17px 14px;border:1px solid rgba(160,222,235,.22);border-radius:19px;background:linear-gradient(145deg,rgba(20,62,82,.95),rgba(5,27,43,.96));box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+.storySpeech:before{content:"";position:absolute;left:-9px;top:35px;width:16px;height:16px;background:#12374d;border-left:1px solid rgba(160,222,235,.22);border-bottom:1px solid rgba(160,222,235,.22);transform:rotate(45deg)}
+#storyChapter{font-size:10px;font-weight:900;letter-spacing:.16em;color:#83e4ea}
+#storyText{min-height:102px;margin:10px 0 12px;color:#f1f8fa;font-size:clamp(14px,2.8vw,17px);line-height:1.55}
+#storyHint{padding:10px 11px;border-left:3px solid #ffd36a;border-radius:0 10px 10px 0;background:rgba(255,211,106,.08);color:#ffe5a4;font-size:12px;line-height:1.4}
+.storyProgress{height:6px;overflow:hidden;border-radius:999px;background:rgba(0,0,0,.28)}
+#storyProgressFill{display:block;width:16.666%;height:100%;border-radius:inherit;background:linear-gradient(90deg,#62ddd0,#ffe08a);transition:width .2s}
+.storyControls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:13px}
+.storyControls span{color:#9fc2ce;font-size:12px;font-weight:800}
+.storyControls button{min-width:112px;padding:10px 15px;font-size:14px}
+#tutorialPrev{background:linear-gradient(180deg,#21485b,#0e2b3e);color:#e2f5f8;border:1px solid rgba(175,225,236,.18);box-shadow:0 3px 0 #061b28}
+#tutorialPrev:disabled{opacity:.32}
+@keyframes storyBob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-6px) rotate(2deg)}}
+@media(max-width:520px){#tutorialPanel{padding:14px 12px}.storyScene{grid-template-columns:92px minmax(0,1fr);gap:9px;margin:12px 0}.storyFisher{min-height:230px}.storyFisherEmoji{font-size:58px}.storySpeech{padding:13px 12px}.storySpeech:before{left:-7px;width:12px;height:12px}#storyText{min-height:130px;font-size:13px}.storyControls button{min-width:94px;padding:9px 11px;font-size:12px}}
+@media(max-width:360px){.storyScene{grid-template-columns:1fr}.storyFisher{min-height:100px}.storyFisherEmoji{font-size:52px}.storyFisher .storyMoon{right:22%;top:15px}}
+
+
+#caseWrap{position:relative;margin:17px 0 8px;padding:10px 0;border:1px solid rgba(255,218,123,.28);border-radius:17px;background:linear-gradient(180deg,rgba(2,14,25,.9),rgba(12,36,52,.92));box-shadow:inset 0 0 24px rgba(0,0,0,.38);overflow:hidden}
+#caseViewport{position:relative;width:100%;overflow:hidden}
+#caseViewport:before,#caseViewport:after{content:"";position:absolute;z-index:2;top:0;bottom:0;width:42px;pointer-events:none}
+#caseViewport:before{left:0;background:linear-gradient(90deg,#071d2b,transparent)}
+#caseViewport:after{right:0;background:linear-gradient(270deg,#071d2b,transparent)}
+#caseTrack{display:flex;gap:8px;width:max-content;padding:5px 0;transform:translateX(0);will-change:transform}
+.caseSlot{box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none;width:100px;height:104px;padding:8px 5px;border:1px solid var(--slot-color,#8dbbc8);border-radius:12px;background:linear-gradient(155deg,rgba(28,70,88,.98),rgba(5,23,36,.99));color:#ecfaff;text-align:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 4px 9px rgba(0,0,0,.24)}
+.caseSlot .slotIcon{font-size:31px;line-height:1.1;filter:drop-shadow(0 3px 6px rgba(0,0,0,.3))}
+.caseSlot b{margin-top:6px;font-size:11px;line-height:1.15}
+.caseSlot small{margin-top:4px;font-size:9px;color:#a9cbd8}
+.caseSlot.winner{border-color:#ffe18a;background:linear-gradient(155deg,#765b2b,#263b4a);box-shadow:0 0 16px rgba(255,211,106,.3),inset 0 0 14px rgba(255,226,142,.15)}
+#casePointer{position:absolute;z-index:4;left:50%;top:0;bottom:0;width:3px;transform:translateX(-50%);background:#ffe17c;box-shadow:0 0 9px #ffcf5c,0 0 20px rgba(255,204,70,.8);pointer-events:none}
+#casePointer:before,#casePointer:after{content:"";position:absolute;left:50%;transform:translateX(-50%);border-left:9px solid transparent;border-right:9px solid transparent}
+#casePointer:before{top:0;border-top:12px solid #ffe17c}
+#casePointer:after{bottom:0;border-bottom:12px solid #ffe17c}
+#caseOdds{color:#a9cbd8;font-size:11px;margin:5px 0 8px}
+#chestCard.spinning #caseWrap{border-color:rgba(255,224,135,.65);box-shadow:inset 0 0 28px rgba(255,190,55,.13),0 0 22px rgba(255,195,72,.12)}
+#chestCard.opened #caseTrack{filter:brightness(1.16)}
+@media(max-width:430px){.caseSlot{width:88px;height:96px}.caseSlot .slotIcon{font-size:27px}#caseViewport:before,#caseViewport:after{width:25px}}
+
 </style>
 </head>
 <body>
@@ -346,23 +394,17 @@ button:disabled{filter:saturate(.4);opacity:.4;box-shadow:none}
   <div id="bookFoot">💡 Tipp: Tippe auf eine Mutation, um nur diese Variante zu sammeln.</div>
 </div></div>
 <div class="ov" id="shop"><div class="bh"><span>Laden</span><button id="cs">Zurück</button></div><div id="sc"></div></div>
-<div class="ov" id="chestov"><div id="chestCard"><div id="chestArt">🎁</div><h2>GEHEIME SCHATZKISTE!</h2><p>Ein seltener Fund! Öffne die Kiste und entdecke deine Belohnung.</p><div id="chestReward"></div><button id="chestOpen">Kiste öffnen!</button> <button id="chestClose">Weiter angeln</button></div></div>
+<div class="ov" id="chestov"><div id="chestCard"><div id="chestArt">🎁</div><h2>GEHEIME SCHATZKISTE!</h2><p>Eine kostenlose Fundkiste! Die Leiste rast durch mögliche Belohnungen und stoppt auf deinem Gewinn.</p><div id="caseWrap"><div id="casePointer"></div><div id="caseViewport"><div id="caseTrack"></div></div></div><div id="caseOdds">40% Münzen · 30% Köder · 30% Upgrade-Stufen</div><div id="chestReward"></div><button id="chestOpen">Kiste öffnen!</button> <button id="chestClose">Weiter angeln</button></div></div>
 <div class="ov" id="pirateov"><div id="piratePanel"><h2>🏴‍☠️ PIRATENSCHIFF!</h2><p>Die Piraten greifen an! Triff 7 schrumpfende Zielscheiben. Jede Scheibe wird schnell kleiner. Du hast 30 Sekunden und darfst höchstens 3 Ziele verpassen.</p><div id="pirateStats"><span class="pstat" id="pirateTime">Zeit: 30 s</span><span class="pstat" id="pirateHits">Treffer: 0/7</span><span class="pstat" id="pirateMisses">Verfehlt: 0/3</span></div><canvas id="piratec"></canvas><div id="pirateHint">Ziele mit dem Mauszeiger anvisieren und anklicken!</div><div id="pirateResult"></div><button id="pirateClose">Zurück zum Angeln</button></div></div>
 
 
 <div class="ov" id="tutorialov"><div id="tutorialPanel">
-  <div class="tutorialTop"><span class="tutorialEyebrow">WILLKOMMEN BEI</span><h2>🎣 Luki angeln</h2><p>Dein kleiner Guide für die ersten Fänge!</p></div>
-  <div class="tutorialSteps">
-    <div class="tutorialStep"><span>1</span><div><b>Auswerfen</b><p>Halte auf dem Wasser gedrückt, um den Wurf aufzuladen. Lass los, um die Angel auszuwerfen.</p></div></div>
-    <div class="tutorialStep"><span>2</span><div><b>Anbeißen lassen</b><p>Warte auf den Biss. Sobald „JETZT TIPPEN!“ erscheint, tippe, um das Fang-Minispiel zu starten.</p></div></div>
-    <div class="tutorialStep"><span>3</span><div><b>Fisch behalten = Geld verdienen</b><p>Drücke bei der Fangkarte auf „Behalten“. Der Fisch kommt automatisch in deinen Geld-Eimer, sofern noch einer der 5 Plätze frei ist. Jeder Eimer-Fisch bringt Münzen pro Sekunde – seltene und mutierte Fische bringen mehr.</p></div></div>
-    <div class="tutorialStep"><span>4</span><div><b>Eimer und Laden</b><p>Im Laden kannst du Fische aus dem Eimer nehmen oder Fänge verkaufen. Ist der Eimer voll, bleiben weitere behaltene Fische in deinem Fangbestand, bis du einen Platz freimachst.</p></div></div>
-    <div class="tutorialStep"><span>5</span><div><b>Index und Welten</b><p>Im Index sammelst du normale und mutierte Fische. Im Laden findest du außerdem Upgrades und weitere Angelwelten.</p></div></div>
-    <div class="tutorialStep"><span>6</span><div><b>Wetter und besondere Events</b><p>Tag und Nacht wechseln automatisch. Zufällige Events bringen Mutations-Regen, 2× Glück, Goldrausch oder Schnellbiss. Dazu gibt es Wetter, Schatztruhen und Piratenüberfälle.</p></div></div>
-  </div>
-  <div class="tutorialFoot"><span>💡 Halte Ausschau nach dem Event-Banner oben am Bildschirm – jedes Event hat einen eigenen Bonus.</span><button id="tutorialStart">Alles klar – losangeln!</button></div>
+<div class="storyTop"><span class="storyEyebrow">EINE KLEINE ÜBERLEBENSGESCHICHTE</span><h2>🎣 Gestrandet am Korallenriff</h2></div>
+<div class="storyScene"><div class="storyFisher"><div class="storyMoon">☀️</div><div class="storyFisherEmoji">🧢</div><div class="storyName">LUKI</div></div>
+<div class="storySpeech"><span id="storyChapter">KAPITEL 1 · GESTRANDET</span><p id="storyText"></p><div id="storyHint"></div></div></div>
+<div class="storyProgress"><i id="storyProgressFill"></i></div>
+<div class="storyControls"><button id="tutorialPrev">Zurück</button><span id="storyCounter">1 / 6</span><button id="tutorialNext">Weiter</button></div>
 </div></div>
-
 <div class="ov" id="adminov"><div id="adminPanel">
   <div class="adminHead"><div><h2>🛠️ ADMIN-MENÜ</h2><p>Spielwerte und Events steuern</p></div><button id="adminClose">Schließen</button></div>
   <div class="adminBlock">
@@ -486,10 +528,12 @@ function bucketRate(){return bucket.reduce(function(total,key){return total+buck
 function moneyMultiplier(){return activeEvent&&activeEvent.id==='goldRush'?2:1}
 function fishSellValue(f,mu){return Math.round(val(f,mu)*moneyMultiplier())}
 var WORLD_EVENTS=[
-{id:'mutationRain',icon:'🌧️✨',name:'Mutations-Regen',detail:'Jeder Fang ist mindestens Gold!',color:'#77e7f2',duration:30},
-{id:'doubleLuck',icon:'🍀',name:'2× Glück',detail:'Doppelte Chancen auf seltene Fische!',color:'#8ee8a9',duration:30},
-{id:'goldRush',icon:'💰',name:'Goldrausch',detail:'Doppeltes Eimer-Einkommen & Verkaufspreise!',color:'#ffd36a',duration:32},
-{id:'fastBite',icon:'⚡',name:'Schnellbiss',detail:'Fische beißen doppelt so schnell an!',color:'#c6a6ff',duration:28}
+{id:'mutationRain',icon:'🌧️✨',name:'Mutations-Regen',detail:'Jeder Fang ist mindestens Gold!',color:'#77e7f2',duration:30,chance:22},
+{id:'doubleLuck',icon:'🍀',name:'2× Glück',detail:'Doppelte Chancen auf seltene Fische!',color:'#8ee8a9',duration:30,chance:22},
+{id:'goldRush',icon:'💰',name:'Goldrausch',detail:'Doppeltes Eimer-Einkommen & Verkaufspreise!',color:'#ffd36a',duration:32,chance:18},
+{id:'fastBite',icon:'⚡',name:'Schnellbiss',detail:'Fische beißen doppelt so schnell an!',color:'#c6a6ff',duration:28,chance:18},
+{id:'fishShoal',icon:'🐟🐟',name:'Fischschwarm',detail:'Mehr seltene Fische und deutlich schnellere Bisse!',color:'#69d8ec',duration:26,chance:12},
+{id:'treasureTide',icon:'🧭',name:'Schatzflut',detail:'Schatztruhen tauchen viel häufiger auf!',color:'#f3c46b',duration:26,chance:8}
 ];
 function updateEventBanner(force){
 var banner=$('eventBanner');if(!banner)return;
@@ -497,12 +541,12 @@ if(!activeEvent){banner.className='';return}
 banner.style.setProperty('--event-color',activeEvent.color);
 $('eventIcon').textContent=activeEvent.icon;
 $('eventTitle').textContent=activeEvent.name;
-$('eventDetail').textContent=activeEvent.detail;
+$('eventDetail').textContent=activeEvent.detail+' · '+activeEvent.chance+'% Chance pro Event-Wurf';
 $('eventClock').textContent=Math.max(0,Math.ceil(eventTime))+'s';
 banner.classList.add('show');
 }
 function startWorldEvent(){
-activeEvent=WORLD_EVENTS[Math.floor(Math.random()*WORLD_EVENTS.length)];
+var roll=Math.random()*100,total=0;activeEvent=WORLD_EVENTS[WORLD_EVENTS.length-1];for(var ei=0;ei<WORLD_EVENTS.length;ei++){total+=WORLD_EVENTS[ei].chance;if(roll<total){activeEvent=WORLD_EVENTS[ei];break}}
 eventTime=activeEvent.duration;
 updateEventBanner(true);
 say(activeEvent.icon+' EVENT: '+activeEvent.name+'! '+activeEvent.detail,3.8);
@@ -569,20 +613,20 @@ g.strokeStyle='rgba(4,27,40,.6)';g.lineWidth=Math.max(1,L*.018);g.beginPath();g.
 if(mu){g.save();for(var q=0;q<6;q++){var a2=t*1.7+q*Math.PI/3;g.globalAlpha=.45+.45*Math.sin(t*5+q);g.fillStyle=mu===1?'#fff4b5':mu===2?'#d9faff':'#fff';g.shadowColor=glow;g.shadowBlur=9;g.beginPath();g.arc(Math.cos(a2)*L*.74,Math.sin(a2)*h*.74,L*.045,0,Math.PI*2);g.fill()}g.restore()}
 }
 g.restore()}
-var st='idle',t=0,last=0,pw=0,pd=1,fly=0,bob={x:0,y:0,tx:0},wt=0,bt=0,cur=null,m=null,msg='',mT=0,shake=0,tot=0,rt=0,ripples=[],bub=[],shadows=[];
+var st='idle',t=0,last=0,pw=0,pd=1,fly=0,castFollow=0,bob={x:0,y:0,tx:0},wt=0,bt=0,cur=null,m=null,msg='',mT=0,shake=0,tot=0,rt=0,ripples=[],bub=[],shadows=[];
 for(var i=0;i<4;i++)shadows.push({x:rnd(0,500),y:rnd(.5,.9),v:rnd(18,40)*(Math.random()<.5?1:-1),f:FISH[i]});
 function found(){var k=0;FISH.forEach(function(f){if(coll[f.n])k++});return k}
 if(done&&found()<FISH.length)done=false;
 $('f').textContent=found();$('ft').textContent=FISH.length;$('n').textContent=coins;
-function pick(p){p*=activeEvent&&activeEvent.id==='doubleLuck'?2:1;var w=[66,24*(1+p*.6),8*(1+p*.9),1*(1+p*1.2),.22*(1+p*1.35),.035*(1+p*1.5)],k=world==2?2.5:world?2:1;w[1]*=k*2;w[2]*=k*2;w[3]*=k*1.5;w[4]*=k*1.35;w[5]*=k*1.2;var s=w.reduce(function(a,b){return a+b},0),r=Math.random()*s,i=0;
+function pick(p){p*=activeEvent&&activeEvent.id==='doubleLuck'?2:1;if(activeEvent&&activeEvent.id==='fishShoal')p+=.75;var w=[66,24*(1+p*.6),8*(1+p*.9),1*(1+p*1.2),.22*(1+p*1.35),.035*(1+p*1.5)],k=world==2?2.5:world?2:1;w[1]*=k*2;w[2]*=k*2;w[3]*=k*1.5;w[4]*=k*1.35;w[5]*=k*1.2;var s=w.reduce(function(a,b){return a+b},0),r=Math.random()*s,i=0;
 while(i<5&&r>=w[i]){r-=w[i];i++}
 var l=FISH.filter(function(f){return f.r==i&&(!f.w||f.w==world)});cur={r:i,ch:w[i]/s,f:l[Math.floor(Math.random()*l.length)],p:p}}
 function geo(){return{bx:W*.2,tx:W*.2+46,ty:SURF-64}}
 function down(e){au();if(ss&&Math.hypot(e.clientX-ss.x,e.clientY-ss.y)<85){ss=null;wish=true;vib([30,30,80]);say('Wunsch erfüllt! ⭐',2);SND.wish();for(var i=0;i<30;i++)bub.push({x:e.clientX,y:e.clientY,vx:rnd(-160,160),vy:rnd(-160,160),r:rnd(2,5),l:1.2});if(st!=='bite'&&st!=='mini')return}
-if(st==='idle'){st='charge';pw=0;pd=1}
+if(st==='idle'){st='charge';pw=0;pd=1;castFollow=0}
 else if(st==='bite'){startMini()}
 else if(st==='mini'){tap()}}
-function up(){if(st==='charge'){var g=geo();st='fly';fly=0;SND.cast();bob.x=g.tx;bob.y=g.ty;bob.tx=g.bx+90+pw*(W-g.bx-130)*(1+U.reach*.35);camT=Math.max(0,bob.tx-W*.65);cur={p:pw*(1+U.reach*.3)+U.charm*.12+adminLuck/10};if(U.bait>0){U.bait--;cur.p+=.5;save()}}}
+function up(){if(st==='charge'){var g=geo();st='fly';fly=0;castFollow=1;SND.cast();bob.x=g.tx;bob.y=g.ty;bob.tx=g.bx+90+pw*(W-g.bx-130)*(1+U.reach*.35);camT=Math.max(0,bob.tx-W*.65);cur={p:pw*(1+U.reach*.3)+U.charm*.12+adminLuck/10};if(U.bait>0){U.bait--;cur.p+=.5;save()}}}
 cv.addEventListener('pointerdown',down);cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
 var AC=null,mute=false;try{mute=localStorage.getItem('luki_m')=='1'}catch(e){}
 function au(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==='suspended')AC.resume();return AC}
@@ -610,7 +654,7 @@ if(Math.abs(m.pos-m.zc)<=m.zw/2){m.hits++;vib(15);say('Treffer!',.4);SND.hit();b
 if(m.hits>=m.need){win();return}m.zc=rnd(.16,.84);m.spd*=1+cur.r*.035;m.zw=Math.max(.04,m.zw*(1-cur.r*.045))}
 else{m.lives--;shake=.3;vib(40);SND.miss();say('Daneben!',.4);if(m.lives<=0){st='idle';say('Der Fisch ist entkommen',1.6);SND.lose()}}}
 function win(){
-if(!pendingChest&&Math.random()<.01)pendingChest=true;
+var chestChance=activeEvent&&activeEvent.id==='treasureTide'?.08:.01;if(!pendingChest&&Math.random()<chestChance)pendingChest=true;
 var f=cur.f,mu=cur.mu||0,mk=mu+'|'+f.n,isNew=mu?!mcoll[mk]:!coll[f.n];if(mu)mcoll[mk]=(mcoll[mk]||0)+1;else coll[f.n]=(coll[f.n]||0)+1;save();
 cardSold=false;catchKey=f.n+(mu?'#'+mu:'');lastCatchValue=fishSellValue(f,mu);var ik=catchKey;inv[ik]=(inv[ik]||0)+1;save();$('f').textContent=found();
 var card=$('card');card.className='';card.style.setProperty('--rc',mu?MC[mu]:RC[cur.r]);
@@ -647,12 +691,27 @@ function sv(){SND.coin();save();$('n').textContent=coins;openShop2()}
 function showChest(){pendingChest=false;save();$('chestCard').className='';$('chestArt').textContent='🎁';$('chestReward').textContent='';$('chestOpen').style.display='inline-block';$('chestClose').style.display='none';$('chestOpen').disabled=false;$('chestov').className='ov on'}
 
 
-function openTutorial(){$('tutorialov').className='ov on'}
-function closeTutorial(){
-  tutorialSeen=true;save();$('tutorialov').className='ov';
+var storyIndex=0;
+var storyScenes=[
+{chapter:'KAPITEL 1 · GESTRANDET',text:'Puh … da bist du ja! Ich bin Luki. Ein Sturm hat mein kleines Boot direkt hier am Korallenriff auf Grund gesetzt. Mein Proviant ist weg und bis Hilfe kommt, brauche ich dringend etwas zu essen. Hilfst du mir beim Angeln?',hint:'Unsere Mission: Fische fangen, Proviant sammeln und das Boot wieder flottmachen.'},
+{chapter:'KAPITEL 2 · DER GROSSE WURF',text:'Schau mal auf meine Angel! Wenn du auf das Wasser drückst und gedrückt hältst, hole ich weit aus. Je länger du hältst, desto stärker wird der Wurf. Lass im richtigen Moment los – dann schwinge ich die Rute nach vorne und werfe aus!',hint:'Gedrückt halten = ausholen und Stärke laden. Loslassen = auswerfen.'},
+{chapter:'KAPITEL 3 · EIN BISS!',text:'Da zupft etwas! Sobald „JETZT TIPPEN!“ erscheint, tippe schnell. Dann startet das Fangspiel: Triff mit dem Zeiger das goldene Feld. Bei seltenen Fischen brauchst du mehrere Treffer. Keine Panik – du hast drei Leben.',hint:'Beobachte den weißen Zeiger und tippe, wenn er im goldenen Bereich ist.'},
+{chapter:'KAPITEL 4 · PROVIANT UND MÜNZEN',text:'Geschafft! Drücke auf „Behalten“, dann kommt dein Fisch automatisch in meinen Geld-Eimer, solange noch Platz ist. Er hat fünf Plätze. Die Fische bringen sogar Münzen pro Sekunde – damit können wir bessere Ausrüstung holen.',hint:'Im Laden kannst du Fische aus dem Eimer nehmen oder übrige Fänge verkaufen.'},
+{chapter:'KAPITEL 5 · DAS RIFF ERKUNDEN',text:'Im Fisch-Index siehst du, welche Arten wir schon entdeckt haben. Es gibt auch Gold-, Diamant- und Rainbow-Mutationen. Mit besseren Angeln und neuen Welten finden wir noch seltenere Fische. Vielleicht entdecken wir einen Weg vom Riff weg!',hint:'Schau regelmäßig in den Index und verbessere deine Ausrüstung im Laden.'},
+{chapter:'KAPITEL 6 · WAS DAS MEER VERBIRGT',text:'Hier draußen ist immer etwas los! Events starten zufällig. Mutations-Regen (22%), 2× Glück (22%), Goldrausch (18%), Schnellbiss (18%), Fischschwarm (12%) und Schatzflut (8%). Dazu gibt es Wetter, Schatzkisten und manchmal Ärger mit Piraten!',hint:'Die Prozentzahlen gelten jeweils für einen Event-Wurf. Das nächste Event wird nach einer zufälligen Pause ausgelost.'}
+];
+function renderStory(){
+var sc=storyScenes[storyIndex];$('storyChapter').textContent=sc.chapter;$('storyText').textContent=sc.text;$('storyHint').textContent=sc.hint;
+$('storyCounter').textContent=(storyIndex+1)+' / '+storyScenes.length;
+$('storyProgressFill').style.width=((storyIndex+1)/storyScenes.length*100)+'%';
+$('tutorialPrev').disabled=storyIndex===0;
+$('tutorialNext').textContent=storyIndex===storyScenes.length-1?'Los, wir brauchen Proviant!':'Weiter';
 }
+function openTutorial(){storyIndex=0;renderStory();$('tutorialov').className='ov on'}
+function closeTutorial(){tutorialSeen=true;save();$('tutorialov').className='ov'}
 $('help').onclick=openTutorial;
-$('tutorialStart').onclick=closeTutorial;
+$('tutorialPrev').onclick=function(){storyIndex=Math.max(0,storyIndex-1);renderStory()};
+$('tutorialNext').onclick=function(){if(storyIndex>=storyScenes.length-1){closeTutorial();return}storyIndex++;renderStory()};
 if(!tutorialSeen)openTutorial();
 
 function adminNotice(message){$('adminNotice').textContent=message}
@@ -691,9 +750,41 @@ $('adminStartPirates').onclick=function(){
 };
 
 function grantRandomUpgrades(amount){var granted=0,names=[];for(var i=0;i<amount;i++){var pool=UP.filter(function(u){return(U[u.k]||0)<u.max+(own2?5:0)});if(!pool.length)break;var u=pool[Math.floor(Math.random()*pool.length)];U[u.k]=(U[u.k]||0)+1;granted++;names.push(u.n)}return{count:granted,names:names}}
-function openChest(){if($('chestOpen').disabled)return;$('chestOpen').disabled=true;$('chestCard').className='opening';SND.epic();setTimeout(function(){var r=Math.random(),msg='';if(r<.4){var reward=Math.max(50,Math.round(coins*.25));creditCoins(reward);msg='💰 Münzregen! +'+reward.toLocaleString('de-DE')+' Münzen (25% deines aktuellen Geldes).'}else if(r<.7){U.bait=(U.bait||0)+25;msg='🪱 25 Glücksköder erhalten!'}else{var g=grantRandomUpgrades(10);msg=g.count?'⚡ '+g.count+' zufällige Upgrade-Stufen erhalten!':'Alle Upgrades sind bereits auf Maximum.'}save();$('n').textContent=coins;$('chestCard').className='opened';$('chestArt').textContent='💎';$('chestReward').textContent=msg;$('chestOpen').style.display='none';$('chestClose').style.display='inline-block';SND.wish()},850)}
+function buildCaseReel(winner){
+var track=$('caseTrack');track.innerHTML='';track.style.transition='none';track.style.transform='translateX(0)';
+var prizePool=[{type:'coins',icon:'💰',name:'Münzregen',sub:'+25% Münzen',color:'#ffd36a'},{type:'bait',icon:'🪱',name:'Köderpaket',sub:'25 Köder',color:'#69d9b7'},{type:'upgrade',icon:'⚡',name:'Upgrade',sub:'10 Stufen',color:'#c8a4ff'}];
+var chosen=prizePool.find(function(p){return p.type===winner.type}),winIndex=23,slots=[];
+for(var i=0;i<30;i++)slots.push(prizePool[Math.floor(Math.random()*prizePool.length)]);
+slots[winIndex]=chosen;
+slots.forEach(function(prize,i){
+var slot=document.createElement('div');slot.className='caseSlot'+(i===winIndex?' winner':'');slot.style.setProperty('--slot-color',prize.color);
+var icon=document.createElement('span');icon.className='slotIcon';icon.textContent=prize.icon;slot.appendChild(icon);
+var name=document.createElement('b');name.textContent=prize.name;slot.appendChild(name);
+var sub=document.createElement('small');sub.textContent=prize.sub;slot.appendChild(sub);track.appendChild(slot);
+});
+return winIndex;
+}
+function openChest(){
+if($('chestOpen').disabled)return;
+$('chestOpen').disabled=true;$('chestCard').className='opening spinning';SND.epic();
+var roll=Math.random(),prize;
+if(roll<.4)prize={type:'coins'};else if(roll<.7)prize={type:'bait'};else prize={type:'upgrade'};
+var winnerIndex=buildCaseReel(prize),viewport=$('caseViewport'),track=$('caseTrack'),winner=track.children[winnerIndex];
+requestAnimationFrame(function(){
+var target=winner.offsetLeft+winner.offsetWidth/2-viewport.clientWidth/2;
+track.style.transition='transform 5.2s cubic-bezier(.08,.72,.12,1)';
+track.style.transform='translateX('+(-Math.max(0,target))+'px)';
+});
+setTimeout(function(){
+var msg='';
+if(prize.type==='coins'){var reward=Math.max(50,Math.round(coins*.25));creditCoins(reward);msg='💰 Münzregen! +'+reward.toLocaleString('de-DE')+' Münzen (25% deines aktuellen Geldes).'}
+else if(prize.type==='bait'){U.bait=(U.bait||0)+25;msg='🪱 25 Glücksköder erhalten!'}
+else{var g=grantRandomUpgrades(10);msg=g.count?'⚡ '+g.count+' zufällige Upgrade-Stufen erhalten!':'Alle Upgrades sind bereits auf Maximum.'}
+save();$('n').textContent=coins;$('chestCard').className='opened';$('chestArt').textContent='💎';$('chestReward').textContent=msg;$('chestOpen').style.display='none';$('chestClose').style.display='inline-block';SND.wish();
+},5400);
+}
 $('chestOpen').onclick=openChest;
-$('chestClose').onclick=function(){$('chestov').className='ov';$('chestCard').className='';};
+$('chestClose').onclick=function(){$('chestov').className='ov';$('chestCard').className='';$('caseTrack').style.transition='none';$('caseTrack').style.transform='translateX(0)';};
 function fitPirateCanvas(){var rect=pirateCanvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);pirateCanvas.width=Math.max(1,Math.round(rect.width*dpr));pirateCanvas.height=Math.max(1,Math.round(rect.height*dpr));pirateCtx.setTransform(dpr,0,0,dpr,0,0)}
 function spawnPirateTarget(){var w=pirateCanvas.clientWidth||560,h=pirateCanvas.clientHeight||320;pirate.target={x:rnd(48,Math.max(49,w-48)),y:rnd(48,Math.max(49,h-48)),age:0,duration:2.45}}
 function startPirate(){$('adminov').className='ov';$('cardov').className='ov';fxClr();st='idle';cur=null;m=null;$('pirateov').className='ov on';fitPirateCanvas();pirate={time:30,hits:0,needed:7,misses:0,maxMisses:3,target:null,finished:false};spawnPirateTarget();$('pirateResult').style.display='none';$('pirateClose').style.display='none';$('piratec').style.display='block';$('pirateHint').textContent='Ziele mit dem Mauszeiger anvisieren und anklicken!';SND.boom()}
@@ -837,10 +928,10 @@ ssT-=dt;if(ssT<=0&&!ss){ss={x:W*rnd(.55,1),y:rnd(8,SURF*.3),a:0};ssT=starInterva
 if(st==='idle'||st==='charge')camT=0;cam+=(camT-cam)*Math.min(1,dt*2.5);
 if(ss){ss.a+=dt/3.2;ss.x-=dt*W*.3;ss.y+=dt*SURF*.25;if(ss.a>=1)ss=null}
 var g=geo();
-if(st==='charge'){pw+=pd*dt*1.1;if(pw>=1){pw=1;pd=-1}if(pw<=0){pw=0;pd=1}}
+castFollow=Math.max(0,castFollow-dt*2.8);if(st==='charge'){pw+=pd*dt*1.1;if(pw>=1){pw=1;pd=-1}if(pw<=0){pw=0;pd=1}}
 if(st==='fly'){fly+=dt/.7;var k=Math.min(1,fly);bob.x=g.tx+(bob.tx-g.tx)*k;bob.y=g.ty+(SURF-g.ty)*k-Math.sin(k*Math.PI)*130;
 if(fly>=1){st='wait';bob.y=SURF;SND.splash();wt=rnd(1.8,4.8)*Math.max(.15,1-U.pat*.08);ripples.push({x:bob.x,r:0});for(var i=0;i<8;i++)bub.push({x:bob.x-cam,y:SURF,vx:rnd(-60,60),vy:rnd(-80,-20),r:rnd(1.5,3.5),l:.8})}}
-if(st==='wait'){wt-=dt*(activeEvent&&activeEvent.id==='fastBite'?2:1);if(Math.random()<dt*.8)ripples.push({x:bob.x,r:0});if(wt<=0){st='bite';bt=1.1;vib(80);SND.bite();shake=.15;ripples.push({x:bob.x,r:0})}}
+if(st==='wait'){wt-=dt*(activeEvent&&activeEvent.id==='fastBite'?2:activeEvent&&activeEvent.id==='fishShoal'?1.4:1);if(Math.random()<dt*.8)ripples.push({x:bob.x,r:0});if(wt<=0){st='bite';bt=1.1;vib(80);SND.bite();shake=.15;ripples.push({x:bob.x,r:0})}}
 if(st==='bite'){bt-=dt;if(bt<=0){st='idle';say('Zu langsam – weg war er',1.6)}}
 if(st==='mini'){if(cur.r>=2){m.zc+=Math.sin(t*2.2)*dt*.055*(cur.r-1);m.zc=Math.max(.16,Math.min(.84,m.zc))}m.pos+=m.dm*m.spd*dt*(cur.r>=3?1+.12*Math.sin(t*5):1);if(m.pos>=1){m.pos=1;m.dm=-1}if(m.pos<=0){m.pos=0;m.dm=1}}
 ripples.forEach(function(r){r.r+=dt*50});ripples=ripples.filter(function(r){return r.r<60});
@@ -873,9 +964,11 @@ x.fillStyle='#34232c';x.beginPath();x.ellipse(bx-33,by-10,9,4,0,0,Math.PI*2);x.e
 var jacket=x.createLinearGradient(bx-42,by-65,bx-8,by-31);jacket.addColorStop(0,'#ff9364');jacket.addColorStop(.5,'#ef5948');jacket.addColorStop(1,'#a92f3d');
 x.fillStyle=jacket;x.beginPath();x.moveTo(bx-41,by-59);x.quadraticCurveTo(bx-28,by-66,bx-12,by-57);x.lineTo(bx-7,by-31);x.lineTo(bx-42,by-31);x.closePath();x.fill();
 x.strokeStyle='rgba(255,224,191,.65)';x.lineWidth=2;x.beginPath();x.moveTo(bx-25,by-57);x.lineTo(bx-25,by-33);x.stroke();
-/* extended arm and hand */
-x.strokeStyle='#efad82';x.lineWidth=6;x.lineCap='round';x.beginPath();x.moveTo(bx-15,by-54);x.quadraticCurveTo(bx-3,by-67,bx+9,by-57);x.stroke();
-x.fillStyle='#f5c39a';x.beginPath();x.arc(bx+9,by-57,4.8,0,Math.PI*2);x.fill();
+/* Ausholen und Vorwärtsschwung der Angel */
+var castPose=st==='charge'?pw:st==='fly'?Math.max(0,1-fly):Math.max(0,castFollow);
+var handX=bx+9-castPose*13,handY=by-57-castPose*12;
+x.strokeStyle='#efad82';x.lineWidth=6;x.lineCap='round';x.beginPath();x.moveTo(bx-15,by-54);x.quadraticCurveTo(bx-5-castPose*8,by-70-castPose*9,handX,handY);x.stroke();
+x.fillStyle='#f5c39a';x.beginPath();x.arc(handX,handY,4.8,0,Math.PI*2);x.fill();
 /* neck and face */
 x.fillStyle='#e5ae82';x.fillRect(bx-31,by-70,12,13);
 var face=x.createRadialGradient(bx-19,by-82,2,bx-22,by-79,17);face.addColorStop(0,'#ffe4be');face.addColorStop(1,'#bd785e');x.fillStyle=face;x.beginPath();x.ellipse(bx-22,by-80,13,16,-.12,0,Math.PI*2);x.fill();
@@ -886,7 +979,7 @@ x.fillStyle='#3d2630';x.beginPath();x.arc(bx-23,by-91,12,Math.PI,Math.PI*2);x.fi
 x.fillStyle='#234d79';x.beginPath();x.ellipse(bx-21,by-92,17,5,0,0,Math.PI*2);x.fill();x.fillStyle='#327db0';x.beginPath();x.arc(bx-21,by-96,11,Math.PI,Math.PI*2);x.fill();
 x.fillStyle='#ffdb76';x.beginPath();x.arc(bx-21,by-96,3,0,Math.PI*2);x.fill();
 /* fishing rod with guides and shiny tip */
-var handX=bx+9,handY=by-57,tipX=bx+49,tipY=by-69;
+var rodAngle=-.30-castPose*1.18,rodLength=42,tipX=handX+Math.cos(rodAngle)*rodLength,tipY=handY+Math.sin(rodAngle)*rodLength;
 var rodColor=done?'#ffe16f':rl>=9?'#fb83e6':rl>=7?'#b98cff':rl>=5?'#c7edf7':rl>=3?'#63b8ff':rl>=1?'#e5c36d':'#9d7447';
 x.lineCap='round';x.lineWidth=5;x.strokeStyle='rgba(0,0,0,.28)';x.beginPath();x.moveTo(handX,handY+1);x.quadraticCurveTo(bx+25,by-78,tipX,tipY);x.stroke();
 var rodGrad=x.createLinearGradient(handX,handY,tipX,tipY);rodGrad.addColorStop(0,'#3b302e');rodGrad.addColorStop(.5,rodColor);rodGrad.addColorStop(1,'#eafaff');
@@ -894,6 +987,49 @@ x.strokeStyle=rodGrad;x.lineWidth=3.4;x.beginPath();x.moveTo(handX,handY);x.quad
 for(var guide=0;guide<3;guide++){var gx=handX+(tipX-handX)*(guide+1)/4,gy=handY+(tipY-handY)*(guide+1)/4-4;x.strokeStyle='#e7f8ff';x.lineWidth=1.2;x.beginPath();x.arc(gx,gy,3,Math.PI,Math.PI*2);x.stroke()}
 x.shadowColor=rodColor;x.shadowBlur=rl>=5||done?14:4;x.fillStyle='#fff';x.beginPath();x.arc(tipX,tipY,2.5,0,Math.PI*2);x.fill();x.shadowBlur=0;
 if(st==='bite'){x.save();x.translate(bx-20,by-116);var z=1+Math.sin(t*22)*.13;x.scale(z,z);x.fillStyle='#ff5353';x.font='900 25px sans-serif';x.textAlign='center';x.shadowColor='#ff3535';x.shadowBlur=14;x.fillText('!',0,0);x.restore()}
+}
+function drawCoralReef(){
+var floor=H*.86,sand=x.createLinearGradient(0,floor,0,H);
+sand.addColorStop(0,'#174b59');sand.addColorStop(.45,'#806b62');sand.addColorStop(1,'#c18a69');
+x.fillStyle=sand;x.beginPath();x.moveTo(0,floor+18);
+for(var q=0;q<=W+30;q+=24)x.lineTo(q,floor+Math.sin(q*.012+t*.28)*12+Math.sin(q*.031)*5);
+x.lineTo(W,H);x.lineTo(0,H);x.closePath();x.fill();
+x.fillStyle='rgba(2,25,47,.52)';x.beginPath();x.moveTo(0,H*.84);
+for(var h=0;h<=W+30;h+=40)x.lineTo(h,H*.79+Math.sin(h*.016+1)*20);
+x.lineTo(W,H);x.lineTo(0,H);x.closePath();x.fill();
+// Distant sunken ship.
+x.save();x.globalAlpha=.62;x.translate(W*.73,H*.77);
+x.fillStyle='#392c35';x.beginPath();x.moveTo(-66,0);x.lineTo(58,0);x.lineTo(39,25);x.lineTo(-43,25);x.closePath();x.fill();
+x.strokeStyle='#9d7759';x.lineWidth=6;x.lineCap='round';x.beginPath();x.moveTo(-24,0);x.lineTo(-8,-70);x.moveTo(10,0);x.lineTo(28,-42);x.stroke();
+x.fillStyle='rgba(255,215,145,.55)';for(var port=0;port<3;port++){x.beginPath();x.arc(-42+port*31,11,4,0,Math.PI*2);x.fill()}x.restore();
+// Bright branching coral towers.
+var coralColors=['#ff6f91','#ffb347','#9b8cff','#43d8bd','#f36ab4','#68bde8','#f5d16b'];
+for(var colony=0;colony<9;colony++){
+var cx=(colony*W/8+Math.sin(t*.18+colony)*12)%(W+90)-25,baseY=floor+14+Math.sin(colony*3)*5,scale=.72+(colony%4)*.22,color=coralColors[colony%coralColors.length];
+x.save();x.translate(cx,baseY);x.scale(scale,scale);x.lineCap='round';x.lineJoin='round';x.strokeStyle=color;x.lineWidth=9;
+x.beginPath();x.moveTo(0,0);x.lineTo(-4,-40);x.lineTo(-20,-62);x.moveTo(-4,-40);x.lineTo(12,-60);x.lineTo(14,-82);x.moveTo(12,-60);x.lineTo(30,-72);x.moveTo(-2,-26);x.lineTo(-30,-42);x.lineTo(-43,-61);x.moveTo(-30,-42);x.lineTo(-28,-67);x.stroke();
+x.lineWidth=5;x.beginPath();x.moveTo(3,0);x.lineTo(0,-25);x.lineTo(17,-39);x.lineTo(18,-55);x.moveTo(0,-25);x.lineTo(-12,-36);x.lineTo(-13,-51);x.stroke();
+x.fillStyle=color;[[-20,-62],[14,-82],[30,-72],[-43,-61],[-28,-67],[18,-55],[-13,-51]].forEach(function(pt){x.beginPath();x.arc(pt[0],pt[1],5,0,Math.PI*2);x.fill()});x.restore();
+}
+// Sea fans, anemones and swaying grass.
+for(var fan=0;fan<4;fan++){
+var fx=(fan*W*.31+W*.08)%W,fy=floor+9,fh=70+(fan%3)*23;
+x.save();x.translate(fx,fy);x.strokeStyle=fan%2?'#ef7eab':'#79d9d1';x.lineWidth=2.4;x.beginPath();
+x.moveTo(0,0);x.quadraticCurveTo(-8,-fh*.55,0,-fh);x.moveTo(0,0);x.quadraticCurveTo(23,-fh*.5,18,-fh*.9);x.moveTo(0,0);x.quadraticCurveTo(-28,-fh*.5,-24,-fh*.82);x.stroke();
+for(var rib=0;rib<7;rib++){var yy=-fh+rib*fh/7;x.beginPath();x.moveTo(0,0);x.quadraticCurveTo((rib-3)*6,yy-10,(rib-3)*8,yy);x.stroke()}x.restore();
+}
+for(var an=0;an<8;an++){
+var ax=(an*W/7+16)%W,ay=floor+2;x.fillStyle=an%2?'#f6a6cb':'#e9d47b';
+for(var tent=0;tent<7;tent++){var aa=tent/7*Math.PI*2+Math.sin(t*1.5+an)*.12;x.beginPath();x.ellipse(ax+Math.cos(aa)*9,ay-8+Math.sin(aa)*5,3,12,aa,0,Math.PI*2);x.fill()}
+x.beginPath();x.arc(ax,ay-7,8,0,Math.PI*2);x.fill();
+}
+// Small glowing jellyfish.
+for(var jelly=0;jelly<3;jelly++){
+var jx=W*(.2+jelly*.31)+Math.sin(t*.42+jelly*2)*18,jy=SURF+100+jelly*55+Math.sin(t*.8+jelly)*12;
+x.save();x.globalAlpha=.3;x.strokeStyle='#a8f8f3';x.fillStyle='rgba(174,255,251,.09)';x.lineWidth=2;
+x.beginPath();x.ellipse(jx,jy,17,21,0,Math.PI,Math.PI*2);x.fill();x.stroke();
+for(var jt=0;jt<4;jt++){x.beginPath();x.moveTo(jx-12+jt*8,jy);x.quadraticCurveTo(jx-18+jt*9,jy+15,jx-12+jt*8+Math.sin(t*2+jt)*3,jy+28);x.stroke()}x.restore();
+}
 }
 function draw(){
 x.save();if(shake>0)x.translate(rnd(-5,5),rnd(-5,5));
@@ -906,11 +1042,11 @@ x.save();x.globalAlpha=(1-dayLight)*.78;x.fillStyle='rgba(255,255,255,.8)';for(v
 var celestialX=W*(.16+.68*((t%180)/180)),celestialY=SURF*(.22+.12*Math.cos((t%180)/180*Math.PI*2));x.save();if(dayLight>.32){var sunGlow=x.createRadialGradient(celestialX,celestialY,5,celestialX,celestialY,62);sunGlow.addColorStop(0,'rgba(255,231,158,'+(.18+dayLight*.28)+')');sunGlow.addColorStop(1,'rgba(255,231,158,0)');x.fillStyle=sunGlow;x.fillRect(celestialX-65,celestialY-65,130,130);x.fillStyle='#ffe8a8';x.beginPath();x.arc(celestialX,celestialY,19,0,Math.PI*2);x.fill()}else{x.fillStyle='rgba(255,236,190,.95)';x.beginPath();x.arc(celestialX,celestialY,17,0,Math.PI*2);x.fill();x.fillStyle='rgba(13,31,58,.8)';x.beginPath();x.arc(celestialX+7,celestialY-5,16,0,Math.PI*2);x.fill()}x.restore();
 if(world==1){for(var q=0;q<3;q++){x.fillStyle='hsla('+(150+q*60+Math.sin(t+q)*20)+',90%,60%,.18)';x.beginPath();x.moveTo(0,SURF*.5);for(var u=0;u<=W;u+=20)x.lineTo(u,SURF*(.15+q*.12)+Math.sin(u*.01+t*.8+q)*18);x.lineTo(W,SURF*.7);x.lineTo(0,SURF*.7);x.fill()}}
 if(ss){x.save();x.globalAlpha=Math.max(.2,1-Math.abs(ss.a-.5)*1.4);var tg=x.createLinearGradient(ss.x,ss.y,ss.x+110,ss.y-28);tg.addColorStop(0,'#fff');tg.addColorStop(1,'rgba(255,255,255,0)');x.strokeStyle=tg;x.lineWidth=4;x.lineCap='round';x.beginPath();x.moveTo(ss.x,ss.y);x.lineTo(ss.x+110,ss.y-28);x.stroke();x.shadowColor='#fff';x.shadowBlur=14;x.fillStyle='#fff';x.beginPath();x.arc(ss.x,ss.y,5,0,7);x.fill();x.restore()}
-var wg=x.createLinearGradient(0,SURF,0,H);if(world==2){wg.addColorStop(0,'#27d6c8');wg.addColorStop(.45,'#0b86a8');wg.addColorStop(1,'#04334d')}else if(world){wg.addColorStop(0,'#7a3fd0');wg.addColorStop(.45,'#2a1a6e');wg.addColorStop(1,'#0a0420')}else{wg.addColorStop(0,'#1f8d96');wg.addColorStop(.45,'#0c3c52');wg.addColorStop(1,'#04101a')}
+var wg=x.createLinearGradient(0,SURF,0,H);if(world==2){wg.addColorStop(0,'#20bfd0');wg.addColorStop(.28,'#087f9e');wg.addColorStop(.68,'#064467');wg.addColorStop(1,'#03182f')}else if(world){wg.addColorStop(0,'#7a3fd0');wg.addColorStop(.45,'#2a1a6e');wg.addColorStop(1,'#0a0420')}else{wg.addColorStop(0,'#1f8d96');wg.addColorStop(.45,'#0c3c52');wg.addColorStop(1,'#04101a')}
 x.fillStyle=wg;x.fillRect(0,SURF,W,H-SURF);x.fillStyle='rgba(1,10,28,'+((1-dayLight)*.24)+')';x.fillRect(0,SURF,W,H-SURF);
 for(var ray=0;ray<7;ray++){var rx=(ray*W/6+t*(12+ray*2))%(W+120)-60;x.save();x.globalAlpha=.045+.02*Math.sin(t*1.5+ray);x.fillStyle=world===2?'#b7fff1':'#b9edff';x.beginPath();x.moveTo(rx,SURF);x.lineTo(rx+16,SURF);x.lineTo(rx+105,H);x.lineTo(rx+45,H);x.closePath();x.fill();x.restore()}
 for(var gl=0;gl<18;gl++){var gx=(gl*113+t*(9+gl%3*5))%(W+24)-12,gy=SURF+30+(gl*71)%(Math.max(40,H-SURF-35));x.save();x.globalAlpha=.08+.06*Math.sin(t*2+gl);x.fillStyle='#caffff';x.beginPath();x.ellipse(gx,gy,8+(gl%4)*3,1.8,0,0,Math.PI*2);x.fill();x.restore()}
-if(world==2){for(var k2=0;k2<12;k2++){var cx2=(k2*97+30)%W,hh=40+(k2*37)%50;x.fillStyle='hsl('+((k2*47)%360)+',70%,60%)';x.beginPath();x.moveTo(cx2-14,H);x.quadraticCurveTo(cx2-18,H-hh,cx2-6+Math.sin(t+k2)*3,H-hh-16);x.quadraticCurveTo(cx2+2,H-hh/2,cx2+6,H-hh-10);x.quadraticCurveTo(cx2+18,H-hh,cx2+14,H);x.fill()}}
+if(world==2)drawCoralReef();
 shadows.forEach(function(s){drawFish(x,s.f,s.x,SURF+(H-SURF)*(s.y-.4),s.v>0?1:-1,s.f.L*.8,t+s.x*.01,true)});
 x.globalAlpha=.25;x.fillStyle='#04101a';x.fillRect(0,SURF,W,H-SURF);x.globalAlpha=1;
 x.strokeStyle='#e9f6ee';x.lineWidth=2;x.beginPath();x.moveTo(0,SURF);for(i=0;i<=W;i+=10)x.lineTo(i,SURF+Math.sin((i+cam)*.04+t*(isRainy()?3.4:2))*(isRainy()?8:2.5));x.stroke();
