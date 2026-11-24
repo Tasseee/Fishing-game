@@ -41,6 +41,8 @@ Die Fangkarte zeigt Seltenheitschance, Mutationschance und die kombinierte Fangc
 - Quest-Abschnitt, Fortschritt und eingelöste Belohnungen werden lokal mit dem restlichen Spielstand gespeichert.
 - Der Angler kommentiert jetzt häufiger besondere Größen und Seltenheiten, Mutationen, Events sowie Regen und Wetterwechsel.
 - Der normale Fangmoment hat jetzt eine mehrstufige Reveal-Sequenz mit dunkler werdendem Hintergrund, magischen Energie-Ringen, rotierenden Lichtstrahlen, Partikel-Sog und einer großen Schockwelle beim Auftauchen des Fisches.
+- Die Fang-Animation wurde für flüssigere Darstellung optimiert: Die Effekt-Ebene rendert mit geringerer interner Auflösung, Partikelmengen und zusätzliche Funken sind begrenzt und Leuchteffekte werden nur noch bei ausgewählten Partikeln berechnet.
+- Der Angler hat eine Sprechpause und kommentiert Fänge, Wetter und Events deutlich seltener. Auch die Sprechblase nach dem Fang erscheint nur gelegentlich.
 - Die Fangkarte bekommt einen kräftigen Auftritt mit schwebendem Fisch, animiertem Seltenheits-Badge und nacheinander eingeblendeten Fangdetails. Je seltener der Fang und je höher die Mutation, desto länger und spektakulärer wird die Enthüllung.
 
 ## Spielstand
