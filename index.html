@@ -1945,7 +1945,7 @@ x.strokeStyle='#55352a';x.lineWidth=4;x.beginPath();x.moveTo(bx+72,by-20);x.line
 x.shadowColor='#ffd36a';x.shadowBlur=17;x.fillStyle='#ffe5a1';x.beginPath();x.arc(bx+72,by-64,6,0,Math.PI*2);x.fill();x.shadowBlur=0;
 x.strokeStyle='#513323';x.lineWidth=3;x.beginPath();x.moveTo(bx-78,by-19);x.lineTo(bx-78,by-67);x.stroke();
 x.fillStyle='#f05c55';x.beginPath();x.moveTo(bx-76,by-65);x.lineTo(bx-50,by-59+Math.sin(t*4)*2);x.lineTo(bx-76,by-52);x.closePath();x.fill();
-var bodyLean=charId==='lukas'?(!observed?.34:0):charId==='soa'&&moodStage<7?Math.max(0,moodStage-1)*.035:charId==='kian'&&moodStage<7?Math.max(0,moodStage-2)*.025:0;x.save();x.translate(bx-22,by-42);x.rotate(bodyLean);x.translate(-(bx-22),-(by-42));
+var bodyLean=charId==='lukas'?((!observed&&moodStage<7)?.34:0):charId==='soa'&&moodStage<7?Math.max(0,moodStage-1)*.035:charId==='kian'&&moodStage<7?Math.max(0,moodStage-2)*.025:0;x.save();x.translate(bx-22,by-42);x.rotate(bodyLean);x.translate(-(bx-22),-(by-42));
 /* fisherman's legs and shoes */
 x.fillStyle='#172f55';x.fillRect(bx-40,by-32,15,21);x.fillRect(bx-22,by-32,15,21);
 x.fillStyle='#34232c';x.beginPath();x.ellipse(bx-33,by-10,9,4,0,0,Math.PI*2);x.ellipse(bx-14,by-10,9,4,0,0,Math.PI*2);x.fill();
@@ -1968,7 +1968,7 @@ x.fillStyle='#f5c39a';x.beginPath();x.arc(handX,handY,4.8,0,Math.PI*2);x.fill();
 x.fillStyle='#e5ae82';x.fillRect(bx-31,by-70,12,13);
 var face=x.createRadialGradient(bx-19,by-82,2,bx-22,by-79,17);face.addColorStop(0,'#ffe4be');face.addColorStop(1,'#bd785e');x.fillStyle=face;x.beginPath();x.ellipse(bx-22,by-80,13,16,-.12,0,Math.PI*2);x.fill();
 x.fillStyle='#54332e';x.beginPath();x.arc(bx-33,by-83,3,0,Math.PI*2);x.arc(bx-11,by-83,2.5,0,Math.PI*2);x.fill();
-x.strokeStyle='#66362e';x.lineWidth=1.5;x.beginPath();var mainSad=(charId==='lukas'&&!observed)||(moodStage>=3&&moodStage<7&&charId==='soa')||(moodStage>=4&&moodStage<7&&charId==='kian');if(mainSad)x.arc(bx-21,by-72,5,Math.PI+.2,Math.PI*2-.2);else x.arc(bx-21,by-78,5,.1,1.8);x.stroke();
+x.strokeStyle='#66362e';x.lineWidth=1.5;x.beginPath();var mainSad=(charId==='lukas'&&!observed&&moodStage<7)||(moodStage>=3&&moodStage<7&&charId==='soa')||(moodStage>=4&&moodStage<7&&charId==='kian');if(mainSad)x.arc(bx-21,by-72,5,Math.PI+.2,Math.PI*2-.2);else x.arc(bx-21,by-78,5,.1,1.8);x.stroke();
 /* Hair and signature accessories. */
 if(charId==='lukas'){x.fillStyle='#513024';x.beginPath();x.arc(bx-22,by-91,14,Math.PI,Math.PI*2);x.lineTo(bx-9,by-84);x.quadraticCurveTo(bx-21,by-89,bx-31,by-83);x.closePath();x.fill()}
 else if(charId==='soa'){x.fillStyle='#855334';x.beginPath();x.arc(bx-22,by-90,14,Math.PI,Math.PI*2);x.arc(bx-34,by-88,5,0,Math.PI*2);x.arc(bx-11,by-88,5,0,Math.PI*2);x.fill()}
