@@ -20,7 +20,7 @@ Die gesamte Spieloberfläche wurde visuell überarbeitet:
 
 ## Spielsysteme
 
-Es gibt sechs Seltenheitsstufen: Normal, Selten, Sehr selten, Unmöglich, Legendär und Mythisch. Die Sammlung enthält 91 verschiedene Fische über den normalen See, die Aurora-Welt und das Korallenriff.
+Es gibt sechs Seltenheitsstufen: Normal, Selten, Sehr selten, Unmöglich, Legendär und Mythisch. Die Sammlung enthält jetzt **115 verschiedene Fische** über den normalen See, die Aurora-Welt, das Korallenriff und den Sternen-Abgrund. In jeder dieser Welten gibt es neue Arten über mehrere Seltenheitsstufen.
 
 Jede Seltenheit startet im Angel-Minispiel mit genau **3 Leben**.
 
@@ -92,6 +92,7 @@ Der Spielstand wird lokal im Browser über `localStorage` gespeichert und nicht 
 - Über **🎭** im HUD kannst du den Modus jederzeit wechseln. Über **👤** kannst du in beiden Modi jederzeit zwischen Lukas, Soa und Kian wechseln.
 - Im Storymodus verändern sich Mimik und Haltung der Figur fließend mit dem Verlauf. Kian behält seinen unbeschwerten Anfang und wirkt erst nach den ersten Beobachtungen nach und nach ernster. Im Normalmodus bleiben die Figuren neutral und fröhlich.
 - Beim Wechsel des Spielmodus wird das passende Tutorial erneut angeboten; der bereits ausgewählte Charakter bleibt erhalten.
+- Nach Kians Ausbruchsversuch beginnt er im Storymodus gelegentlich, die Spieloberfläche zu hacken: Münzanzeige und Fisch-Index flackern oder zeigen kurz Fantasiewerte, die Angelsteuerung kann für wenige Sekunden blockiert sein. Das sind reine Effekte – Münzen, Fänge und Spielstand bleiben unverändert.
 - Bei Soa gibt es im Storymodus eine kurze Comic-Animation, in der er den gefangenen Fisch sichtbar zum Mund führt und isst. Im Normalmodus läuft der Verkauf direkt wie im klassischen Spiel ab.
 
 ## Charakterauswahl
