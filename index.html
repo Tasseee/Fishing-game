@@ -1401,7 +1401,7 @@ function playSoaSale(count,fishName,callback,fishData){
  if(!fishData||!fishData.f){callback();return}
  soaSaleBusy=true;
  fxClr();$('cardov').className='ov';st='idle';
- soaEatingFish={f:fishData.f,mu:fishData.mu||0,size:fishData.size||1,start:Date.now(),duration:2450};
+ soaEatingFish={f:fishData.f,mu:fishData.mu||0,size:fishData.size===undefined?1:fishData.size,start:Date.now(),duration:2450};
  setTimeout(function(){
   soaEatingFish=null;
   try{callback()}finally{soaSaleBusy=false}
@@ -1431,7 +1431,7 @@ cur.sizeIndex=rollFishSize(f);cur.weight=makeFishWeight(f,cur.sizeIndex);
 cardSold=false;catchKey=f.n+'#'+mu+'@'+cur.sizeIndex+'@'+cur.weight.toFixed(2);lastCatchValue=fishSellValue(f,mu,cur.sizeIndex);var ik=catchKey;inv[ik]=(inv[ik]||0)+1;questProgress('catch',1,{f:f,mu:mu,size:cur.sizeIndex});save();$('f').textContent=found();
 var card=$('card');card.className='';card.style.setProperty('--rc',mu?MC[mu]:RC[cur.r]);
 $('rb').textContent=(mu?MN[mu].toUpperCase()+'· ':'')+RN[cur.r];$('fn').textContent=MN[mu]+f.n+(isNew?' (neu!)':'')+' · '+fishSizeName(cur.sizeIndex);
-$('fi').textContent='Gewicht: '+formatWeight(cur.weight)+' kg · Größe: '+fishSizeName(cur.sizeIndex)+' · Wert: '+Math.floor(lastCatchValue*prestigeMoneyMultiplier())+' Münzen · Fangchance: '+oddsText(cur.totalChance)+'.';
+$('fi').textContent='Gewicht: '+formatWeight(cur.weight)+' kg · Größe: '+fishSizeName(cur.sizeIndex)+' · Wert: '+Math.floor(lastCatchValue*prestigeMoneyMultiplier())+' Münzen · Fangchance: '+oddsText(cur.totalChance)+'.';$('sl').textContent=gameMode==='story'&&selectedCharacter==='soa'?'Soa isst ihn 🍽️':'Verkaufen';
 var mc=mu&&!mdone[mu]&&mutationCount(mu)>=mutationGoal(mu);if(mc){mdone[mu]=1;var rw=[0,40000,150000,500000][mu],paidMutation=creditCoins(rw);save();$('n').textContent=coins;$('fi').textContent+=' · '+MN[mu].trim()+'-INDEX-ZIEL ERREICHT ('+mutationCount(mu)+'/'+mutationGoal(mu)+')! +'+paidMutation+' Münzen'}
 if(found()===FISH.length&&!done){done=true;var indexPaid=creditCoins(10000);save();$('n').textContent=coins;$('fi').textContent+=' · INDEX KOMPLETT! +'+indexPaid+' Münzen und goldene Angel'}rt=0;st='reveal';$('cardov').className='ov on';revStart();
 if(cur.r>=2)vib([60,40,60,40,150]);maybeCommentOnCatch(f,cur.sizeIndex,mu)}
