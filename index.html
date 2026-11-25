@@ -633,6 +633,24 @@ body.kianGlitch #c{animation:kianCanvasGlitch .13s steps(2,end) infinite;filter:
 @media(max-width:520px){.modeChoices{grid-template-columns:1fr}.modeChoice{min-height:0;padding:14px}.soaFeastCharacter{right:7%}.soaFeastScene{height:130px}}
 @media(prefers-reduced-motion:reduce){.soaFeastCharacter,.soaFeastHead,.soaFeastArm,.soaFeastFish,.soaFeastChew,.soaFeastSplash{animation:none!important}.soaFeastFish{opacity:1;transform:none}}
 
+
+/* Kian hijacks the interface after discovering the player */
+#kianHackOverlay{position:fixed;z-index:66;inset:0;display:grid;place-items:center;padding:18px;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .16s ease,visibility .16s ease}
+#kianHackOverlay.show{opacity:1;visibility:visible}
+#kianHackPanel{position:relative;width:min(88vw,410px);padding:22px 18px 18px;border:2px solid rgba(112,190,255,.9);border-radius:18px;background:repeating-linear-gradient(0deg,rgba(83,145,207,.07) 0 1px,transparent 1px 4px),linear-gradient(145deg,rgba(9,29,62,.97),rgba(4,12,31,.98));box-shadow:0 0 0 1px rgba(255,255,255,.12),0 18px 65px rgba(0,0,0,.6),0 0 38px rgba(81,158,255,.38);text-align:center;color:#eaf5ff;transform:translateY(12px) scale(.94)}
+#kianHackOverlay.show #kianHackPanel{animation:kianHackPop .28s cubic-bezier(.2,.8,.2,1) both}
+#kianHackPanel:before{content:"";position:absolute;inset:7px;border:1px dashed rgba(146,202,255,.35);border-radius:11px;pointer-events:none}
+#kianHackTag{display:inline-block;padding:4px 10px;border-radius:999px;background:rgba(67,146,255,.2);border:1px solid rgba(137,196,255,.45);color:#a9d8ff;font-size:10px;font-weight:1000;letter-spacing:.2em}
+#kianHackHeadline{display:block;margin:13px 0 7px;color:#fff;font-size:clamp(18px,5vw,24px);line-height:1.15;text-shadow:0 0 16px rgba(91,172,255,.8)}
+#kianHackMessage{margin:0 auto;max-width:340px;color:#cfe7ff;font-size:14px;line-height:1.45}
+#kianHackCode{margin-top:13px;padding:8px;border-radius:8px;background:rgba(0,0,0,.28);color:#81eaff;font:700 10px/1.55 ui-monospace,monospace;letter-spacing:.08em}
+body.kianHijack #c{animation:kianCanvasGlitch .09s steps(2,end) infinite;filter:hue-rotate(105deg) saturate(1.7) contrast(1.28)}
+body.kianHijack #hud>div:first-child{animation:kianHudJitter .11s steps(2,end) infinite;filter:hue-rotate(130deg)}
+body.kianHijack #hud button{animation:kianHudJitter .15s steps(2,end) infinite}
+@keyframes kianHudJitter{0%{transform:translate(0,0) skewX(0)}25%{transform:translate(3px,-2px) skewX(5deg)}50%{transform:translate(-3px,1px) skewX(-4deg)}75%{transform:translate(2px,2px) skewX(2deg)}100%{transform:translate(0,0) skewX(0)}}
+@keyframes kianHackPop{to{transform:translateY(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){#kianHackOverlay.show #kianHackPanel{animation:none;transform:none}body.kianHijack #c,body.kianHijack #hud>div:first-child,body.kianHijack #hud button{animation:none}}
+
 </style>
 </head>
 <body>
@@ -647,6 +665,7 @@ body.kianGlitch #c{animation:kianCanvasGlitch .13s steps(2,end) infinite;filter:
 <div id="characterRemark" aria-live="polite"></div>
 <div id="fisherBubble" aria-live="polite"><span id="fisherBubbleSpeaker"></span><span id="fisherBubbleText"></span><div id="kianReplyActions"></div></div>
 <div id="kianEscapeFx" aria-hidden="true"><div class="kianRift"></div><div class="kianEscapeRunner">🏴‍☠️</div><div class="kianEscapeCaption">KIAN · AUSBRUCHSVERSUCH</div></div>
+<div id="kianHackOverlay" aria-hidden="true"><div id="kianHackPanel"><span id="kianHackTag">⚠ SYSTEMZUGRIFF · KIAN</span><strong id="kianHackHeadline">KIAN IST IM SYSTEM</strong><p id="kianHackMessage">Die Spieloberfläche flackert …</p><div id="kianHackCode">PLAYER.EXE // FISH_INDEX // 404_ACCESS_GRANTED</div></div></div>
 <div id="soaFeast" aria-hidden="true"><div id="soaFeastCard"><span class="soaFeastEyebrow">SOAS FISCH-RESTAURANT</span><div class="soaFeastScene" aria-label="Soa hebt einen Fisch zum Mund und isst ihn in einer kurzen Comic-Animation">
  <div class="soaFeastCharacter" aria-hidden="true"><div class="soaFeastBody"></div><div class="soaFeastArm"></div><div class="soaFeastHead"><div class="soaFeastHair"></div><div class="soaFeastEyes"></div><div class="soaFeastMouth"></div></div></div>
  <span class="soaFeastFish" aria-hidden="true">🐟</span><span class="soaFeastChew" aria-hidden="true">MAMPF!</span><span class="soaFeastSplash" aria-hidden="true">✨</span>
@@ -860,11 +879,36 @@ var FISH=[
 {n:'Kristallleviathan',r:4,w:3,c:'#55cbd0',b:'#efffff',L:43,h:.58,cr:1,hn:1,gl:1,gc:'#83fff3'},
 {n:'Nebelphönix',r:4,w:3,c:'#e06aa5',b:'#fff0d8',L:40,h:.54,cr:1,sp:1,gl:1,gc:'#ff9fc8'},
 {n:'Kosmosdrache',r:5,w:3,c:'#32165f',b:'#e5caff',L:47,h:.6,cr:1,hn:1,sr:1,rb:1,gl:1,gc:'#e6b4ff'},
-{n:'Ewiger Sternenwal',r:5,w:3,c:'#172c68',b:'#c5f5ff',L:50,h:.68,cr:1,sr:1,hn:1,gl:1,gc:'#8feaff'}];
+{n:'Ewiger Sternenwal',r:5,w:3,c:'#172c68',b:'#c5f5ff',L:50,h:.68,cr:1,sr:1,hn:1,gl:1,gc:'#8feaff'}
+,{n:'Silberflosse',r:0,c:'#91b8c8',b:'#e5f7ff',L:22,h:.48,sp:1}
+,{n:'Kupferkoi',r:1,c:'#c87545',b:'#ffe0ae',L:27,h:.58,st:1,sc:'#fff2d0'}
+,{n:'Dämmerungsqualle',r:2,c:'#7864b8',b:'#e4d4ff',L:26,h:.82,gl:1,gc:'#bda8ff',lu:1}
+,{n:'Sturmphönix',r:3,c:'#e85d35',b:'#ffe07b',L:34,h:.55,hn:1,cr:1,gl:1,gc:'#ffb15e'}
+,{n:'Kronenhai',r:4,c:'#c2a94e',b:'#fff0b0',L:40,h:.42,hn:1,cr:1,gl:1,gc:'#ffe27a'}
+,{n:'Urlichtwal',r:5,c:'#253d83',b:'#c9f8ff',L:48,h:.7,sr:1,cr:1,gl:1,gc:'#a5f4ff'}
+,{n:'Schneefederling',r:0,w:1,c:'#c7e5f2',b:'#ffffff',L:19,h:.46,sp:1}
+,{n:'Eiskristallbarsch',r:1,w:1,c:'#68b6d5',b:'#e5fbff',L:24,h:.56,st:1,gl:1,gc:'#a9eaff'}
+,{n:'Polarlichtqualle',r:2,w:1,c:'#5bd9c1',b:'#e3fff7',L:27,h:.78,gl:1,gc:'#8dffe1',lu:1}
+,{n:'Frostschatten',r:3,w:1,c:'#53658e',b:'#cbdcff',L:33,h:.62,sr:1,gl:1,gc:'#a9c7ff',hn:1}
+,{n:'Gletscherkaiser',r:4,w:1,c:'#6ec8d8',b:'#edffff',L:39,h:.58,cr:1,sr:1,gl:1,gc:'#bcfaff'}
+,{n:'Aurora-Leviathan',r:5,w:1,c:'#173c83',b:'#a9ffe9',L:48,h:.64,cr:1,hn:1,sr:1,gl:1,gc:'#71ffd7'}
+,{n:'Korallengrundel',r:0,w:2,c:'#e8a77f',b:'#fff0d7',L:18,h:.44}
+,{n:'Samtfalterfisch',r:1,w:2,c:'#b65e9b',b:'#ffe0f4',L:23,h:.78,st:1,sc:'#fff4b7'}
+,{n:'Saphirrochen',r:2,w:2,c:'#356fbd',b:'#d6edff',L:34,h:.36,sp:1,gl:1,gc:'#80caff'}
+,{n:'Vulkan-Koralle',r:3,w:2,c:'#d94c38',b:'#ffd08a',L:34,h:.6,cr:1,gl:1,gc:'#ff9a62',sp:1}
+,{n:'Sonnenriffdrache',r:4,w:2,c:'#ed9a42',b:'#fff0aa',L:41,h:.58,hn:1,cr:1,gl:1,gc:'#ffe07a'}
+,{n:'Tiefsee-Poseidon',r:5,w:2,c:'#164d89',b:'#92f5ff',L:49,h:.63,hn:1,cr:1,sr:1,gl:1,gc:'#57eaff'}
+,{n:'Sternenstaubfisch',r:0,w:3,c:'#7b95d8',b:'#e9e4ff',L:21,h:.5,gl:1,gc:'#c2b8ff'}
+,{n:'Kometenbarsch',r:1,w:3,c:'#f08a68',b:'#ffe1bc',L:25,h:.52,sp:1,hn:1}
+,{n:'Nebelrochen',r:2,w:3,c:'#7866b2',b:'#e3d9ff',L:35,h:.38,sr:1,gl:1,gc:'#bba5ff'}
+,{n:'Quantenfisch',r:3,w:3,c:'#36b8b0',b:'#dcfffb',L:34,h:.5,cr:1,gl:1,gc:'#80fff0',sp:1}
+,{n:'Galaxienkaiser',r:4,w:3,c:'#8a55b5',b:'#f0d6ff',L:44,h:.56,cr:1,sr:1,gl:1,gc:'#d5a7ff'}
+,{n:'Urknallwal',r:5,w:3,c:'#292052',b:'#ffd7f5',L:52,h:.68,cr:1,sr:1,hn:1,gl:1,gc:'#ff9be8'}
+];
 FISH.sort(function(a,b){return a.r-b.r});
 var $=function(i){return document.getElementById(i)};
 var cv=$('c'),x=cv.getContext('2d'),W,H,D,SURF,cc=$('cc').getContext('2d');
-var cam=0,camT=0,mcoll={},mdone={},idxMu=0,ss=null,ssT=360,wish=false,world=0,own2=false,own3=false,own4=false,coll={},inv={},coins=0,lifetimeEarned=0,done=false,U={rod:0,charm:0,bait:0,reach:0,pat:0},cardSold=true,catchKey=null,lastCatchValue=0,pendingChest=false,adminLuck=0,dayLight=0,weatherRain=false,weatherTimer=34,activeEvent=null,eventTime=0,eventTimer=42,eventBannerTick=0,bookQuery="",bookRarity="all",bucket=[],bucketLevels=[],bucketNames={},bucketFraction=0,bucketSaveTimer=0,bucketUiTick=0,activeQuests=[],questBatch=0,questFinalBonusClaimed=false,tutorialSeen=false,storyTutorialSeen=false,selectedCharacter="",pendingCharacterChoice="",hasPearlRod=false,pirate=null,pirateTimer=0,rebirths=0,endingComplete=false,endingShown=false,endingStep=0,endingSceneElapsed=0,endingReady=false,characterRemarkTimer=0,characterTalkCooldown=0,kianAwareness=0,kianAwarenessStage=0,kianDialogueActive=false,soaSaleBusy=false,seaStoryTime=0,seaMoodStage=0,crewStoryShown=0,lastCrewAttention=Date.now(),gameMode='',pendingGameMode='';var END_MONEY_GOAL=100000;
+var cam=0,camT=0,mcoll={},mdone={},idxMu=0,ss=null,ssT=360,wish=false,world=0,own2=false,own3=false,own4=false,coll={},inv={},coins=0,lifetimeEarned=0,done=false,U={rod:0,charm:0,bait:0,reach:0,pat:0},cardSold=true,catchKey=null,lastCatchValue=0,pendingChest=false,adminLuck=0,dayLight=0,weatherRain=false,weatherTimer=34,activeEvent=null,eventTime=0,eventTimer=42,eventBannerTick=0,bookQuery="",bookRarity="all",bucket=[],bucketLevels=[],bucketNames={},bucketFraction=0,bucketSaveTimer=0,bucketUiTick=0,activeQuests=[],questBatch=0,questFinalBonusClaimed=false,tutorialSeen=false,storyTutorialSeen=false,selectedCharacter="",pendingCharacterChoice="",hasPearlRod=false,pirate=null,pirateTimer=0,rebirths=0,endingComplete=false,endingShown=false,endingStep=0,endingSceneElapsed=0,endingReady=false,characterRemarkTimer=0,characterTalkCooldown=0,kianAwareness=0,kianAwarenessStage=0,kianDialogueActive=false,soaSaleBusy=false,kianHackTimer=22,kianHackCount=0,kianHackActive=false,seaStoryTime=0,seaMoodStage=0,crewStoryShown=0,lastCrewAttention=Date.now(),gameMode='',pendingGameMode='';var END_MONEY_GOAL=100000;
 try{var S=JSON.parse(localStorage.getItem('luki3')||'null')||{coll:JSON.parse(localStorage.getItem('luki2')||'{}')};coll=S.coll||{};gameMode=(S.mode==='normal'||S.mode==='story')?S.mode:'';inv=S.inv||{};coins=S.coins||0;lifetimeEarned=Math.max(coins,Number(S.earned)||coins);done=!!S.done;own2=!!S.o2;mcoll=S.mc||{};mdone=S.md||{};own3=!!S.o3;own4=!!S.o4;world=own2?(S.w|0):0;if(world==2&&!own3)world=0;if(world==3&&!own4)world=0;U=S.up||U;pendingChest=!!S.pendingChest;adminLuck=Math.max(0,Math.min(100,Number(S.adminLuck)||0));bucket=Array.isArray(S.bucket)?S.bucket.slice(0,5):[];bucketLevels=Array.isArray(S.bucketLevels)?S.bucketLevels.slice(0,bucket.length):[];while(bucketLevels.length<bucket.length)bucketLevels.push({level:1,xp:0});bucketLevels=bucketLevels.map(function(d){d=d&&typeof d==='object'?d:{};var level=Math.max(1,Math.min(10,Math.floor(Number(d.level)||1)));return{level:level,xp:level>=10?0:Math.max(0,Math.min(level*60-0.001,Number(d.xp)||0))}});bucketNames=S.bucketNames&&typeof S.bucketNames==='object'?S.bucketNames:{};bucketFraction=Math.max(0,Math.min(.999999,Number(S.bucketFraction)||0));activeQuests=Array.isArray(S.quests)?S.quests:[];questBatch=Math.max(0,Math.min(10,Math.floor(Number(S.questBatch)||0)));questFinalBonusClaimed=!!S.questFinalBonusClaimed;tutorialSeen=!!S.tutorialSeen;storyTutorialSeen=!!S.storyTutorialSeen;selectedCharacter=["lukas","soa","kian"].indexOf(S.character)>=0?S.character:(S.character==="nino"?"lukas":"");hasPearlRod=!!S.pearlRod;rebirths=Math.max(0,Math.floor(Number(S.rebirths)||0));endingComplete=!!S.endingComplete;kianAwareness=Math.max(0,Math.min(10000,Number(S.kianAwareness)||0));kianAwarenessStage=Math.max(0,Math.min(5,Math.floor(Number(S.kianAwarenessStage)||0)));seaStoryTime=Math.max(0,Number(S.seaStoryTime)||0);seaMoodStage=Math.max(0,Math.min(6,Math.floor(Number(S.seaMoodStage)||0)));crewStoryShown=Math.max(0,Math.min(6,Math.floor(Number(S.crewStoryShown)||0)));if(S.storyVersion!==2){seaStoryTime=0;seaMoodStage=0;crewStoryShown=0;kianAwareness=0;kianAwarenessStage=0;kianDialogueActive=false;endingComplete=false;tutorialSeen=false}if(S.kianStoryVersion!==2){kianAwareness=0;kianAwarenessStage=0;kianDialogueActive=false}}catch(e){}
 U.reach=U.reach||0;U.pat=U.pat||0;U.star=U.star||0;U.mut=U.mut||0;U.baitBought=U.baitBought||0;
 function starInterval(){return Math.max(38,Math.round(360*Math.pow(.82,Math.min(10,U.star||0))))}
@@ -1208,11 +1252,11 @@ function pick(p){p*=activeEvent&&activeEvent.id==='doubleLuck'?2:1;if(activeEven
 while(i<5&&r>=w[i]){r-=w[i];i++}
 var l=FISH.filter(function(f){return f.r==i&&(!f.w||f.w==world)});cur={r:i,ch:w[i]/s,f:l[Math.floor(Math.random()*l.length)],p:p}}
 function geo(){return{bx:W*.2,tx:W*.2+46,ty:SURF-64}}
-function down(e){au();if(kianDialogueActive||$('fisherBubble').classList.contains('crewMode'))return;hideFisherBubble();if(ss&&Math.hypot(e.clientX-ss.x,e.clientY-ss.y)<85){ss=null;wish=true;vib([30,30,80]);say('Wunsch erfüllt! ⭐',2);SND.wish();for(var i=0;i<30;i++)bub.push({x:e.clientX,y:e.clientY,vx:rnd(-160,160),vy:rnd(-160,160),r:rnd(2,5),l:1.2});if(st!=='bite'&&st!=='mini')return}
+function down(e){if(kianHackActive){say('Kian hat kurz die Steuerung gekapert!',.7);return}au();if(kianDialogueActive||$('fisherBubble').classList.contains('crewMode'))return;hideFisherBubble();if(ss&&Math.hypot(e.clientX-ss.x,e.clientY-ss.y)<85){ss=null;wish=true;vib([30,30,80]);say('Wunsch erfüllt! ⭐',2);SND.wish();for(var i=0;i<30;i++)bub.push({x:e.clientX,y:e.clientY,vx:rnd(-160,160),vy:rnd(-160,160),r:rnd(2,5),l:1.2});if(st!=='bite'&&st!=='mini')return}
 if(st==='idle'){st='charge';pw=0;pd=1;castFollow=0}
 else if(st==='bite'){startMini()}
 else if(st==='mini'){tap()}}
-function up(){if(st==='charge'){var g=geo();st='fly';fly=0;castFollow=1;SND.cast();bob.x=g.tx;bob.y=g.ty;bob.vx=0;bob.depth=0;bob.lureX=g.tx;bob.lureY=SURF+18;bob.tx=g.bx+90+pw*(W-g.bx-130)*(1+U.reach*.35);bob.driftDir=bob.tx>=g.tx?1:-1;camT=Math.max(0,bob.tx-W*.65);cur={p:pw*(1+U.reach*.3)+U.charm*.12+adminLuck/10};if(U.bait>0){U.bait--;cur.p+=.5;save()}}}
+function up(){if(kianHackActive)return;if(st==='charge'){var g=geo();st='fly';fly=0;castFollow=1;SND.cast();bob.x=g.tx;bob.y=g.ty;bob.vx=0;bob.depth=0;bob.lureX=g.tx;bob.lureY=SURF+18;bob.tx=g.bx+90+pw*(W-g.bx-130)*(1+U.reach*.35);bob.driftDir=bob.tx>=g.tx?1:-1;camT=Math.max(0,bob.tx-W*.65);cur={p:pw*(1+U.reach*.3)+U.charm*.12+adminLuck/10};if(U.bait>0){U.bait--;cur.p+=.5;save()}}}
 cv.addEventListener('pointerdown',down);cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
 var AC=null,mute=false;try{mute=localStorage.getItem('luki_m')=='1'}catch(e){}
 function au(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==='suspended')AC.resume();return AC}
@@ -1326,6 +1370,29 @@ function updateKianAwareness(dt){
  kianAwareness=Math.min(10000,kianAwareness+Math.max(0,dt));
  var thresholds=[180,480,840,1260,1800],stage=kianAwarenessStage;
  if(stage<thresholds.length&&kianAwareness>=thresholds[stage]){save();startKianDialogue(stage)}
+}
+
+
+function updateKianHack(dt){
+ if(gameMode!=='story'||selectedCharacter!=='kian'||kianAwarenessStage<5||kianHackCount>=4||kianHackActive||kianDialogueActive||$('fisherBubble').classList.contains('show')||st!=='idle'||pirate||document.querySelector('.ov.on'))return;
+ kianHackTimer-=dt;
+ if(kianHackTimer>0)return;
+ var tricks=[
+  {title:'MÜNZANZEIGE ÜBERSCHRIEBEN',detail:'Kian: „404 Münzen? Keine Sorge, ich habe nur die Anzeige vertauscht.“',coins:true},
+  {title:'FISCH-INDEX DURCHGEWÜRFELT',detail:'Kian: „Deine Sammlung sieht jetzt viel geheimnisvoller aus. Äh … fast.“',index:true},
+  {title:'STEUERUNG GEKAPERT',detail:'Kian: „Ich drücke mal alle Knöpfe gleichzeitig. Nur ganz kurz!“',controls:true},
+  {title:'SYSTEMMELDUNG: KIAN ONLINE',detail:'Kian: „Du dachtest, du spielst das Spiel? Vielleicht spielen wir längst zusammen.“',coins:true,index:true}
+ ];
+ var trick=tricks[kianHackCount%tricks.length];kianHackCount++;kianHackActive=true;
+ $('kianHackHeadline').textContent=trick.title;$('kianHackMessage').textContent=trick.detail;
+ $('kianHackOverlay').classList.add('show');document.body.classList.add('kianHijack');
+ if(trick.coins)$('n').textContent='404';
+ if(trick.index){$('f').textContent='??';$('ft').textContent='404'}
+ setTimeout(function(){
+  kianHackActive=false;document.body.classList.remove('kianHijack');$('kianHackOverlay').classList.remove('show');
+  $('n').textContent=coins;$('f').textContent=found();$('ft').textContent=FISH.length;
+ },3900);
+ kianHackTimer=38+Math.random()*28;
 }
 
 function playSoaSale(count,fishName,callback){
@@ -1975,7 +2042,7 @@ updateBookProgress();renderBookGrid();
 $('book').className='ov on';
 }
 function update(dt){
-t+=dt;if(gameMode==='story')seaStoryTime+=dt;characterTalkCooldown=Math.max(0,characterTalkCooldown-dt);advanceCrewStory();updateKianAwareness(dt);dayLight=.5+.5*Math.sin((t/180)*Math.PI*2-Math.PI/2);updateWorldEvents(dt);weatherTimer-=dt;
+t+=dt;if(gameMode==='story')seaStoryTime+=dt;characterTalkCooldown=Math.max(0,characterTalkCooldown-dt);advanceCrewStory();updateKianAwareness(dt);updateKianHack(dt);dayLight=.5+.5*Math.sin((t/180)*Math.PI*2-Math.PI/2);updateWorldEvents(dt);weatherTimer-=dt;
 if(weatherTimer<=0){if(weatherRain){weatherRain=false;weatherTimer=rnd(28,55);say('☁️ Der Regen ist vorbei.',1.8);if(Math.random()<.22){var clearLines=['Die Wolken ziehen weiter. Gleich wird die Sicht wieder besser!','Der Regen ist vorbei – perfekt, um weiterzuangeln!','Puh, wieder ruhigeres Wasser. Das Boot kann sich ausruhen.'];showCharacterRemark(clearLines[Math.floor(Math.random()*clearLines.length)],4.6)}}else if(Math.random()<.48){weatherRain=true;weatherTimer=rnd(16,29);say('🌧️ Es regnet! Die Wellen werden höher.',2.8);if(Math.random()<.28){var rainLines=['Oh, es fängt an zu regnen! Halt die Angel gut fest!','Ganz schön stürmisch. Hoffentlich beißt trotzdem etwas an!','Regen auf dem Meer – das macht das Angeln spannend!'];showCharacterRemark(rainLines[Math.floor(Math.random()*rainLines.length)],4.8)}}else{weatherTimer=rnd(18,38)}}
 if(shake>0)shake-=dt;if(mT>0)mT-=dt;
 if(pirate){updatePirate(dt);return}
