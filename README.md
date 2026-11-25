@@ -93,7 +93,8 @@ Der Spielstand wird lokal im Browser über `localStorage` gespeichert und nicht 
 - Im Storymodus verändern sich Mimik und Haltung der Figur fließend mit dem Verlauf. Kian behält seinen unbeschwerten Anfang und wirkt erst nach den ersten Beobachtungen nach und nach ernster. Im Normalmodus bleiben die Figuren neutral und fröhlich.
 - Beim Wechsel des Spielmodus wird das passende Tutorial erneut angeboten; der bereits ausgewählte Charakter bleibt erhalten.
 - Nach Kians Ausbruchsversuch beginnt er im Storymodus gelegentlich, die Spieloberfläche zu hacken: Münzanzeige und Fisch-Index flackern oder zeigen kurz Fantasiewerte, die Angelsteuerung kann für wenige Sekunden blockiert sein. Das sind reine Effekte – Münzen, Fänge und Spielstand bleiben unverändert.
-- Bei Soa gibt es im Storymodus eine kurze Comic-Animation, in der er den gefangenen Fisch sichtbar zum Mund führt und isst. Im Normalmodus läuft der Verkauf direkt wie im klassischen Spiel ab.
+- Bei Soa gibt es im Storymodus keine zusätzliche Essens-Nachricht: Die Fangkarte verschwindet und Soa isst genau den gerade gefangenen Fisch direkt auf dem Boot. Fischart, Mutation und Größenklasse werden in der Animation übernommen. Erst danach wird der Fang verkauft und der Fangwert gutgeschrieben. Im Normalmodus läuft der Verkauf direkt wie im klassischen Spiel ab.
+- Die normalen Sprüche der Figuren erscheinen jetzt häufiger; Sprechpausen und Zufallsfilter wurden reduziert. Soas Ess-Animation bleibt davon unabhängig und zeigt keine zusätzliche Sprechblase.
 
 ## Charakterauswahl
 
